@@ -17,7 +17,12 @@ class MapWord{
 
   MapWord(this.map, this.screenSize){
     maxTop = (map.length * TileMapConfig.size) - screenSize.height;
-    maxLeft = map[0].length * TileMapConfig.size - screenSize.width;
+    map.forEach((list){
+      if(list.length > maxLeft){
+        maxLeft = list.length.toDouble();
+      }
+    });
+    maxLeft = maxLeft * TileMapConfig.size - screenSize.width;
   }
 
 
