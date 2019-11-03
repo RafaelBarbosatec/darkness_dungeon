@@ -41,6 +41,17 @@ flutter:
     - assets/images/tile/floor_1.png
     - assets/images/tile/floor_2.png
     - assets/images/tile/floor_3.png
+    - assets/images/tile/wall.png
+    - assets/images/tile/wall_bottom.png
+    - assets/images/tile/wall_top.png
+    - assets/images/tile/wall_left.png
+    - assets/images/tile/wall_right.png
+    - assets/images/tile/wall_top_inner_left.png
+    - assets/images/tile/wall_top_inner_right.png
+    - assets/images/tile/wall_bottom_right.png
+    - assets/images/tile/wall_left_and_top.png
+    - assets/images/tile/wall_right_and_bottom.png
+    - assets/images/slime_idle.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

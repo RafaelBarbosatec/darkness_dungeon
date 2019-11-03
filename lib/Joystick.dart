@@ -146,20 +146,25 @@ class _JoystickState extends State<Joystick> {
     if(timer != null && timer.isActive){
       return;
     }
+    _execute();
     timer = Timer.periodic(new Duration(milliseconds: 50), (timer) {
-      if(isTop && widget.tabTop != null){
-        widget.tabTop();
-      }
-      if(isBottom && widget.tabBottom != null){
-        widget.tabBottom();
-      }
-      if(isLeft && widget.tabLeft != null){
-        widget.tabLeft();
-      }
-      if(isRight && widget.tabRight != null){
-        widget.tabRight();
-      }
+      _execute();
     });
+  }
+
+  void _execute(){
+    if(isTop && widget.tabTop != null){
+      widget.tabTop();
+    }
+    if(isBottom && widget.tabBottom != null){
+      widget.tabBottom();
+    }
+    if(isLeft && widget.tabLeft != null){
+      widget.tabLeft();
+    }
+    if(isRight && widget.tabRight != null){
+      widget.tabRight();
+    }
   }
 
   void stopLoop() {

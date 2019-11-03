@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:darkness_dungeon/Joystick.dart';
 import 'package:darkness_dungeon/map/MapWord.dart';
+import 'package:darkness_dungeon/map/MyMaps.dart';
 import 'package:darkness_dungeon/map/TileMap.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
@@ -80,28 +81,13 @@ class DarknessDungeon extends Game {
   final double speedPlayer = 10;
   final double sizePlayer = 30;
 
-  Random random = Random();
-
   DarknessDungeon(this.size){
     player = AnimationGameObject()
-        ..position = Rect.fromLTWH(size.width/2 - sizePlayer, size.height/2 -sizePlayer, sizePlayer, sizePlayer*1.4)
+        ..position = Rect.fromLTWH(size.width/5 - sizePlayer, size.height/3 -sizePlayer, sizePlayer, sizePlayer*1.4)
         ..animation = FlameAnimation.Animation.sequenced("knight_idle.png", 6, textureWidth: 16, textureHeight: 16);
 
-    map = MapWord(
-        List.generate((size.height*2)~/16, (index){
-          return List.generate((size.width*2)~/16, (index){
-            int p = random.nextInt(3);
-            String sprite = "";
-            switch(p){
-              case 0: sprite = 'tile/floor_1.png'; break;
-              case 1: sprite = 'tile/floor_2.png'; break;
-              case 2: sprite = 'tile/floor_3.png'; break;
-            }
-            return TileMap(sprite);
-          });
-        }),
-        size
-    );
+    map = MyMaps.mainMap(size);
+
   }
 
   void idle(){
@@ -110,11 +96,17 @@ class DarknessDungeon extends Game {
   }
 
   void runTop(){
+
     if(player.position.top <= 0){
       return;
     }
+    Rect displacement = player.position.translate(0, (speedPlayer * -1));
+    if(map.verifyCollisions(displacement)){
+      return;
+    }
+
     if(player.position.top > size.height/3 || map.isMaxTop()) {
-      player.position = player.position.translate(0, (speedPlayer * -1));
+      player.position = displacement;
     }else{
       map.moveTop();
     }
@@ -126,8 +118,13 @@ class DarknessDungeon extends Game {
     if(player.position.bottom >= size.height){
       return;
     }
+    Rect displacement = player.position.translate(0, speedPlayer);
+    if(map.verifyCollisions(displacement)){
+      return;
+    }
+
     if(player.position.top < size.height/2 || map.isMaxBottom()) {
-      player.position = player.position.translate(0, speedPlayer);
+      player.position = displacement;
     }else{
       map.moveBottom();
     }
@@ -139,8 +136,13 @@ class DarknessDungeon extends Game {
     if(player.position.left <= 0){
       return;
     }
+    Rect displacement = player.position.translate((speedPlayer * -1), 0);
+    if(map.verifyCollisions(displacement)){
+      return;
+    }
+
     if(player.position.left > size.width/3 || map.isMaxLeft()) {
-      player.position = player.position.translate((speedPlayer * -1), 0);
+      player.position = displacement;
     }else{
       map.moveLeft();
     }
@@ -151,8 +153,12 @@ class DarknessDungeon extends Game {
     if(player.position.right >= size.width){
       return;
     }
+    Rect displacement = player.position.translate(speedPlayer, 0);
+    if(map.verifyCollisions(displacement)){
+      return;
+    }
     if(player.position.left < size.width/2 || map.isMaxRight()) {
-      player.position = player.position.translate(speedPlayer, 0);
+      player.position = displacement;
     }else{
       map.moveRight();
     }
@@ -175,6 +181,7 @@ class DarknessDungeon extends Game {
 
   @override
   void update(double t) {
+    map.update(t);
     player.update(t);
   }
 }
