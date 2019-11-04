@@ -1,11 +1,12 @@
 
 import 'dart:math';
 
-import 'package:darkness_dungeon/Enemy.dart';
+import 'package:darkness_dungeon/enemy/Enemy.dart';
+import 'package:darkness_dungeon/enemy/GoblinEnemy.dart';
+import 'package:darkness_dungeon/enemy/SmileEnemy.dart';
 import 'package:darkness_dungeon/map/MapWord.dart';
 import 'package:darkness_dungeon/map/TileMap.dart';
 import 'package:flutter/material.dart';
-import 'package:flame/animation.dart' as FlameAnimation;
 
 class MyMaps{
   static MapWord mainMap(Size size){
@@ -66,19 +67,15 @@ class MyMaps{
             }
 
             if(indexColumm == 8 && indexRow ==23){
-              return TileMap('tile/floor_1.png',enemy: _createEnemy());
+              return TileMap('tile/floor_1.png',enemy: SmileEnemy());
             }
 
             if(indexColumm == 8 && indexRow ==25){
-              return TileMap('tile/floor_1.png',enemy: _createEnemy());
+              return TileMap('tile/floor_1.png',enemy: GoblinEnemy());
             }
 
             if(indexColumm == 10 && indexRow ==25){
-              return TileMap('tile/floor_1.png',enemy: _createEnemy());
-            }
-
-            if(indexColumm == 8 && indexRow ==27){
-              return TileMap('tile/floor_1.png',enemy: _createEnemy());
+              return TileMap('tile/floor_1.png',enemy: SmileEnemy());
             }
 
             if(indexColumm == 5 && indexRow ==26){
@@ -143,9 +140,4 @@ class MyMaps{
     );
   }
 
-  static Enemy _createEnemy() {
-    return Enemy()
-      ..position = Rect.fromLTWH(0, 0, Enemy.size, Enemy.size)
-      ..animation = FlameAnimation.Animation.sequenced("slime_idle.png", 6, textureWidth: 16, textureHeight: 16);
-  }
 }

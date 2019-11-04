@@ -52,6 +52,7 @@ flutter:
     - assets/images/tile/wall_left_and_top.png
     - assets/images/tile/wall_right_and_bottom.png
     - assets/images/slime_idle.png
+    - assets/images/goblin_idle.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

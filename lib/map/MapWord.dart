@@ -1,8 +1,28 @@
+import 'package:darkness_dungeon/enemy/Enemy.dart';
 import 'package:darkness_dungeon/map/TileMap.dart';
-import 'package:darkness_dungeon/map/TileMapConfig.dart';
 import 'package:flutter/material.dart';
 
-class MapWord {
+abstract class MapGame {
+  bool verifyCollisionsPlayer(Rect rect);
+
+  void moveRight();
+
+  void moveBottom();
+
+  void moveLeft();
+
+  void moveTop();
+
+  bool isMaxTop();
+
+  bool isMaxLeft();
+
+  bool isMaxRight();
+
+  bool isMaxBottom();
+}
+
+class MapWord implements MapGame {
   final List<List<TileMap>> map;
   final Size screenSize;
 
@@ -13,17 +33,22 @@ class MapWord {
   bool maxRight = false;
   bool maxBottom = false;
   List<TileMap> collisions = List();
+  List<Enemy> enemies = List();
   Rect player;
 
   MapWord(this.map, this.screenSize) {
-    maxTop = (map.length * TileMapConfig.size) - screenSize.height;
+    maxTop = (map.length * TileMap.SIZE) - screenSize.height;
     map.forEach((list) {
       if (list.length > maxLeft) {
         maxLeft = list.length.toDouble();
       }
       collisions.addAll(list.where((i) => i.collision).toList());
+      var en = list.where((i) => i.enemy != null).toList();
+      en.forEach((item) {
+        enemies.add(item.enemy);
+      });
     });
-    maxLeft = maxLeft * TileMapConfig.size - screenSize.width;
+    maxLeft = maxLeft * TileMap.SIZE - screenSize.width;
   }
 
   void render(Canvas canvas) {
@@ -39,12 +64,11 @@ class MapWord {
           if (lastTile != null) {
             tile.position = lastTile.position.translate(16, 0);
           }
-          if (tile.position.left < screenSize.width &&
+          if (tile.position.left < screenSize.width + tile.size &&
               tile.position.left > (tile.size * -1)) {
             tile.render(canvas);
             if (tile.enemy != null) {
-              tile.enemy.position = tile.position;
-              tile.enemy.render(canvas);
+              tile.enemy.setInitPosition(tile.position);
             }
           }
           lastTile = tile;
@@ -53,19 +77,36 @@ class MapWord {
       }
       countY++;
     });
+
+    enemies.forEach((enemy) {
+      Rect positionFromMap = Rect.fromLTWH(
+          enemy.position.left + paddingLeft,
+          enemy.position.top + paddingTop,
+          enemy.position.width,
+          enemy.position.height);
+
+      if ((positionFromMap.left < screenSize.width + positionFromMap.width &&
+              positionFromMap.left > (positionFromMap.width * -1)) &&
+          (positionFromMap.top < screenSize.height + positionFromMap.height &&
+              positionFromMap.top > (positionFromMap.height * -1))) {
+        enemy.renderRect(canvas, positionFromMap);
+      }
+    });
   }
 
   void update(double t) {
     map.forEach((list) {
       list.forEach((item) {
         if (item.enemy != null) {
-          item.enemy.update(t);
+          item.enemy
+              .updateEnemy(t, player, collisions, paddingLeft, paddingTop);
         }
       });
     });
   }
 
-  bool verifyCollisions(Rect player) {
+  @override
+  bool verifyCollisionsPlayer(Rect player) {
     this.player = player;
     bool co = false;
     collisions.forEach((item) {
