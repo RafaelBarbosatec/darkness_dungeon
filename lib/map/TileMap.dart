@@ -16,7 +16,7 @@ class TileMap{
 
   TileMap(this.tileImg,{this.collision = false,this.enemy}) {
     position = Rect.fromLTWH(0,0, size, size);
-    spriteTile = Sprite(tileImg);
+    spriteTile = Sprite(tileImg.isEmpty? "tile/empty.png": tileImg);
   }
 
   void render(Canvas canvas) {

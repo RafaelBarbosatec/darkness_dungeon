@@ -51,6 +51,7 @@ flutter:
     - assets/images/tile/wall_bottom_right.png
     - assets/images/tile/wall_left_and_top.png
     - assets/images/tile/wall_right_and_bottom.png
+    - assets/images/tile/empty.png
     - assets/images/slime_idle.png
     - assets/images/goblin_idle.png
 
