@@ -7,7 +7,7 @@ import 'package:flame/animation.dart' as FlameAnimation;
 class Knight extends Player{
 
   static const double speedPlayer = 10;
-  static const double sizePlayer = 25;
+  static const double sizePlayer = 30;
   final MapGame map;
   final Size screenSize;
   bool playerIsRun = false;
@@ -16,7 +16,7 @@ class Knight extends Player{
 
   factory Knight.mainPlayer(MapGame map, Size screenSize, {double initX = 0.0, double initY = 0.0}){
     return Knight(map,screenSize)
-      ..position = Rect.fromLTWH(initX - sizePlayer, initY -sizePlayer, sizePlayer, sizePlayer*1.4)
+      ..position = Rect.fromLTWH(initX - sizePlayer, initY -sizePlayer, sizePlayer*0.6, sizePlayer)
       ..animation = FlameAnimation.Animation.sequenced("knight_idle.png", 6, textureWidth: 16, textureHeight: 16);
   }
 

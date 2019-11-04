@@ -1,3 +1,4 @@
+import 'package:darkness_dungeon/decoration/Decoration.dart';
 import 'package:darkness_dungeon/enemy/Enemy.dart';
 import 'package:darkness_dungeon/map/TileMap.dart';
 import 'package:flutter/material.dart';
@@ -43,10 +44,12 @@ class MapWord implements MapGame {
         maxLeft = list.length.toDouble();
       }
       collisions.addAll(list.where((i) => i.collision).toList());
+
       var en = list.where((i) => i.enemy != null).toList();
       en.forEach((item) {
         enemies.add(item.enemy);
       });
+
     });
     maxLeft = maxLeft * TileMap.SIZE - screenSize.width;
   }
@@ -70,6 +73,10 @@ class MapWord implements MapGame {
             if (tile.enemy != null) {
               tile.enemy.setInitPosition(tile.position);
             }
+            if (tile.decoration != null) {
+              tile.decoration.position = tile.position;
+              tile.decoration.render(canvas);
+            }
           }
           lastTile = tile;
           // lastTile = tile;
@@ -92,6 +99,8 @@ class MapWord implements MapGame {
         enemy.renderRect(canvas, positionFromMap);
       }
     });
+
+
   }
 
   void update(double t) {

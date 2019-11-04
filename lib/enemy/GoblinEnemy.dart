@@ -15,7 +15,8 @@ class GoblinEnemy extends Enemy{
         6,
         textureWidth: 16,
         textureHeight: 16);
-    speed = 1.5;
+    speed = 1.2;
+    visionCells = 6;
   }
 
   @override
