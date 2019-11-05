@@ -60,6 +60,8 @@ flutter:
     - assets/images/itens/barrel.png
     - assets/images/itens/bookshelf.png
     - assets/images/itens/flag_red.png
+    - assets/images/health_ui.png
+    - assets/images/crypt.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

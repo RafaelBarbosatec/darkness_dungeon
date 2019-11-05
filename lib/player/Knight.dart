@@ -1,31 +1,38 @@
 
 import 'package:darkness_dungeon/player/Player.dart';
-import 'package:darkness_dungeon/map/MapWord.dart';
 import 'package:flutter/material.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 
 class Knight extends Player{
 
   static const double speedPlayer = 10;
-  static const double sizePlayer = 30;
-  final MapGame map;
+  static const double sizePlayer = 25;
   final Size screenSize;
+  final Function die;
+  final Function(double) changeLife;
   bool playerIsRun = false;
 
-  Knight(this.map, this.screenSize);
+  Knight(this.screenSize, {this.die,this.changeLife}){
+    life = 100;
+  }
 
-  factory Knight.mainPlayer(MapGame map, Size screenSize, {double initX = 0.0, double initY = 0.0}){
-    return Knight(map,screenSize)
-      ..position = Rect.fromLTWH(initX - sizePlayer, initY -sizePlayer, sizePlayer*0.6, sizePlayer)
+  factory Knight.mainPlayer(Size screenSize, {double initX = 0.0, double initY = 0.0, Function(double) changeLife}){
+    return Knight(screenSize,changeLife: changeLife)
+      ..position = Rect.fromLTWH(initX - sizePlayer, initY -sizePlayer, sizePlayer, sizePlayer)
       ..animation = FlameAnimation.Animation.sequenced("knight_idle.png", 6, textureWidth: 16, textureHeight: 16);
   }
 
   void moveToTop(){
+
+    if(life == 0){
+      return;
+    }
+
     if(position.top <= 0){
       return;
     }
     Rect displacement = position.translate(0, (speedPlayer * -1));
-    if(map.verifyCollisionsPlayer(displacement)){
+    if(map.verifyCollision(displacement)){
       return;
     }
 
@@ -38,11 +45,16 @@ class Knight extends Player{
   }
 
   void moveToBottom(){
+
+    if(life == 0){
+      return;
+    }
+
     if(position.bottom >= screenSize.height){
       return;
     }
     Rect displacement = position.translate(0, speedPlayer);
-    if(map.verifyCollisionsPlayer(displacement)){
+    if(map.verifyCollision(displacement)){
       return;
     }
 
@@ -55,11 +67,16 @@ class Knight extends Player{
   }
 
   void moveToLeft(){
+
+    if(life == 0){
+      return;
+    }
+
     if(position.left <= 0){
       return;
     }
     Rect displacement = position.translate((speedPlayer * -1), 0);
-    if(map.verifyCollisionsPlayer(displacement)){
+    if(map.verifyCollision(displacement)){
       return;
     }
 
@@ -72,11 +89,16 @@ class Knight extends Player{
   }
 
   void moveToRight(){
+
+    if(life == 0){
+      return;
+    }
+
     if(position.right >= screenSize.width){
       return;
     }
     Rect displacement = position.translate(speedPlayer, 0);
-    if(map.verifyCollisionsPlayer(displacement)){
+    if(map.verifyCollision(displacement)){
       return;
     }
     if(position.left < screenSize.width/2 || map.isMaxRight()) {
@@ -90,9 +112,29 @@ class Knight extends Player{
 
   @override
   void idle() {
+
+    if(life == 0){
+      return;
+    }
+
     playerIsRun = false;
     animation = FlameAnimation.Animation.sequenced("knight_idle.png", 6, textureWidth: 16, textureHeight: 16);
     super.idle();
+  }
+
+  @override
+  void recieveAtack(double damage) {
+    life = life - damage;
+    if(changeLife != null){
+      changeLife(life);
+    }
+    if(life< 0){
+      life = 0;
+    }
+    if(life == 0){
+      _die();
+    }
+    super.recieveAtack(damage);
   }
 
   void _runPlayerAniamation({bool left = false}){
@@ -100,5 +142,12 @@ class Knight extends Player{
       playerIsRun = true;
       animation = FlameAnimation.Animation.sequenced(left ? "knight_run_left.png":"knight_run.png", 6, textureWidth: 16, textureHeight: 16);
     }
+  }
+
+  void _die() {
+    if(die != null){
+      die();
+    }
+    animation = FlameAnimation.Animation.sequenced("crypt.png", 1, textureWidth: 16, textureHeight: 16);
   }
 }

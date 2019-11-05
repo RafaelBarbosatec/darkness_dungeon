@@ -1,14 +1,13 @@
 import 'package:darkness_dungeon/enemy/Enemy.dart';
-import 'package:darkness_dungeon/map/TileMap.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flame/animation.dart' as FlameAnimation;
 
 class SmileEnemy extends Enemy{
 
-  static double size = 16;
-
   SmileEnemy(){
+    life = 20;
+    size = 22;
     position = Rect.fromLTWH(0, 0, size, size);
     animation = FlameAnimation.Animation.sequenced(
     "slime_idle.png",
@@ -18,17 +17,17 @@ class SmileEnemy extends Enemy{
   }
 
   @override
-  void updateEnemy(double t, Rect player, List<TileMap> collisions,double paddingLeft, double paddingTop) {
+  void updateEnemy(double t, Rect player) {
 
-    moveToHero(player, collisions, paddingLeft, paddingTop, (){
+    moveToHero(player, (){
       _enemyAttack();
     });
 
-    super.updateEnemy(t, player,collisions,paddingLeft,paddingTop);
+    super.updateEnemy(t, player);
   }
 
   void _enemyAttack() {
-
+    map.atackPlayer(10);
   }
 
 }

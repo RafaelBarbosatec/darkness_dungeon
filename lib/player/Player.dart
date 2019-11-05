@@ -1,23 +1,20 @@
+import 'package:darkness_dungeon/map/MapWord.dart';
 import 'package:darkness_dungeon/util/AnimationGameObject.dart';
 
 class Player extends AnimationGameObject {
-  void moveToTop() {
 
-  }
+  double life = 1;
+  MapGame map;
 
-  void moveToBottom() {
+  void moveToTop() {}
 
-  }
+  void moveToBottom() {}
 
-  void moveToLeft() {
+  void moveToLeft() {}
 
-  }
+  void moveToRight() {}
 
-  void moveToRight() {
+  void idle(){}
 
-  }
-
-  void idle(){
-
-  }
+  void recieveAtack(double damage){}
 }

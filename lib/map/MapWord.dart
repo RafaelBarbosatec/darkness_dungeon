@@ -1,10 +1,14 @@
-import 'package:darkness_dungeon/decoration/Decoration.dart';
 import 'package:darkness_dungeon/enemy/Enemy.dart';
 import 'package:darkness_dungeon/map/TileMap.dart';
+import 'package:darkness_dungeon/player/Player.dart';
 import 'package:flutter/material.dart';
 
 abstract class MapGame {
-  bool verifyCollisionsPlayer(Rect rect);
+
+  double paddingLeft = 0;
+  double paddingTop = 0;
+
+  bool verifyCollision(Rect rect);
 
   void moveRight();
 
@@ -21,11 +25,14 @@ abstract class MapGame {
   bool isMaxRight();
 
   bool isMaxBottom();
+
+  void atackPlayer(double damage);
 }
 
 class MapWord implements MapGame {
   final List<List<TileMap>> map;
   final Size screenSize;
+  final Player player;
 
   double paddingLeft = 0;
   double paddingTop = 0;
@@ -35,9 +42,9 @@ class MapWord implements MapGame {
   bool maxBottom = false;
   List<TileMap> collisions = List();
   List<Enemy> enemies = List();
-  Rect player;
 
-  MapWord(this.map, this.screenSize) {
+  MapWord(this.map,this.player, this.screenSize) {
+    player.map = this;
     maxTop = (map.length * TileMap.SIZE) - screenSize.height;
     map.forEach((list) {
       if (list.length > maxLeft) {
@@ -71,6 +78,7 @@ class MapWord implements MapGame {
               tile.position.left > (tile.size * -1)) {
             tile.render(canvas);
             if (tile.enemy != null) {
+              tile.enemy.map = this;
               tile.enemy.setInitPosition(tile.position);
             }
             if (tile.decoration != null) {
@@ -100,27 +108,26 @@ class MapWord implements MapGame {
       }
     });
 
-
+    player.render(canvas);
   }
 
   void update(double t) {
     map.forEach((list) {
       list.forEach((item) {
         if (item.enemy != null) {
-          item.enemy
-              .updateEnemy(t, player, collisions, paddingLeft, paddingTop);
+          item.enemy.updateEnemy(t, player.position);
         }
       });
     });
+    player.update(t);
   }
 
   @override
-  bool verifyCollisionsPlayer(Rect player) {
-    this.player = player;
+  bool verifyCollision(Rect rect) {
     bool co = false;
     collisions.forEach((item) {
-      Rect comp = Rect.fromLTWH(player.left, player.top + (player.height / 2),
-          player.width / 1.5, player.height / 3);
+      Rect comp = Rect.fromLTWH(rect.left, rect.top + (rect.height / 2),
+          rect.width / 1.5, rect.height / 3);
       if (item.position.overlaps(comp)) {
         co = true;
       }
@@ -176,5 +183,10 @@ class MapWord implements MapGame {
 
   bool isMaxBottom() {
     return (paddingTop * -1) >= maxTop;
+  }
+
+  @override
+  void atackPlayer(double damage) {
+    player.recieveAtack(damage);
   }
 }
