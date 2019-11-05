@@ -79,10 +79,12 @@ class MapWord implements MapGame {
             tile.render(canvas);
             if (tile.enemy != null) {
               tile.enemy.map = this;
-              tile.enemy.setInitPosition(tile.position);
+              Rect initEnemyPosition = Rect.fromLTWH(tile.position.left, tile.position.top, tile.enemy.position.width, tile.enemy.position.height);
+              tile.enemy.setInitPosition(initEnemyPosition);
             }
             if (tile.decoration != null) {
-              tile.decoration.position = tile.position;
+              Rect initEnemyPosition = Rect.fromLTWH(tile.position.left, tile.position.top, tile.decoration.position.width, tile.decoration.position.height);
+              tile.decoration.position = initEnemyPosition;
               tile.decoration.render(canvas);
             }
           }

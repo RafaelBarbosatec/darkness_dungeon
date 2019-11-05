@@ -7,7 +7,7 @@ class GoblinEnemy extends Enemy{
 
   GoblinEnemy(){
     life = 30;
-    size = 22;
+    size = 20;
     speedAtack = 800;
     position = Rect.fromLTWH(0, 0, size, size);
     animation = FlameAnimation.Animation.sequenced(

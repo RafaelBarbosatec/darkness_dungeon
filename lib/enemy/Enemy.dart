@@ -40,8 +40,8 @@ abstract class Enemy extends AnimationGameObject{
 
       //CALCULA POSIÇÃO ATUAL DO INIMIGO LEVANDO EM BASE A POSIÇÃO DA CAMARA
       currentPosition = Rect.fromLTWH(
-          position.left + map.paddingLeft,
-          position.top + map.paddingTop,
+          position.left + (map != null ? map.paddingLeft : 0),
+          position.top + (map != null ? map.paddingTop : 0),
           position.width,
           position.height
       );
@@ -74,6 +74,9 @@ abstract class Enemy extends AnimationGameObject{
         }
 
         if(_arrivedNext(player)){
+          if(!closePlayer){
+            attack();
+          }
           closePlayer = true;
           _verifyAtack(attack);
           return;
@@ -102,10 +105,15 @@ abstract class Enemy extends AnimationGameObject{
   }
 
   bool _occurredCollision(double leftPlayer,double topPlayer){
+    var left = (map != null ? map.paddingLeft : 0);
+    var top = (map != null ? map.paddingTop : 0);
     double displacementCollision = size/2;
     double translateXToCollision = currentPosition.left > leftPlayer ? (displacementCollision *-1):displacementCollision;
     double translateYToCollision = currentPosition.top > topPlayer? (displacementCollision *-1):displacementCollision;
-    var moveToCurrent = position.translate(translateXToCollision + map.paddingLeft , translateYToCollision + map.paddingTop);
+    var moveToCurrent = position.translate(translateXToCollision + left , translateYToCollision + top);
+    if(map == null){
+      return false;
+    }
     return map.verifyCollision(moveToCurrent);
   }
 

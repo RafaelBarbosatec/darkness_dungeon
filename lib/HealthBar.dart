@@ -19,7 +19,7 @@ class HealthBarState extends State<HealthBar> {
       child: Stack(
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.only(left: 20.0),
+            padding: const EdgeInsets.only(left: 20.0,right: 2.0),
             child: SizedBox(
               height: 20,
               child: LinearProgressIndicator(value: health,valueColor: AlwaysStoppedAnimation(Colors.red[700]),
