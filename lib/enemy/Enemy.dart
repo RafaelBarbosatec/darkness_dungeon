@@ -82,6 +82,7 @@ abstract class Enemy extends AnimationGameObject{
           return;
         }else{
           if(closePlayer){
+            cancelTimer();
             closePlayer = false;
           }
         }
@@ -91,6 +92,7 @@ abstract class Enemy extends AnimationGameObject{
       }else{
 
         if(closePlayer){
+          cancelTimer();
           closePlayer = false;
         }
 
@@ -126,6 +128,13 @@ abstract class Enemy extends AnimationGameObject{
         attack();
       }
     });
+  }
+
+  void cancelTimer() {
+    if(_timer != null){
+      _timer.cancel();
+      _timer = null;
+    }
   }
 
 }
