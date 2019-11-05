@@ -8,6 +8,7 @@ class SmileEnemy extends Enemy{
   SmileEnemy(){
     life = 20;
     size = 20;
+    visionCells = 3;
     position = Rect.fromLTWH(0, 0, size, size);
     animation = FlameAnimation.Animation.sequenced(
     "slime_idle.png",

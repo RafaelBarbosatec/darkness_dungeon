@@ -60,6 +60,9 @@ flutter:
     - assets/images/itens/barrel.png
     - assets/images/itens/bookshelf.png
     - assets/images/itens/flag_red.png
+    - assets/images/itens/flag_green.png
+    - assets/images/itens/prisoner.png
+    - assets/images/itens/table.png
     - assets/images/health_ui.png
     - assets/images/crypt.png
 

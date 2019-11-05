@@ -14,7 +14,7 @@ abstract class Enemy extends AnimationGameObject{
   double speed = 0.8;
 
   //millesegundos
-  int speedAtack = 500;
+  int intervalAtack = 500;
   double visionCells = 4;
   double size = 16;
   bool closePlayer = false;
@@ -123,7 +123,7 @@ abstract class Enemy extends AnimationGameObject{
     if(_timer != null && _timer.isActive){
       return;
     }
-    _timer = Timer.periodic(new Duration(milliseconds: speedAtack), (timer) {
+    _timer = Timer.periodic(new Duration(milliseconds: intervalAtack), (timer) {
       if(closePlayer){
         attack();
       }
