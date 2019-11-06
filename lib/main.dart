@@ -79,10 +79,10 @@ class DarknessDungeon extends Game {
 
   DarknessDungeon(this.size, {this.recieveDamage}){
 
-    player = Knight.mainPlayer(
+    player = Knight(
         size,
-        initX: size.width/5 - Knight.sizePlayer,
-        initY: size.height/3 - Knight.sizePlayer,
+        initX: size.width/5 - Knight.SIZE,
+        initY: size.height/3 - Knight.SIZE,
         changeLife: recieveDamage
     );
 

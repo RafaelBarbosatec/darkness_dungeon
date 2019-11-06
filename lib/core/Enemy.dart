@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:darkness_dungeon/core/map/MapWord.dart';
 import 'package:darkness_dungeon/core/AnimationGameObject.dart';
 import 'package:flutter/material.dart';
+import 'package:flame/animation.dart' as FlameAnimation;
 
 abstract class Enemy extends AnimationGameObject{
 
@@ -13,14 +14,37 @@ abstract class Enemy extends AnimationGameObject{
   final int intervalAtack;
   final double visionCells;
   final double size;
+  final FlameAnimation.Animation animationIdle;
+  final FlameAnimation.Animation animationMoveLeft;
+  final FlameAnimation.Animation animationMoveRight;
+  final FlameAnimation.Animation animationMoveTop;
+  final FlameAnimation.Animation animationMoveBottom;
 
   MapGame _map;
   Rect _currentPosition;
   bool _isSetPosition = false;
   bool _closePlayer = false;
+  bool _isIdle = true;
   Timer _timer;
 
-  Enemy({this.size = 16, this.life = 1, this.speed = 0.8,this.intervalAtack = 500, this.visionCells = 4});
+  Enemy(
+      Rect position,
+      this.animationIdle,
+      {
+        this.size = 16,
+        this.life = 1,
+        this.speed = 0.8,
+        this.intervalAtack = 500,
+        this.visionCells = 4,
+        this.animationMoveLeft,
+        this.animationMoveRight,
+        this.animationMoveTop,
+        this.animationMoveBottom,
+      }
+      ){
+    animation = animationIdle;
+    this.position = position;
+  }
 
   setInitPosition(Rect position){
     if(!_isSetPosition){
@@ -73,9 +97,24 @@ abstract class Enemy extends AnimationGameObject{
           translateY = 0;
         }
 
+        if(translateX > 0){
+          animToRight();
+        }else if(translateX < 0){
+          animToLeft();
+        }else if(translateY > 0){
+          animToBottom();
+        }else if(translateY < 0){
+          animToTop();
+        }else{
+          if(!_isIdle) {
+            animation = animationIdle;
+          }
+        }
+
         var moveTo = position.translate(translateX, translateY);
 
         if(_occurredCollision(leftPlayer, topPlayer)){
+          animation = animationIdle;
           return;
         }
 
@@ -88,8 +127,7 @@ abstract class Enemy extends AnimationGameObject{
           return;
         }else{
           if(_closePlayer){
-            cancelTimer();
-            _closePlayer = false;
+            notSee();
           }
         }
 
@@ -98,8 +136,7 @@ abstract class Enemy extends AnimationGameObject{
       }else{
 
         if(_closePlayer){
-          cancelTimer();
-          _closePlayer = false;
+          notSee();
         }
 
       }
@@ -136,15 +173,44 @@ abstract class Enemy extends AnimationGameObject{
     });
   }
 
-  void cancelTimer() {
+  void notSee() {
+    _closePlayer = false;
     if(_timer != null){
       _timer.cancel();
       _timer = null;
     }
+    animation = animationIdle;
   }
 
   void atackPlayer(double damage){
     _map.atackPlayer(damage);
+  }
+
+  void animToRight() {
+    if(animationMoveRight != null){
+      _isIdle = false;
+      animation = animationMoveRight;
+    }
+  }
+
+  void animToLeft() {
+    if(animationMoveLeft != null){
+      _isIdle = false;
+      animation = animationMoveLeft;
+    }
+  }
+
+  void animToTop() {
+    if(animationMoveTop != null){
+      _isIdle = false;
+      animation = animationMoveTop;
+    }
+  }
+  void animToBottom() {
+    if(animationMoveBottom != null){
+      _isIdle = false;
+      animation = animationMoveBottom;
+    }
   }
 
 }

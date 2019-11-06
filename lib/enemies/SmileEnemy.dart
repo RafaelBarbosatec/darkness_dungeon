@@ -5,27 +5,24 @@ import 'package:flame/animation.dart' as FlameAnimation;
 
 class SmileEnemy extends Enemy{
 
-  SmileEnemy():super(size: 20,life: 20,visionCells: 3){
-    position = Rect.fromLTWH(0, 0, size, size);
-    animation = FlameAnimation.Animation.sequenced(
-    "slime_idle.png",
-    6,
-    textureWidth: 16,
-    textureHeight: 16);
-  }
+  static const double SIZE = 20;
+
+  SmileEnemy():super(
+      Rect.fromLTWH(0, 0, SIZE, SIZE),
+      FlameAnimation.Animation.sequenced("slime_idle.png", 6, textureWidth: 16, textureHeight: 16),
+      size: SIZE,
+      life: 20,
+      visionCells: 3,
+  );
 
   @override
   void updateEnemy(double t, Rect player) {
 
     moveToHero(player, (){
-      _enemyAttack();
+      atackPlayer(10);
     });
 
     super.updateEnemy(t, player);
-  }
-
-  void _enemyAttack() {
-    atackPlayer(10);
   }
 
 }
