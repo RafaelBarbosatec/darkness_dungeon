@@ -1,10 +1,10 @@
 
 import 'package:darkness_dungeon/HealthBar.dart';
 import 'package:darkness_dungeon/Joystick.dart';
-import 'package:darkness_dungeon/map/MapWord.dart';
+import 'package:darkness_dungeon/core/map/MapWord.dart';
 import 'package:darkness_dungeon/map/MyMaps.dart';
 import 'package:darkness_dungeon/player/Knight.dart';
-import 'package:darkness_dungeon/player/Player.dart';
+import 'package:darkness_dungeon/core/Player.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
@@ -23,16 +23,16 @@ void main() async {
 class GameWidget extends StatelessWidget {
 
   final Size size;
-  final GlobalKey<HealthBarState> healthkey = GlobalKey();
+  final GlobalKey<HealthBarState> healthKey = GlobalKey();
   GameWidget({Key key, this.size}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final game = DarknessDungeon(
         size,
-      recieveDamage: (damage){
-          healthkey.currentState.updateHealth(damage);
-      }
+        recieveDamage: (damage){
+          healthKey.currentState.updateHealth(damage);
+        }
     );
     return Container(
         color: Colors.black,
@@ -42,7 +42,7 @@ class GameWidget extends StatelessWidget {
             Align(
               alignment: Alignment.topLeft,
               child: HealthBar(
-                key: healthkey
+                key: healthKey
               ),
             ),
             Align(
@@ -76,15 +76,13 @@ class DarknessDungeon extends Game {
   Player player;
   MapWord map;
   bool playerIsRun = false;
-  final double speedPlayer = 10;
-  final double sizePlayer = 30;
 
   DarknessDungeon(this.size, {this.recieveDamage}){
 
     player = Knight.mainPlayer(
         size,
-        initX: size.width/5 - sizePlayer,
-        initY: size.height/3 -sizePlayer,
+        initX: size.width/5 - Knight.sizePlayer,
+        initY: size.height/3 - Knight.sizePlayer,
         changeLife: recieveDamage
     );
 

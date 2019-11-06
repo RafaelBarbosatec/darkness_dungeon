@@ -1,10 +1,12 @@
-import 'package:darkness_dungeon/map/MapWord.dart';
-import 'package:darkness_dungeon/util/AnimationGameObject.dart';
+import 'package:darkness_dungeon/core/map/MapWord.dart';
+import 'package:darkness_dungeon/core/AnimationGameObject.dart';
 
 class Player extends AnimationGameObject {
 
-  double life = 1;
+  double life;
   MapGame map;
+
+  Player({this.life});
 
   void moveToTop() {}
 

@@ -1,10 +1,10 @@
 
 import 'dart:math';
 
-import 'package:darkness_dungeon/decoration/Decoration.dart';
-import 'package:darkness_dungeon/enemy/GoblinEnemy.dart';
-import 'package:darkness_dungeon/enemy/SmileEnemy.dart';
-import 'package:darkness_dungeon/map/TileMap.dart';
+import 'package:darkness_dungeon/core/Decoration.dart';
+import 'package:darkness_dungeon/enemies/GoblinEnemy.dart';
+import 'package:darkness_dungeon/enemies/SmileEnemy.dart';
+import 'package:darkness_dungeon/core/map/TileMap.dart';
 import 'package:flutter/material.dart';
 
 class MyMaps{

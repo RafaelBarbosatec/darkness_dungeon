@@ -1,6 +1,6 @@
-import 'package:darkness_dungeon/enemy/Enemy.dart';
-import 'package:darkness_dungeon/map/TileMap.dart';
-import 'package:darkness_dungeon/player/Player.dart';
+import 'package:darkness_dungeon/core/Enemy.dart';
+import 'package:darkness_dungeon/core/map/TileMap.dart';
+import 'package:darkness_dungeon/core/Player.dart';
 import 'package:flutter/material.dart';
 
 abstract class MapGame {
@@ -45,20 +45,21 @@ class MapWord implements MapGame {
 
   MapWord(this.map,this.player, this.screenSize) {
     player.map = this;
-    maxTop = (map.length * TileMap.SIZE) - screenSize.height;
-    map.forEach((list) {
-      if (list.length > maxLeft) {
-        maxLeft = list.length.toDouble();
-      }
-      collisions.addAll(list.where((i) => i.collision).toList());
+    if(map.isNotEmpty && map[0].isNotEmpty) {
+      maxTop = (map.length * map[0][0].size) - screenSize.height;
+      map.forEach((list) {
+        if (list.length > maxLeft) {
+          maxLeft = list.length.toDouble();
+        }
+        collisions.addAll(list.where((i) => i.collision).toList());
 
-      var en = list.where((i) => i.enemy != null).toList();
-      en.forEach((item) {
-        enemies.add(item.enemy);
+        var en = list.where((i) => i.enemy != null).toList();
+        en.forEach((item) {
+          enemies.add(item.enemy);
+        });
       });
-
-    });
-    maxLeft = maxLeft * TileMap.SIZE - screenSize.width;
+      maxLeft = maxLeft * map[0][0].size - screenSize.width;
+    }
   }
 
   void render(Canvas canvas) {
@@ -78,13 +79,13 @@ class MapWord implements MapGame {
               tile.position.left > (tile.size * -1)) {
             tile.render(canvas);
             if (tile.enemy != null) {
-              tile.enemy.map = this;
+              tile.enemy.setMap(this);
               Rect initEnemyPosition = Rect.fromLTWH(tile.position.left, tile.position.top, tile.enemy.position.width, tile.enemy.position.height);
               tile.enemy.setInitPosition(initEnemyPosition);
             }
             if (tile.decoration != null) {
-              Rect initEnemyPosition = Rect.fromLTWH(tile.position.left, tile.position.top, tile.decoration.position.width, tile.decoration.position.height);
-              tile.decoration.position = initEnemyPosition;
+              Rect initDecorationPosition = Rect.fromLTWH(tile.position.left, tile.position.top, tile.decoration.position.width, tile.decoration.position.height);
+              tile.decoration.position = initDecorationPosition;
               tile.decoration.render(canvas);
             }
           }

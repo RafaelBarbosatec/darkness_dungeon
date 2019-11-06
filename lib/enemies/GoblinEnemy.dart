@@ -1,20 +1,18 @@
-import 'package:darkness_dungeon/enemy/Enemy.dart';
-import 'package:flutter/material.dart';
 
+import 'package:darkness_dungeon/core/Enemy.dart';
+import 'package:flutter/material.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 
-class SmileEnemy extends Enemy{
+class GoblinEnemy extends Enemy{
 
-  SmileEnemy(){
-    life = 20;
-    size = 20;
-    visionCells = 3;
+  GoblinEnemy():super(size:20, life: 30, intervalAtack: 1000, speed: 1.2, visionCells: 6){
+
     position = Rect.fromLTWH(0, 0, size, size);
     animation = FlameAnimation.Animation.sequenced(
-    "slime_idle.png",
-    6,
-    textureWidth: 16,
-    textureHeight: 16);
+        "goblin_idle.png",
+        6,
+        textureWidth: 16,
+        textureHeight: 16);
   }
 
   @override
@@ -28,7 +26,6 @@ class SmileEnemy extends Enemy{
   }
 
   void _enemyAttack() {
-    map.atackPlayer(10);
+    atackPlayer(30);
   }
-
 }

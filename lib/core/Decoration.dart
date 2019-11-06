@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 class TileDecoration{
 
   bool isSetPosition = false;
-  double size = 16;
+  final double size;
   final String spriteImg;
   Rect position;
   Sprite spriteTile;
 
-  TileDecoration(this.spriteImg){
+  TileDecoration(this.spriteImg, {this.size = 16}){
     position = Rect.fromLTWH(0,0, size, size);
     spriteTile = Sprite(spriteImg);
   }
