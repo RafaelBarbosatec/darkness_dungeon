@@ -122,6 +122,7 @@ class Player extends AnimationGameObject {
     if (position.right >= screenSize.width) {
       return;
     }
+
     Rect displacement = position.translate(speedPlayer, 0);
     if (map.verifyCollision(displacement)) {
       return;
@@ -130,6 +131,131 @@ class Player extends AnimationGameObject {
       position = displacement;
     } else {
       map.moveRight(speedPlayer);
+    }
+
+    if(animationMoveRight != null){
+      animation = animationMoveRight;
+    }
+  }
+
+  void runTopRight(){
+    if (life == 0) {
+      return;
+    }
+
+    if (position.left >= screenSize.width) {
+      return;
+    }
+
+    if (position.top <= 0) {
+      return;
+    }
+
+    Rect displacement = position.translate(speedPlayer,(-1 *speedPlayer));
+
+    if (map.verifyCollision(displacement)) {
+      return;
+    }
+
+    if (position.left < screenSize.width / 2 || map.isMaxRight() || map.isMaxTop()) {
+      position = displacement;
+    } else {
+      map.moveRight(speedPlayer);
+      map.moveTop(speedPlayer);
+    }
+
+    if(animationMoveRight != null){
+      animation = animationMoveRight;
+    }
+  }
+
+  void runTopLeft(){
+    if (life == 0) {
+      return;
+    }
+
+    if (position.left <= 0) {
+      return;
+    }
+
+    if (position.top <= 0) {
+      return;
+    }
+
+    Rect displacement = position.translate((-1 *speedPlayer), (-1 *speedPlayer));
+
+    if (map.verifyCollision(displacement)) {
+      return;
+    }
+
+    if (position.left > screenSize.width / 2 || map.isMaxLeft() || map.isMaxTop()) {
+      position = displacement;
+    } else {
+      map.moveLeft(speedPlayer);
+      map.moveTop(speedPlayer);
+    }
+
+    if(animationMoveLeft != null){
+      animation = animationMoveLeft;
+    }
+  }
+
+  void runBottomLeft(){
+    //print('runBottomLeft');
+    if (life == 0) {
+      return;
+    }
+
+    if (position.left <= 0) {
+      return;
+    }
+    if (position.bottom >= screenSize.height) {
+      return;
+    }
+
+    Rect displacement = position.translate((-1 *speedPlayer), speedPlayer);
+
+    if (map.verifyCollision(displacement)) {
+      return;
+    }
+
+    if (position.left > screenSize.width / 2 || map.isMaxLeft() || map.isMaxBottom()) {
+      position = displacement;
+    } else {
+      map.moveLeft(speedPlayer);
+      map.moveBottom(speedPlayer);
+    }
+
+    if(animationMoveLeft != null){
+      animation = animationMoveLeft;
+    }
+  }
+
+  void runBottomRight(){
+    //print('runBottomRight');
+    if (life == 0) {
+      return;
+    }
+
+    if (position.left >= screenSize.width) {
+      return;
+    }
+
+    if (position.top >= screenSize.height) {
+      return;
+    }
+
+    Rect displacement = position.translate(speedPlayer, speedPlayer);
+
+    if (map.verifyCollision(displacement)) {
+      return;
+    }
+
+    if (position.left < screenSize.width / 2 || map.isMaxRight() || map.isMaxBottom()) {
+      position = displacement;
+    } else {
+      map.moveRight(speedPlayer);
+      map.moveBottom(speedPlayer);
     }
 
     if(animationMoveRight != null){

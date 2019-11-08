@@ -70,7 +70,11 @@ class DarknessDungeon extends Game {
         runBottom,
         runLeft,
         runRight,
-        idle
+        idle,
+        runTopLeft,
+        runTopRight,
+        runBottomLeft,
+        runBottomRight,
     );
     
     player = Knight(
@@ -106,6 +110,22 @@ class DarknessDungeon extends Game {
 
   void runRight(){
     player.moveToRight();
+  }
+
+  void runTopRight(){
+    player.runTopRight();
+  }
+
+  void runBottomLeft(){
+    player.runBottomLeft();
+  }
+
+  void runTopLeft(){
+    player.runTopLeft();
+  }
+
+  void runBottomRight(){
+    player.runBottomRight();
   }
 
   @override

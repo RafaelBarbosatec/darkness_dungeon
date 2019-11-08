@@ -151,7 +151,7 @@ class MyMaps{
           }
 
           if(indexRow == 5 && indexColumm == 20){
-            return TileMap(randomFloor(),enemy: GoblinEnemy());
+            //return TileMap(randomFloor(),enemy: GoblinEnemy());
           }
 
           if(indexRow == 10 && indexColumm >=3 && indexColumm <=5) {

@@ -31,7 +31,6 @@ abstract class Enemy extends AnimationGameObject{
   bool _blockCollision = false;
 
   Enemy(
-      Rect position,
       this.animationIdle,
       {
         this.size = 16,
@@ -46,7 +45,7 @@ abstract class Enemy extends AnimationGameObject{
       }
       ){
     animation = animationIdle;
-    this.position = position;
+    this.position = Rect.fromLTWH(0, 0, size, size);
   }
 
   setInitPosition(Rect position){
@@ -69,7 +68,7 @@ abstract class Enemy extends AnimationGameObject{
 
   void moveToHero(Rect player, Function() attack){
 
-    if(player != null && position != null){
+    if(player != null){
 
       //CALCULA POSIÇÃO ATUAL DO INIMIGO LEVANDO EM BASE A POSIÇÃO DA CAMARA
       _currentPosition = Rect.fromLTWH(

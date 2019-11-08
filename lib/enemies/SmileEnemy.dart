@@ -8,7 +8,6 @@ class SmileEnemy extends Enemy{
   static const double SIZE = 20;
 
   SmileEnemy():super(
-      Rect.fromLTWH(0, 0, SIZE, SIZE),
       FlameAnimation.Animation.sequenced("slime_idle.png", 6, textureWidth: 16, textureHeight: 16),
       size: SIZE,
       life: 20,

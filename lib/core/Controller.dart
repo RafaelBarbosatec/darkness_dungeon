@@ -3,7 +3,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-
 class Controller {
 
   double backgroundAspectRatio = 2.5;
@@ -20,12 +19,27 @@ class Controller {
   final double tileSize;
   final Size screenSize;
   final Function() moveTop;
+  final Function() moveTopLeft;
+  final Function() moveTopRight;
   final Function() moveBottom;
+  final Function() moveBottomLeft;
+  final Function() moveBottomRight;
   final Function() moveLeft;
   final Function() moveRight;
   final Function() idle;
 
-  Controller(this.screenSize, this.tileSize, this.moveTop, this.moveBottom, this.moveLeft, this.moveRight, this.idle) {
+  Controller(
+      this.screenSize,
+      this.tileSize,
+      this.moveTop,
+      this.moveBottom,
+      this.moveLeft,
+      this.moveRight,
+      this.idle,
+      this.moveTopLeft,
+      this.moveTopRight,
+      this.moveBottomLeft,
+      this.moveBottomRight) {
     backgroundSprite = Sprite('joystick_background.png');
     knobSprite = Sprite('joystick_knob.png');
 
@@ -79,21 +93,70 @@ class Controller {
       Point p = Point(backgroundRect.center.dx, backgroundRect.center.dy);
       double dist = p.distanceTo(Point(dragPosition.dx, dragPosition.dy));
 
+      bool mRight = false;
+      bool mLeft = false;
+      bool mTop = false;
+      bool mBottom = false;
 
       var diffY = dragPosition.dy - backgroundRect.center.dy;
       var diffX = dragPosition.dx - backgroundRect.center.dx;
-      if(dragPosition.dx > backgroundRect.center.dx && diffX > backgroundRect.width /4){
+      if(dragPosition.dx > backgroundRect.center.dx && diffX > backgroundRect.width /3){
+        mRight = true;
+        //moveRight();
+      }
+      if(dragPosition.dx < backgroundRect.center.dx && diffX < (-1 * backgroundRect.width /3)){
+        mLeft = true;
+        //moveLeft();
+      }
+      if(dragPosition.dy > backgroundRect.center.dy && diffY > backgroundRect.height /3){
+        mBottom = true;
+        //moveBottom();
+      }
+      if(dragPosition.dy < backgroundRect.center.dy && diffY < (-1 * backgroundRect.height /3)){
+        mTop = true;
+        //moveTop();
+      }
+
+      if(mRight && mTop){
+        mRight = false;
+        mTop = false;
+        moveTopRight();
+      }
+
+      if(mRight && mBottom){
+        mRight = false;
+        mBottom = false;
+        moveBottomRight();
+      }
+
+      if(mLeft && mTop){
+        mLeft = false;
+        mTop = false;
+        moveTopLeft();
+      }
+
+      if(mLeft && mBottom){
+        mLeft = false;
+        mBottom = false;
+        moveBottomLeft();
+      }
+
+      if(mRight){
         moveRight();
       }
-      if(dragPosition.dx < backgroundRect.center.dx && diffX < (-1 * backgroundRect.width /4)){
+
+      if(mLeft){
         moveLeft();
       }
-      if(dragPosition.dy > backgroundRect.center.dy && diffY > backgroundRect.height /4){
+
+      if(mBottom){
         moveBottom();
       }
-      if(dragPosition.dy < backgroundRect.center.dy && diffY < (-1 * backgroundRect.height /4)){
+
+      if(mTop){
         moveTop();
       }
+
 
       // The maximum distance for the knob position the edge of
       // the background + half of its own size. The knob can wander in the
@@ -123,7 +186,7 @@ class Controller {
   }
 
   void onPanStart(DragStartDetails details) {
-    if (backgroundRect.contains(details.globalPosition)) {
+    if (knobRect.contains(details.globalPosition)) {
       dragging = true;
     }
   }
