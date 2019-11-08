@@ -13,7 +13,7 @@ class GoblinEnemy extends Enemy{
       size:SIZE,
       life: SIZE,
       intervalAtack: 1000,
-      speed: 1.2,
+      speed: 50,
       visionCells: 6
   );
 

@@ -26,6 +26,9 @@ abstract class Enemy extends AnimationGameObject{
   bool _closePlayer = false;
   bool _isIdle = true;
   Timer _timer;
+  Timer _timerMove;
+  Rect _moveTo;
+  bool _blockCollision = false;
 
   Enemy(
       Rect position,
@@ -33,7 +36,7 @@ abstract class Enemy extends AnimationGameObject{
       {
         this.size = 16,
         this.life = 1,
-        this.speed = 0.8,
+        this.speed = 25,
         this.intervalAtack = 500,
         this.visionCells = 4,
         this.animationMoveLeft,
@@ -66,7 +69,7 @@ abstract class Enemy extends AnimationGameObject{
 
   void moveToHero(Rect player, Function() attack){
 
-    if(player != null){
+    if(player != null && position != null){
 
       //CALCULA POSIÇÃO ATUAL DO INIMIGO LEVANDO EM BASE A POSIÇÃO DA CAMARA
       _currentPosition = Rect.fromLTWH(
@@ -87,8 +90,8 @@ abstract class Enemy extends AnimationGameObject{
 
       if(fieldOfVision.overlaps(player)){
 
-        double translateX = _currentPosition.left > leftPlayer ? (speed *-1):speed;
-        double translateY = _currentPosition.top > topPlayer? (speed *-1):speed;
+        double translateX = _currentPosition.left > leftPlayer ? -1:1;
+        double translateY = _currentPosition.top > topPlayer? -1:1;
 
         if(_currentPosition.left == leftPlayer){
           translateX = 0;
@@ -111,12 +114,15 @@ abstract class Enemy extends AnimationGameObject{
           }
         }
 
-        var moveTo = position.translate(translateX, translateY);
+        _moveTo = position.translate(translateX, translateY);
 
         if(_occurredCollision(leftPlayer, topPlayer)){
           animation = animationIdle;
+          _blockCollision = true;
           return;
         }
+
+        _blockCollision = false;
 
         if(_arrivedNext(player)){
           if(!_closePlayer){
@@ -131,10 +137,11 @@ abstract class Enemy extends AnimationGameObject{
           }
         }
 
-        position = moveTo;
+        _startTimeMove();
 
       }else{
 
+        _stopTimeMove();
         if(_closePlayer){
           notSee();
         }
@@ -210,6 +217,24 @@ abstract class Enemy extends AnimationGameObject{
     if(animationMoveBottom != null){
       _isIdle = false;
       animation = animationMoveBottom;
+    }
+  }
+
+  void _startTimeMove() {
+    if(_timerMove != null && _timerMove.isActive){
+      return;
+    }
+    _timerMove = Timer.periodic(new Duration(milliseconds: 1000~/speed), (timer) {
+      if(!_blockCollision)
+        position = _moveTo;
+    });
+
+  }
+
+  void _stopTimeMove() {
+    if(_timerMove != null){
+      _timerMove.cancel();
+      _timerMove = null;
     }
   }
 
