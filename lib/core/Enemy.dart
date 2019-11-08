@@ -82,8 +82,8 @@ abstract class Enemy extends AnimationGameObject{
       Rect fieldOfVision = Rect.fromLTWH(_currentPosition.left - (visionWidth/2), _currentPosition.top - (visionHeight/2), visionWidth, visionHeight);
 
       //CALCULA CENTRO DO PLAYER
-      double leftPlayer = player.left + player.width/2;
-      double topPlayer = player.top + player.height/2;
+      double leftPlayer = player.center.dx;
+      double topPlayer = player.center.dy;
 
       if(fieldOfVision.overlaps(player)){
 
@@ -136,11 +136,9 @@ abstract class Enemy extends AnimationGameObject{
         }
 
         position = _moveTo;
-        //_startTimeMove();
 
       }else{
 
-        //_stopTimeMove();
         if(_closePlayer){
           notSee();
         }
@@ -156,15 +154,17 @@ abstract class Enemy extends AnimationGameObject{
   }
 
   bool _occurredCollision(double leftPlayer,double topPlayer){
-    var left = (_map != null ? _map.paddingLeft : 0);
-    var top = (_map != null ? _map.paddingTop : 0);
+
+    if(_map == null){
+      return false;
+    }
+
+    var left = _map.paddingLeft;
+    var top = _map.paddingTop;
     double displacementCollision = size/2;
     double translateXToCollision = _currentPosition.left > leftPlayer ? (displacementCollision *-1):displacementCollision;
     double translateYToCollision = _currentPosition.top > topPlayer? (displacementCollision *-1):displacementCollision;
     var moveToCurrent = position.translate(translateXToCollision + left , translateYToCollision + top);
-    if(_map == null){
-      return false;
-    }
     return _map.verifyCollision(moveToCurrent);
   }
 
@@ -181,10 +181,6 @@ abstract class Enemy extends AnimationGameObject{
 
   void notSee() {
     _closePlayer = false;
-//    if(_timer != null){
-//      _timer.cancel();
-//      _timer = null;
-//    }
     animation = animationIdle;
   }
 
@@ -218,23 +214,5 @@ abstract class Enemy extends AnimationGameObject{
       animation = animationMoveBottom;
     }
   }
-
-//  void _startTimeMove() {
-//    if(_timerMove != null && _timerMove.isActive){
-//      return;
-//    }
-//    _timerMove = Timer.periodic(new Duration(milliseconds: 1000~/speed), (timer) {
-//      if(!_blockCollision)
-//        position = _moveTo;
-//    });
-//
-//  }
-//
-//  void _stopTimeMove() {
-//    if(_timerMove != null){
-//      _timerMove.cancel();
-//      _timerMove = null;
-//    }
-//  }
 
 }
