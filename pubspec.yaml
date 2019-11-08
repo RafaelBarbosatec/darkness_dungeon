@@ -35,6 +35,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/images/joystick_background.png
+    - assets/images/joystick_knob.png
     - assets/images/knight_idle.png
     - assets/images/knight_run.png
     - assets/images/knight_run_left.png

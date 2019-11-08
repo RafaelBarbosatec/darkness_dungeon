@@ -10,13 +10,13 @@ abstract class MapGame {
 
   bool verifyCollision(Rect rect);
 
-  void moveRight();
+  void moveRight(double displacement);
 
-  void moveBottom();
+  void moveBottom(double displacement);
 
-  void moveLeft();
+  void moveLeft(double displacement);
 
-  void moveTop();
+  void moveTop(double displacement);
 
   bool isMaxTop();
 
@@ -138,35 +138,41 @@ class MapWord implements MapGame {
     return co;
   }
 
-  void moveRight() {
+  void moveRight(double displacement) {
     if ((paddingLeft * -1) < maxLeft) {
       maxRight = false;
-      paddingLeft = paddingLeft - 10;
+      paddingLeft = paddingLeft - displacement;
     } else {
       maxRight = true;
     }
   }
 
-  void moveBottom() {
+  void moveBottom(double displacement) {
     if ((paddingTop * -1) < maxTop) {
       maxBottom = false;
-      paddingTop = paddingTop - 10;
+      paddingTop = paddingTop - displacement;
     } else {
       maxBottom = true;
     }
   }
 
-  void moveLeft() {
+  void moveLeft(double displacement) {
     if (paddingLeft < 0) {
-      paddingLeft = paddingLeft + 10;
+      paddingLeft = paddingLeft + displacement;
+      if(paddingLeft > 0){
+        paddingLeft = 0;
+      }
     } else {
       maxRight = false;
     }
   }
 
-  void moveTop() {
+  void moveTop(double displacement) {
     if (paddingTop < 0) {
-      paddingTop = paddingTop + 10;
+      paddingTop = paddingTop + displacement;
+      if(paddingTop > 0){
+        paddingTop = 0;
+      }
     } else {
       maxBottom = false;
     }

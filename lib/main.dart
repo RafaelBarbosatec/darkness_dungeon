@@ -1,6 +1,6 @@
 
 import 'package:darkness_dungeon/HealthBar.dart';
-import 'package:darkness_dungeon/Joystick.dart';
+import 'package:darkness_dungeon/core/Controller.dart';
 import 'package:darkness_dungeon/core/map/MapWord.dart';
 import 'package:darkness_dungeon/map/MyMaps.dart';
 import 'package:darkness_dungeon/player/Knight.dart';
@@ -34,8 +34,11 @@ class GameWidget extends StatelessWidget {
           healthKey.currentState.updateHealth(damage);
         }
     );
-    return Container(
-        color: Colors.black,
+    return GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onPanStart: game.onPanStart,
+        onPanUpdate: game.onPanUpdate,
+        onPanEnd: game.onPanEnd,
         child: Stack(
           children: <Widget>[
             game.widget,
@@ -45,26 +48,6 @@ class GameWidget extends StatelessWidget {
                 key: healthKey
               ),
             ),
-            Align(
-              alignment: Alignment.bottomLeft,
-              child: Joystick(
-                tabTop: (){
-                  game.runTop();
-                },
-                tabBottom: (){
-                  game.runBottom();
-                },
-                tabLeft: (){
-                  game.runLeft();
-                },
-                tabRight: (){
-                  game.runRight();
-                },
-                idle: (){
-                  game.idle();
-                },
-              ),
-            )
             ],
         ));
   }
@@ -76,9 +59,20 @@ class DarknessDungeon extends Game {
   Player player;
   MapWord map;
   bool playerIsRun = false;
+  Controller controller;
 
   DarknessDungeon(this.size, {this.recieveDamage}){
 
+    controller = Controller(
+        size,
+        size.height / 10,
+        runTop,
+        runBottom,
+        runLeft,
+        runRight,
+        idle
+    );
+    
     player = Knight(
         size,
         initX: size.width/5 - Knight.SIZE,
@@ -117,10 +111,24 @@ class DarknessDungeon extends Game {
   @override
   void render(Canvas canvas) {
     map.render(canvas);
+    controller.render(canvas);
   }
 
   @override
   void update(double t) {
     map.update(t);
+    controller.update(t);
+  }
+
+  void onPanStart(DragStartDetails details) {
+    controller.onPanStart(details);
+  }
+
+  void onPanUpdate(DragUpdateDetails details) {
+    controller.onPanUpdate(details);
+  }
+
+  void onPanEnd(DragEndDetails details) {
+    controller.onPanEnd(details);
   }
 }

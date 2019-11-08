@@ -24,7 +24,7 @@ class Player extends AnimationGameObject {
       this.animationIdle,
       {
         this.life = 1,
-        this.speedPlayer = 10,
+        this.speedPlayer = 1.8,
         this.animationMoveLeft,
         this.animationMoveRight,
         this.animationMoveTop,
@@ -55,7 +55,7 @@ class Player extends AnimationGameObject {
     if (position.top > screenSize.height / 3 || map.isMaxTop()) {
       position = displacement;
     } else {
-      map.moveTop();
+      map.moveTop(speedPlayer);
     }
 
     if(animationMoveTop != null){
@@ -80,7 +80,7 @@ class Player extends AnimationGameObject {
     if (position.top < screenSize.height / 2 || map.isMaxBottom()) {
       position = displacement;
     } else {
-      map.moveBottom();
+      map.moveBottom(speedPlayer);
     }
 
     if(animationMoveBottom != null){
@@ -105,7 +105,7 @@ class Player extends AnimationGameObject {
     if (position.left > screenSize.width / 3 || map.isMaxLeft()) {
       position = displacement;
     } else {
-      map.moveLeft();
+      map.moveLeft(speedPlayer);
     }
 
     if(animationMoveLeft != null){
@@ -129,7 +129,7 @@ class Player extends AnimationGameObject {
     if (position.left < screenSize.width / 2 || map.isMaxRight()) {
       position = displacement;
     } else {
-      map.moveRight();
+      map.moveRight(speedPlayer);
     }
 
     if(animationMoveRight != null){
