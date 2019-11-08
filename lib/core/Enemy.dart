@@ -93,10 +93,14 @@ abstract class Enemy extends AnimationGameObject{
         double translateX = _currentPosition.left > leftPlayer ? -1:1;
         double translateY = _currentPosition.top > topPlayer? -1:1;
 
-        if(_currentPosition.left == leftPlayer){
+        if(_currentPosition.left == leftPlayer
+            || (translateX == -1 &&  _currentPosition.left - leftPlayer < 3)
+            || (translateX == 1 && leftPlayer - _currentPosition.left < 3)){
           translateX = 0;
         }
-        if(_currentPosition.top == topPlayer){
+        if(_currentPosition.top == topPlayer
+            || (translateY == -1 &&  _currentPosition.top - topPlayer < 3)
+            || (translateY == 1 && topPlayer - _currentPosition.top < 3)){
           translateY = 0;
         }
 
