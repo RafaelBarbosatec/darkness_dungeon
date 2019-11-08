@@ -146,13 +146,10 @@ class MyMaps{
 
         if(indexRow >= 4 && indexRow <= 10 && indexColumm >= 3 && indexColumm <= 28){
 
-          if(indexRow == 5 && indexColumm == 26){
+          if(indexRow == 8 && indexColumm == 23){
             return TileMap(randomFloor(),enemy: SmileEnemy());
           }
 
-          if(indexRow == 5 && indexColumm == 20){
-            //return TileMap(randomFloor(),enemy: GoblinEnemy());
-          }
 
           if(indexRow == 10 && indexColumm >=3 && indexColumm <=5) {
             return TileMap(randomFloor(),
@@ -177,6 +174,11 @@ class MyMaps{
                 collision: true,
                 decoration: TileDecoration('itens/barrel.png'));
           }
+
+          if(indexColumm == 27){
+            return TileMap(randomFloor(),enemy: GoblinEnemy());
+          }
+
 
           return TileMap(randomFloor());
         }
