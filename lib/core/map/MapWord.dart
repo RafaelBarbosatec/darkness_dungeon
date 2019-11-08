@@ -51,12 +51,6 @@ class MapWord implements MapGame {
         if (list.length > maxLeft) {
           maxLeft = list.length.toDouble();
         }
-        collisions.addAll(list.where((i) => i.collision).toList());
-
-        var en = list.where((i) => i.enemy != null).toList();
-        en.forEach((item) {
-          enemies.add(item.enemy);
-        });
       });
       maxLeft = maxLeft * map[0][0].size - screenSize.width;
     }
@@ -64,78 +58,92 @@ class MapWord implements MapGame {
 
   void render(Canvas canvas) {
     int countY = 0;
+    collisions.clear();
+    enemies.clear();
     map.forEach((tiles) {
-      TileMap lastTile;
-      tiles[0].position = Rect.fromLTWH(paddingLeft,
-          (countY * 16).toDouble() + paddingTop, tiles[0].size, tiles[0].size);
 
-      if (tiles[0].position.top < screenSize.height &&
-          tiles[0].position.top > (tiles[0].size * -1)) {
+      TileMap lastTile;
+
+      tiles[0].position = Rect.fromLTWH(paddingLeft, (countY * 16).toDouble() + paddingTop, tiles[0].size, tiles[0].size);
+
+      if (tiles[0].position.top < screenSize.height && tiles[0].position.top > (tiles[0].size * -1)) {
+
         tiles.forEach((tile) {
+
           if (lastTile != null) {
             tile.position = lastTile.position.translate(16, 0);
           }
-          if (tile.position.left < screenSize.width + tile.size &&
-              tile.position.left > (tile.size * -1)) {
+
+          if (tile.position.left < screenSize.width + tile.size && tile.position.left > (tile.size * -1)) {
+
             tile.render(canvas);
+
+            if(tile.collision){
+              collisions.add(tile);
+            }
+
             if (tile.enemy != null) {
               tile.enemy.setMap(this);
-              Rect initEnemyPosition = Rect.fromLTWH(tile.position.left, tile.position.top, tile.enemy.position.width, tile.enemy.position.height);
-              tile.enemy.setInitPosition(initEnemyPosition);
+              tile.enemy.setInitPosition(tile.position);
+              enemies.add(tile.enemy);
             }
+
             if (tile.decoration != null) {
               Rect initDecorationPosition = Rect.fromLTWH(tile.position.left, tile.position.top, tile.decoration.position.width, tile.decoration.position.height);
               tile.decoration.position = initDecorationPosition;
               tile.decoration.render(canvas);
             }
+
           }
+
           lastTile = tile;
-          // lastTile = tile;
+
         });
       }
       countY++;
     });
 
-    enemies.forEach((enemy) {
-      Rect positionFromMap = Rect.fromLTWH(
-          enemy.position.left + paddingLeft,
-          enemy.position.top + paddingTop,
-          enemy.position.width,
-          enemy.position.height);
-
-      if ((positionFromMap.left < screenSize.width + positionFromMap.width &&
-              positionFromMap.left > (positionFromMap.width * -1)) &&
-          (positionFromMap.top < screenSize.height + positionFromMap.height &&
-              positionFromMap.top > (positionFromMap.height * -1))) {
-        enemy.renderRect(canvas, positionFromMap);
-      }
+    enemies.forEach((enemy){
+      _renderEnemy(enemy,canvas);
     });
 
     player.render(canvas);
   }
 
+  void _renderEnemy(Enemy enemy,Canvas canvas) {
+    Rect positionFromMap = Rect.fromLTWH(
+        enemy.position.left + paddingLeft,
+        enemy.position.top + paddingTop,
+        enemy.position.width,
+        enemy.position.height);
+
+    if ((positionFromMap.left < screenSize.width + positionFromMap.width &&
+        positionFromMap.left > (positionFromMap.width * -1)) &&
+        (positionFromMap.top < screenSize.height + positionFromMap.height &&
+            positionFromMap.top > (positionFromMap.height * -1))) {
+      enemy.renderRect(canvas, positionFromMap);
+    }
+  }
+
   void update(double t) {
-    map.forEach((list) {
-      list.forEach((item) {
-        if (item.enemy != null) {
-          item.enemy.updateEnemy(t, player.position);
-        }
-      });
+
+    enemies.forEach((enemy){
+      enemy.updateEnemy(t, player.position);
     });
     player.update(t);
   }
 
   @override
   bool verifyCollision(Rect rect) {
-    bool co = false;
-    collisions.forEach((item) {
-      Rect comp = Rect.fromLTWH(rect.left, rect.top + (rect.height / 2),
-          rect.width / 1.5, rect.height / 3);
-      if (item.position.overlaps(comp)) {
-        co = true;
-      }
-    });
-    return co;
+
+    Rect comp = Rect.fromLTWH(rect.left, rect.top + (rect.height / 2),
+        rect.width / 1.5, rect.height / 3);
+
+    var itensC = collisions.where((i) {
+      return i.position.overlaps(comp);
+    }).toList();
+
+    return itensC.length > 0;
   }
 
   void moveRight(double displacement) {
@@ -198,4 +206,5 @@ class MapWord implements MapGame {
   void atackPlayer(double damage) {
     player.recieveAtack(damage);
   }
+
 }

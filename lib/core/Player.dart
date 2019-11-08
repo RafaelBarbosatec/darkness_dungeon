@@ -24,7 +24,7 @@ class Player extends AnimationGameObject {
       this.animationIdle,
       {
         this.life = 1,
-        this.speedPlayer = 1.8,
+        this.speedPlayer = 1,
         this.animationMoveLeft,
         this.animationMoveRight,
         this.animationMoveTop,

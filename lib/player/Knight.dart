@@ -15,6 +15,7 @@ class Knight extends Player {
       Rect.fromLTWH(initX - SIZE, initY - SIZE, SIZE, SIZE),
       FlameAnimation.Animation.sequenced("knight_idle.png", 6, textureWidth: 16, textureHeight: 16),
       life: 100,
+      speedPlayer:2,
       changeLife:changeLife,
       callBackdie: callBackdie,
       animationMoveRight: FlameAnimation.Animation.sequenced("knight_run.png", 6, textureWidth: 16, textureHeight: 16),

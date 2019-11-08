@@ -26,16 +26,14 @@ abstract class Enemy extends AnimationGameObject{
   bool _closePlayer = false;
   bool _isIdle = true;
   Timer _timer;
-  Timer _timerMove;
   Rect _moveTo;
-  bool _blockCollision = false;
 
   Enemy(
       this.animationIdle,
       {
         this.size = 16,
         this.life = 1,
-        this.speed = 25,
+        this.speed = 1,
         this.intervalAtack = 500,
         this.visionCells = 4,
         this.animationMoveLeft,
@@ -51,7 +49,7 @@ abstract class Enemy extends AnimationGameObject{
   setInitPosition(Rect position){
     if(!_isSetPosition){
       _isSetPosition = true;
-      this.position = position;
+      this.position = Rect.fromLTWH(position.left, position.top, this.position.width, this.position.height);
     }
   }
 
@@ -89,8 +87,8 @@ abstract class Enemy extends AnimationGameObject{
 
       if(fieldOfVision.overlaps(player)){
 
-        double translateX = _currentPosition.left > leftPlayer ? -1:1;
-        double translateY = _currentPosition.top > topPlayer? -1:1;
+        double translateX = _currentPosition.left > leftPlayer ? (-1 * speed):speed;
+        double translateY = _currentPosition.top > topPlayer? (-1 * speed):speed;
 
         if(_currentPosition.left == leftPlayer
             || (translateX == -1 &&  _currentPosition.left - leftPlayer < 3)
@@ -121,11 +119,8 @@ abstract class Enemy extends AnimationGameObject{
 
         if(_occurredCollision(leftPlayer, topPlayer)){
           animation = animationIdle;
-          _blockCollision = true;
           return;
         }
-
-        _blockCollision = false;
 
         if(_arrivedNext(player)){
           if(!_closePlayer){
@@ -140,11 +135,12 @@ abstract class Enemy extends AnimationGameObject{
           }
         }
 
-        _startTimeMove();
+        position = _moveTo;
+        //_startTimeMove();
 
       }else{
 
-        _stopTimeMove();
+        //_stopTimeMove();
         if(_closePlayer){
           notSee();
         }
@@ -185,10 +181,10 @@ abstract class Enemy extends AnimationGameObject{
 
   void notSee() {
     _closePlayer = false;
-    if(_timer != null){
-      _timer.cancel();
-      _timer = null;
-    }
+//    if(_timer != null){
+//      _timer.cancel();
+//      _timer = null;
+//    }
     animation = animationIdle;
   }
 
@@ -223,22 +219,22 @@ abstract class Enemy extends AnimationGameObject{
     }
   }
 
-  void _startTimeMove() {
-    if(_timerMove != null && _timerMove.isActive){
-      return;
-    }
-    _timerMove = Timer.periodic(new Duration(milliseconds: 1000~/speed), (timer) {
-      if(!_blockCollision)
-        position = _moveTo;
-    });
-
-  }
-
-  void _stopTimeMove() {
-    if(_timerMove != null){
-      _timerMove.cancel();
-      _timerMove = null;
-    }
-  }
+//  void _startTimeMove() {
+//    if(_timerMove != null && _timerMove.isActive){
+//      return;
+//    }
+//    _timerMove = Timer.periodic(new Duration(milliseconds: 1000~/speed), (timer) {
+//      if(!_blockCollision)
+//        position = _moveTo;
+//    });
+//
+//  }
+//
+//  void _stopTimeMove() {
+//    if(_timerMove != null){
+//      _timerMove.cancel();
+//      _timerMove = null;
+//    }
+//  }
 
 }
