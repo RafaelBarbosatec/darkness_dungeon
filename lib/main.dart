@@ -24,16 +24,20 @@ class GameWidget extends StatelessWidget {
 
   final Size size;
   final GlobalKey<HealthBarState> healthKey = GlobalKey();
-  GameWidget({Key key, this.size}) : super(key: key);
+  DarknessDungeon game;
 
-  @override
-  Widget build(BuildContext context) {
-    final game = DarknessDungeon(
+  GameWidget({Key key, this.size}) : super(key: key){
+    game = DarknessDungeon(
         size,
         recieveDamage: (damage){
           healthKey.currentState.updateHealth(damage);
         }
     );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
     return GestureDetector(
         behavior: HitTestBehavior.opaque,
         onPanStart: game.onPanStart,
@@ -58,7 +62,6 @@ class DarknessDungeon extends Game {
   final Function(double) recieveDamage;
   Player player;
   MapWord map;
-  bool playerIsRun = false;
   Controller controller;
 
   DarknessDungeon(this.size, {this.recieveDamage}){
