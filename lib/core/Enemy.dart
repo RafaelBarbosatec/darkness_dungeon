@@ -69,12 +69,7 @@ abstract class Enemy extends AnimationGameObject{
   @override
   void renderRect(Canvas canvas, Rect position) {
     super.renderRect(canvas, position);
-    double currentBarLife = (life*size)/_maxlife;
-    canvas.drawLine(Offset(currentPosition.left, currentPosition.top - 4),
-        Offset(currentPosition.left + currentBarLife, currentPosition.top - 4),
-        Paint()..color = Colors.red
-          ..strokeWidth = 2
-          ..style = PaintingStyle.fill);
+    _drawLife(canvas);
   }
 
   void moveToHero(Rect player, Function() attack){
@@ -255,6 +250,15 @@ abstract class Enemy extends AnimationGameObject{
   void _die() {
     animation = FlameAnimation.Animation.sequenced("crypt.png", 1,
         textureWidth: 16, textureHeight: 16);
+  }
+
+  void _drawLife(Canvas canvas) {
+    double currentBarLife = (life*size)/_maxlife;
+    canvas.drawLine(Offset(currentPosition.left, currentPosition.top - 4),
+        Offset(currentPosition.left + currentBarLife, currentPosition.top - 4),
+        Paint()..color = Colors.red
+          ..strokeWidth = 2
+          ..style = PaintingStyle.fill);
   }
 
 }
