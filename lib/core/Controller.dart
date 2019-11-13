@@ -191,6 +191,13 @@ class Controller {
     }
   }
 
+  void onTapStart(TapDownDetails details){
+    print(details);
+    if (knobRect.contains(details.globalPosition)) {
+      dragging = true;
+    }
+  }
+
   void onPanUpdate(DragUpdateDetails details) {
     if (dragging) {
       dragPosition = details.globalPosition;

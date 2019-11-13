@@ -130,7 +130,9 @@ class MapWord implements MapGame {
 
           if (tile.position.left < screenSize.width + (tile.size * 2) && tile.position.left > (tile.size * -2)) {
 
-            tilesMap.add(tile);
+            if(tile.spriteImg.isNotEmpty)
+              tilesMap.add(tile);
+
             if(tile.collision){
               collisions.add(tile);
             }

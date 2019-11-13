@@ -40,9 +40,10 @@ class GameWidget extends StatelessWidget {
 
     return GestureDetector(
         behavior: HitTestBehavior.opaque,
-        onPanStart: game.onPanStart,
-        onPanUpdate: game.onPanUpdate,
-        onPanEnd: game.onPanEnd,
+        onPanStart: game.controller.onPanStart,
+        onPanUpdate: game.controller.onPanUpdate,
+        onPanEnd: game.controller.onPanEnd,
+        onTapDown: game.controller.onTapStart,
         child: Stack(
           children: <Widget>[
             game.widget,
@@ -143,15 +144,4 @@ class DarknessDungeon extends Game {
     controller.update(t);
   }
 
-  void onPanStart(DragStartDetails details) {
-    controller.onPanStart(details);
-  }
-
-  void onPanUpdate(DragUpdateDetails details) {
-    controller.onPanUpdate(details);
-  }
-
-  void onPanEnd(DragEndDetails details) {
-    controller.onPanEnd(details);
-  }
 }
