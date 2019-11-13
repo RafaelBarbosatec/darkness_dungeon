@@ -10,7 +10,7 @@ class GoblinEnemy extends Enemy{
   GoblinEnemy():super(
       FlameAnimation.Animation.sequenced("goblin_idle.png", 6, textureWidth: 16, textureHeight: 16),
       size:SIZE,
-      life: 100,
+      life: 30,
       intervalAtack: 1000,
       speed: 1.4,
       visionCells: 5
@@ -20,7 +20,7 @@ class GoblinEnemy extends Enemy{
   void updateEnemy(double t, Rect player) {
 
     moveToHero(player, (){
-      atackPlayer(0);
+      atackPlayer(10);
     });
 
     super.updateEnemy(t, player);
