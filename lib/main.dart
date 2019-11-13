@@ -38,24 +38,36 @@ class GameWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onPanStart: game.controller.onPanStart,
-        onPanUpdate: game.controller.onPanUpdate,
-        onPanEnd: game.controller.onPanEnd,
-        onTapDown: game.controller.onTapDown,
-        onTapUp: game.controller.onTapUp,
-        child: Stack(
+    return Stack(
+      children: <Widget>[
+        game.widget,
+        Align(
+          alignment: Alignment.topLeft,
+          child: HealthBar(
+              key: healthKey
+          ),
+        ),
+        Row(
           children: <Widget>[
-            game.widget,
-            Align(
-              alignment: Alignment.topLeft,
-              child: HealthBar(
-                key: healthKey
-              ),
+            Expanded(
+              child: GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onPanStart: game.controller.onPanStart,
+                  onPanUpdate: game.controller.onPanUpdate,
+                  onPanEnd: game.controller.onPanEnd,
+                  child: Container()),
             ),
-            ],
-        ));
+            Expanded(
+              child: GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTapDown: game.controller.onTapDown,
+                  onTapUp: game.controller.onTapUp,
+                  child: Container()),
+            )
+          ],
+        )
+      ],
+    );
   }
 }
 
