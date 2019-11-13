@@ -28,6 +28,7 @@ abstract class MapGame {
   bool isMaxBottom();
 
   void atackPlayer(double damage);
+  void atackEnemy(Rect position, double damage);
 }
 
 class MapWord implements MapGame {
@@ -159,6 +160,7 @@ class MapWord implements MapGame {
     enemies.forEach((enemy){
       enemy.updateEnemy(t, player.position);
     });
+
     player.update(t);
   }
 
@@ -234,6 +236,18 @@ class MapWord implements MapGame {
   @override
   void atackPlayer(double damage) {
     player.recieveAtack(damage);
+  }
+
+  @override
+  void atackEnemy(Rect position, double damage) {
+
+
+    List<Enemy> enemyLife = enemies.where((e)=>!e.isDie()).toList();
+    enemyLife.forEach((enemy){
+      if(position.overlaps(enemy.currentPosition)){
+        enemy.receiveDamage(damage);
+      }
+    });
   }
 
 }

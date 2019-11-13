@@ -8,7 +8,7 @@ import 'package:flame/animation.dart' as FlameAnimation;
 
 abstract class Enemy extends AnimationGameObject{
 
-  final double life;
+  double life;
   final double speed;
   //millesegundos
   final int intervalAtack;
@@ -21,7 +21,7 @@ abstract class Enemy extends AnimationGameObject{
   final FlameAnimation.Animation animationMoveBottom;
 
   MapGame _map;
-  Rect _currentPosition;
+  Rect currentPosition;
   bool _isSetPosition = false;
   bool _closePlayer = false;
   bool _isIdle = true;
@@ -66,10 +66,14 @@ abstract class Enemy extends AnimationGameObject{
 
   void moveToHero(Rect player, Function() attack){
 
+    if(isDie()){
+      return;
+    }
+
     if(player != null){
 
       //CALCULA POSIÇÃO ATUAL DO INIMIGO LEVANDO EM BASE A POSIÇÃO DA CAMARA
-      _currentPosition = Rect.fromLTWH(
+      currentPosition = Rect.fromLTWH(
           position.left + (_map != null ? _map.paddingLeft : 0),
           position.top + (_map != null ? _map.paddingTop : 0),
           position.width,
@@ -77,9 +81,9 @@ abstract class Enemy extends AnimationGameObject{
       );
 
       // CRIA COMPO DE VISÃO DO INIMIGO
-      double visionWidth = _currentPosition.width * visionCells*2;
-      double visionHeight = _currentPosition.height * visionCells*2;
-      Rect fieldOfVision = Rect.fromLTWH(_currentPosition.left - (visionWidth/2), _currentPosition.top - (visionHeight/2), visionWidth, visionHeight);
+      double visionWidth = currentPosition.width * visionCells*2;
+      double visionHeight = currentPosition.height * visionCells*2;
+      Rect fieldOfVision = Rect.fromLTWH(currentPosition.left - (visionWidth/2), currentPosition.top - (visionHeight/2), visionWidth, visionHeight);
 
       //CALCULA CENTRO DO PLAYER
       double leftPlayer = player.center.dx;
@@ -87,17 +91,17 @@ abstract class Enemy extends AnimationGameObject{
 
       if(fieldOfVision.overlaps(player)){
 
-        double translateX = _currentPosition.left > leftPlayer ? (-1 * speed):speed;
-        double translateY = _currentPosition.top > topPlayer? (-1 * speed):speed;
+        double translateX = currentPosition.left > leftPlayer ? (-1 * speed):speed;
+        double translateY = currentPosition.top > topPlayer? (-1 * speed):speed;
 
-        if(_currentPosition.left == leftPlayer
-            || (translateX == -1 &&  _currentPosition.left - leftPlayer < 3)
-            || (translateX == 1 && leftPlayer - _currentPosition.left < 3)){
+        if(currentPosition.left == leftPlayer
+            || (translateX == -1 &&  currentPosition.left - leftPlayer < 3)
+            || (translateX == 1 && leftPlayer - currentPosition.left < 3)){
           translateX = 0;
         }
-        if(_currentPosition.top == topPlayer
-            || (translateY == -1 &&  _currentPosition.top - topPlayer < 3)
-            || (translateY == 1 && topPlayer - _currentPosition.top < 3)){
+        if(currentPosition.top == topPlayer
+            || (translateY == -1 &&  currentPosition.top - topPlayer < 3)
+            || (translateY == 1 && topPlayer - currentPosition.top < 3)){
           translateY = 0;
         }
 
@@ -150,7 +154,7 @@ abstract class Enemy extends AnimationGameObject{
   }
 
   bool _arrivedNext(Rect player) {
-    return _currentPosition.overlaps(player);
+    return currentPosition.overlaps(player);
   }
 
   bool _occurredCollision(double leftPlayer,double topPlayer){
@@ -162,8 +166,8 @@ abstract class Enemy extends AnimationGameObject{
     var left = _map.paddingLeft;
     var top = _map.paddingTop;
     double displacementCollision = size/2;
-    double translateXToCollision = _currentPosition.left > leftPlayer ? (displacementCollision *-1):displacementCollision;
-    double translateYToCollision = _currentPosition.top > topPlayer? (displacementCollision *-1):displacementCollision;
+    double translateXToCollision = currentPosition.left > leftPlayer ? (displacementCollision *-1):displacementCollision;
+    double translateYToCollision = currentPosition.top > topPlayer? (displacementCollision *-1):displacementCollision;
     var moveToCurrent = position.translate(translateXToCollision + left , translateYToCollision + top);
     return _map.verifyCollision(moveToCurrent);
   }
@@ -173,6 +177,9 @@ abstract class Enemy extends AnimationGameObject{
       return;
     }
     _timer = Timer.periodic(new Duration(milliseconds: intervalAtack), (timer) {
+      if(isDie()){
+        return;
+      }
       if(_closePlayer){
         attack();
       }
@@ -213,6 +220,28 @@ abstract class Enemy extends AnimationGameObject{
       _isIdle = false;
       animation = animationMoveBottom;
     }
+  }
+
+  void receiveDamage(double damage){
+    if(isDie()){
+      return;
+    }
+    life = life - damage;
+    if(life < 0){
+      life = 0;
+    }
+    if(life == 0){
+      _die();
+    }
+  }
+
+  bool isDie(){
+    return life ==0;
+  }
+
+  void _die() {
+    animation = FlameAnimation.Animation.sequenced("crypt.png", 1,
+        textureWidth: 16, textureHeight: 16);
   }
 
 }

@@ -8,6 +8,7 @@ class Player extends AnimationGameObject {
   double life;
   MapGame map;
   final double size;
+  final double damageAtack;
   final Size screenSize;
   final double speedPlayer;
   final Function(double) changeLife;
@@ -31,6 +32,7 @@ class Player extends AnimationGameObject {
       Rect position,
       this.animationIdle,
       {
+        this.damageAtack = 1,
         this.life = 1,
         this.speedPlayer = 1,
         this.animationMoveLeft,
@@ -363,6 +365,8 @@ class Player extends AnimationGameObject {
       atackObject.animation.clock = 0;
       atackObject.animation.currentIndex = 0;
       atackObject.animation.loop = true;
+
+      map.atackEnemy(atackObject.position, damageAtack);
 
   }
 }

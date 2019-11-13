@@ -59,7 +59,7 @@ class Controller {
     var radius = (tileSize * backgroundAspectRatio) / 2;
 
     Offset osBackground = Offset(
-        radius + radius,
+        radius * 3,
         screenSize.height - (radius + radius)
     );
     backgroundRect = Rect.fromCircle(

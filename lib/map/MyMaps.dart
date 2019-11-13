@@ -146,11 +146,11 @@ class MyMaps{
 
         if(indexRow >= 4 && indexRow <= 10 && indexColumm >= 3 && indexColumm <= 28){
 
-          if(indexRow == 5 && indexColumm == 23){
+          if(indexRow == 5 && indexColumm == 20){
             return TileMap(randomFloor(),enemy: SmileEnemy());
           }
 
-          if(indexRow == 10 && indexColumm == 23){
+          if(indexRow == 6 && indexColumm == 25){
             return TileMap(randomFloor(),enemy: SmileEnemy());
           }
 
