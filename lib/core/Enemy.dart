@@ -9,6 +9,7 @@ import 'package:flame/animation.dart' as FlameAnimation;
 abstract class Enemy extends AnimationGameObject{
 
   double life;
+  double _maxlife;
   final double speed;
   //millesegundos
   final int intervalAtack;
@@ -42,6 +43,7 @@ abstract class Enemy extends AnimationGameObject{
         this.animationMoveBottom,
       }
       ){
+    _maxlife = life;
     animation = animationIdle;
     this.position = Rect.fromLTWH(0, 0, size, size);
   }
@@ -62,6 +64,17 @@ abstract class Enemy extends AnimationGameObject{
       Rect player
       ){
     super.update(t);
+  }
+
+  @override
+  void renderRect(Canvas canvas, Rect position) {
+    super.renderRect(canvas, position);
+    double currentBarLife = (life*size)/_maxlife;
+    canvas.drawLine(Offset(currentPosition.left, currentPosition.top - 4),
+        Offset(currentPosition.left + currentBarLife, currentPosition.top - 4),
+        Paint()..color = Colors.red
+          ..strokeWidth = 2
+          ..style = PaintingStyle.fill);
   }
 
   void moveToHero(Rect player, Function() attack){

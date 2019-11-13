@@ -240,8 +240,6 @@ class MapWord implements MapGame {
 
   @override
   void atackEnemy(Rect position, double damage) {
-
-
     List<Enemy> enemyLife = enemies.where((e)=>!e.isDie()).toList();
     enemyLife.forEach((enemy){
       if(position.overlaps(enemy.currentPosition)){
