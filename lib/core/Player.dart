@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:darkness_dungeon/core/Direction.dart';
 import 'package:darkness_dungeon/core/map/MapWord.dart';
 import 'package:darkness_dungeon/core/AnimationGameObject.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +27,7 @@ class Player extends AnimationGameObject {
   final FlameAnimation.Animation animationAtackTop;
   final FlameAnimation.Animation animationAtackBottom;
   AnimationGameObject atackObject = AnimationGameObject();
-  String lastOrientation = "RIGHT";
+  Direction lasDirection = Direction.right;
 
   Player(
       this.size,
@@ -66,11 +69,11 @@ class Player extends AnimationGameObject {
 
     double top = position.top;
     double left = position.left;
-    switch(lastOrientation){
-      case "TOP": top = top-size; break;
-      case "BOTTOM": top = top+size; break;
-      case "LEFT": left = left-size; break;
-      case "RIGHT": left = left+size; break;
+    switch(lasDirection){
+      case Direction.top: top = top-size; break;
+      case Direction.bottom: top = top+size; break;
+      case Direction.left: left = left-size; break;
+      case Direction.right: left = left+size; break;
     }
 
     if(position != null){
@@ -112,7 +115,7 @@ class Player extends AnimationGameObject {
       map.moveTop(speedPlayer);
     }
 
-    lastOrientation = "TOP";
+    lasDirection = Direction.top;
 
     if(animationMoveTop != null){
       animation = animationMoveTop;
@@ -139,7 +142,7 @@ class Player extends AnimationGameObject {
       map.moveBottom(speedPlayer);
     }
 
-    lastOrientation = "BOTTOM";
+    lasDirection = Direction.bottom;
 
     if(animationMoveBottom != null){
       animation = animationMoveBottom;
@@ -166,7 +169,7 @@ class Player extends AnimationGameObject {
       map.moveLeft(speedPlayer);
     }
 
-    lastOrientation = "LEFT";
+    lasDirection = Direction.left;
 
     if(animationMoveLeft != null){
       animation = animationMoveLeft;
@@ -193,7 +196,7 @@ class Player extends AnimationGameObject {
       map.moveRight(speedPlayer);
     }
 
-    lastOrientation = "RIGHT";
+    lasDirection = Direction.right;
 
     if(animationMoveRight != null){
       animation = animationMoveRight;
@@ -355,18 +358,21 @@ class Player extends AnimationGameObject {
 
   void atack() {
 
-      switch(lastOrientation){
-        case "TOP": atackObject.animation = animationAtackTop; break;
-        case "BOTTOM": atackObject.animation = animationAtackBottom; break;
-        case "LEFT": atackObject.animation = animationAtackLeft; break;
-        case "RIGHT": atackObject.animation = animationAtackRight; break;
+      switch(lasDirection){
+        case Direction.top: atackObject.animation = animationAtackTop; break;
+        case Direction.bottom: atackObject.animation = animationAtackBottom; break;
+        case Direction.left: atackObject.animation = animationAtackLeft; break;
+        case Direction.right: atackObject.animation = animationAtackRight; break;
       }
 
       atackObject.animation.clock = 0;
       atackObject.animation.currentIndex = 0;
       atackObject.animation.loop = true;
 
-      map.atackEnemy(atackObject.position, damageAtack);
+      double damageMin = damageAtack /2;
+      int p = Random().nextInt(damageAtack.toInt() + (damageMin.toInt()));
+      double damage = damageMin + p;
+      map.atackEnemy(atackObject.position, damage,lasDirection);
 
   }
 }

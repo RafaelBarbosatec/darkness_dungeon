@@ -6,6 +6,7 @@ import 'package:darkness_dungeon/enemies/GoblinEnemy.dart';
 import 'package:darkness_dungeon/enemies/SmileEnemy.dart';
 import 'package:darkness_dungeon/core/map/TileMap.dart';
 import 'package:flutter/material.dart';
+import 'package:flame/animation.dart' as FlameAnimation;
 
 class MyMaps{
   static List<List<TileMap>> mainMap(Size size){
@@ -26,9 +27,16 @@ class MyMaps{
         }
         if(indexRow == 2 && indexColumm >=4 && indexColumm <= 28){
 
-          if(indexColumm %2 == 0){
+          if(indexColumm %4 == 0){
             return TileMap('tile/wall.png',
-                decoration: TileDecoration('itens/flag_red.png'));
+                decoration: TileDecoration('',
+                    animation: FlameAnimation.Animation.sequenced("itens/torch_spritesheet.png", 6, textureWidth: 16, textureHeight: 16)
+                ));
+          }
+
+          if(indexColumm %3 == 0){
+            return TileMap('tile/wall.png',
+                decoration: TileDecoration('itens/flag_red.png',));
           }
 
           if(indexColumm == 11){
@@ -150,8 +158,20 @@ class MyMaps{
             return TileMap(randomFloor(),enemy: SmileEnemy());
           }
 
-          if(indexRow == 6 && indexColumm == 25){
+          if(indexRow == 7 && indexColumm == 25){
             return TileMap(randomFloor(),enemy: SmileEnemy());
+          }
+
+          if(indexRow == 8 && indexColumm == 15){
+            return TileMap(randomFloor(),enemy: GoblinEnemy());
+          }
+
+          if(indexRow == 8 && indexColumm == 27){
+            return TileMap(randomFloor(),
+                collision: true,
+                decoration: TileDecoration('',
+                    animation: FlameAnimation.Animation.sequenced("itens/chest_spritesheet.png", 6, textureWidth: 16, textureHeight: 16)
+                ));
           }
 
           if(indexRow == 10 && indexColumm >=3 && indexColumm <=5) {

@@ -1,6 +1,7 @@
 
 import 'dart:async';
 
+import 'package:darkness_dungeon/core/Direction.dart';
 import 'package:darkness_dungeon/core/map/MapWord.dart';
 import 'package:darkness_dungeon/core/AnimationGameObject.dart';
 import 'package:flutter/material.dart';
@@ -230,7 +231,7 @@ abstract class Enemy extends AnimationGameObject{
     }
   }
 
-  void receiveDamage(double damage){
+  void receiveDamage(double damage,Direction direction){
     if(isDie()){
       return;
     }
@@ -238,6 +239,22 @@ abstract class Enemy extends AnimationGameObject{
     if(life < 0){
       life = 0;
     }
+
+    switch(direction){
+      case Direction.left:
+        position = Rect.fromLTWH(position.left - size, position.top, position.width, position.height);
+        break;
+      case Direction.right:
+        position = Rect.fromLTWH(position.left + size, position.top, position.width, position.height);
+        break;
+      case Direction.top:
+        position = Rect.fromLTWH(position.left, position.top - size, position.width, position.height);
+        break;
+      case Direction.bottom:
+        position = Rect.fromLTWH(position.left, position.top + size, position.width, position.height);
+        break;
+    }
+
     if(life == 0){
       _die();
     }
@@ -248,17 +265,30 @@ abstract class Enemy extends AnimationGameObject{
   }
 
   void _die() {
-    animation = FlameAnimation.Animation.sequenced("crypt.png", 1,
+    var animDie = FlameAnimation.Animation.sequenced("enemy_explosin.png", 5,
         textureWidth: 16, textureHeight: 16);
+    animDie.loop = false;
+    animation = animDie;
   }
 
   void _drawLife(Canvas canvas) {
     double currentBarLife = (life*size)/_maxlife;
     canvas.drawLine(Offset(currentPosition.left, currentPosition.top - 4),
         Offset(currentPosition.left + currentBarLife, currentPosition.top - 4),
-        Paint()..color = Colors.red
+        Paint()..color = _getColorLife(currentBarLife)
           ..strokeWidth = 2
           ..style = PaintingStyle.fill);
+  }
+
+  Color _getColorLife(double currentBarLife) {
+    if(currentBarLife > size - (size/3)){
+      return Colors.green;
+    }
+    if(currentBarLife > (size/3)){
+      return Colors.yellow;
+    }else{
+      return Colors.red;
+    }
   }
 
 }

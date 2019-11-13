@@ -66,12 +66,15 @@ flutter:
     - assets/images/itens/flag_green.png
     - assets/images/itens/prisoner.png
     - assets/images/itens/table.png
+    - assets/images/itens/chest_spritesheet.png
+    - assets/images/itens/torch_spritesheet.png
     - assets/images/health_ui.png
     - assets/images/crypt.png
     - assets/images/atack_effect_right.png
     - assets/images/atack_effect_left.png
     - assets/images/atack_effect_bottom.png
     - assets/images/atack_effect_top.png
+    - assets/images/enemy_explosin.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

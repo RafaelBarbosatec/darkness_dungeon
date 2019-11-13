@@ -1,4 +1,5 @@
 import 'package:darkness_dungeon/core/Decoration.dart';
+import 'package:darkness_dungeon/core/Direction.dart';
 import 'package:darkness_dungeon/core/Enemy.dart';
 import 'package:darkness_dungeon/core/map/TileMap.dart';
 import 'package:darkness_dungeon/core/Player.dart';
@@ -28,7 +29,7 @@ abstract class MapGame {
   bool isMaxBottom();
 
   void atackPlayer(double damage);
-  void atackEnemy(Rect position, double damage);
+  void atackEnemy(Rect position, double damage,Direction direction);
 }
 
 class MapWord implements MapGame {
@@ -145,6 +146,7 @@ class MapWord implements MapGame {
 
             if (tile.decoration != null) {
               tile.decoration.setPosition(tile.position);
+              tile.decoration.update(t);
               decorations.add(tile.decoration);
             }
 
@@ -239,11 +241,11 @@ class MapWord implements MapGame {
   }
 
   @override
-  void atackEnemy(Rect position, double damage) {
+  void atackEnemy(Rect position, double damage, Direction direction) {
     List<Enemy> enemyLife = enemies.where((e)=>!e.isDie()).toList();
     enemyLife.forEach((enemy){
       if(position.overlaps(enemy.currentPosition)){
-        enemy.receiveDamage(damage);
+        enemy.receiveDamage(damage,direction);
       }
     });
   }
