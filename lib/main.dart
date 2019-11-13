@@ -43,7 +43,8 @@ class GameWidget extends StatelessWidget {
         onPanStart: game.controller.onPanStart,
         onPanUpdate: game.controller.onPanUpdate,
         onPanEnd: game.controller.onPanEnd,
-        onTapDown: game.controller.onTapStart,
+        onTapDown: game.controller.onTapDown,
+        onTapUp: game.controller.onTapUp,
         child: Stack(
           children: <Widget>[
             game.widget,
@@ -67,6 +68,13 @@ class DarknessDungeon extends Game {
 
   DarknessDungeon(this.size, {this.recieveDamage}){
 
+    player = Knight(
+        size,
+        initX: size.width/5 - Knight.SIZE,
+        initY: size.height/3 - Knight.SIZE,
+        changeLife: recieveDamage
+    );
+
     controller = Controller(
         size,
         size.height / 10,
@@ -79,13 +87,7 @@ class DarknessDungeon extends Game {
         runTopRight,
         runBottomLeft,
         runBottomRight,
-    );
-    
-    player = Knight(
-        size,
-        initX: size.width/5 - Knight.SIZE,
-        initY: size.height/3 - Knight.SIZE,
-        changeLife: recieveDamage
+        player.atack
     );
 
     map = MapWord(

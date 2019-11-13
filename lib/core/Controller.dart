@@ -13,6 +13,10 @@ class Controller {
   Rect knobRect;
   Sprite knobSprite;
 
+  double atackAspectRatio = 2.0;
+  Rect atackRect;
+  Sprite atackSprite;
+
   bool dragging = false;
   Offset dragPosition;
 
@@ -27,6 +31,7 @@ class Controller {
   final Function() moveLeft;
   final Function() moveRight;
   final Function() idle;
+  final Function() atack;
 
   Controller(
       this.screenSize,
@@ -39,9 +44,11 @@ class Controller {
       this.moveTopLeft,
       this.moveTopRight,
       this.moveBottomLeft,
-      this.moveBottomRight) {
+      this.moveBottomRight,
+      this.atack) {
     backgroundSprite = Sprite('joystick_background.png');
     knobSprite = Sprite('joystick_knob.png');
+    atackSprite = Sprite('joystick_atack.png');
 
     initialize();
   }
@@ -72,12 +79,28 @@ class Controller {
         center: osKnob,
         radius: radius
     );
+
     dragPosition = knobRect.center;
+
+    radius = (tileSize * backgroundAspectRatio) / 2;
+    var radiusAtack = (tileSize * atackAspectRatio) / 2;
+
+    Offset atacknob = Offset(
+        screenSize.width - radius*2,
+        screenSize.height - (radius*2)
+    );
+
+    atackRect = Rect.fromCircle(
+        center: atacknob,
+        radius: radiusAtack
+    );
+
   }
 
   void render(Canvas canvas) {
     backgroundSprite.renderRect(canvas, backgroundRect);
     knobSprite.renderRect(canvas, knobRect);
+    atackSprite.renderRect(canvas, atackRect);
   }
 
   void update(double t) {
@@ -191,11 +214,17 @@ class Controller {
     }
   }
 
-  void onTapStart(TapDownDetails details){
-    print(details);
+  void onTapDown(TapDownDetails details){
     if (knobRect.contains(details.globalPosition)) {
       dragging = true;
     }
+    if (atackRect.contains(details.globalPosition)) {
+      atack();
+    }
+  }
+
+  void onTapUp(TapUpDetails details){
+
   }
 
   void onPanUpdate(DragUpdateDetails details) {

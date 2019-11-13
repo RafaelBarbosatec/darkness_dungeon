@@ -37,6 +37,7 @@ flutter:
   assets:
     - assets/images/joystick_background.png
     - assets/images/joystick_knob.png
+    - assets/images/joystick_atack.png
     - assets/images/knight_idle.png
     - assets/images/knight_run.png
     - assets/images/knight_run_left.png
@@ -67,6 +68,10 @@ flutter:
     - assets/images/itens/table.png
     - assets/images/health_ui.png
     - assets/images/crypt.png
+    - assets/images/atack_effect_right.png
+    - assets/images/atack_effect_left.png
+    - assets/images/atack_effect_bottom.png
+    - assets/images/atack_effect_top.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

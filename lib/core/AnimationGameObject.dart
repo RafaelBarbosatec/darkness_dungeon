@@ -7,18 +7,25 @@ class AnimationGameObject {
   FlameAnimation.Animation animation;
 
   void render(Canvas canvas) {
+    if(animation == null){
+      return;
+    }
     if (animation.loaded()) {
       animation.getSprite().renderRect(canvas, position);
     }
   }
 
   void renderRect(Canvas canvas,Rect position) {
+    if(animation == null){
+      return;
+    }
     if (animation.loaded()) {
       animation.getSprite().renderRect(canvas, position);
     }
   }
 
   void update(double dt) {
-    animation.update(dt);
+    if(animation != null)
+      animation.update(dt);
   }
 }

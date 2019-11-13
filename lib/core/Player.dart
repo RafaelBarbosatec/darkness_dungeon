@@ -7,6 +7,7 @@ class Player extends AnimationGameObject {
 
   double life;
   MapGame map;
+  final double size;
   final Size screenSize;
   final double speedPlayer;
   final Function(double) changeLife;
@@ -17,8 +18,15 @@ class Player extends AnimationGameObject {
   final FlameAnimation.Animation animationMoveTop;
   final FlameAnimation.Animation animationMoveBottom;
   final FlameAnimation.Animation animationDie;
+  final FlameAnimation.Animation animationAtackLeft;
+  final FlameAnimation.Animation animationAtackRight;
+  final FlameAnimation.Animation animationAtackTop;
+  final FlameAnimation.Animation animationAtackBottom;
+  AnimationGameObject atackObject = AnimationGameObject();
+  String lastOrientation = "RIGHT";
 
   Player(
+      this.size,
       this.screenSize,
       Rect position,
       this.animationIdle,
@@ -30,12 +38,56 @@ class Player extends AnimationGameObject {
         this.animationMoveTop,
         this.animationMoveBottom,
         this.animationDie,
+        this.animationAtackLeft,
+        this.animationAtackRight,
+        this.animationAtackTop,
+        this.animationAtackBottom,
         this.changeLife,
         this.callBackdie,
       }
       ){
     this.position = position;
     animation = animationIdle;
+  }
+
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+    if(life > 0) {
+      atackObject.render(canvas);
+    }
+  }
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+
+    double top = position.top;
+    double left = position.left;
+    switch(lastOrientation){
+      case "TOP": top = top-size; break;
+      case "BOTTOM": top = top+size; break;
+      case "LEFT": left = left-size; break;
+      case "RIGHT": left = left+size; break;
+    }
+
+    if(position != null){
+      atackObject.position = Rect.fromLTWH(
+          left,
+          top,
+          size,
+          size
+      );
+    }
+
+    atackObject.update(dt);
+
+    if(atackObject.animation != null){
+      if(atackObject.animation.isLastFrame){
+        atackObject.animation.loop = false;
+      }
+    }
+
   }
 
   void moveToTop() {
@@ -57,6 +109,8 @@ class Player extends AnimationGameObject {
     } else {
       map.moveTop(speedPlayer);
     }
+
+    lastOrientation = "TOP";
 
     if(animationMoveTop != null){
       animation = animationMoveTop;
@@ -83,6 +137,8 @@ class Player extends AnimationGameObject {
       map.moveBottom(speedPlayer);
     }
 
+    lastOrientation = "BOTTOM";
+
     if(animationMoveBottom != null){
       animation = animationMoveBottom;
     }
@@ -108,6 +164,8 @@ class Player extends AnimationGameObject {
       map.moveLeft(speedPlayer);
     }
 
+    lastOrientation = "LEFT";
+
     if(animationMoveLeft != null){
       animation = animationMoveLeft;
     }
@@ -132,6 +190,8 @@ class Player extends AnimationGameObject {
     } else {
       map.moveRight(speedPlayer);
     }
+
+    lastOrientation = "RIGHT";
 
     if(animationMoveRight != null){
       animation = animationMoveRight;
@@ -289,5 +349,20 @@ class Player extends AnimationGameObject {
     }
     animation = FlameAnimation.Animation.sequenced("crypt.png", 1,
         textureWidth: 16, textureHeight: 16);
+  }
+
+  void atack() {
+
+      switch(lastOrientation){
+        case "TOP": atackObject.animation = animationAtackTop; break;
+        case "BOTTOM": atackObject.animation = animationAtackBottom; break;
+        case "LEFT": atackObject.animation = animationAtackLeft; break;
+        case "RIGHT": atackObject.animation = animationAtackRight; break;
+      }
+
+      atackObject.animation.clock = 0;
+      atackObject.animation.currentIndex = 0;
+      atackObject.animation.loop = true;
+
   }
 }
