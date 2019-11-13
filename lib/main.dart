@@ -55,12 +55,13 @@ class GameWidget extends StatelessWidget {
                   onPanStart: game.controller.onPanStart,
                   onPanUpdate: game.controller.onPanUpdate,
                   onPanEnd: game.controller.onPanEnd,
+                  onTapDown: game.controller.onTapDown,
                   child: Container()),
             ),
             Expanded(
               child: GestureDetector(
                   behavior: HitTestBehavior.opaque,
-                  onTapDown: game.controller.onTapDown,
+                  onTapDown: game.controller.onTapDownAtack,
                   onTapUp: game.controller.onTapUp,
                   child: Container()),
             )

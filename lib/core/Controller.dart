@@ -214,12 +214,15 @@ class Controller {
     }
   }
 
+  void onTapDownAtack(TapDownDetails details){
+    if (atackRect.contains(details.globalPosition)) {
+      atack();
+    }
+  }
+
   void onTapDown(TapDownDetails details){
     if (knobRect.contains(details.globalPosition)) {
       dragging = true;
-    }
-    if (atackRect.contains(details.globalPosition)) {
-      atack();
     }
   }
 
