@@ -18,11 +18,12 @@ class TileMap{
 
   TileMap(this.spriteImg,{this.collision = false,this.enemy,this.decoration,this.size = TileMap.DEFAULT_SIZE}) {
     position = Rect.fromLTWH(0,0, size, size);
-    spriteTile = Sprite(spriteImg.isEmpty? "tile/empty.png": spriteImg);
+    spriteTile = Sprite(spriteImg);
   }
 
   void render(Canvas canvas) {
-    spriteTile.renderRect(canvas, position);
+    if(spriteImg.isNotEmpty)
+      spriteTile.renderRect(canvas, position);
   }
 
 }

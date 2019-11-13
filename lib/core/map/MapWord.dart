@@ -54,7 +54,12 @@ class MapWord implements MapGame {
         if (list.length > maxLeft) {
           maxLeft = list.length.toDouble();
         }
+        var en = list.where((i) => i.enemy != null).toList();
+        en.forEach((item) {
+          enemies.add(item.enemy);
+        });
       });
+      
       maxLeft = maxLeft * map[0][0].size - screenSize.width;
     }
   }
@@ -88,16 +93,17 @@ class MapWord implements MapGame {
   }
 
   void _renderEnemy(Enemy enemy,Canvas canvas) {
+
     Rect positionFromMap = Rect.fromLTWH(
         enemy.position.left + paddingLeft,
         enemy.position.top + paddingTop,
         enemy.position.width,
         enemy.position.height);
 
-    if ((positionFromMap.left < screenSize.width + positionFromMap.width &&
-        positionFromMap.left > (positionFromMap.width * -1)) &&
-        (positionFromMap.top < screenSize.height + positionFromMap.height &&
-            positionFromMap.top > (positionFromMap.height * -1))) {
+    if ((positionFromMap.left < screenSize.width + positionFromMap.width *2  &&
+        positionFromMap.left > (positionFromMap.width * -2)) &&
+        (positionFromMap.top < screenSize.height + positionFromMap.height *2 &&
+            positionFromMap.top > (positionFromMap.height * -2))) {
       enemy.renderRect(canvas, positionFromMap);
     }
   }
@@ -107,7 +113,6 @@ class MapWord implements MapGame {
     int countY = 0;
     collisions.clear();
     tilesMap.clear();
-    enemies.clear();
     decorations.clear();
     map.forEach((tiles) {
 
@@ -133,7 +138,6 @@ class MapWord implements MapGame {
             if (tile.enemy != null) {
               tile.enemy.setMap(this);
               tile.enemy.setInitPosition(tile.position);
-              enemies.add(tile.enemy);
             }
 
             if (tile.decoration != null) {
