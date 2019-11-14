@@ -259,11 +259,18 @@ class MapWord implements MapGame {
 
   @override
   void resetMap(List<List<TileMap>> map) {
-    collisions.clear();
-    tilesMap.clear();
+    this.map.forEach((item){
+      item.forEach((i){
+        if(i.enemy != null) {
+          i.enemy.destroy();
+        }
+      });
+    });
     enemies.clear();
-    decorations.clear();
-    map = map;
+    paddingLeft = 0;
+    paddingTop = 0;
+
+    this.map = map;
     inicializeMap();
   }
 

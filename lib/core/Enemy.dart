@@ -291,4 +291,10 @@ abstract class Enemy extends AnimationGameObject{
     }
   }
 
+  void destroy(){
+    _map = null;
+    if(_timer != null && _timer.isActive)
+      _timer.cancel();
+  }
+
 }

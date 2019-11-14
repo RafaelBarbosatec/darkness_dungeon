@@ -171,6 +171,11 @@ class DarknessDungeon extends Game {
     player.reset(size.width/5 - Knight.SIZE,size.height/3 - Knight.SIZE);
 
     map.resetMap(MyMaps.mainMap(size));
+//    map = MapWord(
+//      MyMaps.mainMap(size),
+//      player,
+//      size,
+//    );
 
   }
 
