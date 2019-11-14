@@ -27,7 +27,7 @@ class MyMaps{
         }
         if(indexRow == 2 && indexColumm >=4 && indexColumm <= 28){
 
-          if(indexColumm %4 == 0){
+          if(indexColumm >= 15 && indexColumm < 28 && indexColumm %4 == 0){
             return TileMap('tile/wall.png',
                 decoration: TileDecoration('',
                     animation: FlameAnimation.Animation.sequenced("itens/torch_spritesheet.png", 6, textureWidth: 16, textureHeight: 16)
@@ -162,7 +162,7 @@ class MyMaps{
             return TileMap(randomFloor(),enemy: SmileEnemy());
           }
 
-          if(indexRow == 8 && indexColumm == 15){
+          if(indexRow == 8 && indexColumm == 18){
             return TileMap(randomFloor(),enemy: GoblinEnemy());
           }
 

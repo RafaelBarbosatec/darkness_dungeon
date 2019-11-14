@@ -29,8 +29,11 @@ class GameWidget extends StatelessWidget {
   GameWidget({Key key, this.size}) : super(key: key){
     game = DarknessDungeon(
         size,
-        recieveDamage: (damage){
+        changeLife: (damage){
           healthKey.currentState.updateHealth(damage);
+        },
+        changeStamina: (stamina){
+          healthKey.currentState.updateStamina(stamina);
         }
     );
   }
@@ -74,18 +77,20 @@ class GameWidget extends StatelessWidget {
 
 class DarknessDungeon extends Game {
   final Size size;
-  final Function(double) recieveDamage;
+  final Function(double) changeLife;
+  final Function(double) changeStamina;
   Player player;
   MapWord map;
   Controller controller;
 
-  DarknessDungeon(this.size, {this.recieveDamage}){
+  DarknessDungeon(this.size, {this.changeLife, this.changeStamina}){
 
     player = Knight(
         size,
         initX: size.width/5 - Knight.SIZE,
         initY: size.height/3 - Knight.SIZE,
-        changeLife: recieveDamage
+        changeLife: changeLife,
+        changeStamina: changeStamina
     );
 
     controller = Controller(

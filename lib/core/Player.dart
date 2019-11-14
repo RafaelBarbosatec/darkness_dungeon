@@ -1,5 +1,5 @@
+import 'dart:async';
 import 'dart:math';
-
 import 'package:darkness_dungeon/core/Direction.dart';
 import 'package:darkness_dungeon/core/map/MapWord.dart';
 import 'package:darkness_dungeon/core/AnimationGameObject.dart';
@@ -10,11 +10,14 @@ class Player extends AnimationGameObject {
 
   double life;
   MapGame map;
+  double stamina = 100;
+  double costStamina = 15;
   final double size;
   final double damageAtack;
   final Size screenSize;
   final double speedPlayer;
   final Function(double) changeLife;
+  final Function(double) changeStamina;
   final Function callBackdie;
   final FlameAnimation.Animation animationIdle;
   final FlameAnimation.Animation animationMoveLeft;
@@ -28,6 +31,7 @@ class Player extends AnimationGameObject {
   final FlameAnimation.Animation animationAtackBottom;
   AnimationGameObject atackObject = AnimationGameObject();
   Direction lasDirection = Direction.right;
+  Timer _timerStamina;
 
   Player(
       this.size,
@@ -48,6 +52,7 @@ class Player extends AnimationGameObject {
         this.animationAtackTop,
         this.animationAtackBottom,
         this.changeLife,
+        this.changeStamina,
         this.callBackdie,
       }
       ){
@@ -358,6 +363,18 @@ class Player extends AnimationGameObject {
 
   void atack() {
 
+    startTimeStamina();
+
+    if(stamina < costStamina){
+      return;
+    }
+
+    stamina = stamina - costStamina;
+
+    if(changeStamina != null){
+      changeStamina(stamina);
+    }
+
       switch(lasDirection){
         case Direction.top: atackObject.animation = animationAtackTop; break;
         case Direction.bottom: atackObject.animation = animationAtackBottom; break;
@@ -369,10 +386,29 @@ class Player extends AnimationGameObject {
       atackObject.animation.currentIndex = 0;
       atackObject.animation.loop = true;
 
+
+
       double damageMin = damageAtack /2;
       int p = Random().nextInt(damageAtack.toInt() + (damageMin.toInt()));
       double damage = damageMin + p;
       map.atackEnemy(atackObject.position, damage,lasDirection);
 
+  }
+
+  void startTimeStamina() {
+    if(_timerStamina != null && _timerStamina.isActive){
+      return;
+    }
+    _timerStamina = Timer.periodic(new Duration(milliseconds: 200), (timer) {
+      if(life == 0){
+        return;
+      }
+
+      stamina = stamina +1.5;
+      if(stamina > 100){
+        stamina = 100;
+      }
+      changeStamina(stamina);
+    });
   }
 }

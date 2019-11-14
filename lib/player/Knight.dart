@@ -9,8 +9,9 @@ class Knight extends Player {
   final double initX;
   final double initY;
   final Function(double) changeLife;
+  final Function(double) changeStamina;
 
-  Knight(Size screenSize, {this.callBackdie, this.changeLife,this.initX = 0.0, this.initY = 0.0}):super(
+  Knight(Size screenSize, {this.callBackdie, this.changeLife, this.changeStamina, this.initX = 0.0, this.initY = 0.0}):super(
       SIZE,
       screenSize,
       Rect.fromLTWH(initX - SIZE, initY - SIZE, SIZE, SIZE),
@@ -19,6 +20,7 @@ class Knight extends Player {
       life: 100,
       speedPlayer:2,
       changeLife:changeLife,
+      changeStamina:changeStamina,
       callBackdie: callBackdie,
       animationMoveRight: FlameAnimation.Animation.sequenced("knight_run.png", 6, textureWidth: 16, textureHeight: 16),
       animationMoveTop: FlameAnimation.Animation.sequenced("knight_run.png", 6, textureWidth: 16, textureHeight: 16),
