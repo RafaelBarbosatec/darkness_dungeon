@@ -107,7 +107,7 @@ class _GameWidgetState extends State<GameWidget> {
                   onPressed: (){
                     healthKey.currentState.updateHealth(100);
                     healthKey.currentState.updateStamina(100);
-                    game.initGame();
+                    game.resetGame();
                     Navigator.pop(context);
                   },
                   child: Image.asset('assets/play_again.png',height: 20,width: 100,),
@@ -130,10 +130,6 @@ class DarknessDungeon extends Game {
   Controller controller;
 
   DarknessDungeon(this.size, {this.changeLife, this.changeStamina, this.gameOver}){
-    initGame();
-  }
-
-  void initGame(){
 
     player = Knight(
         size,
@@ -146,6 +142,12 @@ class DarknessDungeon extends Game {
             gameOver();
           }
         }
+    );
+
+    map = MapWord(
+      MyMaps.mainMap(size),
+      player,
+      size,
     );
 
     controller = Controller(
@@ -162,12 +164,13 @@ class DarknessDungeon extends Game {
         runBottomRight,
         player.atack
     );
+  }
 
-    map = MapWord(
-      MyMaps.mainMap(size),
-      player,
-      size,
-    );
+  void resetGame(){
+
+    player.reset(size.width/5 - Knight.SIZE,size.height/3 - Knight.SIZE);
+
+    map.map = MyMaps.mainMap(size);
 
   }
 

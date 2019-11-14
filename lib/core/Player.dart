@@ -413,4 +413,12 @@ class Player extends AnimationGameObject {
       changeStamina(stamina);
     });
   }
+
+  void reset(double x, double y){
+    notifyDie = false;
+    this.animation = animationIdle;
+    this.position = Rect.fromLTWH(x - size, y - size, size, size);
+    stamina = 100;
+    life = 100;
+  }
 }

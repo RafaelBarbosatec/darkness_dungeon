@@ -33,7 +33,7 @@ abstract class MapGame {
 }
 
 class MapWord implements MapGame {
-  final List<List<TileMap>> map;
+  List<List<TileMap>> map;
   final Size screenSize;
   final Player player;
 
