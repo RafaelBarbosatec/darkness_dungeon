@@ -5,7 +5,7 @@ import 'dart:math';
 
 class Controller {
 
-  double backgroundAspectRatio = 2.5;
+  double backgroundAspectRatio = 2.2;
   Rect backgroundRect;
   Sprite backgroundSprite;
 
