@@ -28,11 +28,14 @@ abstract class MapGame {
 
   bool isMaxBottom();
 
+  void resetMap(List<List<TileMap>> map);
+
   void atackPlayer(double damage);
   void atackEnemy(Rect position, double damage,Direction direction);
 }
 
 class MapWord implements MapGame {
+
   List<List<TileMap>> map;
   final Size screenSize;
   final Player player;
@@ -50,6 +53,10 @@ class MapWord implements MapGame {
 
   MapWord(this.map,this.player, this.screenSize) {
     player.map = this;
+    inicializeMap();
+  }
+
+  void inicializeMap() {
     if(map.isNotEmpty && map[0].isNotEmpty) {
       maxTop = (map.length * map[0][0].size) - screenSize.height;
       map.forEach((list) {
@@ -61,7 +68,7 @@ class MapWord implements MapGame {
           enemies.add(item.enemy);
         });
       });
-      
+
       maxLeft = maxLeft * map[0][0].size - screenSize.width;
     }
   }
@@ -248,6 +255,16 @@ class MapWord implements MapGame {
         enemy.receiveDamage(damage,direction);
       }
     });
+  }
+
+  @override
+  void resetMap(List<List<TileMap>> map) {
+    collisions.clear();
+    tilesMap.clear();
+    enemies.clear();
+    decorations.clear();
+    map = map;
+    inicializeMap();
   }
 
 }

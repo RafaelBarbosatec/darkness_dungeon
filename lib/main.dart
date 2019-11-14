@@ -170,7 +170,7 @@ class DarknessDungeon extends Game {
 
     player.reset(size.width/5 - Knight.SIZE,size.height/3 - Knight.SIZE);
 
-    map.map = MyMaps.mainMap(size);
+    map.resetMap(MyMaps.mainMap(size));
 
   }
 
