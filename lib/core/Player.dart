@@ -32,6 +32,7 @@ class Player extends AnimationGameObject {
   AnimationGameObject atackObject = AnimationGameObject();
   Direction lasDirection = Direction.right;
   Timer _timerStamina;
+  bool notifyDie = false;
 
   Player(
       this.size,
@@ -354,7 +355,8 @@ class Player extends AnimationGameObject {
   }
 
   void die() {
-    if (callBackdie != null) {
+    if (callBackdie != null && !notifyDie) {
+      notifyDie = true;
       callBackdie();
     }
     animation = FlameAnimation.Animation.sequenced("crypt.png", 1,

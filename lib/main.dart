@@ -20,24 +20,39 @@ void main() async {
   ));
 }
 
-class GameWidget extends StatelessWidget {
+class GameWidget extends StatefulWidget {
 
   final Size size;
-  final GlobalKey<HealthBarState> healthKey = GlobalKey();
-  DarknessDungeon game;
 
   GameWidget({Key key, this.size}) : super(key: key){
+
+  }
+
+  @override
+  _GameWidgetState createState() => _GameWidgetState();
+}
+
+class _GameWidgetState extends State<GameWidget> {
+
+  DarknessDungeon game;
+  final GlobalKey<HealthBarState> healthKey = GlobalKey();
+
+  @override
+  void initState() {
     game = DarknessDungeon(
-        size,
+        widget.size,
         changeLife: (damage){
           healthKey.currentState.updateHealth(damage);
         },
         changeStamina: (stamina){
           healthKey.currentState.updateStamina(stamina);
+        },
+        gameOver: (){
+          _showDialogGameOver();
         }
     );
+    super.initState();
   }
-
   @override
   Widget build(BuildContext context) {
 
@@ -73,24 +88,62 @@ class GameWidget extends StatelessWidget {
       ],
     );
   }
+
+  void _showDialogGameOver() {
+
+    showDialog(
+        context: context,
+        builder: (context) {
+          return Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Image.asset('assets/game_over.png',height: 100,),
+                SizedBox(
+                  height: 10.0,
+                ),
+                RaisedButton(
+                  color: Colors.transparent,
+                  onPressed: (){
+                    game.initGame();
+                    Navigator.pop(context);
+                  },
+                  child: Image.asset('assets/play_again.png',height: 20,width: 100,),
+                )
+              ],
+            ),
+          );
+        });
+
+  }
 }
 
 class DarknessDungeon extends Game {
   final Size size;
   final Function(double) changeLife;
   final Function(double) changeStamina;
+  final Function() gameOver;
   Player player;
   MapWord map;
   Controller controller;
 
-  DarknessDungeon(this.size, {this.changeLife, this.changeStamina}){
+  DarknessDungeon(this.size, {this.changeLife, this.changeStamina, this.gameOver}){
+    initGame();
+  }
+
+  void initGame(){
 
     player = Knight(
         size,
         initX: size.width/5 - Knight.SIZE,
         initY: size.height/3 - Knight.SIZE,
         changeLife: changeLife,
-        changeStamina: changeStamina
+        changeStamina: changeStamina,
+        callBackdie: (){
+          if(gameOver != null){
+            gameOver();
+          }
+        }
     );
 
     controller = Controller(

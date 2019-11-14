@@ -75,6 +75,8 @@ flutter:
     - assets/images/atack_effect_bottom.png
     - assets/images/atack_effect_top.png
     - assets/images/enemy_explosin.png
+    - assets/game_over.png
+    - assets/play_again.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
