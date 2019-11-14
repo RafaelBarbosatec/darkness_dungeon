@@ -105,6 +105,8 @@ class _GameWidgetState extends State<GameWidget> {
                 RaisedButton(
                   color: Colors.transparent,
                   onPressed: (){
+                    healthKey.currentState.updateHealth(100);
+                    healthKey.currentState.updateStamina(100);
                     game.initGame();
                     Navigator.pop(context);
                   },
