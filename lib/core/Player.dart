@@ -399,7 +399,7 @@ class Player extends AnimationGameObject {
     if(_timerStamina != null && _timerStamina.isActive){
       return;
     }
-    _timerStamina = Timer.periodic(new Duration(milliseconds: 200), (timer) {
+    _timerStamina = Timer.periodic(new Duration(milliseconds: 150), (timer) {
       if(life == 0){
         return;
       }
