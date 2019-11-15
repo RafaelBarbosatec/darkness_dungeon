@@ -181,9 +181,8 @@ class Controller {
   }
 
   void onPanStart(DragStartDetails details) {
-    if (knobRect.contains(details.globalPosition)) {
+      initPositionJoystick(details.globalPosition);
       dragging = true;
-    }
   }
 
   void onTapDown(TapDownDetails details){
