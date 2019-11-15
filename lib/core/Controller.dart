@@ -54,40 +54,26 @@ class Controller {
   }
 
   void initialize() async {
-    // The circle radius calculation that will contain the background
-    // image of the joystick
-    var radius = (tileSize * backgroundAspectRatio) / 2;
 
-    Offset osBackground = Offset(
-        radius * 3,
-        screenSize.height - (radius + radius)
-    );
-    backgroundRect = Rect.fromCircle(
-        center: osBackground,
-        radius: radius
-    );
+  }
 
-    // The circle radius calculation that will contain the knob
-    // image of the joystick
-    radius = (tileSize * knobAspectRatio) / 2;
+  void render(Canvas canvas) {
+    if(dragging){
+      backgroundSprite.renderRect(canvas, backgroundRect);
+      knobSprite.renderRect(canvas, knobRect);
+    }
 
-    Offset osKnob = Offset(
-        backgroundRect.center.dx,
-        backgroundRect.center.dy
-    );
-    knobRect = Rect.fromCircle(
-        center: osKnob,
-        radius: radius
-    );
+    atackSprite.renderRect(canvas, atackRect);
+  }
 
-    dragPosition = knobRect.center;
+  void update(double t) {
+    //Button Atack
 
-    radius = (tileSize * backgroundAspectRatio) / 2;
     var radiusAtack = (tileSize * atackAspectRatio) / 2;
 
     Offset atacknob = Offset(
-        screenSize.width - radius*2,
-        screenSize.height - (radius*2)
+        screenSize.width - radiusAtack*2,
+        screenSize.height - (radiusAtack*2)
     );
 
     atackRect = Rect.fromCircle(
@@ -95,16 +81,9 @@ class Controller {
         radius: radiusAtack
     );
 
-  }
 
-  void render(Canvas canvas) {
-    backgroundSprite.renderRect(canvas, backgroundRect);
-    knobSprite.renderRect(canvas, knobRect);
-    atackSprite.renderRect(canvas, atackRect);
-  }
-
-  void update(double t) {
     if (dragging) {
+
       double _radAngle = atan2(
           dragPosition.dy - backgroundRect.center.dy,
           dragPosition.dx - backgroundRect.center.dx);
@@ -184,9 +163,9 @@ class Controller {
       // The maximum distance for the knob position the edge of
       // the background + half of its own size. The knob can wander in the
       // background image, but not outside.
-      dist = dist < (tileSize * backgroundAspectRatio / 2)
+      dist = dist < (tileSize * backgroundAspectRatio / 3)
           ? dist
-          : (tileSize * backgroundAspectRatio / 2);
+          : (tileSize * backgroundAspectRatio / 3);
 
       // Calculation the knob position
       double nextX = dist * cos(_radAngle);
@@ -198,13 +177,6 @@ class Controller {
           backgroundRect.center.dy + nextPoint.dy) - knobRect.center;
       knobRect = knobRect.shift(diff);
 
-    } else {
-      // The drag position is, at this moment, that of the center of the
-      // background of the joystick. It calculates the difference between this
-      // position and the current position of the knob to place the center of
-      // the background.
-      Offset diff = dragPosition - knobRect.center;
-      knobRect = knobRect.shift(diff);
     }
   }
 
@@ -214,16 +186,9 @@ class Controller {
     }
   }
 
-  void onTapDownAtack(TapDownDetails details){
-    if (atackRect.contains(details.globalPosition)) {
-      atack();
-    }
-  }
-
   void onTapDown(TapDownDetails details){
-    if (knobRect.contains(details.globalPosition)) {
+      initPositionJoystick(details.globalPosition);
       dragging = true;
-    }
   }
 
   void onTapUp(TapUpDetails details){
@@ -240,6 +205,44 @@ class Controller {
     dragging = false;
     dragPosition = backgroundRect.center;
     idle();
+  }
+
+  void onTapDownAtack(TapDownDetails details){
+    if (atackRect.contains(details.globalPosition)) {
+      atackAspectRatio = 1.95;
+      atack();
+    }
+  }
+
+  void onTapUpAtack(TapUpDetails details){
+    atackAspectRatio = 2.0;
+  }
+
+  void initPositionJoystick(Offset position) {
+    // The circle radius calculation that will contain the background
+    // image of the joystick
+    var radius = (tileSize * backgroundAspectRatio) / 2;
+
+    Offset osBackground = position;
+    backgroundRect = Rect.fromCircle(
+        center: osBackground,
+        radius: radius
+    );
+
+    // The circle radius calculation that will contain the knob
+    // image of the joystick
+    radius = (tileSize * knobAspectRatio) / 2;
+
+    Offset osKnob = Offset(
+        backgroundRect.center.dx,
+        backgroundRect.center.dy
+    );
+    knobRect = Rect.fromCircle(
+        center: osKnob,
+        radius: radius
+    );
+
+    dragPosition = knobRect.center;
   }
 
 }

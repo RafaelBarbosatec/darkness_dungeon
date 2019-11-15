@@ -80,7 +80,7 @@ class _GameWidgetState extends State<GameWidget> {
               child: GestureDetector(
                   behavior: HitTestBehavior.opaque,
                   onTapDown: game.controller.onTapDownAtack,
-                  onTapUp: game.controller.onTapUp,
+                  onTapUp: game.controller.onTapUpAtack,
                   child: Container()),
             )
           ],
