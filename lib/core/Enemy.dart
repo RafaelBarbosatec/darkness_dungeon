@@ -130,9 +130,21 @@ abstract class Enemy extends AnimationGameObject{
 
         _moveTo = position.translate(translateX, translateY);
 
-        if(_occurredCollision(leftPlayer, topPlayer)){
+        var collisionAll = _occurredCollision(player, translateX, translateY);
+        var collisionX = _occurredCollision(player, translateX, 0);
+        var collisionY = _occurredCollision(player, 0, translateY);
+
+        if(collisionAll && collisionX && collisionY){
           animation = animationIdle;
           return;
+        }
+
+        if(collisionAll && !collisionX){
+          _moveTo = position.translate(translateX, 0);
+        }
+
+        if(collisionAll && !collisionY){
+          _moveTo = position.translate(0, translateY);
         }
 
         if(_arrivedNext(player)){
@@ -166,18 +178,8 @@ abstract class Enemy extends AnimationGameObject{
     return currentPosition.overlaps(player);
   }
 
-  bool _occurredCollision(double leftPlayer,double topPlayer){
-
-    if(_map == null){
-      return false;
-    }
-
-    var left = _map.paddingLeft;
-    var top = _map.paddingTop;
-    double displacementCollision = size/2;
-    double translateXToCollision = currentPosition.left > leftPlayer ? (displacementCollision *-1):displacementCollision;
-    double translateYToCollision = currentPosition.top > topPlayer? (displacementCollision *-1):displacementCollision;
-    var moveToCurrent = position.translate(translateXToCollision + left , translateYToCollision + top);
+  bool _occurredCollision(Rect player, double translateX,double translateY){
+    var moveToCurrent = currentPosition.translate(translateX, translateY);
     return _map.verifyCollision(moveToCurrent);
   }
 

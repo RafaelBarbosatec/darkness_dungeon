@@ -192,7 +192,7 @@ class Controller {
   }
 
   void onTapUp(TapUpDetails details){
-
+    dragging = false;
   }
 
   void onPanUpdate(DragUpdateDetails details) {

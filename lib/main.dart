@@ -74,6 +74,7 @@ class _GameWidgetState extends State<GameWidget> {
                   onPanUpdate: game.controller.onPanUpdate,
                   onPanEnd: game.controller.onPanEnd,
                   onTapDown: game.controller.onTapDown,
+                  onTapUp: game.controller.onTapUp,
                   child: Container()),
             ),
             Expanded(
