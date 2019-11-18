@@ -39,6 +39,7 @@ flutter:
     - assets/images/joystick_knob.png
     - assets/images/joystick_atack.png
     - assets/images/knight_idle.png
+    - assets/images/knight_idle_left.png
     - assets/images/knight_run.png
     - assets/images/knight_run_left.png
     - assets/images/tile/floor_1.png

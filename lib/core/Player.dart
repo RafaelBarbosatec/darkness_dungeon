@@ -20,6 +20,7 @@ class Player extends AnimationGameObject {
   final Function(double) changeStamina;
   final Function callBackdie;
   final FlameAnimation.Animation animationIdle;
+  final FlameAnimation.Animation animationIdleLeft;
   final FlameAnimation.Animation animationMoveLeft;
   final FlameAnimation.Animation animationMoveRight;
   final FlameAnimation.Animation animationMoveTop;
@@ -31,8 +32,10 @@ class Player extends AnimationGameObject {
   final FlameAnimation.Animation animationAtackBottom;
   AnimationGameObject atackObject = AnimationGameObject();
   Direction lasDirection = Direction.right;
+  Direction lasDirectionHotizontal = Direction.right;
   Timer _timerStamina;
   bool notifyDie = false;
+  Rect initPosition;
 
   Player(
       this.size,
@@ -43,6 +46,7 @@ class Player extends AnimationGameObject {
         this.damageAtack = 1,
         this.life = 1,
         this.speedPlayer = 1,
+        this.animationIdleLeft,
         this.animationMoveLeft,
         this.animationMoveRight,
         this.animationMoveTop,
@@ -57,6 +61,7 @@ class Player extends AnimationGameObject {
         this.callBackdie,
       }
       ){
+    initPosition = position;
     this.position = position;
     animation = animationIdle;
   }
@@ -176,6 +181,7 @@ class Player extends AnimationGameObject {
     }
 
     lasDirection = Direction.left;
+    lasDirectionHotizontal = Direction.left;
 
     if(animationMoveLeft != null){
       animation = animationMoveLeft;
@@ -203,6 +209,7 @@ class Player extends AnimationGameObject {
     }
 
     lasDirection = Direction.right;
+    lasDirectionHotizontal = Direction.right;
 
     if(animationMoveRight != null){
       animation = animationMoveRight;
@@ -338,7 +345,12 @@ class Player extends AnimationGameObject {
     if (life == 0) {
       return;
     }
-    animation = animationIdle;
+
+    if(lasDirectionHotizontal == Direction.right) {
+      animation = animationIdle;
+    }else{
+      animation = animationIdleLeft;
+    }
   }
 
   void recieveAtack(double damage){
@@ -417,7 +429,7 @@ class Player extends AnimationGameObject {
   void reset(double x, double y){
     notifyDie = false;
     this.animation = animationIdle;
-    this.position = Rect.fromLTWH(x - size, y - size, size, size);
+    this.position = initPosition;
     stamina = 100;
     life = 100;
   }

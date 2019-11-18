@@ -134,8 +134,8 @@ class DarknessDungeon extends Game {
 
     player = Knight(
         size,
-        initX: size.width/5 - Knight.SIZE,
-        initY: size.height/3 - Knight.SIZE,
+        initX: 3,
+        initY: 3,
         changeLife: changeLife,
         changeStamina: changeStamina,
         callBackdie: (){
@@ -169,7 +169,7 @@ class DarknessDungeon extends Game {
 
   void resetGame(){
 
-    player.reset(size.width/5 - Knight.SIZE,size.height/3 - Knight.SIZE);
+    player.reset(3,3);
 
     map.resetMap(MyMaps.mainMap(size));
 //    map = MapWord(
