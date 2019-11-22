@@ -10,8 +10,6 @@ abstract class MapGame {
   double paddingLeft = 0;
   double paddingTop = 0;
 
-  bool verifyCollision(Rect rect);
-
   void moveRight(double displacement);
 
   void moveBottom(double displacement);
@@ -30,7 +28,6 @@ abstract class MapGame {
 
   void resetMap(List<List<TileMap>> map);
 
-  void atackPlayer(double damage);
   void atackEnemy(Rect position, double damage,Direction direction);
 }
 
@@ -46,7 +43,7 @@ class MapWord implements MapGame {
   double maxLeft = 0;
   bool maxRight = false;
   bool maxBottom = false;
-  List<TileMap> collisions = List();
+  List<Rect> collisionsRect = List();
   List<TileMap> tilesMap = List();
   List<Enemy> enemies = List();
   List<TileDecoration> decorations = List();
@@ -77,9 +74,7 @@ class MapWord implements MapGame {
 
     var decorationFront = List<TileDecoration>();
 
-    tilesMap.forEach((tile){
-      tile.render(canvas);
-    });
+    tilesMap.forEach((tile) => tile.render(canvas));
 
     decorations.forEach((decoration){
       if(decoration.frontFromPlayer){
@@ -89,38 +84,30 @@ class MapWord implements MapGame {
       }
     });
 
-    enemies.forEach((enemy){
-      _renderEnemy(enemy,canvas);
-    });
+    enemies.forEach((enemy) => _renderEnemy(enemy,canvas));
 
     player.render(canvas);
 
-    decorationFront.forEach((d){
-      d.render(canvas);
-    });
+    decorationFront.forEach((d) => d.render(canvas));
 
   }
 
   void _renderEnemy(Enemy enemy,Canvas canvas) {
 
-    Rect positionFromMap = Rect.fromLTWH(
-        enemy.position.left + paddingLeft,
-        enemy.position.top + paddingTop,
-        enemy.position.width,
-        enemy.position.height);
+    Rect positionFromMap = enemy.position;
 
     if ((positionFromMap.left < screenSize.width + positionFromMap.width *2  &&
         positionFromMap.left > (positionFromMap.width * -2)) &&
         (positionFromMap.top < screenSize.height + positionFromMap.height *2 &&
             positionFromMap.top > (positionFromMap.height * -2))) {
-      enemy.renderRect(canvas, positionFromMap);
+      enemy.render(canvas);
     }
   }
 
   void update(double t) {
 
     int countY = 0;
-    collisions.clear();
+    collisionsRect.clear();
     tilesMap.clear();
     decorations.clear();
     map.forEach((tiles) {
@@ -143,11 +130,11 @@ class MapWord implements MapGame {
               tilesMap.add(tile);
 
             if(tile.collision){
-              collisions.add(tile);
+              collisionsRect.add(tile.position);
+              //collisions.add(tile);
             }
 
             if (tile.enemy != null) {
-              tile.enemy.setMap(this);
               tile.enemy.setInitPosition(tile.position);
             }
 
@@ -166,24 +153,9 @@ class MapWord implements MapGame {
       countY++;
     });
 
-    enemies.forEach((enemy){
-      enemy.updateEnemy(t, player.position);
-    });
+    enemies.forEach((enemy) => enemy.updateEnemy(t, player,paddingLeft,paddingTop,collisionsRect));
 
-    player.update(t);
-  }
-
-  @override
-  bool verifyCollision(Rect rect) {
-
-    Rect comp = Rect.fromLTWH(rect.left, rect.top + (rect.height / 2),
-        rect.width / 1.5, rect.height / 3);
-
-    var itensC = collisions.where((i) {
-      return i.position.overlaps(comp);
-    }).toList();
-
-    return itensC.length > 0;
+    player.updatePlayer(t,collisionsRect);
   }
 
   void moveRight(double displacement) {
@@ -243,15 +215,10 @@ class MapWord implements MapGame {
   }
 
   @override
-  void atackPlayer(double damage) {
-    player.recieveAtack(damage);
-  }
-
-  @override
   void atackEnemy(Rect position, double damage, Direction direction) {
     List<Enemy> enemyLife = enemies.where((e)=>!e.isDie()).toList();
     enemyLife.forEach((enemy){
-      if(position.overlaps(enemy.currentPosition)){
+      if(position.overlaps(enemy.position)){
         enemy.receiveDamage(damage,direction);
       }
     });

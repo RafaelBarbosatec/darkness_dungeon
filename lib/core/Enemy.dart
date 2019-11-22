@@ -2,12 +2,13 @@
 import 'dart:async';
 
 import 'package:darkness_dungeon/core/Direction.dart';
-import 'package:darkness_dungeon/core/map/MapWord.dart';
+import 'package:darkness_dungeon/core/ObjectCollision.dart';
+import 'package:darkness_dungeon/core/Player.dart';
 import 'package:darkness_dungeon/core/AnimationGameObject.dart';
 import 'package:flutter/material.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 
-abstract class Enemy extends AnimationGameObject{
+abstract class Enemy extends AnimationGameObject with ObjectCollision{
 
   double life;
   double _maxlife;
@@ -16,14 +17,14 @@ abstract class Enemy extends AnimationGameObject{
   final int intervalAtack;
   final double visionCells;
   final double size;
+  final FlameAnimation.Animation animationDie;
   final FlameAnimation.Animation animationIdle;
   final FlameAnimation.Animation animationMoveLeft;
   final FlameAnimation.Animation animationMoveRight;
   final FlameAnimation.Animation animationMoveTop;
   final FlameAnimation.Animation animationMoveBottom;
 
-  MapGame _map;
-  Rect currentPosition;
+  Rect _currentPosition;
   bool _isSetPosition = false;
   bool _closePlayer = false;
   bool _isIdle = true;
@@ -42,11 +43,14 @@ abstract class Enemy extends AnimationGameObject{
         this.animationMoveRight,
         this.animationMoveTop,
         this.animationMoveBottom,
+        this.animationDie,
       }
       ){
     _maxlife = life;
     animation = animationIdle;
     this.position = Rect.fromLTWH(0, 0, size, size);
+    this._currentPosition = this.position;
+    rectCollision = _getRectCollision();
   }
 
   setInitPosition(Rect position){
@@ -56,24 +60,25 @@ abstract class Enemy extends AnimationGameObject{
     }
   }
 
-  void setMap(MapGame m){
-    _map = m;
-  }
-
-  void updateEnemy(
-      double t,
-      Rect player
-      ){
+  void updateEnemy(double t, Player player, double mapPaddingLeft, double mapPaddingTop, List<Rect> collisionsMap){
+    this.collisionsMap = collisionsMap;
+    _currentPosition = Rect.fromLTWH(
+        position.left + mapPaddingLeft,
+        position.top + mapPaddingTop,
+        position.width,
+        position.height
+    );
+    rectCollision = _getRectCollision();
     super.update(t);
   }
 
   @override
-  void renderRect(Canvas canvas, Rect position) {
-    super.renderRect(canvas, position);
+  void render(Canvas canvas) {
     _drawLife(canvas);
+    super.renderRect(canvas, _currentPosition);
   }
 
-  void moveToHero(Rect player, Function() attack){
+  void moveToHero(Player player, Function() attack){
 
     if(isDie()){
       return;
@@ -81,36 +86,28 @@ abstract class Enemy extends AnimationGameObject{
 
     if(player != null){
 
-      //CALCULA POSIÇÃO ATUAL DO INIMIGO LEVANDO EM BASE A POSIÇÃO DA CAMARA
-      currentPosition = Rect.fromLTWH(
-          position.left + (_map != null ? _map.paddingLeft : 0),
-          position.top + (_map != null ? _map.paddingTop : 0),
-          position.width,
-          position.height
-      );
-
       // CRIA COMPO DE VISÃO DO INIMIGO
-      double visionWidth = currentPosition.width * visionCells*2;
-      double visionHeight = currentPosition.height * visionCells*2;
-      Rect fieldOfVision = Rect.fromLTWH(currentPosition.left - (visionWidth/2), currentPosition.top - (visionHeight/2), visionWidth, visionHeight);
+      double visionWidth = _currentPosition.width * visionCells*2;
+      double visionHeight = _currentPosition.height * visionCells*2;
+      Rect fieldOfVision = Rect.fromLTWH(_currentPosition.left - (visionWidth/2), _currentPosition.top - (visionHeight/2), visionWidth, visionHeight);
 
       //CALCULA CENTRO DO PLAYER
-      double leftPlayer = player.center.dx;
-      double topPlayer = player.center.dy;
+      double leftPlayer = player.position.center.dx;
+      double topPlayer = player.position.center.dy;
 
-      if(fieldOfVision.overlaps(player)){
+      if(fieldOfVision.overlaps(player.position)){
 
-        double translateX = currentPosition.left > leftPlayer ? (-1 * speed):speed;
-        double translateY = currentPosition.top > topPlayer? (-1 * speed):speed;
+        double translateX = _currentPosition.left > leftPlayer ? (-1 * speed):speed;
+        double translateY = _currentPosition.top > topPlayer? (-1 * speed):speed;
 
-        if(currentPosition.left == leftPlayer
-            || (translateX == -1 &&  currentPosition.left - leftPlayer < 3)
-            || (translateX == 1 && leftPlayer - currentPosition.left < 3)){
+        if(_currentPosition.left == leftPlayer
+            || (translateX == -1 &&  _currentPosition.left - leftPlayer < 3)
+            || (translateX == 1 && leftPlayer - _currentPosition.left < 3)){
           translateX = 0;
         }
-        if(currentPosition.top == topPlayer
-            || (translateY == -1 &&  currentPosition.top - topPlayer < 3)
-            || (translateY == 1 && topPlayer - currentPosition.top < 3)){
+        if(_currentPosition.top == topPlayer
+            || (translateY == -1 &&  _currentPosition.top - topPlayer < 3)
+            || (translateY == 1 && topPlayer - _currentPosition.top < 3)){
           translateY = 0;
         }
 
@@ -130,9 +127,9 @@ abstract class Enemy extends AnimationGameObject{
 
         _moveTo = position.translate(translateX, translateY);
 
-        var collisionAll = _occurredCollision(player, translateX, translateY);
-        var collisionX = _occurredCollision(player, translateX, 0);
-        var collisionY = _occurredCollision(player, 0, translateY);
+        var collisionAll = _occurredCollision(player.position, translateX, translateY);
+        var collisionX = _occurredCollision(player.position, translateX, 0);
+        var collisionY = _occurredCollision(player.position, 0, translateY);
 
         if(collisionAll && collisionX && collisionY){
           animation = animationIdle;
@@ -147,7 +144,7 @@ abstract class Enemy extends AnimationGameObject{
           _moveTo = position.translate(0, translateY);
         }
 
-        if(_arrivedNext(player)){
+        if(_arrivedNext(player.position)){
           if(!_closePlayer){
             attack();
           }
@@ -175,12 +172,12 @@ abstract class Enemy extends AnimationGameObject{
   }
 
   bool _arrivedNext(Rect player) {
-    return currentPosition.overlaps(player);
+    return _currentPosition.overlaps(player);
   }
 
   bool _occurredCollision(Rect player, double translateX,double translateY){
-    var moveToCurrent = currentPosition.translate(translateX, translateY);
-    return _map.verifyCollision(moveToCurrent);
+    var moveToCurrent = _currentPosition.translate(translateX, translateY);
+    return verifyCollisionRect(moveToCurrent);
   }
 
   void _verifyAtack(Function() attack) {
@@ -200,10 +197,6 @@ abstract class Enemy extends AnimationGameObject{
   void notSee() {
     _closePlayer = false;
     animation = animationIdle;
-  }
-
-  void atackPlayer(double damage){
-    _map.atackPlayer(damage);
   }
 
   void animToRight() {
@@ -258,7 +251,7 @@ abstract class Enemy extends AnimationGameObject{
     }
 
     if(life == 0){
-      _die();
+      _dieAnimation();
     }
   }
 
@@ -266,17 +259,17 @@ abstract class Enemy extends AnimationGameObject{
     return life ==0;
   }
 
-  void _die() {
-    var animDie = FlameAnimation.Animation.sequenced("enemy_explosin.png", 5,
-        textureWidth: 16, textureHeight: 16);
-    animDie.loop = false;
-    animation = animDie;
+  void _dieAnimation() {
+    if(animationDie != null){
+      animationDie.loop = false;
+      animation = animationDie;
+    }
   }
 
   void _drawLife(Canvas canvas) {
     double currentBarLife = (life*size)/_maxlife;
-    canvas.drawLine(Offset(currentPosition.left, currentPosition.top - 4),
-        Offset(currentPosition.left + currentBarLife, currentPosition.top - 4),
+    canvas.drawLine(Offset(_currentPosition.left, _currentPosition.top - 4),
+        Offset(_currentPosition.left + currentBarLife, _currentPosition.top - 4),
         Paint()..color = _getColorLife(currentBarLife)
           ..strokeWidth = 2
           ..style = PaintingStyle.fill);
@@ -294,9 +287,17 @@ abstract class Enemy extends AnimationGameObject{
   }
 
   void destroy(){
-    _map = null;
     if(_timer != null && _timer.isActive)
       _timer.cancel();
+  }
+
+  Rect _getRectCollision() {
+    return Rect.fromLTWH(
+        _currentPosition.left,
+        _currentPosition.top + (_currentPosition.height / 2),
+        _currentPosition.width / 1.5,
+        _currentPosition.height / 3
+    );
   }
 
 }

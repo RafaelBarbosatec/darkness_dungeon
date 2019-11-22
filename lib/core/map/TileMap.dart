@@ -23,7 +23,7 @@ class TileMap{
   }
 
   void render(Canvas canvas) {
-    if(_spriteTile != null)
+    if(_spriteTile.loaded())
       _spriteTile.renderRect(canvas, position);
   }
 

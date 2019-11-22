@@ -24,9 +24,7 @@ class GameWidget extends StatefulWidget {
 
   final Size size;
 
-  GameWidget({Key key, this.size}) : super(key: key){
-
-  }
+  GameWidget({Key key, this.size}) : super(key: key);
 
   @override
   _GameWidgetState createState() => _GameWidgetState();
@@ -122,7 +120,7 @@ class _GameWidgetState extends State<GameWidget> {
 }
 
 class DarknessDungeon extends Game {
-  final Size size;
+  Size size;
   final Function(double) changeLife;
   final Function(double) changeStamina;
   final Function() gameOver;
@@ -172,12 +170,13 @@ class DarknessDungeon extends Game {
     player.reset(3,3);
 
     map.resetMap(MyMaps.mainMap(size));
-//    map = MapWord(
-//      MyMaps.mainMap(size),
-//      player,
-//      size,
-//    );
 
+  }
+
+  @override
+  void resize(Size size) {
+    this.size = size;
+    super.resize(size);
   }
 
   void idle(){

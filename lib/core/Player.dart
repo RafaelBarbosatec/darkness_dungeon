@@ -1,12 +1,13 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:darkness_dungeon/core/Direction.dart';
+import 'package:darkness_dungeon/core/ObjectCollision.dart';
 import 'package:darkness_dungeon/core/map/MapWord.dart';
 import 'package:darkness_dungeon/core/AnimationGameObject.dart';
 import 'package:flutter/material.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 
-class Player extends AnimationGameObject {
+class Player extends AnimationGameObject with ObjectCollision {
 
   double life;
   MapGame map;
@@ -64,6 +65,7 @@ class Player extends AnimationGameObject {
     initPosition = position;
     this.position = position;
     animation = animationIdle;
+    rectCollision = getRectCollision();
   }
 
   @override
@@ -74,9 +76,10 @@ class Player extends AnimationGameObject {
     }
   }
 
-  @override
-  void update(double dt) {
+  void updatePlayer(double dt, List<Rect> collisionsMap) {
     super.update(dt);
+    this.collisionsMap = collisionsMap;
+    this.rectCollision = getRectCollision();
 
     double top = position.top;
     double left = position.left;
@@ -116,7 +119,8 @@ class Player extends AnimationGameObject {
       return;
     }
     Rect displacement = position.translate(0, (speedPlayer * -1));
-    if (map.verifyCollision(displacement)) {
+
+    if (verifyCollisionRect(displacement)) {
       return;
     }
 
@@ -143,7 +147,7 @@ class Player extends AnimationGameObject {
       return;
     }
     Rect displacement = position.translate(0, speedPlayer);
-    if (map.verifyCollision(displacement)) {
+    if (verifyCollisionRect(displacement)) {
       return;
     }
 
@@ -170,7 +174,7 @@ class Player extends AnimationGameObject {
       return;
     }
     Rect displacement = position.translate((speedPlayer * -1), 0);
-    if (map.verifyCollision(displacement)) {
+    if (verifyCollisionRect(displacement)) {
       return;
     }
 
@@ -199,7 +203,7 @@ class Player extends AnimationGameObject {
     }
 
     Rect displacement = position.translate(speedPlayer, 0);
-    if (map.verifyCollision(displacement)) {
+    if (verifyCollisionRect(displacement)) {
       return;
     }
     if (position.left < screenSize.width / 2 || map.isMaxRight()) {
@@ -231,7 +235,7 @@ class Player extends AnimationGameObject {
 
     Rect displacement = position.translate(speedPlayer,(-1 *speedPlayer));
 
-    if (map.verifyCollision(displacement)) {
+    if (verifyCollisionRect(displacement)) {
       return;
     }
 
@@ -262,7 +266,7 @@ class Player extends AnimationGameObject {
 
     Rect displacement = position.translate((-1 *speedPlayer), (-1 *speedPlayer));
 
-    if (map.verifyCollision(displacement)) {
+    if (verifyCollisionRect(displacement)) {
       return;
     }
 
@@ -293,7 +297,7 @@ class Player extends AnimationGameObject {
 
     Rect displacement = position.translate((-1 *speedPlayer), speedPlayer);
 
-    if (map.verifyCollision(displacement)) {
+    if (verifyCollisionRect(displacement)) {
       return;
     }
 
@@ -325,7 +329,7 @@ class Player extends AnimationGameObject {
 
     Rect displacement = position.translate(speedPlayer, speedPlayer);
 
-    if (map.verifyCollision(displacement)) {
+    if (verifyCollisionRect(displacement)) {
       return;
     }
 
@@ -427,10 +431,16 @@ class Player extends AnimationGameObject {
   }
 
   void reset(double x, double y){
+
     notifyDie = false;
     this.animation = animationIdle;
     this.position = initPosition;
     stamina = 100;
     life = 100;
   }
+
+  Rect getRectCollision() {
+    return Rect.fromLTWH(position.left, position.top + (position.height / 2), position.width / 1.5, position.height / 3);
+  }
+
 }

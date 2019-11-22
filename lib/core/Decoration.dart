@@ -21,14 +21,14 @@ class TileDecoration extends AnimationGameObject{
       spriteTile = Sprite(spriteImg);
   }
 
-  setPosition(Rect position){
+  void setPosition(Rect position){
     this.position = Rect.fromLTWH(position.left, position.top, this.position.width, this.position.height);
   }
 
   @override
   void render(Canvas canvas) {
     super.render(canvas);
-    if(spriteTile != null)
+    if(spriteTile != null && spriteTile.loaded())
       spriteTile.renderRect(canvas, position);
   }
 }
