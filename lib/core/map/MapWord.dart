@@ -155,7 +155,7 @@ class MapWord implements MapGame {
 
     enemies.forEach((enemy) => enemy.updateEnemy(t, player,paddingLeft,paddingTop,collisionsRect));
 
-    player.updatePlayer(t,collisionsRect);
+    player.updatePlayer(t,collisionsRect,decorations);
   }
 
   void moveRight(double displacement) {

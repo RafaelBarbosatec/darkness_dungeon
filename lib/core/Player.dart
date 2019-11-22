@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math';
+import 'package:darkness_dungeon/core/Decoration.dart';
 import 'package:darkness_dungeon/core/Direction.dart';
 import 'package:darkness_dungeon/core/ObjectCollision.dart';
 import 'package:darkness_dungeon/core/map/MapWord.dart';
@@ -76,7 +77,7 @@ class Player extends AnimationGameObject with ObjectCollision {
     }
   }
 
-  void updatePlayer(double dt, List<Rect> collisionsMap) {
+  void updatePlayer(double dt, List<Rect> collisionsMap, List<TileDecoration> decorations) {
     super.update(dt);
     this.collisionsMap = collisionsMap;
     this.rectCollision = getRectCollision();
@@ -403,7 +404,6 @@ class Player extends AnimationGameObject with ObjectCollision {
       atackObject.animation.clock = 0;
       atackObject.animation.currentIndex = 0;
       atackObject.animation.loop = true;
-
 
 
       double damageMin = damageAtack /2;
