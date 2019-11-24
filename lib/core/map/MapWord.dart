@@ -4,11 +4,7 @@ import 'package:darkness_dungeon/core/map/TileMap.dart';
 import 'package:darkness_dungeon/core/Player.dart';
 import 'package:flutter/material.dart';
 
-abstract class MapGame {
-
-  double paddingLeft = 0;
-  double paddingTop = 0;
-
+abstract class MapControll{
   void moveRight(double displacement);
 
   void moveBottom(double displacement);
@@ -25,10 +21,16 @@ abstract class MapGame {
 
   bool isMaxBottom();
 
+}
+abstract class MapGame {
+
+  double paddingLeft = 0;
+  double paddingTop = 0;
+
   void resetMap(List<List<TileMap>> map);
 }
 
-class MapWord implements MapGame {
+class MapWord implements MapGame,MapControll {
 
   List<List<TileMap>> map;
   final Size screenSize;
@@ -48,7 +50,7 @@ class MapWord implements MapGame {
   List<TileDecoration> decorations = List();
 
   MapWord(this.map,this.player, this.screenSize) {
-    player.map = this;
+    player.setMapControll(this);
     inicializeMap();
   }
 

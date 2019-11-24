@@ -12,7 +12,7 @@ import 'package:flame/animation.dart' as FlameAnimation;
 class Player extends AnimationGameObject with ObjectCollision {
 
   double life;
-  MapGame map;
+  MapControll _mapControll;
   double stamina = 100;
   double costStamina = 15;
   final double size;
@@ -79,6 +79,10 @@ class Player extends AnimationGameObject with ObjectCollision {
     }
   }
 
+  void setMapControll(MapControll mapControll){
+    _mapControll = mapControll;
+  }
+
   void updatePlayer(double dt, List<Rect> collisionsMap, List<Enemy> enemies, List<TileDecoration> decorations) {
     super.update(dt);
     this.collisionsMap = collisionsMap;
@@ -128,10 +132,10 @@ class Player extends AnimationGameObject with ObjectCollision {
       return;
     }
 
-    if (position.top > screenSize.height / 3 || map.isMaxTop()) {
+    if (position.top > screenSize.height / 3 || _mapControll.isMaxTop()) {
       position = displacement;
     } else {
-      map.moveTop(speedPlayer);
+      _mapControll.moveTop(speedPlayer);
     }
 
     lasDirection = Direction.top;
@@ -155,10 +159,10 @@ class Player extends AnimationGameObject with ObjectCollision {
       return;
     }
 
-    if (position.top < screenSize.height / 1.5 || map.isMaxBottom()) {
+    if (position.top < screenSize.height / 1.5 || _mapControll.isMaxBottom()) {
       position = displacement;
     } else {
-      map.moveBottom(speedPlayer);
+      _mapControll.moveBottom(speedPlayer);
     }
 
     lasDirection = Direction.bottom;
@@ -182,10 +186,10 @@ class Player extends AnimationGameObject with ObjectCollision {
       return;
     }
 
-    if (position.left > screenSize.width / 3 || map.isMaxLeft()) {
+    if (position.left > screenSize.width / 3 || _mapControll.isMaxLeft()) {
       position = displacement;
     } else {
-      map.moveLeft(speedPlayer);
+      _mapControll.moveLeft(speedPlayer);
     }
 
     lasDirection = Direction.left;
@@ -210,10 +214,10 @@ class Player extends AnimationGameObject with ObjectCollision {
     if (verifyCollisionRect(displacement)) {
       return;
     }
-    if (position.left < screenSize.width / 1.5 || map.isMaxRight()) {
+    if (position.left < screenSize.width / 1.5 || _mapControll.isMaxRight()) {
       position = displacement;
     } else {
-      map.moveRight(speedPlayer);
+      _mapControll.moveRight(speedPlayer);
     }
 
     lasDirection = Direction.right;
@@ -244,17 +248,17 @@ class Player extends AnimationGameObject with ObjectCollision {
     }
 
     if (position.left < screenSize.width / 1.5
-        || map.isMaxRight()) {
+        || _mapControll.isMaxRight()) {
       position = displacement;
     } else {
-        map.moveRight(speedPlayer);
+      _mapControll.moveRight(speedPlayer);
     }
 
     if (position.top > screenSize.height / 3
-        || map.isMaxTop()) {
+        || _mapControll.isMaxTop()) {
       position = displacement;
     } else {
-      map.moveTop(speedPlayer);
+      _mapControll.moveTop(speedPlayer);
     }
 
     if(animationMoveRight != null){
@@ -282,17 +286,17 @@ class Player extends AnimationGameObject with ObjectCollision {
     }
 
     if (position.left > screenSize.width / 1.5
-        || map.isMaxLeft()) {
+        || _mapControll.isMaxLeft()) {
       position = displacement;
     } else {
-        map.moveLeft(speedPlayer);
+      _mapControll.moveLeft(speedPlayer);
     }
 
     if (position.top > screenSize.height / 3
-        || map.isMaxTop()) {
+        || _mapControll.isMaxTop()) {
       position = displacement;
     } else {
-      map.moveTop(speedPlayer);
+      _mapControll.moveTop(speedPlayer);
     }
 
     if(animationMoveLeft != null){
@@ -320,16 +324,16 @@ class Player extends AnimationGameObject with ObjectCollision {
     }
 
     if (position.left > screenSize.width / 1.5
-        || map.isMaxLeft()) {
+        || _mapControll.isMaxLeft()) {
       position = displacement;
     } else {
-        map.moveLeft(speedPlayer);
+      _mapControll.moveLeft(speedPlayer);
     }
 
-    if (position.top < screenSize.height / 1.5 || map.isMaxBottom()) {
+    if (position.top < screenSize.height / 1.5 || _mapControll.isMaxBottom()) {
       position = displacement;
     } else {
-      map.moveBottom(speedPlayer);
+      _mapControll.moveBottom(speedPlayer);
     }
 
     if(animationMoveLeft != null){
@@ -358,16 +362,16 @@ class Player extends AnimationGameObject with ObjectCollision {
     }
 
     if (position.left < screenSize.width / 1.5
-        || map.isMaxRight()) {
+        || _mapControll.isMaxRight()) {
       position = displacement;
     } else {
-        map.moveRight(speedPlayer);
+      _mapControll.moveRight(speedPlayer);
     }
 
-    if (position.top < screenSize.height / 1.5 || map.isMaxBottom()) {
+    if (position.top < screenSize.height / 1.5 || _mapControll.isMaxBottom()) {
       position = displacement;
     } else {
-      map.moveBottom(speedPlayer);
+      _mapControll.moveBottom(speedPlayer);
     }
 
     if(animationMoveRight != null){
