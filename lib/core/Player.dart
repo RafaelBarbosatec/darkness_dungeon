@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 import 'package:darkness_dungeon/core/Decoration.dart';
 import 'package:darkness_dungeon/core/Direction.dart';
+import 'package:darkness_dungeon/core/Enemy.dart';
 import 'package:darkness_dungeon/core/ObjectCollision.dart';
 import 'package:darkness_dungeon/core/map/MapWord.dart';
 import 'package:darkness_dungeon/core/AnimationGameObject.dart';
@@ -38,6 +39,7 @@ class Player extends AnimationGameObject with ObjectCollision {
   Timer _timerStamina;
   bool notifyDie = false;
   Rect initPosition;
+  List<Enemy> _enemies = List();
 
   Player(
       this.size,
@@ -77,10 +79,11 @@ class Player extends AnimationGameObject with ObjectCollision {
     }
   }
 
-  void updatePlayer(double dt, List<Rect> collisionsMap, List<TileDecoration> decorations) {
+  void updatePlayer(double dt, List<Rect> collisionsMap, List<Enemy> enemies, List<TileDecoration> decorations) {
     super.update(dt);
     this.collisionsMap = collisionsMap;
     this.rectCollision = getRectCollision();
+    this._enemies = enemies;
 
     double top = position.top;
     double left = position.left;
@@ -409,7 +412,13 @@ class Player extends AnimationGameObject with ObjectCollision {
       double damageMin = damageAtack /2;
       int p = Random().nextInt(damageAtack.toInt() + (damageMin.toInt()));
       double damage = damageMin + p;
-      map.atackEnemy(atackObject.position, damage,lasDirection);
+
+      List<Enemy> enemyLife = _enemies.where((e)=>!e.isDie()).toList();
+      enemyLife.forEach((enemy){
+        if(atackObject.position.overlaps(enemy.position)){
+          enemy.receiveDamage(damage,lasDirection);
+        }
+      });
 
   }
 

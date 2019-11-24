@@ -1,5 +1,4 @@
 import 'package:darkness_dungeon/core/Decoration.dart';
-import 'package:darkness_dungeon/core/Direction.dart';
 import 'package:darkness_dungeon/core/Enemy.dart';
 import 'package:darkness_dungeon/core/map/TileMap.dart';
 import 'package:darkness_dungeon/core/Player.dart';
@@ -27,8 +26,6 @@ abstract class MapGame {
   bool isMaxBottom();
 
   void resetMap(List<List<TileMap>> map);
-
-  void atackEnemy(Rect position, double damage,Direction direction);
 }
 
 class MapWord implements MapGame {
@@ -39,6 +36,8 @@ class MapWord implements MapGame {
 
   double paddingLeft = 0;
   double paddingTop = 0;
+  double _lastPaddingLeft = -1;
+  double _lastPaddingTop = -1;
   double maxTop = 0;
   double maxLeft = 0;
   bool maxRight = false;
@@ -106,56 +105,61 @@ class MapWord implements MapGame {
 
   void update(double t) {
 
-    int countY = 0;
-    collisionsRect.clear();
-    tilesMap.clear();
-    decorations.clear();
-    map.forEach((tiles) {
+    if(_lastPaddingLeft !=  paddingLeft || _lastPaddingTop != paddingTop) {
 
-      TileMap lastTile;
+      _lastPaddingLeft = paddingLeft;
+      _lastPaddingTop = paddingTop;
 
-      tiles[0].position = Rect.fromLTWH(paddingLeft, (countY * tiles[0].size).toDouble() + paddingTop, tiles[0].size, tiles[0].size);
+      int countY = 0;
+      collisionsRect.clear();
+      tilesMap.clear();
+      decorations.clear();
+      map.forEach((tiles) {
 
-      if (tiles[0].position.top < screenSize.height * (tiles[0].size * 2) && tiles[0].position.top > (tiles[0].size * -2)) {
+        TileMap lastTile;
 
-        tiles.forEach((tile) {
+        tiles[0].position = Rect.fromLTWH(
+            paddingLeft, (countY * tiles[0].size).toDouble() + paddingTop,
+            tiles[0].size, tiles[0].size);
 
-          if (lastTile != null) {
-            tile.position = lastTile.position.translate(lastTile.size, 0);
-          }
-
-          if (tile.position.left < screenSize.width + (tile.size * 2) && tile.position.left > (tile.size * -2)) {
-
-            if(tile.spriteImg.isNotEmpty)
-              tilesMap.add(tile);
-
-            if(tile.collision){
-              collisionsRect.add(tile.position);
-              //collisions.add(tile);
+        if (tiles[0].position.top < screenSize.height * (tiles[0].size * 2) &&
+            tiles[0].position.top > (tiles[0].size * -2)) {
+          tiles.forEach((tile) {
+            if (lastTile != null) {
+              tile.position = lastTile.position.translate(lastTile.size, 0);
             }
 
-            if (tile.enemy != null) {
-              tile.enemy.setInitPosition(tile.position);
+            if (tile.position.left < screenSize.width + (tile.size * 2) &&
+                tile.position.left > (tile.size * -2)) {
+              if (tile.spriteImg.isNotEmpty)
+                tilesMap.add(tile);
+
+              if (tile.collision) {
+                collisionsRect.add(tile.position);
+                //collisions.add(tile);
+              }
+
+              if (tile.enemy != null) {
+                tile.enemy.setInitPosition(tile.position);
+              }
+
+              if (tile.decoration != null) {
+                tile.decoration.setPosition(tile.position);
+                tile.decoration.update(t);
+                decorations.add(tile.decoration);
+              }
             }
 
-            if (tile.decoration != null) {
-              tile.decoration.setPosition(tile.position);
-              tile.decoration.update(t);
-              decorations.add(tile.decoration);
-            }
-
-          }
-
-          lastTile = tile;
-
-        });
-      }
-      countY++;
-    });
+            lastTile = tile;
+          });
+        }
+        countY++;
+      });
+    }
 
     enemies.forEach((enemy) => enemy.updateEnemy(t, player,paddingLeft,paddingTop,collisionsRect));
 
-    player.updatePlayer(t,collisionsRect,decorations);
+    player.updatePlayer(t,collisionsRect,enemies,decorations);
   }
 
   void moveRight(double displacement) {
@@ -212,16 +216,6 @@ class MapWord implements MapGame {
 
   bool isMaxBottom() {
     return (paddingTop * -1) >= maxTop;
-  }
-
-  @override
-  void atackEnemy(Rect position, double damage, Direction direction) {
-    List<Enemy> enemyLife = enemies.where((e)=>!e.isDie()).toList();
-    enemyLife.forEach((enemy){
-      if(position.overlaps(enemy.position)){
-        enemy.receiveDamage(damage,direction);
-      }
-    });
   }
 
   @override
