@@ -88,33 +88,7 @@ class Player extends AnimationGameObject with ObjectCollision {
     this.collisionsMap = collisionsMap;
     this.rectCollision = getRectCollision();
     this._enemies = enemies;
-
-    double top = position.top;
-    double left = position.left;
-    switch(lasDirection){
-      case Direction.top: top = top-size; break;
-      case Direction.bottom: top = top+size; break;
-      case Direction.left: left = left-size; break;
-      case Direction.right: left = left+size; break;
-    }
-
-    if(position != null){
-      atackObject.position = Rect.fromLTWH(
-          left,
-          top,
-          size,
-          size
-      );
-    }
-
-    atackObject.update(dt);
-
-    if(atackObject.animation != null){
-      if(atackObject.animation.isLastFrame){
-        atackObject.animation.loop = false;
-      }
-    }
-
+    _updateAtackObject(dt);
   }
 
   void moveToTop() {
@@ -484,6 +458,34 @@ class Player extends AnimationGameObject with ObjectCollision {
 
   Rect getRectCollision() {
     return Rect.fromLTWH(position.left, position.top + (position.height / 2), position.width / 1.5, position.height / 3);
+  }
+
+  void _updateAtackObject(double dt) {
+    double top = position.top;
+    double left = position.left;
+    switch(lasDirection){
+      case Direction.top: top = top-size; break;
+      case Direction.bottom: top = top+size; break;
+      case Direction.left: left = left-size; break;
+      case Direction.right: left = left+size; break;
+    }
+
+    if(position != null){
+      atackObject.position = Rect.fromLTWH(
+          left,
+          top,
+          size,
+          size
+      );
+    }
+
+    atackObject.update(dt);
+
+    if(atackObject.animation != null){
+      if(atackObject.animation.isLastFrame){
+        atackObject.animation.loop = false;
+      }
+    }
   }
 
 }
