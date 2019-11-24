@@ -155,7 +155,7 @@ class Player extends AnimationGameObject with ObjectCollision {
       return;
     }
 
-    if (position.top < screenSize.height / 2 || map.isMaxBottom()) {
+    if (position.top < screenSize.height / 1.5 || map.isMaxBottom()) {
       position = displacement;
     } else {
       map.moveBottom(speedPlayer);
@@ -210,7 +210,7 @@ class Player extends AnimationGameObject with ObjectCollision {
     if (verifyCollisionRect(displacement)) {
       return;
     }
-    if (position.left < screenSize.width / 2 || map.isMaxRight()) {
+    if (position.left < screenSize.width / 1.5 || map.isMaxRight()) {
       position = displacement;
     } else {
       map.moveRight(speedPlayer);
@@ -243,10 +243,17 @@ class Player extends AnimationGameObject with ObjectCollision {
       return;
     }
 
-    if (position.left < screenSize.width / 2 || map.isMaxRight() || map.isMaxTop()) {
+    if (position.left < screenSize.width / 1.5
+        || map.isMaxRight()) {
       position = displacement;
     } else {
-      map.moveRight(speedPlayer);
+        map.moveRight(speedPlayer);
+    }
+
+    if (position.top > screenSize.height / 3
+        || map.isMaxTop()) {
+      position = displacement;
+    } else {
       map.moveTop(speedPlayer);
     }
 
@@ -274,10 +281,17 @@ class Player extends AnimationGameObject with ObjectCollision {
       return;
     }
 
-    if (position.left > screenSize.width / 2 || map.isMaxLeft() || map.isMaxTop()) {
+    if (position.left > screenSize.width / 1.5
+        || map.isMaxLeft()) {
       position = displacement;
     } else {
-      map.moveLeft(speedPlayer);
+        map.moveLeft(speedPlayer);
+    }
+
+    if (position.top > screenSize.height / 3
+        || map.isMaxTop()) {
+      position = displacement;
+    } else {
       map.moveTop(speedPlayer);
     }
 
@@ -305,10 +319,16 @@ class Player extends AnimationGameObject with ObjectCollision {
       return;
     }
 
-    if (position.left > screenSize.width / 2 || map.isMaxLeft() || map.isMaxBottom()) {
+    if (position.left > screenSize.width / 1.5
+        || map.isMaxLeft()) {
       position = displacement;
     } else {
-      map.moveLeft(speedPlayer);
+        map.moveLeft(speedPlayer);
+    }
+
+    if (position.top < screenSize.height / 1.5 || map.isMaxBottom()) {
+      position = displacement;
+    } else {
       map.moveBottom(speedPlayer);
     }
 
@@ -337,10 +357,16 @@ class Player extends AnimationGameObject with ObjectCollision {
       return;
     }
 
-    if (position.left < screenSize.width / 2 || map.isMaxRight() || map.isMaxBottom()) {
+    if (position.left < screenSize.width / 1.5
+        || map.isMaxRight()) {
       position = displacement;
     } else {
-      map.moveRight(speedPlayer);
+        map.moveRight(speedPlayer);
+    }
+
+    if (position.top < screenSize.height / 1.5 || map.isMaxBottom()) {
+      position = displacement;
+    } else {
       map.moveBottom(speedPlayer);
     }
 
@@ -385,6 +411,10 @@ class Player extends AnimationGameObject with ObjectCollision {
 
   void atack() {
 
+    if(life <= 0){
+      return;
+    }
+
     startTimeStamina();
 
     if(stamina < costStamina){
@@ -397,28 +427,28 @@ class Player extends AnimationGameObject with ObjectCollision {
       changeStamina(stamina);
     }
 
-      switch(lasDirection){
-        case Direction.top: atackObject.animation = animationAtackTop; break;
-        case Direction.bottom: atackObject.animation = animationAtackBottom; break;
-        case Direction.left: atackObject.animation = animationAtackLeft; break;
-        case Direction.right: atackObject.animation = animationAtackRight; break;
+    switch(lasDirection){
+      case Direction.top: atackObject.animation = animationAtackTop; break;
+      case Direction.bottom: atackObject.animation = animationAtackBottom; break;
+      case Direction.left: atackObject.animation = animationAtackLeft; break;
+      case Direction.right: atackObject.animation = animationAtackRight; break;
+    }
+
+    atackObject.animation.clock = 0;
+    atackObject.animation.currentIndex = 0;
+    atackObject.animation.loop = true;
+
+
+    double damageMin = damageAtack /2;
+    int p = Random().nextInt(damageAtack.toInt() + (damageMin.toInt()));
+    double damage = damageMin + p;
+
+    List<Enemy> enemyLife = _enemies.where((e)=>!e.isDie()).toList();
+    enemyLife.forEach((enemy){
+      if(atackObject.position.overlaps(enemy.getCurrentPosition())){
+        enemy.receiveDamage(damage,lasDirection);
       }
-
-      atackObject.animation.clock = 0;
-      atackObject.animation.currentIndex = 0;
-      atackObject.animation.loop = true;
-
-
-      double damageMin = damageAtack /2;
-      int p = Random().nextInt(damageAtack.toInt() + (damageMin.toInt()));
-      double damage = damageMin + p;
-
-      List<Enemy> enemyLife = _enemies.where((e)=>!e.isDie()).toList();
-      enemyLife.forEach((enemy){
-        if(atackObject.position.overlaps(enemy.position)){
-          enemy.receiveDamage(damage,lasDirection);
-        }
-      });
+    });
 
   }
 

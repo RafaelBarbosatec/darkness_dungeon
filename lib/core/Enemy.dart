@@ -291,6 +291,9 @@ abstract class Enemy extends AnimationGameObject with ObjectCollision{
       _timer.cancel();
   }
 
+  Rect getCurrentPosition(){
+    return _currentPosition;
+  }
   Rect _getRectCollision() {
     return Rect.fromLTWH(
         _currentPosition.left,

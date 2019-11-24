@@ -93,7 +93,7 @@ class MapWord implements MapGame {
 
   void _renderEnemy(Enemy enemy,Canvas canvas) {
 
-    Rect positionFromMap = enemy.position;
+    Rect positionFromMap = enemy.getCurrentPosition();
 
     if ((positionFromMap.left < screenSize.width + positionFromMap.width *2  &&
         positionFromMap.left > (positionFromMap.width * -2)) &&
@@ -136,7 +136,6 @@ class MapWord implements MapGame {
 
               if (tile.collision) {
                 collisionsRect.add(tile.position);
-                //collisions.add(tile);
               }
 
               if (tile.enemy != null) {
@@ -145,7 +144,6 @@ class MapWord implements MapGame {
 
               if (tile.decoration != null) {
                 tile.decoration.setPosition(tile.position);
-                tile.decoration.update(t);
                 decorations.add(tile.decoration);
               }
             }
@@ -157,9 +155,10 @@ class MapWord implements MapGame {
       });
     }
 
-    enemies.forEach((enemy) => enemy.updateEnemy(t, player,paddingLeft,paddingTop,collisionsRect));
+    decorations.forEach((d)=> d.update(t));
+    enemies.forEach((enemy) => enemy.updateEnemy(t, player, paddingLeft, paddingTop, collisionsRect));
+    player.updatePlayer(t, collisionsRect, enemies, decorations);
 
-    player.updatePlayer(t,collisionsRect,enemies,decorations);
   }
 
   void moveRight(double displacement) {
