@@ -1,25 +1,23 @@
-
 import 'dart:math';
 
 import 'package:darkness_dungeon/core/Enemy.dart';
 import 'package:darkness_dungeon/core/Player.dart';
-import 'package:flutter/material.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
+import 'package:flutter/material.dart';
 
-class GoblinEnemy extends Enemy{
+class BossEnemy extends Enemy{
 
-  static const double SIZE = 20;
-  static const double DAMAGE = 15;
+  static const double DAMAGE = 5;
 
-  GoblinEnemy():super(
-      FlameAnimation.Animation.sequenced("goblin_idle.png", 6, textureWidth: 16, textureHeight: 16),
+  BossEnemy():super(
+      FlameAnimation.Animation.sequenced("boss_idle.png", 4, textureWidth: 32, textureHeight: 36),
       animationDie: FlameAnimation.Animation.sequenced("enemy_explosin.png", 5, textureWidth: 16, textureHeight: 16),
-      width:SIZE,
-      height:SIZE,
-      life: 50,
-      intervalAtack: 1000,
-      speed: 1.4,
-      visionCells: 5
+      width:32,
+      height:36,
+      life: 300,
+      intervalAtack: 500,
+      speed: 1.1,
+      visionCells: 4
   );
 
   @override

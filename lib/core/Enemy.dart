@@ -16,7 +16,8 @@ abstract class Enemy extends AnimationGameObject with ObjectCollision{
   //millesegundos
   final int intervalAtack;
   final double visionCells;
-  final double size;
+  final double height;
+  final double width;
   final FlameAnimation.Animation animationDie;
   final FlameAnimation.Animation animationIdle;
   final FlameAnimation.Animation animationMoveLeft;
@@ -34,7 +35,8 @@ abstract class Enemy extends AnimationGameObject with ObjectCollision{
   Enemy(
       this.animationIdle,
       {
-        this.size = 16,
+        this.height = 16,
+        this.width = 16,
         this.life = 1,
         this.speed = 1,
         this.intervalAtack = 500,
@@ -48,7 +50,7 @@ abstract class Enemy extends AnimationGameObject with ObjectCollision{
       ){
     _maxlife = life;
     animation = animationIdle;
-    this.position = Rect.fromLTWH(0, 0, size, size);
+    this.position = Rect.fromLTWH(0, 0, width, height);
     this._currentPosition = this.position;
     rectCollision = _getRectCollision();
   }
@@ -97,8 +99,8 @@ abstract class Enemy extends AnimationGameObject with ObjectCollision{
 
       if(fieldOfVision.overlaps(player.position)){
 
-        double translateX = _currentPosition.left > leftPlayer ? (-1 * speed):speed;
-        double translateY = _currentPosition.top > topPlayer? (-1 * speed):speed;
+        double translateX = _currentPosition.center.dx > leftPlayer ? (-1 * speed):speed;
+        double translateY = _currentPosition.center.dy > topPlayer? (-1 * speed):speed;
 
         if(_currentPosition.left == leftPlayer
             || (translateX == -1 &&  _currentPosition.left - leftPlayer < 3)
@@ -237,16 +239,16 @@ abstract class Enemy extends AnimationGameObject with ObjectCollision{
 
     switch(direction){
       case Direction.left:
-        position = Rect.fromLTWH(position.left - size, position.top, position.width, position.height);
+        position = Rect.fromLTWH(position.left - width, position.top, position.width, position.height);
         break;
       case Direction.right:
-        position = Rect.fromLTWH(position.left + size, position.top, position.width, position.height);
+        position = Rect.fromLTWH(position.left + width, position.top, position.width, position.height);
         break;
       case Direction.top:
-        position = Rect.fromLTWH(position.left, position.top - size, position.width, position.height);
+        position = Rect.fromLTWH(position.left, position.top - height, position.width, position.height);
         break;
       case Direction.bottom:
-        position = Rect.fromLTWH(position.left, position.top + size, position.width, position.height);
+        position = Rect.fromLTWH(position.left, position.top + height, position.width, position.height);
         break;
     }
 
@@ -267,7 +269,7 @@ abstract class Enemy extends AnimationGameObject with ObjectCollision{
   }
 
   void _drawLife(Canvas canvas) {
-    double currentBarLife = (life*size)/_maxlife;
+    double currentBarLife = (life*width)/_maxlife;
     canvas.drawLine(Offset(_currentPosition.left, _currentPosition.top - 4),
         Offset(_currentPosition.left + currentBarLife, _currentPosition.top - 4),
         Paint()..color = _getColorLife(currentBarLife)
@@ -276,10 +278,10 @@ abstract class Enemy extends AnimationGameObject with ObjectCollision{
   }
 
   Color _getColorLife(double currentBarLife) {
-    if(currentBarLife > size - (size/3)){
+    if(currentBarLife > width - (width/3)){
       return Colors.green;
     }
-    if(currentBarLife > (size/3)){
+    if(currentBarLife > (width/3)){
       return Colors.yellow;
     }else{
       return Colors.red;
@@ -296,10 +298,10 @@ abstract class Enemy extends AnimationGameObject with ObjectCollision{
   }
   Rect _getRectCollision() {
     return Rect.fromLTWH(
-        _currentPosition.left,
+        _currentPosition.left + (_currentPosition.width / 3),
         _currentPosition.top + (_currentPosition.height / 2),
-        _currentPosition.width / 1.5,
-        _currentPosition.height / 3
+        _currentPosition.width / 3,
+        _currentPosition.height / 2
     );
   }
 

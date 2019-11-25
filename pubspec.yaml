@@ -76,6 +76,7 @@ flutter:
     - assets/images/atack_effect_bottom.png
     - assets/images/atack_effect_top.png
     - assets/images/enemy_explosin.png
+    - assets/images/boss_idle.png
     - assets/game_over.png
     - assets/play_again.png
 

@@ -486,7 +486,7 @@ class Player extends AnimationGameObject with ObjectCollision {
   }
 
   Rect getRectCollision() {
-    return Rect.fromLTWH(position.left, position.top + (position.height / 2), position.width / 1.5, position.height / 2);
+    return Rect.fromLTWH(position.left+(position.width / 3), position.top + (position.height / 2), position.width / 3, position.height / 2);
   }
 
   void _updateAtackObject(double dt) {

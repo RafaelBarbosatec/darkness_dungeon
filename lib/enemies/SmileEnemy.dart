@@ -12,7 +12,8 @@ class SmileEnemy extends Enemy{
   SmileEnemy():super(
       FlameAnimation.Animation.sequenced("slime_idle.png", 6, textureWidth: 16, textureHeight: 16),
       animationDie: FlameAnimation.Animation.sequenced("enemy_explosin.png", 5, textureWidth: 16, textureHeight: 16),
-      size: SIZE,
+      width:SIZE,
+      height:SIZE,
       life: 50,
       visionCells: 3,
   );

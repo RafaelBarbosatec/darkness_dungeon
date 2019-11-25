@@ -2,6 +2,7 @@
 import 'dart:math';
 
 import 'package:darkness_dungeon/core/Decoration.dart';
+import 'package:darkness_dungeon/enemies/BossEnemy.dart';
 import 'package:darkness_dungeon/enemies/GoblinEnemy.dart';
 import 'package:darkness_dungeon/enemies/SmileEnemy.dart';
 import 'package:darkness_dungeon/core/map/TileMap.dart';
@@ -217,8 +218,11 @@ class MyMaps{
           return TileMap(randomFloor());
         }
         if(indexRow == 27 && indexColumm >= 24 && indexColumm <= 39){
-          if(indexColumm == 30 || indexColumm == 35){
+          if(indexColumm == 34 || indexColumm == 35){
             return TileMap(randomFloor(),collision: true, decoration: TileDecoration('itens/table.png'));
+          }
+          if(indexColumm == 39){
+            return TileMap(randomFloor(), enemy: BossEnemy());
           }
           return TileMap(randomFloor());
         }
