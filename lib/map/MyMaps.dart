@@ -29,6 +29,7 @@ class MyMaps{
 
           if(indexColumm >= 15 && indexColumm < 28 && indexColumm %4 == 0){
             return TileMap('tile/wall.png',
+                collision: true,
                 decoration: TileDecoration('',
                     animation: FlameAnimation.Animation.sequenced("itens/torch_spritesheet.png", 6, textureWidth: 16, textureHeight: 16)
                 ));
@@ -36,6 +37,7 @@ class MyMaps{
 
           if(indexColumm %3 == 0){
             return TileMap('tile/wall.png',
+                collision: true,
                 decoration: TileDecoration('itens/flag_red.png',));
           }
 
