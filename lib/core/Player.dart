@@ -215,29 +215,37 @@ class Player extends AnimationGameObject with ObjectCollision {
       return;
     }
 
-    Rect displacement = position.translate(speedPlayer,(-1 *speedPlayer));
+    Rect displacementRight = position.translate(speedPlayer,0);
 
-    if (verifyCollisionRect(displacement)) {
-      return;
+    if (!verifyCollisionRect(displacementRight)) {
+
+      if (position.left < screenSize.width / 1.5 || _mapControll.isMaxRight()) {
+        position = displacementRight;
+      } else {
+        _mapControll.moveRight(speedPlayer);
+      }
+
+      if(animationMoveRight != null){
+        animation = animationMoveRight;
+      }
+
     }
 
-    if (position.left < screenSize.width / 1.5
-        || _mapControll.isMaxRight()) {
-      position = displacement;
-    } else {
-      _mapControll.moveRight(speedPlayer);
+    Rect displacementTop = position.translate(0,(-1 *speedPlayer));
+
+    if (!verifyCollisionRect(displacementTop)) {
+
+      if (position.top > screenSize.height / 3 || _mapControll.isMaxTop()) {
+        position = displacementTop;
+      } else {
+        _mapControll.moveTop(speedPlayer);
+      }
+
+      if(animationMoveRight != null){
+        animation = animationMoveRight;
+      }
     }
 
-    if (position.top > screenSize.height / 3
-        || _mapControll.isMaxTop()) {
-      position = displacement;
-    } else {
-      _mapControll.moveTop(speedPlayer);
-    }
-
-    if(animationMoveRight != null){
-      animation = animationMoveRight;
-    }
   }
 
   void runTopLeft(){
@@ -253,29 +261,34 @@ class Player extends AnimationGameObject with ObjectCollision {
       return;
     }
 
-    Rect displacement = position.translate((-1 *speedPlayer), (-1 *speedPlayer));
+    Rect displacementLeft = position.translate((-1 *speedPlayer), 0);
 
-    if (verifyCollisionRect(displacement)) {
-      return;
+    if (!verifyCollisionRect(displacementLeft)) {
+      if (position.left > screenSize.width / 1.5
+          || _mapControll.isMaxLeft()) {
+        position = displacementLeft;
+      } else {
+        _mapControll.moveLeft(speedPlayer);
+      }
+      if(animationMoveLeft != null){
+        animation = animationMoveLeft;
+      }
     }
 
-    if (position.left > screenSize.width / 1.5
-        || _mapControll.isMaxLeft()) {
-      position = displacement;
-    } else {
-      _mapControll.moveLeft(speedPlayer);
+    Rect displacementTop = position.translate(0, (-1 *speedPlayer));
+
+    if (!verifyCollisionRect(displacementTop)) {
+      if (position.top > screenSize.height / 3 || _mapControll.isMaxTop()) {
+        position = displacementTop;
+      } else {
+        _mapControll.moveTop(speedPlayer);
+      }
+
+      if(animationMoveLeft != null){
+        animation = animationMoveLeft;
+      }
     }
 
-    if (position.top > screenSize.height / 3
-        || _mapControll.isMaxTop()) {
-      position = displacement;
-    } else {
-      _mapControll.moveTop(speedPlayer);
-    }
-
-    if(animationMoveLeft != null){
-      animation = animationMoveLeft;
-    }
   }
 
   void runBottomLeft(){
@@ -291,32 +304,39 @@ class Player extends AnimationGameObject with ObjectCollision {
       return;
     }
 
-    Rect displacement = position.translate((-1 *speedPlayer), speedPlayer);
+    Rect displacementLeft = position.translate((-1 *speedPlayer), 0);
 
-    if (verifyCollisionRect(displacement)) {
-      return;
+    if (!verifyCollisionRect(displacementLeft)) {
+
+      if (position.left > screenSize.width / 1.5 || _mapControll.isMaxLeft()) {
+        position = displacementLeft;
+      } else {
+        _mapControll.moveLeft(speedPlayer);
+      }
+
+      if(animationMoveLeft != null){
+        animation = animationMoveLeft;
+      }
     }
 
-    if (position.left > screenSize.width / 1.5
-        || _mapControll.isMaxLeft()) {
-      position = displacement;
-    } else {
-      _mapControll.moveLeft(speedPlayer);
+    Rect displacementBottom = position.translate(0, speedPlayer);
+
+    if (!verifyCollisionRect(displacementBottom)) {
+      if (position.top < screenSize.height / 1.5 || _mapControll.isMaxBottom()) {
+        position = displacementBottom;
+      } else {
+        _mapControll.moveBottom(speedPlayer);
+      }
+
+      if(animationMoveLeft != null){
+        animation = animationMoveLeft;
+      }
     }
 
-    if (position.top < screenSize.height / 1.5 || _mapControll.isMaxBottom()) {
-      position = displacement;
-    } else {
-      _mapControll.moveBottom(speedPlayer);
-    }
-
-    if(animationMoveLeft != null){
-      animation = animationMoveLeft;
-    }
   }
 
   void runBottomRight(){
-    //print('runBottomRight');
+
     if (life == 0) {
       return;
     }
@@ -329,28 +349,37 @@ class Player extends AnimationGameObject with ObjectCollision {
       return;
     }
 
-    Rect displacement = position.translate(speedPlayer, speedPlayer);
+    Rect displacementRight = position.translate(speedPlayer, 0);
 
-    if (verifyCollisionRect(displacement)) {
-      return;
+    if (!verifyCollisionRect(displacementRight)) {
+
+      if (position.left < screenSize.width / 1.5
+          || _mapControll.isMaxRight()) {
+        position = displacementRight;
+      } else {
+        _mapControll.moveRight(speedPlayer);
+      }
+
+      if(animationMoveRight != null){
+        animation = animationMoveRight;
+      }
     }
 
-    if (position.left < screenSize.width / 1.5
-        || _mapControll.isMaxRight()) {
-      position = displacement;
-    } else {
-      _mapControll.moveRight(speedPlayer);
+    Rect displacementBottom = position.translate(0, speedPlayer);
+
+    if (!verifyCollisionRect(displacementBottom)) {
+
+      if (position.top < screenSize.height / 1.5 || _mapControll.isMaxBottom()) {
+        position = displacementBottom;
+      } else {
+        _mapControll.moveBottom(speedPlayer);
+      }
+
+      if(animationMoveRight != null){
+        animation = animationMoveRight;
+      }
     }
 
-    if (position.top < screenSize.height / 1.5 || _mapControll.isMaxBottom()) {
-      position = displacement;
-    } else {
-      _mapControll.moveBottom(speedPlayer);
-    }
-
-    if(animationMoveRight != null){
-      animation = animationMoveRight;
-    }
   }
 
   void idle(){
