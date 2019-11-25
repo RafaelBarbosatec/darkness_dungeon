@@ -1,22 +1,12 @@
-# Darkness Dungeon
+[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=102)](https://github.com/RafaelBarbosatec/darkness_dungeon)
+[![Demo](https://img.shields.io/badge/Download-APK-green)](https://github.com/RafaelBarbosatec/darkness_dungeon/raw/master/demo/demo.apk)
+[![Flame](https://img.shields.io/badge/Builded%20with-Flame-red)](https://github.com/flame-engine/flame)
+[![Flutter](https://img.shields.io/badge/SDK-Flutter-blue)](https://flutter.dev/)
+[![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 
-[DEMO APK](https://github.com/RafaelBarbosatec/darkness_dungeon/raw/master/demo/demo.apk)
+
+# Darkness Dungeon
 
 ![](https://github.com/RafaelBarbosatec/darkness_dungeon/blob/master/print.jpg)
 
 Maybe future package util to make own RPG game.
-
-- Make using [Flame](https://github.com/flame-engine/flame).
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
