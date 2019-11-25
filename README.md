@@ -9,4 +9,6 @@
 
 ![](https://github.com/RafaelBarbosatec/darkness_dungeon/blob/master/print.jpg)
 
+Project designed to exploit Flame potential for RPG games.
+
 Maybe future package util to make own RPG game.
