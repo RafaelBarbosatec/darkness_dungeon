@@ -93,10 +93,11 @@ class MyMaps{
           return TileMap('tile/wall.png',collision: true);
         }
 
-        if(indexRow == 23 && indexColumm >= 32 && indexColumm < 40){
+        if(indexRow == 23 && indexColumm >= 32 && indexColumm < 45){
           return TileMap('tile/wall_bottom.png',collision: true);
         }
-        if(indexRow == 24 && indexColumm >= 32 && indexColumm < 40){
+
+        if(indexRow == 24 && indexColumm >= 32 && indexColumm < 45){
 
           if(indexColumm %2 == 0){
             return TileMap('tile/wall.png',collision: true,decoration: TileDecoration('itens/flag_green.png'));
@@ -139,7 +140,7 @@ class MyMaps{
         if(indexRow == 30 && indexColumm == 26){
           return TileMap('tile/wall_bottom_left.png',collision: true);
         }
-        if(indexRow == 30 && indexColumm >= 27 && indexColumm < 40){
+        if(indexRow == 30 && indexColumm >= 27 && indexColumm < 45){
           return TileMap('tile/wall_top.png',collision: true);
         }
 
@@ -211,13 +212,13 @@ class MyMaps{
         if(indexRow == 24 && indexColumm >= 21 && indexColumm <= 30){
           return TileMap(randomFloor());
         }
-        if(indexRow == 25 && indexColumm >= 22 && indexColumm <= 39){
+        if(indexRow == 25 && indexColumm >= 22 && indexColumm <= 44){
           return TileMap(randomFloor());
         }
-        if(indexRow == 26 && indexColumm >= 23 && indexColumm <= 39){
+        if(indexRow == 26 && indexColumm >= 23 && indexColumm <= 44){
           return TileMap(randomFloor());
         }
-        if(indexRow == 27 && indexColumm >= 24 && indexColumm <= 39){
+        if(indexRow == 27 && indexColumm >= 24 && indexColumm <= 44){
           if(indexColumm == 34 || indexColumm == 35){
             return TileMap(randomFloor(),collision: true, decoration: TileDecoration('itens/table.png'));
           }
@@ -226,11 +227,11 @@ class MyMaps{
           }
           return TileMap(randomFloor());
         }
-        if(indexRow == 28 && indexColumm >= 25 && indexColumm <= 39){
+        if(indexRow == 28 && indexColumm >= 25 && indexColumm <= 44){
           return TileMap(randomFloor());
         }
 
-        if(indexRow == 29 && indexColumm >= 26 && indexColumm <= 39){
+        if(indexRow == 29 && indexColumm >= 26 && indexColumm <= 44){
           return TileMap(randomFloor());
         }
 

@@ -55,6 +55,9 @@ class MapWord implements MapGame,MapControll {
   }
 
   void inicializeMap() {
+
+    _confInitialCamera();
+
     if(map.isNotEmpty && map[0].isNotEmpty) {
       maxTop = (map.length * map[0][0].size) - screenSize.height;
       map.forEach((list) {
@@ -234,6 +237,37 @@ class MapWord implements MapGame,MapControll {
 
     this.map = map;
     inicializeMap();
+  }
+
+  void _confInitialCamera() {
+    if(player.position.left > screenSize.width / 2){
+      paddingLeft = player.position.left - screenSize.width / 2;
+      paddingLeft = paddingLeft *-1;
+      if(paddingLeft > 0){
+        paddingLeft = 0;
+      }
+
+      player.position = Rect.fromLTWH(
+          screenSize.width / 2,
+          player.position.top,
+          player.position.width,
+          player.position.height
+      );
+    }
+
+    if(player.position.top > screenSize.height / 2){
+      paddingTop = player.position.top - screenSize.height / 2;
+      paddingTop = paddingTop *-1;
+      if(paddingTop > 0){
+        paddingTop = 0;
+      }
+      player.position = Rect.fromLTWH(
+          player.position.left,
+          screenSize.height / 2,
+          player.position.width,
+          player.position.height
+      );
+    }
   }
 
 }
