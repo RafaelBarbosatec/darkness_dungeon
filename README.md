@@ -7,7 +7,7 @@
 
 # Darkness Dungeon
 
-![](https://github.com/RafaelBarbosatec/darkness_dungeon/blob/master/print.jpg)
+![](https://github.com/RafaelBarbosatec/darkness_dungeon/blob/master/gameplay.gif)
 
 Project designed to exploit Flame potential for RPG games.
 
