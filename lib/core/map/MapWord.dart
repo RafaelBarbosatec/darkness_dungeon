@@ -232,6 +232,8 @@ class MapWord implements MapGame,MapControll {
       });
     });
     enemies.clear();
+    _lastPaddingTop = -1;
+    _lastPaddingLeft = -1;
     paddingLeft = 0;
     paddingTop = 0;
 
