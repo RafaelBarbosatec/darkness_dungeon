@@ -300,40 +300,40 @@ class MyMaps{
             );
           }
 
-          if(indexRow == 14 && indexColumm == 52){
-            return TileMap(
-              randomFloor(),
-              enemy: BossEnemy(),
-            );
-          }
-
-          if(indexRow == 14 && indexColumm == 60){
-            return TileMap(
-              randomFloor(),
-              enemy: BossEnemy(),
-            );
-          }
-
-          if(indexRow == 16 && indexColumm == 54){
-            return TileMap(
-              randomFloor(),
-              enemy: BossEnemy(),
-            );
-          }
-
-          if(indexRow == 16 && indexColumm == 58){
-            return TileMap(
-              randomFloor(),
-              enemy: BossEnemy(),
-            );
-          }
-
-          if(indexRow == 18 && indexColumm == 56){
-            return TileMap(
-              randomFloor(),
-              enemy: BossEnemy(),
-            );
-          }
+//          if(indexRow == 14 && indexColumm == 52){
+//            return TileMap(
+//              randomFloor(),
+//              enemy: BossEnemy(),
+//            );
+//          }
+//
+//          if(indexRow == 14 && indexColumm == 60){
+//            return TileMap(
+//              randomFloor(),
+//              enemy: BossEnemy(),
+//            );
+//          }
+//
+//          if(indexRow == 16 && indexColumm == 54){
+//            return TileMap(
+//              randomFloor(),
+//              enemy: BossEnemy(),
+//            );
+//          }
+//
+//          if(indexRow == 16 && indexColumm == 58){
+//            return TileMap(
+//              randomFloor(),
+//              enemy: BossEnemy(),
+//            );
+//          }
+//
+//          if(indexRow == 18 && indexColumm == 56){
+//            return TileMap(
+//              randomFloor(),
+//              enemy: BossEnemy(),
+//            );
+//          }
 
           return TileMap(randomFloor());
         }

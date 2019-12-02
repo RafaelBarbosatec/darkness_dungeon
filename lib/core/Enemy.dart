@@ -32,6 +32,9 @@ abstract class Enemy extends AnimationGameObject with ObjectCollision{
   Timer _timer;
   Rect _moveTo;
 
+  double initmapPaddingLeft;
+  double initmapPaddingTop;
+
   Enemy(
       this.animationIdle,
       {
@@ -63,13 +66,26 @@ abstract class Enemy extends AnimationGameObject with ObjectCollision{
   }
 
   void updateEnemy(double t, Player player, double mapPaddingLeft, double mapPaddingTop, List<Rect> collisionsMap){
+
+    if(initmapPaddingLeft == null){
+      initmapPaddingLeft = mapPaddingLeft;
+    }
+
+    if(initmapPaddingTop == null){
+      initmapPaddingTop = mapPaddingTop;
+    }
+
     if(isDie()){
       return;
     }
+
+//    print(initmapPaddingTop);
+//    print(mapPaddingTop);
+
     this.collisionsMap = collisionsMap;
     _currentPosition = Rect.fromLTWH(
-        position.left + mapPaddingLeft,
-        position.top + mapPaddingTop,
+        position.left + (mapPaddingLeft),
+        position.top + (mapPaddingTop),
         position.width,
         position.height
     );
