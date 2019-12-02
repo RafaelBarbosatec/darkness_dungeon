@@ -79,13 +79,10 @@ abstract class Enemy extends AnimationGameObject with ObjectCollision{
       return;
     }
 
-//    print(initmapPaddingTop);
-//    print(mapPaddingTop);
-
     this.collisionsMap = collisionsMap;
     _currentPosition = Rect.fromLTWH(
-        position.left + (mapPaddingLeft),
-        position.top + (mapPaddingTop),
+        position.left + ((initmapPaddingLeft * -1) + mapPaddingLeft),
+        position.top + ((initmapPaddingTop * -1) +mapPaddingTop),
         position.width,
         position.height
     );
