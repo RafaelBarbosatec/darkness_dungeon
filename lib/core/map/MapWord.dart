@@ -94,7 +94,7 @@ class MapWord implements MapGame,MapControll {
 
   void _renderEnemy(Enemy enemy,Canvas canvas) {
 
-    if(enemy.isDie()){
+    if(enemy.isDieAndFinishAnimation()){
       return;
     }
 

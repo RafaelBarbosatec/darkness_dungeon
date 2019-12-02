@@ -20,6 +20,8 @@ class Controller {
   bool dragging = false;
   Offset dragPosition;
 
+  double sensitivity = 6;
+
   final double tileSize;
   final Size screenSize;
   final Function() moveTop;
@@ -102,21 +104,17 @@ class Controller {
 
       var diffY = dragPosition.dy - backgroundRect.center.dy;
       var diffX = dragPosition.dx - backgroundRect.center.dx;
-      if(dragPosition.dx > backgroundRect.center.dx && diffX > backgroundRect.width /3){
+      if(dragPosition.dx > backgroundRect.center.dx && diffX > backgroundRect.width /sensitivity){
         mRight = true;
-        //moveRight();
       }
-      if(dragPosition.dx < backgroundRect.center.dx && diffX < (-1 * backgroundRect.width /3)){
+      if(dragPosition.dx < backgroundRect.center.dx && diffX < (-1 * backgroundRect.width /sensitivity)){
         mLeft = true;
-        //moveLeft();
       }
-      if(dragPosition.dy > backgroundRect.center.dy && diffY > backgroundRect.height /3){
+      if(dragPosition.dy > backgroundRect.center.dy && diffY > backgroundRect.height /sensitivity){
         mBottom = true;
-        //moveBottom();
       }
-      if(dragPosition.dy < backgroundRect.center.dy && diffY < (-1 * backgroundRect.height /3)){
+      if(dragPosition.dy < backgroundRect.center.dy && diffY < (-1 * backgroundRect.height /sensitivity)){
         mTop = true;
-        //moveTop();
       }
 
       if(mRight && mTop){

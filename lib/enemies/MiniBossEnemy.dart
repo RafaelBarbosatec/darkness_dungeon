@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 class MiniBossEnemy extends Enemy{
 
-  static const double DAMAGE = 10;
+  static const double DAMAGE = 6;
 
   MiniBossEnemy():super(
       FlameAnimation.Animation.sequenced("mini_boss_idle.png", 4, textureWidth: 16, textureHeight: 24),

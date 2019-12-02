@@ -134,7 +134,7 @@ class DarknessDungeon extends Game {
     player = Knight(
         size,
         initX: 3,
-        initY: 3,
+        initY: 4,
         changeLife: changeLife,
         changeStamina: changeStamina,
         callBackdie: (){

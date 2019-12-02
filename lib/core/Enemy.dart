@@ -67,16 +67,17 @@ abstract class Enemy extends AnimationGameObject with ObjectCollision{
 
   void updateEnemy(double t, Player player, double mapPaddingLeft, double mapPaddingTop, List<Rect> collisionsMap){
 
+
+    if(isDieAndFinishAnimation()){
+      return;
+    }
+
     if(initmapPaddingLeft == null){
       initmapPaddingLeft = mapPaddingLeft;
     }
 
     if(initmapPaddingTop == null){
       initmapPaddingTop = mapPaddingTop;
-    }
-
-    if(isDie()){
-      return;
     }
 
     this.collisionsMap = collisionsMap;
@@ -92,9 +93,6 @@ abstract class Enemy extends AnimationGameObject with ObjectCollision{
 
   @override
   void render(Canvas canvas) {
-    if(isDie()){
-      return;
-    }
     _drawLife(canvas);
     super.renderRect(canvas, _currentPosition);
   }
@@ -284,7 +282,15 @@ abstract class Enemy extends AnimationGameObject with ObjectCollision{
   }
 
   bool isDie(){
-    return life ==0;
+    return life == 0;
+  }
+
+  bool isDieAndFinishAnimation(){
+    if(animationDie != null) {
+      return isDie() && animationDie.isLastFrame;
+    }else{
+      return isDie();
+    }
   }
 
   void _dieAnimation() {

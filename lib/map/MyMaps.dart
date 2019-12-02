@@ -15,19 +15,19 @@ class MyMaps{
     return List.generate((size.height*2)~/16, (indexRow){
       return List.generate((size.width*2)~/16, (indexColumm){
 
-        if(indexColumm == 2 && indexRow >= 3 && indexRow <= 10){
+        if(indexColumm == 2 && indexRow >= 5 && indexRow <= 10){
           return TileMap('tile/wall_left.png',collision: true);
         }
-        if(indexRow == 2 && indexColumm == 3){
+        if(indexRow == 4 && indexColumm == 3){
           return TileMap('tile/wall_left_and_bottom.png',collision: true);
         }
-        if(indexRow == 3 && indexColumm == 3){
+        if(indexRow == 5 && indexColumm == 3){
           return TileMap('tile/wall.png',collision: true);
         }
-        if(indexRow == 1 && indexColumm >=4 && indexColumm <= 28){
+        if(indexRow == 3 && indexColumm >=4 && indexColumm <= 28){
           return TileMap('tile/wall_bottom.png',collision: true);
         }
-        if(indexRow == 2 && indexColumm >=4 && indexColumm <= 28){
+        if(indexRow == 4 && indexColumm >= 4 && indexColumm <= 28){
 
           if(indexColumm >= 15 && indexColumm < 28 && indexColumm %4 == 0){
             return TileMap('tile/wall.png',
@@ -65,7 +65,7 @@ class MyMaps{
           return TileMap('tile/wall_turn_left_top.png',collision: true);
         }
 
-        if(indexRow >=2 && indexRow <=20  && indexColumm ==29){
+        if(indexRow >=4 && indexRow <=20  && indexColumm ==29){
           return TileMap('tile/wall_right.png',collision: true);
         }
 
@@ -208,36 +208,25 @@ class MyMaps{
 
         //CHÃO
 
-        if(indexRow == 3 && indexColumm >= 4 && indexColumm <= 28){
-          if(indexRow == 3 && indexColumm == 20) {
-            return TileMap(randomFloor(),
-                collision: true,
-                decoration: TileDecoration('itens/barrel.png'));
-          }
-
+        if(indexRow == 5 && indexColumm >= 4 && indexColumm <= 28){
           return TileMap(randomFloor());
         }
 
-        if(indexRow >= 4 && indexRow <= 10 && indexColumm >= 3 && indexColumm <= 28){
 
-//          if(indexRow == 5 && indexColumm == 20){
-//            return TileMap(randomFloor(),enemy: SmileEnemy());
-//          }
-//
-//          if(indexRow == 7 && indexColumm == 25){
-//            return TileMap(randomFloor(),enemy: SmileEnemy());
-//          }
-//
-//          if(indexRow == 8 && indexColumm == 18){
-//            return TileMap(randomFloor(),enemy: GoblinEnemy());
-//          }
+        if(indexRow >= 6 && indexRow <= 10 && indexColumm >= 3 && indexColumm <= 28){
 
-          if(indexRow == 8 && indexColumm == 27){
+          if(indexRow == 7 && indexColumm == 25){
+            return TileMap(randomFloor(),enemy: SmileEnemy());
+          }
+
+          if(indexRow == 8 && indexColumm == 18){
+            return TileMap(randomFloor(),enemy: GoblinEnemy());
+          }
+
+          if(indexRow == 6 && (indexColumm == 27 || indexColumm == 26)) {
             return TileMap(randomFloor(),
                 collision: true,
-                decoration: TileDecoration('',
-                    animation: FlameAnimation.Animation.sequenced("itens/chest_spritesheet.png", 6, textureWidth: 16, textureHeight: 16)
-                ));
+                decoration: TileDecoration('itens/barrel.png'));
           }
 
           if(indexRow == 10 && indexColumm >=3 && indexColumm <=5) {
@@ -245,7 +234,7 @@ class MyMaps{
                 decoration: TileDecoration('itens/barrel.png'));
           }
 
-          if(indexRow == 5 && indexColumm == 15) {
+          if(indexRow == 6 && indexColumm == 15) {
             return TileMap(randomFloor(), collision: true,
                 decoration: TileDecoration('itens/table.png'));
           }
@@ -278,6 +267,11 @@ class MyMaps{
           return TileMap(randomFloor());
         }
         if(indexRow == 26 && indexColumm >= 23 && indexColumm <= 65){
+
+          if(indexColumm == 30){
+            return TileMap(randomFloor(),enemy: SmileEnemy());
+          }
+
           if(indexColumm == 54 || indexColumm == 58){
             return TileMap(randomFloor(),collision: true, decoration: TileDecoration('itens/table.png'));
           }
@@ -352,6 +346,14 @@ class MyMaps{
             );
           }
 
+          if(indexRow == 11  && indexColumm >= 48 && indexColumm < 65){
+            return TileMap('tile/floor_10.png');
+          }
+
+          if(indexRow == 12 && indexColumm >= 48 && indexColumm < 65){
+            return TileMap('tile/floor_6.png');
+          }
+
           return TileMap(randomFloor());
         }
 
@@ -361,12 +363,15 @@ class MyMaps{
   }
 
   static String randomFloor(){
-    int p = Random().nextInt(3);
+    int p = Random().nextInt(6);
     String sprite = "";
     switch(p){
       case 0: sprite = 'tile/floor_1.png'; break;
-      case 1: sprite = 'tile/floor_2.png'; break;
-      case 2: sprite = 'tile/floor_3.png'; break;
+      case 1: sprite = 'tile/floor_1.png'; break;
+      case 2: sprite = 'tile/floor_2.png'; break;
+      case 3: sprite = 'tile/floor_2.png'; break;
+      case 4: sprite = 'tile/floor_3.png'; break;
+      case 5: sprite = 'tile/floor_4.png'; break;
     }
     return sprite;
   }
