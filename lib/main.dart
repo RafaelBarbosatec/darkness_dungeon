@@ -1,8 +1,9 @@
 
-import 'package:darkness_dungeon/HealthBar.dart';
+import 'package:darkness_dungeon/Menu.dart';
+import 'package:darkness_dungeon/player/HealthBar.dart';
 import 'package:darkness_dungeon/core/Controller.dart';
 import 'package:darkness_dungeon/core/map/MapWord.dart';
-import 'package:darkness_dungeon/map/MyMaps.dart';
+import 'package:darkness_dungeon/map/State1.dart';
 import 'package:darkness_dungeon/player/Knight.dart';
 import 'package:darkness_dungeon/core/Player.dart';
 import 'package:flame/flame.dart';
@@ -12,11 +13,8 @@ import 'package:flutter/material.dart';
 void main() async {
   await Flame.util.setLandscape();
   await Flame.util.fullScreen();
-  Size size = await Flame.util.initialDimensions();
   runApp(MaterialApp(
-    home: GameWidget(
-      size: size,
-    ),  
+    home: Menu(),
   ));
 }
 
@@ -34,6 +32,7 @@ class _GameWidgetState extends State<GameWidget> {
 
   DarknessDungeon game;
   final GlobalKey<HealthBarState> healthKey = GlobalKey();
+  bool showProgress = true;
 
   @override
   void initState() {
@@ -47,6 +46,13 @@ class _GameWidgetState extends State<GameWidget> {
         },
         gameOver: (){
           _showDialogGameOver();
+        },
+        loaded: (){
+          Future.delayed(Duration(milliseconds: 500),(){
+            setState(() {
+              showProgress = false;
+            });
+          });
         }
     );
     super.initState();
@@ -54,37 +60,40 @@ class _GameWidgetState extends State<GameWidget> {
   @override
   Widget build(BuildContext context) {
 
-    return Stack(
-      children: <Widget>[
-        game.widget,
-        Align(
-          alignment: Alignment.topLeft,
-          child: HealthBar(
-              key: healthKey
-          ),
-        ),
-        Row(
-          children: <Widget>[
-            Expanded(
-              child: GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onPanStart: game.controller.onPanStart,
-                  onPanUpdate: game.controller.onPanUpdate,
-                  onPanEnd: game.controller.onPanEnd,
-                  onTapDown: game.controller.onTapDown,
-                  onTapUp: game.controller.onTapUp,
-                  child: Container()),
+    return Scaffold(
+      body: Stack(
+        children: <Widget>[
+          game.widget,
+          Align(
+            alignment: Alignment.topLeft,
+            child: HealthBar(
+                key: healthKey
             ),
-            Expanded(
-              child: GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTapDown: game.controller.onTapDownAtack,
-                  onTapUp: game.controller.onTapUpAtack,
-                  child: Container()),
-            )
-          ],
-        )
-      ],
+          ),
+          _buildProgress(),
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onPanStart: game.controller.onPanStart,
+                    onPanUpdate: game.controller.onPanUpdate,
+                    onPanEnd: game.controller.onPanEnd,
+                    onTapDown: game.controller.onTapDown,
+                    onTapUp: game.controller.onTapUp,
+                    child: Container()),
+              ),
+              Expanded(
+                child: GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTapDown: game.controller.onTapDownAtack,
+                    onTapUp: game.controller.onTapUpAtack,
+                    child: Container()),
+              )
+            ],
+          )
+        ],
+      ),
     );
   }
 
@@ -110,13 +119,48 @@ class _GameWidgetState extends State<GameWidget> {
                     game.resetGame();
                     Navigator.pop(context);
                   },
-                  child: Image.asset('assets/play_again.png',height: 20,width: 100,),
+                  child: Text(
+                    "PLAY AGAIN",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Normal',
+                      fontSize: 20.0
+                    ),
+                  ),
                 )
               ],
             ),
           );
         });
 
+  }
+
+  Widget _buildProgress() {
+    if(showProgress){
+      return AnimatedOpacity(
+        opacity: 1.0,
+        duration: Duration(milliseconds: 300),
+        child: Container(
+          color: Colors.black,
+          child: Center(
+            child: Text(
+              "Carregando...",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'Normal',
+                  fontSize: 20.0
+              ),
+            ),
+          ),
+        ),
+      );
+    }else{
+      return AnimatedOpacity(
+          opacity: 0.0,
+          duration: Duration(milliseconds: 300),
+          child: Container()
+      );
+    }
   }
 }
 
@@ -125,11 +169,13 @@ class DarknessDungeon extends Game {
   final Function(double) changeLife;
   final Function(double) changeStamina;
   final Function() gameOver;
+  final Function() loaded;
   Player player;
   MapWord map;
   Controller controller;
+  bool loadedControl = false;
 
-  DarknessDungeon(this.size, {this.changeLife, this.changeStamina, this.gameOver}){
+  DarknessDungeon(this.size, {this.changeLife, this.changeStamina, this.gameOver, this.loaded}){
 
     player = Knight(
         size,
@@ -145,7 +191,7 @@ class DarknessDungeon extends Game {
     );
 
     map = MapWord(
-      MyMaps.mainMap(size),
+      MyMaps.state1(size),
       player,
       size,
     );
@@ -170,7 +216,7 @@ class DarknessDungeon extends Game {
 
     player.reset(3,3);
 
-    map.resetMap(MyMaps.mainMap(size));
+    map.resetMap(MyMaps.state1(size));
 
   }
 
@@ -220,6 +266,10 @@ class DarknessDungeon extends Game {
   void render(Canvas canvas) {
     map.render(canvas);
     controller.render(canvas);
+    if(!loadedControl){
+      loadedControl = true;
+      loaded();
+    }
   }
 
   @override

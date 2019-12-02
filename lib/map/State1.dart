@@ -11,9 +11,9 @@ import 'package:flutter/material.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 
 class MyMaps{
-  static List<List<TileMap>> mainMap(Size size){
-    return List.generate((size.height*2)~/16, (indexRow){
-      return List.generate((size.width*2)~/16, (indexColumm){
+  static List<List<TileMap>> state1(Size size){
+    return List.generate(35, (indexRow){
+      return List.generate(70, (indexColumm){
 
         if(indexColumm == 2 && indexRow >= 5 && indexRow <= 10){
           return TileMap('tile/wall_left.png',collision: true);

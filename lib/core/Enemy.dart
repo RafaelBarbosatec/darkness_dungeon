@@ -302,6 +302,10 @@ abstract class Enemy extends AnimationGameObject with ObjectCollision{
 
   void _drawLife(Canvas canvas) {
 
+    if(isDie()){
+      return;
+    }
+
     canvas.drawLine(Offset(_currentPosition.left, _currentPosition.top - 4),
         Offset(_currentPosition.left + width, _currentPosition.top - 4),
         Paint()..color = Colors.black
