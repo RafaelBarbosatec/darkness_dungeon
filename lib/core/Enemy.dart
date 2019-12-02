@@ -63,6 +63,9 @@ abstract class Enemy extends AnimationGameObject with ObjectCollision{
   }
 
   void updateEnemy(double t, Player player, double mapPaddingLeft, double mapPaddingTop, List<Rect> collisionsMap){
+    if(isDie()){
+      return;
+    }
     this.collisionsMap = collisionsMap;
     _currentPosition = Rect.fromLTWH(
         position.left + mapPaddingLeft,
@@ -76,6 +79,9 @@ abstract class Enemy extends AnimationGameObject with ObjectCollision{
 
   @override
   void render(Canvas canvas) {
+    if(isDie()){
+      return;
+    }
     _drawLife(canvas);
     super.renderRect(canvas, _currentPosition);
   }

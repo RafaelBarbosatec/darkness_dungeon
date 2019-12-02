@@ -110,9 +110,6 @@ class MyMaps{
           return TileMap('tile/wall.png',collision: true);
         }
 
-
-
-
         if(indexRow == 24 && indexColumm == 21){
           return TileMap('tile/wall_turn_left_top.png',collision: true);
         }
@@ -140,8 +137,68 @@ class MyMaps{
         if(indexRow == 30 && indexColumm == 26){
           return TileMap('tile/wall_bottom_left.png',collision: true);
         }
-        if(indexRow == 30 && indexColumm >= 27 && indexColumm < 45){
+
+        if(indexRow == 30 && indexColumm >= 27 && indexColumm < 65){
           return TileMap('tile/wall_top.png',collision: true);
+        }
+
+        if(indexRow == 30 && indexColumm == 65){
+          return TileMap('tile/wall_bottom_right.png',collision: true);
+        }
+
+        if(indexRow <= 29 && indexRow >= 10 && indexColumm == 65){
+          return TileMap('tile/wall_right.png',collision: true);
+        }
+
+        // Salão chefão
+
+        if(indexRow == 23 && indexColumm == 45){
+          return TileMap('tile/wall_left_and_top.png',collision: true);
+        }
+
+        if(indexRow == 22 && indexColumm == 46){
+          return TileMap('tile/wall_left_and_top.png',collision: true);
+        }
+
+        if(indexRow == 21 && indexColumm == 47){
+          return TileMap('tile/wall_left_and_top.png',collision: true);
+        }
+
+        if(indexRow <= 20 && indexRow >= 10 && indexColumm == 47){
+          return TileMap('tile/wall_left.png',collision: true);
+        }
+
+        if(indexRow == 9 && indexColumm == 47 ){
+          return TileMap('tile/wall_top_inner_left.png',collision: true);
+        }
+
+        if(indexRow == 9 && indexColumm == 65){
+          return TileMap('tile/wall_top_inner_right.png',collision: true);
+        }
+
+        if(indexRow == 9 && indexColumm >= 48 && indexColumm < 65 ){
+          return TileMap('tile/wall_bottom.png',collision: true);
+        }
+
+        if(indexRow == 10 && indexColumm >= 48 && indexColumm < 65 ){
+
+          if(indexColumm == 56){
+            return TileMap('tile/wall.png',collision: true,decoration: TileDecoration('itens/flag_red.png'));
+          }
+
+          if(indexColumm == 52 || indexColumm == 54 || indexColumm == 58 || indexColumm == 60){
+            return TileMap('tile/wall.png',collision: true,decoration: TileDecoration('itens/prisoner.png'));
+          }
+
+          if(indexColumm == 53 || indexColumm == 55 || indexColumm == 57 || indexColumm == 59){
+            return TileMap('tile/wall.png',
+                collision: true,
+                decoration: TileDecoration('',
+                    animation: FlameAnimation.Animation.sequenced("itens/torch_spritesheet.png", 6, textureWidth: 16, textureHeight: 16)
+                ));
+          }
+
+          return TileMap('tile/wall.png',collision: true);
         }
 
         //CHÃO
@@ -222,9 +279,6 @@ class MyMaps{
           if(indexColumm == 34 || indexColumm == 35){
             return TileMap(randomFloor(),collision: true, decoration: TileDecoration('itens/table.png'));
           }
-          if(indexColumm == 39){
-            return TileMap(randomFloor(), enemy: BossEnemy());
-          }
           return TileMap(randomFloor());
         }
         if(indexRow == 28 && indexColumm >= 25 && indexColumm <= 44){
@@ -235,18 +289,70 @@ class MyMaps{
           return TileMap(randomFloor());
         }
 
+        // CHEFÃO 13 56
+
+        if(indexRow >= 11 && indexRow <= 21 && indexColumm >= 48 && indexColumm < 65 ){
+
+          if(indexRow == 13 && indexColumm == 56){
+            return TileMap(
+                randomFloor(),
+              enemy: BossEnemy()
+            );
+          }
+
+          if(indexRow == 14 && indexColumm == 52){
+            return TileMap(
+              randomFloor(),
+              enemy: BossEnemy(),
+            );
+          }
+
+          if(indexRow == 14 && indexColumm == 60){
+            return TileMap(
+              randomFloor(),
+              enemy: BossEnemy(),
+            );
+          }
+
+          if(indexRow == 16 && indexColumm == 54){
+            return TileMap(
+              randomFloor(),
+              enemy: BossEnemy(),
+            );
+          }
+
+          if(indexRow == 16 && indexColumm == 58){
+            return TileMap(
+              randomFloor(),
+              enemy: BossEnemy(),
+            );
+          }
+
+          if(indexRow == 18 && indexColumm == 56){
+            return TileMap(
+              randomFloor(),
+              enemy: BossEnemy(),
+            );
+          }
+
+          return TileMap(randomFloor());
+        }
+
         return TileMap('');
       });
     });
   }
 
   static String randomFloor(){
-    int p = Random().nextInt(3);
+    int p = Random().nextInt(6);
     String sprite = "";
     switch(p){
       case 0: sprite = 'tile/floor_1.png'; break;
       case 1: sprite = 'tile/floor_2.png'; break;
       case 2: sprite = 'tile/floor_3.png'; break;
+      case 3: sprite = 'tile/floor_4.png'; break;
+      case 4: sprite = 'tile/floor_5.png'; break;
+      case 5: sprite = 'tile/floor_6.png'; break;
     }
     return sprite;
   }

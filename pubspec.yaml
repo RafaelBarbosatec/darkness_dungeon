@@ -45,6 +45,13 @@ flutter:
     - assets/images/tile/floor_1.png
     - assets/images/tile/floor_2.png
     - assets/images/tile/floor_3.png
+    - assets/images/tile/floor_4.png
+    - assets/images/tile/floor_5.png
+    - assets/images/tile/floor_6.png
+    - assets/images/tile/floor_7.png
+    - assets/images/tile/floor_8.png
+    - assets/images/tile/floor_9.png
+    - assets/images/tile/floor_10.png
     - assets/images/tile/wall.png
     - assets/images/tile/wall_bottom.png
     - assets/images/tile/wall_top.png
