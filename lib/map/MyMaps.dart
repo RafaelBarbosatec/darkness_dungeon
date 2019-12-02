@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:darkness_dungeon/core/Decoration.dart';
 import 'package:darkness_dungeon/enemies/BossEnemy.dart';
 import 'package:darkness_dungeon/enemies/GoblinEnemy.dart';
+import 'package:darkness_dungeon/enemies/MiniBossEnemy.dart';
 import 'package:darkness_dungeon/enemies/SmileEnemy.dart';
 import 'package:darkness_dungeon/core/map/TileMap.dart';
 import 'package:flutter/material.dart';
@@ -104,6 +105,10 @@ class MyMaps{
           }
 
           if(indexColumm == 35){
+            return TileMap('tile/wall.png',collision: true,decoration: TileDecoration('itens/prisoner.png'));
+          }
+
+          if(indexColumm == 37){
             return TileMap('tile/wall.png',collision: true,decoration: TileDecoration('itens/prisoner.png'));
           }
 
@@ -215,17 +220,17 @@ class MyMaps{
 
         if(indexRow >= 4 && indexRow <= 10 && indexColumm >= 3 && indexColumm <= 28){
 
-          if(indexRow == 5 && indexColumm == 20){
-            return TileMap(randomFloor(),enemy: SmileEnemy());
-          }
-
-          if(indexRow == 7 && indexColumm == 25){
-            return TileMap(randomFloor(),enemy: SmileEnemy());
-          }
-
-          if(indexRow == 8 && indexColumm == 18){
-            return TileMap(randomFloor(),enemy: GoblinEnemy());
-          }
+//          if(indexRow == 5 && indexColumm == 20){
+//            return TileMap(randomFloor(),enemy: SmileEnemy());
+//          }
+//
+//          if(indexRow == 7 && indexColumm == 25){
+//            return TileMap(randomFloor(),enemy: SmileEnemy());
+//          }
+//
+//          if(indexRow == 8 && indexColumm == 18){
+//            return TileMap(randomFloor(),enemy: GoblinEnemy());
+//          }
 
           if(indexRow == 8 && indexColumm == 27){
             return TileMap(randomFloor(),
@@ -269,23 +274,35 @@ class MyMaps{
         if(indexRow == 24 && indexColumm >= 21 && indexColumm <= 30){
           return TileMap(randomFloor());
         }
-        if(indexRow == 25 && indexColumm >= 22 && indexColumm <= 44){
+        if(indexRow == 25 && indexColumm >= 22 && indexColumm <= 65){
           return TileMap(randomFloor());
         }
-        if(indexRow == 26 && indexColumm >= 23 && indexColumm <= 44){
-          return TileMap(randomFloor());
-        }
-        if(indexRow == 27 && indexColumm >= 24 && indexColumm <= 44){
-          if(indexColumm == 34 || indexColumm == 35){
+        if(indexRow == 26 && indexColumm >= 23 && indexColumm <= 65){
+          if(indexColumm == 54 || indexColumm == 58){
             return TileMap(randomFloor(),collision: true, decoration: TileDecoration('itens/table.png'));
           }
           return TileMap(randomFloor());
         }
-        if(indexRow == 28 && indexColumm >= 25 && indexColumm <= 44){
+        if(indexRow == 27 && indexColumm >= 24 && indexColumm <= 65){
+          return TileMap(randomFloor());
+        }
+        if(indexRow == 28 && indexColumm >= 25 && indexColumm <= 65){
           return TileMap(randomFloor());
         }
 
-        if(indexRow == 29 && indexColumm >= 26 && indexColumm <= 44){
+        if(indexRow == 29 && indexColumm >= 26 && indexColumm <= 65){
+          return TileMap(randomFloor());
+        }
+
+        if(indexRow == 24 && indexColumm >= 45 && indexColumm <= 65){
+          return TileMap(randomFloor());
+        }
+
+        if(indexRow == 23 && indexColumm >= 46 && indexColumm <= 65){
+          return TileMap(randomFloor());
+        }
+
+        if(indexRow == 22 && indexColumm >= 47 && indexColumm <= 65){
           return TileMap(randomFloor());
         }
 
@@ -303,35 +320,35 @@ class MyMaps{
           if(indexRow == 14 && indexColumm == 52){
             return TileMap(
               randomFloor(),
-              enemy: BossEnemy(),
+              enemy: MiniBossEnemy(),
             );
           }
 
           if(indexRow == 14 && indexColumm == 60){
             return TileMap(
               randomFloor(),
-              enemy: BossEnemy(),
+              enemy: MiniBossEnemy(),
             );
           }
 
           if(indexRow == 16 && indexColumm == 54){
             return TileMap(
               randomFloor(),
-              enemy: BossEnemy(),
+              enemy: MiniBossEnemy(),
             );
           }
 
           if(indexRow == 16 && indexColumm == 58){
             return TileMap(
               randomFloor(),
-              enemy: BossEnemy(),
+              enemy: MiniBossEnemy(),
             );
           }
 
           if(indexRow == 18 && indexColumm == 56){
             return TileMap(
               randomFloor(),
-              enemy: BossEnemy(),
+              enemy: MiniBossEnemy(),
             );
           }
 
@@ -344,15 +361,12 @@ class MyMaps{
   }
 
   static String randomFloor(){
-    int p = Random().nextInt(6);
+    int p = Random().nextInt(3);
     String sprite = "";
     switch(p){
       case 0: sprite = 'tile/floor_1.png'; break;
       case 1: sprite = 'tile/floor_2.png'; break;
       case 2: sprite = 'tile/floor_3.png'; break;
-      case 3: sprite = 'tile/floor_4.png'; break;
-      case 4: sprite = 'tile/floor_5.png'; break;
-      case 5: sprite = 'tile/floor_6.png'; break;
     }
     return sprite;
   }

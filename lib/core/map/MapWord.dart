@@ -64,10 +64,6 @@ class MapWord implements MapGame,MapControll {
         if (list.length > maxLeft) {
           maxLeft = list.length.toDouble();
         }
-//        var en = list.where((i) => i.enemy != null).toList();
-//        en.forEach((item) {
-//          enemies.add(item.enemy);
-//        });
       });
 
       maxLeft = maxLeft * map[0][0].size - screenSize.width;
@@ -97,6 +93,10 @@ class MapWord implements MapGame,MapControll {
   }
 
   void _renderEnemy(Enemy enemy,Canvas canvas) {
+
+    if(enemy.isDie()){
+      return;
+    }
 
     Rect positionFromMap = enemy.getCurrentPosition();
 
@@ -146,7 +146,6 @@ class MapWord implements MapGame,MapControll {
               if (tile.enemy != null) {
                 tile.enemy.setInitPosition(tile.position);
                 if(!enemies.contains(tile.enemy)){
-                  print("aqui");
                   enemies.add(tile.enemy);
                 }
               }

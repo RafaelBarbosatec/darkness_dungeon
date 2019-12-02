@@ -92,6 +92,7 @@ class _GameWidgetState extends State<GameWidget> {
 
     showDialog(
         context: context,
+        barrierDismissible: false,
         builder: (context) {
           return Center(
             child: Column(

@@ -141,9 +141,7 @@ abstract class Enemy extends AnimationGameObject with ObjectCollision{
         }else if(translateY < 0){
           animToTop();
         }else{
-          if(!_isIdle) {
-            animation = animationIdle;
-          }
+          idle();
         }
 
         _moveTo = position.translate(translateX, translateY);
@@ -182,6 +180,8 @@ abstract class Enemy extends AnimationGameObject with ObjectCollision{
 
       }else{
 
+        idle();
+
         if(_closePlayer){
           notSee();
         }
@@ -217,7 +217,7 @@ abstract class Enemy extends AnimationGameObject with ObjectCollision{
 
   void notSee() {
     _closePlayer = false;
-    animation = animationIdle;
+    idle();
   }
 
   void animToRight() {
@@ -244,6 +244,13 @@ abstract class Enemy extends AnimationGameObject with ObjectCollision{
     if(animationMoveBottom != null){
       _isIdle = false;
       animation = animationMoveBottom;
+    }
+  }
+
+  void idle(){
+    if(!_isIdle) {
+      _isIdle = true;
+      animation = animationIdle;
     }
   }
 
@@ -288,7 +295,15 @@ abstract class Enemy extends AnimationGameObject with ObjectCollision{
   }
 
   void _drawLife(Canvas canvas) {
+
+    canvas.drawLine(Offset(_currentPosition.left, _currentPosition.top - 4),
+        Offset(_currentPosition.left + width, _currentPosition.top - 4),
+        Paint()..color = Colors.black
+          ..strokeWidth = 2
+          ..style = PaintingStyle.fill);
+
     double currentBarLife = (life*width)/_maxlife;
+
     canvas.drawLine(Offset(_currentPosition.left, _currentPosition.top - 4),
         Offset(_currentPosition.left + currentBarLife, _currentPosition.top - 4),
         Paint()..color = _getColorLife(currentBarLife)

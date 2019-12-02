@@ -1,22 +1,24 @@
-import 'dart:math';
 import 'package:darkness_dungeon/core/Enemy.dart';
 import 'package:darkness_dungeon/core/Player.dart';
 import 'package:darkness_dungeon/core/Util.dart';
-import 'package:flutter/material.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
+import 'package:flutter/material.dart';
 
-class SmileEnemy extends Enemy{
+class MiniBossEnemy extends Enemy{
 
-  static const double SIZE = 20;
   static const double DAMAGE = 10;
 
-  SmileEnemy():super(
-      FlameAnimation.Animation.sequenced("slime_idle.png", 6, textureWidth: 16, textureHeight: 16),
+  MiniBossEnemy():super(
+      FlameAnimation.Animation.sequenced("mini_boss_idle.png", 4, textureWidth: 16, textureHeight: 24),
+      animationMoveRight: FlameAnimation.Animation.sequenced("mini_boss_run_right.png", 4, textureWidth: 16, textureHeight: 24),
+      animationMoveLeft: FlameAnimation.Animation.sequenced("mini_boss_run_left.png", 4, textureWidth: 16, textureHeight: 24),
       animationDie: FlameAnimation.Animation.sequenced("enemy_explosin.png", 5, textureWidth: 16, textureHeight: 16),
-      width:SIZE,
-      height:SIZE,
+      width:16,
+      height:24,
       life: 50,
-      visionCells: 3,
+      intervalAtack: 1000,
+      speed: 1.2,
+      visionCells: 4
   );
 
   @override
