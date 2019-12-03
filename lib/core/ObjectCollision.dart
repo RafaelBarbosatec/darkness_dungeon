@@ -31,4 +31,6 @@ class ObjectCollision{
     var itensCollision = collisionsMap.where((i) => i.overlaps(rectCollision)).toList();
     return itensCollision.length > 0;
   }
+
+
 }

@@ -1,7 +1,9 @@
 
 import 'package:darkness_dungeon/main.dart';
 import 'package:flame/flame.dart';
+import 'package:flame/position.dart';
 import 'package:flutter/material.dart';
+import 'package:flame/animation.dart' as FlameAnimation;
 
 class Menu extends StatelessWidget {
   @override
@@ -30,6 +32,18 @@ class Menu extends StatelessWidget {
             ),
             SizedBox(
               height: 20.0,
+            ),
+            Flame.util.animationAsWidget(
+                Position(50,50),
+                FlameAnimation.Animation.sequenced(
+                    "knight_run.png",
+                    6,
+                    textureWidth: 16,
+                    textureHeight: 16
+                )
+            ),
+            SizedBox(
+              height: 10.0,
             ),
             RaisedButton(
               shape: RoundedRectangleBorder(

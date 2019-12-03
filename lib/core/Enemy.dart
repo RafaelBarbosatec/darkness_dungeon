@@ -89,7 +89,9 @@ abstract class Enemy extends AnimationGameObject with ObjectCollision{
         position.width,
         position.height
     );
+
     rectCollision = getCurrentPosition();
+
     super.update(t);
   }
 

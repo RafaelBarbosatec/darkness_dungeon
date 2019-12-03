@@ -100,8 +100,10 @@ class Player extends AnimationGameObject with ObjectCollision {
     if (position.top <= 0) {
       return;
     }
-    Rect displacement = position.translate(0, (speedPlayer * -1));
 
+    atackObject.animation = null;
+
+    Rect displacement = position.translate(0, (speedPlayer * -1));
     if (verifyCollisionRect(displacement)) {
       return;
     }
@@ -128,6 +130,9 @@ class Player extends AnimationGameObject with ObjectCollision {
     if (position.bottom >= screenSize.height) {
       return;
     }
+
+    atackObject.animation = null;
+
     Rect displacement = position.translate(0, speedPlayer);
     if (verifyCollisionRect(displacement)) {
       return;
@@ -155,6 +160,9 @@ class Player extends AnimationGameObject with ObjectCollision {
     if (position.left <= 0) {
       return;
     }
+
+    atackObject.animation = null;
+
     Rect displacement = position.translate((speedPlayer * -1), 0);
     if (verifyCollisionRect(displacement)) {
       return;
@@ -184,10 +192,13 @@ class Player extends AnimationGameObject with ObjectCollision {
       return;
     }
 
+    atackObject.animation = null;
+
     Rect displacement = position.translate(speedPlayer, 0);
     if (verifyCollisionRect(displacement)) {
       return;
     }
+
     if (position.left < screenSize.width / 1.5 || _mapControll.isMaxRight()) {
       position = displacement;
     } else {
@@ -214,6 +225,8 @@ class Player extends AnimationGameObject with ObjectCollision {
     if (position.top <= 0) {
       return;
     }
+
+    atackObject.animation = null;
 
     Rect displacementRight = position.translate(speedPlayer,0);
 
@@ -261,6 +274,8 @@ class Player extends AnimationGameObject with ObjectCollision {
       return;
     }
 
+    atackObject.animation = null;
+
     Rect displacementLeft = position.translate((-1 *speedPlayer), 0);
 
     if (!verifyCollisionRect(displacementLeft)) {
@@ -300,9 +315,12 @@ class Player extends AnimationGameObject with ObjectCollision {
     if (position.left <= 0) {
       return;
     }
+
     if (position.bottom >= screenSize.height) {
       return;
     }
+
+    atackObject.animation = null;
 
     Rect displacementLeft = position.translate((-1 *speedPlayer), 0);
 
@@ -348,6 +366,8 @@ class Player extends AnimationGameObject with ObjectCollision {
     if (position.top >= screenSize.height) {
       return;
     }
+
+    atackObject.animation = null;
 
     Rect displacementRight = position.translate(speedPlayer, 0);
 

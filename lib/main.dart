@@ -1,4 +1,6 @@
 
+import 'dart:async';
+
 import 'package:darkness_dungeon/Menu.dart';
 import 'package:darkness_dungeon/player/HealthBar.dart';
 import 'package:darkness_dungeon/core/Controller.dart';
@@ -32,7 +34,7 @@ class _GameWidgetState extends State<GameWidget> {
 
   DarknessDungeon game;
   final GlobalKey<HealthBarState> healthKey = GlobalKey();
-  bool showProgress = true;
+  StreamController<bool> streamProgress = StreamController();
 
   @override
   void initState() {
@@ -49,14 +51,13 @@ class _GameWidgetState extends State<GameWidget> {
         },
         loaded: (){
           Future.delayed(Duration(milliseconds: 500),(){
-            setState(() {
-              showProgress = false;
-            });
+            streamProgress.sink.add(false);
           });
         }
     );
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
 
@@ -136,31 +137,43 @@ class _GameWidgetState extends State<GameWidget> {
   }
 
   Widget _buildProgress() {
-    if(showProgress){
-      return AnimatedOpacity(
-        opacity: 1.0,
-        duration: Duration(milliseconds: 300),
-        child: Container(
-          color: Colors.black,
-          child: Center(
-            child: Text(
-              "Carregando...",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'Normal',
-                  fontSize: 20.0
+
+    return StreamBuilder(
+      stream: streamProgress.stream,
+      initialData: true,
+      builder: (context,snapshot){
+        bool showProgress = true;
+
+        if(snapshot.hasData){
+          showProgress = snapshot.data;
+        }
+
+        return AnimatedOpacity(
+          opacity: showProgress ? 1.0 : 0.0 ,
+          duration: Duration(milliseconds: 500),
+          child: Container(
+            color: Colors.black,
+            child: Center(
+              child: Text(
+                "Carregando...",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'Normal',
+                    fontSize: 20.0
+                ),
               ),
             ),
           ),
-        ),
-      );
-    }else{
-      return AnimatedOpacity(
-          opacity: 0.0,
-          duration: Duration(milliseconds: 300),
-          child: Container()
-      );
-    }
+        );
+      },
+    );
+
+  }
+
+  @override
+  void dispose() {
+    streamProgress.close();
+    super.dispose();
   }
 }
 
@@ -199,15 +212,15 @@ class DarknessDungeon extends Game {
     controller = Controller(
         size,
         size.height / 10,
-        runTop,
-        runBottom,
-        runLeft,
-        runRight,
-        idle,
-        runTopLeft,
-        runTopRight,
-        runBottomLeft,
-        runBottomRight,
+        player.moveToTop,
+        player.moveToBottom,
+        player.moveToLeft,
+        player.moveToRight,
+        player.idle,
+        player.runTopLeft,
+        player.runTopRight,
+        player.runBottomLeft,
+        player.runBottomRight,
         player.atack
     );
   }
@@ -224,42 +237,6 @@ class DarknessDungeon extends Game {
   void resize(Size size) {
     this.size = size;
     super.resize(size);
-  }
-
-  void idle(){
-    player.idle();
-  }
-
-  void runTop(){
-    player.moveToTop();
-  }
-
-  void runBottom(){
-    player.moveToBottom();
-  }
-
-  void runLeft(){
-    player.moveToLeft();
-  }
-
-  void runRight(){
-    player.moveToRight();
-  }
-
-  void runTopRight(){
-    player.runTopRight();
-  }
-
-  void runBottomLeft(){
-    player.runBottomLeft();
-  }
-
-  void runTopLeft(){
-    player.runTopLeft();
-  }
-
-  void runBottomRight(){
-    player.runBottomRight();
   }
 
   @override
