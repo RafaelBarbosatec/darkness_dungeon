@@ -68,7 +68,8 @@ class Player extends AnimationGameObject with ObjectCollision {
     initPosition = position;
     this.position = position;
     animation = animationIdle;
-    rectCollision = getRectCollision();
+    widthCollision = position.width;
+    heightCollision = position.height/2;
   }
 
   @override
@@ -86,7 +87,6 @@ class Player extends AnimationGameObject with ObjectCollision {
   void updatePlayer(double dt, List<Rect> collisionsMap, List<Enemy> enemies, List<TileDecoration> decorations) {
     super.update(dt);
     this.collisionsMap = collisionsMap;
-    this.rectCollision = getRectCollision();
     this._enemies = enemies;
     _updateAtackObject(dt);
   }
@@ -483,10 +483,6 @@ class Player extends AnimationGameObject with ObjectCollision {
     this.position = initPosition;
     stamina = 100;
     life = 100;
-  }
-
-  Rect getRectCollision() {
-    return Rect.fromLTWH(position.left+(position.width / 3), position.top + (position.height / 2), position.width / 3, position.height / 2);
   }
 
   void _updateAtackObject(double dt) {

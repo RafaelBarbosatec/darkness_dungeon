@@ -13,7 +13,7 @@ class Controller {
   Rect knobRect;
   Sprite knobSprite;
 
-  double atackAspectRatio = 2.0;
+  double atackAspectRatio = 2.5;
   Rect atackRect;
   Sprite atackSprite;
 
@@ -80,7 +80,7 @@ class Controller {
 
     atackRect = Rect.fromCircle(
         center: atacknob,
-        radius: radiusAtack
+        radius: radiusAtack,
     );
 
 
@@ -206,13 +206,13 @@ class Controller {
 
   void onTapDownAtack(TapDownDetails details){
     if (atackRect.contains(details.globalPosition)) {
-      atackAspectRatio = 1.95;
+      atackAspectRatio = 2.4;
       atack();
     }
   }
 
   void onTapUpAtack(TapUpDetails details){
-    atackAspectRatio = 2.0;
+    atackAspectRatio = 2.5;
   }
 
   void initPositionJoystick(Offset position) {

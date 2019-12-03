@@ -55,7 +55,9 @@ abstract class Enemy extends AnimationGameObject with ObjectCollision{
     animation = animationIdle;
     this.position = Rect.fromLTWH(0, 0, width, height);
     this._currentPosition = this.position;
-    rectCollision = _getRectCollision();
+    rectCollision = getCurrentPosition();
+    widthCollision = position.width;
+    heightCollision = position.height/2;
   }
 
   setInitPosition(Rect position){
@@ -87,7 +89,7 @@ abstract class Enemy extends AnimationGameObject with ObjectCollision{
         position.width,
         position.height
     );
-    rectCollision = _getRectCollision();
+    rectCollision = getCurrentPosition();
     super.update(t);
   }
 
@@ -144,9 +146,9 @@ abstract class Enemy extends AnimationGameObject with ObjectCollision{
 
         _moveTo = position.translate(translateX, translateY);
 
-        var collisionAll = _occurredCollision(player.position, translateX, translateY);
-        var collisionX = _occurredCollision(player.position, translateX, 0);
-        var collisionY = _occurredCollision(player.position, 0, translateY);
+        var collisionAll = _occurredCollision(translateX, translateY);
+        var collisionX = _occurredCollision(translateX, 0);
+        var collisionY = _occurredCollision(0, translateY);
 
         if(collisionAll && collisionX && collisionY){
           animation = animationIdle;
@@ -194,7 +196,7 @@ abstract class Enemy extends AnimationGameObject with ObjectCollision{
     return _currentPosition.overlaps(player);
   }
 
-  bool _occurredCollision(Rect player, double translateX,double translateY){
+  bool _occurredCollision(double translateX,double translateY){
     var moveToCurrent = _currentPosition.translate(translateX, translateY);
     return verifyCollisionRect(moveToCurrent);
   }
@@ -263,16 +265,20 @@ abstract class Enemy extends AnimationGameObject with ObjectCollision{
 
     switch(direction){
       case Direction.left:
-        position = Rect.fromLTWH(position.left - width, position.top, position.width, position.height);
+        if(!_occurredCollision((width * -1),0))
+          position = position.translate((width * -1),0);
         break;
       case Direction.right:
-        position = Rect.fromLTWH(position.left + width, position.top, position.width, position.height);
+        if(!_occurredCollision(width,0))
+          position = position.translate(width,0);
         break;
       case Direction.top:
-        position = Rect.fromLTWH(position.left, position.top - height, position.width, position.height);
+        if(!_occurredCollision(0,(height * -1)))
+          position = position.translate(0,(height * -1));
         break;
       case Direction.bottom:
-        position = Rect.fromLTWH(position.left, position.top + height, position.width, position.height);
+        if(!_occurredCollision(0,height))
+          position = position.translate(0, height);
         break;
     }
 
@@ -339,14 +345,6 @@ abstract class Enemy extends AnimationGameObject with ObjectCollision{
 
   Rect getCurrentPosition(){
     return _currentPosition;
-  }
-  Rect _getRectCollision() {
-    return Rect.fromLTWH(
-        _currentPosition.left + (_currentPosition.width / 3),
-        _currentPosition.top + (_currentPosition.height / 2),
-        _currentPosition.width / 3,
-        _currentPosition.height / 2
-    );
   }
 
 }
