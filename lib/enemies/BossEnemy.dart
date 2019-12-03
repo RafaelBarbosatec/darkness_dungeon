@@ -19,7 +19,7 @@ class BossEnemy extends Enemy{
       height:32,
       life: 300,
       intervalAtack: 500,
-      speed: 1.1,
+      speed: 1.0,
       visionCells: 3
   );
 

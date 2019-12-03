@@ -124,13 +124,13 @@ abstract class Enemy extends AnimationGameObject with ObjectCollision{
         double translateY = _currentPosition.center.dy > topPlayer? (-1 * speed):speed;
 
         if(_currentPosition.left == leftPlayer
-            || (translateX == -1 &&  _currentPosition.left - leftPlayer < 3)
-            || (translateX == 1 && leftPlayer - _currentPosition.left < 3)){
+            || (translateX == -1 &&  _currentPosition.center.dx - leftPlayer < 3)
+            || (translateX == 1 && leftPlayer - _currentPosition.center.dx < 3)){
           translateX = 0;
         }
         if(_currentPosition.top == topPlayer
-            || (translateY == -1 &&  _currentPosition.top - topPlayer < 3)
-            || (translateY == 1 && topPlayer - _currentPosition.top < 3)){
+            || (translateY == -1 &&  _currentPosition.center.dy - topPlayer < 3)
+            || (translateY == 1 && topPlayer - _currentPosition.center.dy < 3)){
           translateY = 0;
         }
 
