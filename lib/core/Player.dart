@@ -101,8 +101,6 @@ class Player extends AnimationGameObject with ObjectCollision {
       return;
     }
 
-    atackObject.animation = null;
-
     Rect displacement = position.translate(0, (speedPlayer * -1));
     if (verifyCollisionRect(displacement)) {
       return;
@@ -114,10 +112,12 @@ class Player extends AnimationGameObject with ObjectCollision {
       _mapControll.moveTop(speedPlayer);
     }
 
-    lasDirection = Direction.top;
 
-    if(animationMoveTop != null){
+
+    if(animationMoveTop != null && lasDirection != Direction.top){
+      lasDirection = Direction.top;
       animation = animationMoveTop;
+      atackObject.animation = null;
     }
   }
 
@@ -131,8 +131,6 @@ class Player extends AnimationGameObject with ObjectCollision {
       return;
     }
 
-    atackObject.animation = null;
-
     Rect displacement = position.translate(0, speedPlayer);
     if (verifyCollisionRect(displacement)) {
       return;
@@ -144,11 +142,12 @@ class Player extends AnimationGameObject with ObjectCollision {
       _mapControll.moveBottom(speedPlayer);
     }
 
-    lasDirection = Direction.bottom;
-
-    if(animationMoveBottom != null){
+    if(animationMoveBottom != null && lasDirection != Direction.bottom){
+      lasDirection = Direction.bottom;
       animation = animationMoveBottom;
+      atackObject.animation = null;
     }
+
   }
 
   void moveToLeft() {
@@ -161,8 +160,6 @@ class Player extends AnimationGameObject with ObjectCollision {
       return;
     }
 
-    atackObject.animation = null;
-
     Rect displacement = position.translate((speedPlayer * -1), 0);
     if (verifyCollisionRect(displacement)) {
       return;
@@ -174,11 +171,12 @@ class Player extends AnimationGameObject with ObjectCollision {
       _mapControll.moveLeft(speedPlayer);
     }
 
-    lasDirection = Direction.left;
     lasDirectionHotizontal = Direction.left;
 
-    if(animationMoveLeft != null){
+    if(animationMoveLeft != null && lasDirection != Direction.left){
+      lasDirection = Direction.left;
       animation = animationMoveLeft;
+      atackObject.animation = null;
     }
   }
 
@@ -192,8 +190,6 @@ class Player extends AnimationGameObject with ObjectCollision {
       return;
     }
 
-    atackObject.animation = null;
-
     Rect displacement = position.translate(speedPlayer, 0);
     if (verifyCollisionRect(displacement)) {
       return;
@@ -205,11 +201,12 @@ class Player extends AnimationGameObject with ObjectCollision {
       _mapControll.moveRight(speedPlayer);
     }
 
-    lasDirection = Direction.right;
     lasDirectionHotizontal = Direction.right;
 
-    if(animationMoveRight != null){
+    if(animationMoveRight != null && lasDirection != Direction.right){
+      lasDirection = Direction.right;
       animation = animationMoveRight;
+      atackObject.animation = null;
     }
   }
 
@@ -225,8 +222,6 @@ class Player extends AnimationGameObject with ObjectCollision {
     if (position.top <= 0) {
       return;
     }
-
-    atackObject.animation = null;
 
     Rect displacementRight = position.translate(speedPlayer,0);
 
@@ -274,8 +269,6 @@ class Player extends AnimationGameObject with ObjectCollision {
       return;
     }
 
-    atackObject.animation = null;
-
     Rect displacementLeft = position.translate((-1 *speedPlayer), 0);
 
     if (!verifyCollisionRect(displacementLeft)) {
@@ -319,8 +312,6 @@ class Player extends AnimationGameObject with ObjectCollision {
     if (position.bottom >= screenSize.height) {
       return;
     }
-
-    atackObject.animation = null;
 
     Rect displacementLeft = position.translate((-1 *speedPlayer), 0);
 
@@ -366,8 +357,6 @@ class Player extends AnimationGameObject with ObjectCollision {
     if (position.top >= screenSize.height) {
       return;
     }
-
-    atackObject.animation = null;
 
     Rect displacementRight = position.translate(speedPlayer, 0);
 
