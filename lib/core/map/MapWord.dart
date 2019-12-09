@@ -2,6 +2,7 @@ import 'package:darkness_dungeon/core/Decoration.dart';
 import 'package:darkness_dungeon/core/Enemy.dart';
 import 'package:darkness_dungeon/core/map/TileMap.dart';
 import 'package:darkness_dungeon/core/Player.dart';
+import 'package:flame/components/component.dart';
 import 'package:flutter/material.dart';
 
 abstract class MapControll{
@@ -30,7 +31,7 @@ abstract class MapGame {
   void resetMap(List<List<TileMap>> map);
 }
 
-class MapWord implements MapGame,MapControll {
+class MapWord extends Component implements MapGame,MapControll {
 
   List<List<TileMap>> map;
   final Size screenSize;
@@ -70,8 +71,8 @@ class MapWord implements MapGame,MapControll {
     }
   }
 
+  @override
   void render(Canvas canvas) {
-
     var decorationFront = List<TileDecoration>();
 
     tilesMap.forEach((tile) => tile.render(canvas));
@@ -89,7 +90,6 @@ class MapWord implements MapGame,MapControll {
     player.render(canvas);
 
     decorationFront.forEach((d) => d.render(canvas));
-
   }
 
   void _renderEnemy(Enemy enemy,Canvas canvas) {
@@ -106,67 +106,6 @@ class MapWord implements MapGame,MapControll {
             positionFromMap.top > (positionFromMap.height * -2))) {
       enemy.render(canvas);
     }
-  }
-
-  void update(double t) {
-
-    if(_lastPaddingLeft !=  paddingLeft || _lastPaddingTop != paddingTop) {
-
-      _lastPaddingLeft = paddingLeft;
-      _lastPaddingTop = paddingTop;
-
-      int countY = 0;
-      collisionsRect.clear();
-      tilesMap.clear();
-      decorations.clear();
-      map.forEach((tiles) {
-
-        TileMap lastTile;
-
-        tiles[0].position = Rect.fromLTWH(
-            paddingLeft, (countY * tiles[0].size).toDouble() + paddingTop,
-            tiles[0].size, tiles[0].size);
-
-        if (tiles[0].position.top < screenSize.height * (tiles[0].size * 2) &&
-            tiles[0].position.top > (tiles[0].size * -2)) {
-          tiles.forEach((tile) {
-            if (lastTile != null) {
-              tile.position = lastTile.position.translate(lastTile.size, 0);
-            }
-
-            if (tile.position.left < screenSize.width + (tile.size * 2) &&
-                tile.position.left > (tile.size * -2)) {
-              if (tile.spriteImg.isNotEmpty)
-                tilesMap.add(tile);
-
-              if (tile.collision) {
-                collisionsRect.add(tile.position);
-              }
-
-              if (tile.enemy != null) {
-                tile.enemy.setInitPosition(tile.position);
-                if(!enemies.contains(tile.enemy)){
-                  enemies.add(tile.enemy);
-                }
-              }
-
-              if (tile.decoration != null) {
-                tile.decoration.setPosition(tile.position);
-                decorations.add(tile.decoration);
-              }
-            }
-
-            lastTile = tile;
-          });
-        }
-        countY++;
-      });
-    }
-
-    decorations.forEach((d)=> d.update(t));
-    enemies.forEach((enemy) => enemy.updateEnemy(t, player, paddingLeft, paddingTop, collisionsRect));
-    player.updatePlayer(t, collisionsRect, enemies, decorations);
-
   }
 
   void moveRight(double displacement) {
@@ -230,7 +169,7 @@ class MapWord implements MapGame,MapControll {
     this.map.forEach((item){
       item.forEach((i){
         if(i.enemy != null) {
-          i.enemy.destroy();
+          i.enemy.destroyEnemy();
         }
       });
     });
@@ -273,6 +212,66 @@ class MapWord implements MapGame,MapControll {
           player.position.height
       );
     }
+  }
+
+  @override
+  void update(double t) {
+    if(_lastPaddingLeft !=  paddingLeft || _lastPaddingTop != paddingTop) {
+
+      _lastPaddingLeft = paddingLeft;
+      _lastPaddingTop = paddingTop;
+
+      int countY = 0;
+      collisionsRect.clear();
+      tilesMap.clear();
+      decorations.clear();
+      map.forEach((tiles) {
+
+        TileMap lastTile;
+
+        tiles[0].position = Rect.fromLTWH(
+            paddingLeft, (countY * tiles[0].size).toDouble() + paddingTop,
+            tiles[0].size, tiles[0].size);
+
+        if (tiles[0].position.top < screenSize.height * (tiles[0].size * 2) &&
+            tiles[0].position.top > (tiles[0].size * -2)) {
+          tiles.forEach((tile) {
+            if (lastTile != null) {
+              tile.position = lastTile.position.translate(lastTile.size, 0);
+            }
+
+            if (tile.position.left < screenSize.width + (tile.size * 2) &&
+                tile.position.left > (tile.size * -2)) {
+              if (tile.spriteImg.isNotEmpty)
+                tilesMap.add(tile);
+
+              if (tile.collision) {
+                collisionsRect.add(tile.position);
+              }
+
+              if (tile.enemy != null) {
+                tile.enemy.setInitPosition(tile.position);
+                if(!enemies.contains(tile.enemy)){
+                  enemies.add(tile.enemy);
+                }
+              }
+
+              if (tile.decoration != null) {
+                tile.decoration.setPosition(tile.position);
+                decorations.add(tile.decoration);
+              }
+            }
+
+            lastTile = tile;
+          });
+        }
+        countY++;
+      });
+    }
+
+    decorations.forEach((d)=> d.update(t));
+    enemies.forEach((enemy) => enemy.updateEnemy(t, player, paddingLeft, paddingTop, collisionsRect));
+    player.updatePlayer(t, collisionsRect, enemies, decorations);
   }
 
 }

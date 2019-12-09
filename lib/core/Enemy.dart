@@ -340,7 +340,7 @@ abstract class Enemy extends AnimationGameObject with ObjectCollision{
     }
   }
 
-  void destroy(){
+  void destroyEnemy(){
     if(_timer != null && _timer.isActive)
       _timer.cancel();
   }

@@ -10,6 +10,7 @@ import 'package:darkness_dungeon/player/Knight.dart';
 import 'package:darkness_dungeon/core/Player.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
+import 'package:flame/gestures.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
@@ -177,7 +178,7 @@ class _GameWidgetState extends State<GameWidget> {
   }
 }
 
-class DarknessDungeon extends Game {
+class DarknessDungeon extends BaseGame {
   Size size;
   final Function(double) changeLife;
   final Function(double) changeStamina;
@@ -223,6 +224,9 @@ class DarknessDungeon extends Game {
         player.runBottomRight,
         player.atack
     );
+
+    add(map);
+    add(controller);
   }
 
   void resetGame(){
@@ -241,18 +245,11 @@ class DarknessDungeon extends Game {
 
   @override
   void render(Canvas canvas) {
-    map.render(canvas);
-    controller.render(canvas);
+    super.render(canvas);
     if(!loadedControl){
       loadedControl = true;
       loaded();
     }
-  }
-
-  @override
-  void update(double t) {
-    map.update(t);
-    controller.update(t);
   }
 
 }

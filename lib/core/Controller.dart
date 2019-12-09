@@ -1,9 +1,10 @@
+import 'package:flame/components/component.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-class Controller {
+class Controller extends Component{
 
   double backgroundAspectRatio = 2.2;
   Rect backgroundRect;

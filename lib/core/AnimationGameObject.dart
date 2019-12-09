@@ -1,7 +1,8 @@
+import 'package:flame/components/component.dart';
 import 'package:flutter/material.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 
-class AnimationGameObject {
+class AnimationGameObject extends Component{
 
   Rect position;
   FlameAnimation.Animation animation;
@@ -28,4 +29,5 @@ class AnimationGameObject {
     if(animation != null)
       animation.update(dt);
   }
+
 }
