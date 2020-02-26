@@ -20,7 +20,9 @@ dependencies:
   flutter:
     sdk: flutter
 
-  flame: ^0.17.0
+  flame: ^0.18.1
+  flame_splash_screen: ^0.0.1
+
 
 dev_dependencies:
   flutter_test:

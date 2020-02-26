@@ -1,27 +1,27 @@
 import 'dart:async';
 import 'dart:math';
+
+import 'package:darkness_dungeon/core/AnimationGameObject.dart';
 import 'package:darkness_dungeon/core/Decoration.dart';
 import 'package:darkness_dungeon/core/Direction.dart';
 import 'package:darkness_dungeon/core/Enemy.dart';
 import 'package:darkness_dungeon/core/ObjectCollision.dart';
 import 'package:darkness_dungeon/core/map/MapWord.dart';
-import 'package:darkness_dungeon/core/AnimationGameObject.dart';
-import 'package:flutter/material.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
+import 'package:flutter/material.dart';
 
 class Player extends AnimationGameObject with ObjectCollision {
-
   double life;
-  MapControll _mapControll;
+  MapControll _mapControl;
   double stamina = 100;
   double costStamina = 15;
   final double size;
-  final double damageAtack;
+  final double damageAttack;
   final Size screenSize;
   final double speedPlayer;
   final Function(double) changeLife;
   final Function(double) changeStamina;
-  final Function callBackdie;
+  final Function callBackDie;
   final FlameAnimation.Animation animationIdle;
   final FlameAnimation.Animation animationIdleLeft;
   final FlameAnimation.Animation animationMoveLeft;
@@ -29,70 +29,68 @@ class Player extends AnimationGameObject with ObjectCollision {
   final FlameAnimation.Animation animationMoveTop;
   final FlameAnimation.Animation animationMoveBottom;
   final FlameAnimation.Animation animationDie;
-  final FlameAnimation.Animation animationAtackLeft;
-  final FlameAnimation.Animation animationAtackRight;
-  final FlameAnimation.Animation animationAtackTop;
-  final FlameAnimation.Animation animationAtackBottom;
-  AnimationGameObject atackObject = AnimationGameObject();
+  final FlameAnimation.Animation animationAttackLeft;
+  final FlameAnimation.Animation animationAttackRight;
+  final FlameAnimation.Animation animationAttackTop;
+  final FlameAnimation.Animation animationAttackBottom;
+  AnimationGameObject attackObject = AnimationGameObject();
   Direction lasDirection = Direction.right;
-  Direction lasDirectionHotizontal = Direction.right;
+  Direction lasDirectionHorizontal = Direction.right;
   Timer _timerStamina;
   bool notifyDie = false;
   Rect initPosition;
   List<Enemy> _enemies = List();
 
   Player(
-      this.size,
-      this.screenSize,
-      Rect position,
-      this.animationIdle,
-      {
-        this.damageAtack = 1,
-        this.life = 1,
-        this.speedPlayer = 1,
-        this.animationIdleLeft,
-        this.animationMoveLeft,
-        this.animationMoveRight,
-        this.animationMoveTop,
-        this.animationMoveBottom,
-        this.animationDie,
-        this.animationAtackLeft,
-        this.animationAtackRight,
-        this.animationAtackTop,
-        this.animationAtackBottom,
-        this.changeLife,
-        this.changeStamina,
-        this.callBackdie,
-      }
-      ){
+    this.size,
+    this.screenSize,
+    Rect position,
+    this.animationIdle, {
+    this.damageAttack = 1,
+    this.life = 1,
+    this.speedPlayer = 1,
+    this.animationIdleLeft,
+    this.animationMoveLeft,
+    this.animationMoveRight,
+    this.animationMoveTop,
+    this.animationMoveBottom,
+    this.animationDie,
+    this.animationAttackLeft,
+    this.animationAttackRight,
+    this.animationAttackTop,
+    this.animationAttackBottom,
+    this.changeLife,
+    this.changeStamina,
+    this.callBackDie,
+  }) {
     initPosition = position;
     this.position = position;
     animation = animationIdle;
     widthCollision = position.width;
-    heightCollision = position.height/2;
+    heightCollision = position.height / 2;
   }
 
   @override
   void render(Canvas canvas) {
     super.render(canvas);
-    if(life > 0) {
-      atackObject.render(canvas);
+    if (life > 0) {
+      attackObject.render(canvas);
     }
   }
 
-  void setMapControll(MapControll mapControll){
-    _mapControll = mapControll;
+  void setMapControl(MapControll mapControl) {
+    _mapControl = mapControl;
   }
 
-  void updatePlayer(double dt, List<Rect> collisionsMap, List<Enemy> enemies, List<TileDecoration> decorations) {
+  void updatePlayer(double dt, List<Rect> collisionsMap, List<Enemy> enemies,
+      List<TileDecoration> decorations) {
     super.update(dt);
     this.collisionsMap = collisionsMap;
     this._enemies = enemies;
-    _updateAtackObject(dt);
+    _updateAttackObject(dt);
   }
 
   void moveToTop() {
-
     if (life == 0) {
       return;
     }
@@ -106,23 +104,20 @@ class Player extends AnimationGameObject with ObjectCollision {
       return;
     }
 
-    if (position.top > screenSize.height / 3 || _mapControll.isMaxTop()) {
+    if (position.top > screenSize.height / 3 || _mapControl.isMaxTop()) {
       position = displacement;
     } else {
-      _mapControll.moveTop(speedPlayer);
+      _mapControl.moveTop(speedPlayer);
     }
 
-
-
-    if(animationMoveTop != null && lasDirection != Direction.top){
+    if (animationMoveTop != null && lasDirection != Direction.top) {
       lasDirection = Direction.top;
       animation = animationMoveTop;
-      atackObject.animation = null;
+      attackObject.animation = null;
     }
   }
 
   void moveToBottom() {
-
     if (life == 0) {
       return;
     }
@@ -136,22 +131,20 @@ class Player extends AnimationGameObject with ObjectCollision {
       return;
     }
 
-    if (position.top < screenSize.height / 1.5 || _mapControll.isMaxBottom()) {
+    if (position.top < screenSize.height / 1.5 || _mapControl.isMaxBottom()) {
       position = displacement;
     } else {
-      _mapControll.moveBottom(speedPlayer);
+      _mapControl.moveBottom(speedPlayer);
     }
 
-    if(animationMoveBottom != null && lasDirection != Direction.bottom){
+    if (animationMoveBottom != null && lasDirection != Direction.bottom) {
       lasDirection = Direction.bottom;
       animation = animationMoveBottom;
-      atackObject.animation = null;
+      attackObject.animation = null;
     }
-
   }
 
   void moveToLeft() {
-
     if (life == 0) {
       return;
     }
@@ -165,23 +158,22 @@ class Player extends AnimationGameObject with ObjectCollision {
       return;
     }
 
-    if (position.left > screenSize.width / 3 || _mapControll.isMaxLeft()) {
+    if (position.left > screenSize.width / 3 || _mapControl.isMaxLeft()) {
       position = displacement;
     } else {
-      _mapControll.moveLeft(speedPlayer);
+      _mapControl.moveLeft(speedPlayer);
     }
 
-    lasDirectionHotizontal = Direction.left;
+    lasDirectionHorizontal = Direction.left;
 
-    if(animationMoveLeft != null && lasDirection != Direction.left){
+    if (animationMoveLeft != null) {
       lasDirection = Direction.left;
       animation = animationMoveLeft;
-      atackObject.animation = null;
+      attackObject.animation = null;
     }
   }
 
   void moveToRight() {
-
     if (life == 0) {
       return;
     }
@@ -195,22 +187,22 @@ class Player extends AnimationGameObject with ObjectCollision {
       return;
     }
 
-    if (position.left < screenSize.width / 1.5 || _mapControll.isMaxRight()) {
+    if (position.left < screenSize.width / 1.5 || _mapControl.isMaxRight()) {
       position = displacement;
     } else {
-      _mapControll.moveRight(speedPlayer);
+      _mapControl.moveRight(speedPlayer);
     }
 
-    lasDirectionHotizontal = Direction.right;
+    lasDirectionHorizontal = Direction.right;
 
-    if(animationMoveRight != null && lasDirection != Direction.right){
+    if (animationMoveRight != null) {
       lasDirection = Direction.right;
       animation = animationMoveRight;
-      atackObject.animation = null;
+      attackObject.animation = null;
     }
   }
 
-  void runTopRight(){
+  void runTopRight() {
     if (life == 0) {
       return;
     }
@@ -223,40 +215,36 @@ class Player extends AnimationGameObject with ObjectCollision {
       return;
     }
 
-    Rect displacementRight = position.translate(speedPlayer,0);
+    Rect displacementRight = position.translate(speedPlayer, 0);
 
     if (!verifyCollisionRect(displacementRight)) {
-
-      if (position.left < screenSize.width / 1.5 || _mapControll.isMaxRight()) {
+      if (position.left < screenSize.width / 1.5 || _mapControl.isMaxRight()) {
         position = displacementRight;
       } else {
-        _mapControll.moveRight(speedPlayer);
+        _mapControl.moveRight(speedPlayer);
       }
 
-      if(animationMoveRight != null){
+      if (animationMoveRight != null) {
         animation = animationMoveRight;
       }
-
     }
 
-    Rect displacementTop = position.translate(0,(-1 *speedPlayer));
+    Rect displacementTop = position.translate(0, (-1 * speedPlayer));
 
     if (!verifyCollisionRect(displacementTop)) {
-
-      if (position.top > screenSize.height / 3 || _mapControll.isMaxTop()) {
+      if (position.top > screenSize.height / 3 || _mapControl.isMaxTop()) {
         position = displacementTop;
       } else {
-        _mapControll.moveTop(speedPlayer);
+        _mapControl.moveTop(speedPlayer);
       }
 
-      if(animationMoveRight != null){
+      if (animationMoveRight != null) {
         animation = animationMoveRight;
       }
     }
-
   }
 
-  void runTopLeft(){
+  void runTopLeft() {
     if (life == 0) {
       return;
     }
@@ -269,37 +257,35 @@ class Player extends AnimationGameObject with ObjectCollision {
       return;
     }
 
-    Rect displacementLeft = position.translate((-1 *speedPlayer), 0);
+    Rect displacementLeft = position.translate((-1 * speedPlayer), 0);
 
     if (!verifyCollisionRect(displacementLeft)) {
-      if (position.left > screenSize.width / 1.5
-          || _mapControll.isMaxLeft()) {
+      if (position.left > screenSize.width / 1.5 || _mapControl.isMaxLeft()) {
         position = displacementLeft;
       } else {
-        _mapControll.moveLeft(speedPlayer);
+        _mapControl.moveLeft(speedPlayer);
       }
-      if(animationMoveLeft != null){
+      if (animationMoveLeft != null) {
         animation = animationMoveLeft;
       }
     }
 
-    Rect displacementTop = position.translate(0, (-1 *speedPlayer));
+    Rect displacementTop = position.translate(0, (-1 * speedPlayer));
 
     if (!verifyCollisionRect(displacementTop)) {
-      if (position.top > screenSize.height / 3 || _mapControll.isMaxTop()) {
+      if (position.top > screenSize.height / 3 || _mapControl.isMaxTop()) {
         position = displacementTop;
       } else {
-        _mapControll.moveTop(speedPlayer);
+        _mapControl.moveTop(speedPlayer);
       }
 
-      if(animationMoveLeft != null){
+      if (animationMoveLeft != null) {
         animation = animationMoveLeft;
       }
     }
-
   }
 
-  void runBottomLeft(){
+  void runBottomLeft() {
     //print('runBottomLeft');
     if (life == 0) {
       return;
@@ -313,17 +299,16 @@ class Player extends AnimationGameObject with ObjectCollision {
       return;
     }
 
-    Rect displacementLeft = position.translate((-1 *speedPlayer), 0);
+    Rect displacementLeft = position.translate((-1 * speedPlayer), 0);
 
     if (!verifyCollisionRect(displacementLeft)) {
-
-      if (position.left > screenSize.width / 1.5 || _mapControll.isMaxLeft()) {
+      if (position.left > screenSize.width / 1.5 || _mapControl.isMaxLeft()) {
         position = displacementLeft;
       } else {
-        _mapControll.moveLeft(speedPlayer);
+        _mapControl.moveLeft(speedPlayer);
       }
 
-      if(animationMoveLeft != null){
+      if (animationMoveLeft != null) {
         animation = animationMoveLeft;
       }
     }
@@ -331,21 +316,19 @@ class Player extends AnimationGameObject with ObjectCollision {
     Rect displacementBottom = position.translate(0, speedPlayer);
 
     if (!verifyCollisionRect(displacementBottom)) {
-      if (position.top < screenSize.height / 1.5 || _mapControll.isMaxBottom()) {
+      if (position.top < screenSize.height / 1.5 || _mapControl.isMaxBottom()) {
         position = displacementBottom;
       } else {
-        _mapControll.moveBottom(speedPlayer);
+        _mapControl.moveBottom(speedPlayer);
       }
 
-      if(animationMoveLeft != null){
+      if (animationMoveLeft != null) {
         animation = animationMoveLeft;
       }
     }
-
   }
 
-  void runBottomRight(){
-
+  void runBottomRight() {
     if (life == 0) {
       return;
     }
@@ -361,15 +344,13 @@ class Player extends AnimationGameObject with ObjectCollision {
     Rect displacementRight = position.translate(speedPlayer, 0);
 
     if (!verifyCollisionRect(displacementRight)) {
-
-      if (position.left < screenSize.width / 1.5
-          || _mapControll.isMaxRight()) {
+      if (position.left < screenSize.width / 1.5 || _mapControl.isMaxRight()) {
         position = displacementRight;
       } else {
-        _mapControll.moveRight(speedPlayer);
+        _mapControl.moveRight(speedPlayer);
       }
 
-      if(animationMoveRight != null){
+      if (animationMoveRight != null) {
         animation = animationMoveRight;
       }
     }
@@ -377,33 +358,31 @@ class Player extends AnimationGameObject with ObjectCollision {
     Rect displacementBottom = position.translate(0, speedPlayer);
 
     if (!verifyCollisionRect(displacementBottom)) {
-
-      if (position.top < screenSize.height / 1.5 || _mapControll.isMaxBottom()) {
+      if (position.top < screenSize.height / 1.5 || _mapControl.isMaxBottom()) {
         position = displacementBottom;
       } else {
-        _mapControll.moveBottom(speedPlayer);
+        _mapControl.moveBottom(speedPlayer);
       }
 
-      if(animationMoveRight != null){
+      if (animationMoveRight != null) {
         animation = animationMoveRight;
       }
     }
-
   }
 
-  void idle(){
+  void idle() {
     if (life == 0) {
       return;
     }
 
-    if(lasDirectionHotizontal == Direction.right) {
+    if (lasDirectionHorizontal == Direction.right) {
       animation = animationIdle;
-    }else{
+    } else {
       animation = animationIdleLeft;
     }
   }
 
-  void recieveAtack(double damage){
+  void receiveAttack(double damage) {
     life = life - damage;
     if (changeLife != null) {
       changeLife(life);
@@ -417,76 +396,80 @@ class Player extends AnimationGameObject with ObjectCollision {
   }
 
   void die() {
-    if (callBackdie != null && !notifyDie) {
+    if (callBackDie != null && !notifyDie) {
       notifyDie = true;
-      callBackdie();
+      callBackDie();
     }
     animation = FlameAnimation.Animation.sequenced("crypt.png", 1,
         textureWidth: 16, textureHeight: 16);
   }
 
-  void atack() {
-
-    if(life <= 0){
+  void attack() {
+    if (life <= 0) {
       return;
     }
 
     startTimeStamina();
 
-    if(stamina < costStamina){
+    if (stamina < costStamina) {
       return;
     }
 
     stamina = stamina - costStamina;
 
-    if(changeStamina != null){
+    if (changeStamina != null) {
       changeStamina(stamina);
     }
 
-    switch(lasDirection){
-      case Direction.top: atackObject.animation = animationAtackTop; break;
-      case Direction.bottom: atackObject.animation = animationAtackBottom; break;
-      case Direction.left: atackObject.animation = animationAtackLeft; break;
-      case Direction.right: atackObject.animation = animationAtackRight; break;
+    switch (lasDirection) {
+      case Direction.top:
+        attackObject.animation = animationAttackTop;
+        break;
+      case Direction.bottom:
+        attackObject.animation = animationAttackBottom;
+        break;
+      case Direction.left:
+        attackObject.animation = animationAttackLeft;
+        break;
+      case Direction.right:
+        attackObject.animation = animationAttackRight;
+        break;
     }
 
-    atackObject.animation.clock = 0;
-    atackObject.animation.currentIndex = 0;
-    atackObject.animation.loop = true;
+    attackObject.animation.clock = 0;
+    attackObject.animation.currentIndex = 0;
+    attackObject.animation.loop = true;
 
-
-    double damageMin = damageAtack /2;
-    int p = Random().nextInt(damageAtack.toInt() + (damageMin.toInt()));
+    double damageMin = damageAttack / 2;
+    int p = Random().nextInt(damageAttack.toInt() + (damageMin.toInt()));
     double damage = damageMin + p;
 
-    List<Enemy> enemyLife = _enemies.where((e)=>!e.isDie()).toList();
-    enemyLife.forEach((enemy){
-      if(atackObject.position.overlaps(enemy.getCurrentPosition())){
-        enemy.receiveDamage(damage,lasDirection);
+    List<Enemy> enemyLife = _enemies.where((e) => !e.isDie()).toList();
+    enemyLife.forEach((enemy) {
+      if (attackObject.position.overlaps(enemy.getCurrentPosition())) {
+        enemy.receiveDamage(damage, lasDirection);
       }
     });
-
   }
 
   void startTimeStamina() {
-    if(_timerStamina != null && _timerStamina.isActive){
+    if (_timerStamina != null && _timerStamina.isActive) {
       return;
     }
     _timerStamina = Timer.periodic(new Duration(milliseconds: 150), (timer) {
-      if(life == 0){
+      if (life == 0) {
         return;
       }
 
-      stamina = stamina +1.5;
-      if(stamina > 100){
+      stamina = stamina + 1.5;
+      if (stamina > 100) {
         stamina = 100;
       }
       changeStamina(stamina);
     });
   }
 
-  void reset(double x, double y){
-
+  void reset(double x, double y) {
     notifyDie = false;
     this.animation = animationIdle;
     this.position = initPosition;
@@ -494,32 +477,34 @@ class Player extends AnimationGameObject with ObjectCollision {
     life = 100;
   }
 
-  void _updateAtackObject(double dt) {
+  void _updateAttackObject(double dt) {
     double top = position.top;
     double left = position.left;
-    switch(lasDirection){
-      case Direction.top: top = top-size; break;
-      case Direction.bottom: top = top+size; break;
-      case Direction.left: left = left-size; break;
-      case Direction.right: left = left+size; break;
+    switch (lasDirection) {
+      case Direction.top:
+        top = top - size;
+        break;
+      case Direction.bottom:
+        top = top + size;
+        break;
+      case Direction.left:
+        left = left - size;
+        break;
+      case Direction.right:
+        left = left + size;
+        break;
     }
 
-    if(position != null){
-      atackObject.position = Rect.fromLTWH(
-          left,
-          top,
-          size,
-          size
-      );
+    if (position != null) {
+      attackObject.position = Rect.fromLTWH(left, top, size, size);
     }
 
-    atackObject.update(dt);
+    attackObject.update(dt);
 
-    if(atackObject.animation != null){
-      if(atackObject.animation.isLastFrame){
-        atackObject.animation.loop = false;
+    if (attackObject.animation != null) {
+      if (attackObject.animation.isLastFrame) {
+        attackObject.animation.loop = false;
       }
     }
   }
-
 }

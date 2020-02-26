@@ -1,19 +1,19 @@
-
 import 'dart:async';
 
 import 'package:darkness_dungeon/Menu.dart';
-import 'package:darkness_dungeon/player/HealthBar.dart';
 import 'package:darkness_dungeon/core/Controller.dart';
+import 'package:darkness_dungeon/core/Player.dart';
 import 'package:darkness_dungeon/core/map/MapWord.dart';
 import 'package:darkness_dungeon/map/State1.dart';
+import 'package:darkness_dungeon/player/HealthBar.dart';
 import 'package:darkness_dungeon/player/Knight.dart';
-import 'package:darkness_dungeon/core/Player.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
-import 'package:flame/gestures.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   await Flame.util.setLandscape();
   await Flame.util.fullScreen();
   runApp(MaterialApp(
@@ -22,7 +22,6 @@ void main() async {
 }
 
 class GameWidget extends StatefulWidget {
-
   final Size size;
 
   GameWidget({Key key, this.size}) : super(key: key);
@@ -32,45 +31,35 @@ class GameWidget extends StatefulWidget {
 }
 
 class _GameWidgetState extends State<GameWidget> {
-
   DarknessDungeon game;
   final GlobalKey<HealthBarState> healthKey = GlobalKey();
   StreamController<bool> streamProgress = StreamController();
 
   @override
   void initState() {
-    game = DarknessDungeon(
-        widget.size,
-        changeLife: (damage){
-          healthKey.currentState.updateHealth(damage);
-        },
-        changeStamina: (stamina){
-          healthKey.currentState.updateStamina(stamina);
-        },
-        gameOver: (){
-          _showDialogGameOver();
-        },
-        loaded: (){
-          Future.delayed(Duration(milliseconds: 500),(){
-            streamProgress.sink.add(false);
-          });
-        }
-    );
+    game = DarknessDungeon(widget.size, changeLife: (damage) {
+      healthKey.currentState.updateHealth(damage);
+    }, changeStamina: (stamina) {
+      healthKey.currentState.updateStamina(stamina);
+    }, gameOver: () {
+      _showDialogGameOver();
+    }, loaded: () {
+      Future.delayed(Duration(milliseconds: 500), () {
+        streamProgress.sink.add(false);
+      });
+    });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: Stack(
         children: <Widget>[
           game.widget,
           Align(
             alignment: Alignment.topLeft,
-            child: HealthBar(
-                key: healthKey
-            ),
+            child: HealthBar(key: healthKey),
           ),
           _buildProgress(),
           Row(
@@ -100,7 +89,6 @@ class _GameWidgetState extends State<GameWidget> {
   }
 
   void _showDialogGameOver() {
-
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -109,13 +97,16 @@ class _GameWidgetState extends State<GameWidget> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Image.asset('assets/game_over.png',height: 100,),
+                Image.asset(
+                  'assets/game_over.png',
+                  height: 100,
+                ),
                 SizedBox(
                   height: 10.0,
                 ),
                 RaisedButton(
                   color: Colors.transparent,
-                  onPressed: (){
+                  onPressed: () {
                     healthKey.currentState.updateHealth(100);
                     healthKey.currentState.updateStamina(100);
                     game.resetGame();
@@ -124,33 +115,30 @@ class _GameWidgetState extends State<GameWidget> {
                   child: Text(
                     "PLAY AGAIN",
                     style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'Normal',
-                      fontSize: 20.0
-                    ),
+                        color: Colors.white,
+                        fontFamily: 'Normal',
+                        fontSize: 20.0),
                   ),
                 )
               ],
             ),
           );
         });
-
   }
 
   Widget _buildProgress() {
-
     return StreamBuilder(
       stream: streamProgress.stream,
       initialData: true,
-      builder: (context,snapshot){
+      builder: (context, snapshot) {
         bool showProgress = true;
 
-        if(snapshot.hasData){
+        if (snapshot.hasData) {
           showProgress = snapshot.data;
         }
 
         return AnimatedOpacity(
-          opacity: showProgress ? 1.0 : 0.0 ,
+          opacity: showProgress ? 1.0 : 0.0,
           duration: Duration(milliseconds: 500),
           child: Container(
             color: Colors.black,
@@ -158,17 +146,13 @@ class _GameWidgetState extends State<GameWidget> {
               child: Text(
                 "Carregando...",
                 style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'Normal',
-                    fontSize: 20.0
-                ),
+                    color: Colors.white, fontFamily: 'Normal', fontSize: 20.0),
               ),
             ),
           ),
         );
       },
     );
-
   }
 
   @override
@@ -189,20 +173,17 @@ class DarknessDungeon extends BaseGame {
   Controller controller;
   bool loadedControl = false;
 
-  DarknessDungeon(this.size, {this.changeLife, this.changeStamina, this.gameOver, this.loaded}){
-
-    player = Knight(
-        size,
+  DarknessDungeon(this.size,
+      {this.changeLife, this.changeStamina, this.gameOver, this.loaded}) {
+    player = Knight(size,
         initX: 3,
         initY: 4,
         changeLife: changeLife,
-        changeStamina: changeStamina,
-        callBackdie: (){
-          if(gameOver != null){
-            gameOver();
-          }
-        }
-    );
+        changeStamina: changeStamina, callBackDie: () {
+      if (gameOver != null) {
+        gameOver();
+      }
+    });
 
     map = MapWord(
       MyMaps.state1(size),
@@ -222,19 +203,16 @@ class DarknessDungeon extends BaseGame {
         player.runTopRight,
         player.runBottomLeft,
         player.runBottomRight,
-        player.atack
-    );
+        player.attack);
 
     add(map);
     add(controller);
   }
 
-  void resetGame(){
-
-    player.reset(3,3);
+  void resetGame() {
+    player.reset(3, 3);
 
     map.resetMap(MyMaps.state1(size));
-
   }
 
   @override
@@ -246,10 +224,9 @@ class DarknessDungeon extends BaseGame {
   @override
   void render(Canvas canvas) {
     super.render(canvas);
-    if(!loadedControl){
+    if (!loadedControl) {
       loadedControl = true;
       loaded();
     }
   }
-
 }
