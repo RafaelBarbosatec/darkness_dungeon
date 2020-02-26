@@ -10,6 +10,8 @@ import 'package:darkness_dungeon/core/map/MapWord.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flutter/material.dart';
 
+import 'Direction.dart';
+
 class Player extends AnimationGameObject with ObjectCollision {
   double life;
   MapControll _mapControl;
@@ -38,6 +40,7 @@ class Player extends AnimationGameObject with ObjectCollision {
   Direction lasDirectionHorizontal = Direction.right;
   Timer _timerStamina;
   bool notifyDie = false;
+  bool isIdle = true;
   Rect initPosition;
   List<Enemy> _enemies = List();
 
@@ -166,7 +169,8 @@ class Player extends AnimationGameObject with ObjectCollision {
 
     lasDirectionHorizontal = Direction.left;
 
-    if (animationMoveLeft != null) {
+    if (animationMoveLeft != null && lasDirection != Direction.left || isIdle) {
+      isIdle = false;
       lasDirection = Direction.left;
       animation = animationMoveLeft;
       attackObject.animation = null;
@@ -195,7 +199,9 @@ class Player extends AnimationGameObject with ObjectCollision {
 
     lasDirectionHorizontal = Direction.right;
 
-    if (animationMoveRight != null) {
+    if (animationMoveRight != null && lasDirection != Direction.right ||
+        isIdle) {
+      isIdle = false;
       lasDirection = Direction.right;
       animation = animationMoveRight;
       attackObject.animation = null;
@@ -380,6 +386,8 @@ class Player extends AnimationGameObject with ObjectCollision {
     } else {
       animation = animationIdleLeft;
     }
+
+    isIdle = true;
   }
 
   void receiveAttack(double damage) {
