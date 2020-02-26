@@ -78,29 +78,6 @@ class _MenuState extends State<Menu> {
                       fontFamily: 'Normal',
                       fontSize: 12.0)),
             ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Text("Builded  with",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'Normal',
-                          fontSize: 12.0)),
-                  SizedBox(
-                    width: 10.0,
-                  ),
-                  Image.asset(
-                    'assets/logo_flame.png',
-                    height: 20,
-                  ),
-                  Text("Flame",
-                      style: TextStyle(color: Colors.white, fontSize: 18.0)),
-                ],
-              ),
-            )
           ],
         ),
       ),

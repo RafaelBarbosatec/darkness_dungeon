@@ -107,13 +107,14 @@ class Player extends AnimationGameObject with ObjectCollision {
       return;
     }
 
-    if (position.top > screenSize.height / 3 || _mapControl.isMaxTop()) {
+    if (position.top > screenSize.height / 2.9 || _mapControl.isMaxTop()) {
       position = displacement;
     } else {
       _mapControl.moveTop(speedPlayer);
     }
 
-    if (animationMoveTop != null && lasDirection != Direction.top) {
+    if (animationMoveTop != null && lasDirection != Direction.top || isIdle) {
+      isIdle = false;
       lasDirection = Direction.top;
       animation = animationMoveTop;
       attackObject.animation = null;
@@ -134,13 +135,15 @@ class Player extends AnimationGameObject with ObjectCollision {
       return;
     }
 
-    if (position.top < screenSize.height / 1.5 || _mapControl.isMaxBottom()) {
+    if (position.top < screenSize.height / 1.9 || _mapControl.isMaxBottom()) {
       position = displacement;
     } else {
       _mapControl.moveBottom(speedPlayer);
     }
 
-    if (animationMoveBottom != null && lasDirection != Direction.bottom) {
+    if (animationMoveBottom != null && lasDirection != Direction.bottom ||
+        isIdle) {
+      isIdle = false;
       lasDirection = Direction.bottom;
       animation = animationMoveBottom;
       attackObject.animation = null;
