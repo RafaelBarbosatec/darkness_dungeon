@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 
 import 'Direction.dart';
 
-class Player extends AnimationGameObject with ObjectCollision {
+class Player extends AnimatedGameObject with ObjectCollision {
   double life;
   MapControll _mapControl;
   double stamina = 100;
@@ -35,7 +35,7 @@ class Player extends AnimationGameObject with ObjectCollision {
   final FlameAnimation.Animation animationAttackRight;
   final FlameAnimation.Animation animationAttackTop;
   final FlameAnimation.Animation animationAttackBottom;
-  AnimationGameObject attackObject = AnimationGameObject();
+  AnimatedGameObject attackObject = AnimatedGameObject();
   Direction lasDirection = Direction.right;
   Direction lasDirectionHorizontal = Direction.right;
   Timer _timerStamina;

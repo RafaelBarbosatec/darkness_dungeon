@@ -1,7 +1,8 @@
 import 'package:darkness_dungeon/core/Decoration.dart';
 import 'package:darkness_dungeon/core/Enemy.dart';
 import 'package:darkness_dungeon/core/Player.dart';
-import 'package:darkness_dungeon/core/map/TileMap.dart';
+import 'package:darkness_dungeon/core/map/map_game.dart';
+import 'package:darkness_dungeon/core/map/tile.dart';
 import 'package:flame/components/component.dart';
 import 'package:flutter/material.dart';
 
@@ -23,15 +24,8 @@ abstract class MapControll {
   bool isMaxBottom();
 }
 
-abstract class MapGame {
-  double paddingLeft = 0;
-  double paddingTop = 0;
-
-  void resetMap(List<List<TileMap>> map);
-}
-
 class MapWord extends Component implements MapGame, MapControll {
-  List<List<TileMap>> map;
+  List<List<Tile>> map;
   final Size screenSize;
   final Player player;
 
@@ -44,7 +38,7 @@ class MapWord extends Component implements MapGame, MapControll {
   bool maxRight = false;
   bool maxBottom = false;
   List<Rect> collisionsRect = List();
-  List<TileMap> tilesMap = List();
+  List<Tile> tilesMap = List();
   List<Enemy> enemies = List();
   List<TileDecoration> decorations = List();
 
@@ -161,7 +155,7 @@ class MapWord extends Component implements MapGame, MapControll {
   }
 
   @override
-  void resetMap(List<List<TileMap>> map) {
+  void resetMap(List<List<Tile>> map) {
     this.map.forEach((item) {
       item.forEach((i) {
         if (i.enemy != null) {
@@ -213,7 +207,7 @@ class MapWord extends Component implements MapGame, MapControll {
       tilesMap.clear();
       decorations.clear();
       map.forEach((tiles) {
-        TileMap lastTile;
+        Tile lastTile;
 
         tiles[0].position = Rect.fromLTWH(
             paddingLeft,

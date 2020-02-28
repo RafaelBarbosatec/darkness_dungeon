@@ -1,24 +1,16 @@
+import 'dart:ui';
+
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/components/component.dart';
-import 'package:flutter/material.dart';
 
-class AnimatedGameObject extends Component {
+class AnimatedObject extends Component {
   Rect position;
+
   FlameAnimation.Animation animation;
 
+  @override
   void render(Canvas canvas) {
-    if (animation == null) {
-      return;
-    }
-    if (animation.loaded()) {
-      animation.getSprite().renderRect(canvas, position);
-    }
-  }
-
-  void renderRect(Canvas canvas, Rect position) {
-    if (animation == null) {
-      return;
-    }
+    if (animation == null) return;
     if (animation.loaded()) {
       animation.getSprite().renderRect(canvas, position);
     }

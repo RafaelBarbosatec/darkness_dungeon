@@ -1,11 +1,11 @@
-import 'package:flame/components/component.dart';
+import 'dart:math';
+
+import 'package:darkness_dungeon/core/newCore/joystick_controller.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'dart:math';
 
-class Controller extends Component{
-
+class Controller extends JoystickController {
   double backgroundAspectRatio = 2.2;
   Rect backgroundRect;
   Sprite backgroundSprite;
@@ -34,7 +34,7 @@ class Controller extends Component{
   final Function() moveLeft;
   final Function() moveRight;
   final Function() idle;
-  final Function() atack;
+  final Function() attack;
 
   Controller(
       this.screenSize,
@@ -48,7 +48,7 @@ class Controller extends Component{
       this.moveTopRight,
       this.moveBottomLeft,
       this.moveBottomRight,
-      this.atack) {
+      this.attack) {
     backgroundSprite = Sprite('joystick_background.png');
     knobSprite = Sprite('joystick_knob.png');
     atackSprite = Sprite('joystick_atack.png');
@@ -56,12 +56,10 @@ class Controller extends Component{
     initialize();
   }
 
-  void initialize() async {
-
-  }
+  void initialize() async {}
 
   void render(Canvas canvas) {
-    if(dragging){
+    if (dragging) {
       backgroundSprite.renderRect(canvas, backgroundRect);
       knobSprite.renderRect(canvas, knobRect);
     }
@@ -74,21 +72,16 @@ class Controller extends Component{
 
     var radiusAtack = (tileSize * atackAspectRatio) / 2;
 
-    Offset atacknob = Offset(
-        screenSize.width - radiusAtack*2,
-        screenSize.height - (radiusAtack*2)
-    );
+    Offset atacknob = Offset(screenSize.width - radiusAtack * 2,
+        screenSize.height - (radiusAtack * 2));
 
     atackRect = Rect.fromCircle(
-        center: atacknob,
-        radius: radiusAtack,
+      center: atacknob,
+      radius: radiusAtack,
     );
 
-
     if (dragging) {
-
-      double _radAngle = atan2(
-          dragPosition.dy - backgroundRect.center.dy,
+      double _radAngle = atan2(dragPosition.dy - backgroundRect.center.dy,
           dragPosition.dx - backgroundRect.center.dx);
 
       // Update playerShip's player rad angle
@@ -105,59 +98,62 @@ class Controller extends Component{
 
       var diffY = dragPosition.dy - backgroundRect.center.dy;
       var diffX = dragPosition.dx - backgroundRect.center.dx;
-      if(dragPosition.dx > backgroundRect.center.dx && diffX > backgroundRect.width /sensitivity){
+      if (dragPosition.dx > backgroundRect.center.dx &&
+          diffX > backgroundRect.width / sensitivity) {
         mRight = true;
       }
-      if(dragPosition.dx < backgroundRect.center.dx && diffX < (-1 * backgroundRect.width /sensitivity)){
+      if (dragPosition.dx < backgroundRect.center.dx &&
+          diffX < (-1 * backgroundRect.width / sensitivity)) {
         mLeft = true;
       }
-      if(dragPosition.dy > backgroundRect.center.dy && diffY > backgroundRect.height /sensitivity){
+      if (dragPosition.dy > backgroundRect.center.dy &&
+          diffY > backgroundRect.height / sensitivity) {
         mBottom = true;
       }
-      if(dragPosition.dy < backgroundRect.center.dy && diffY < (-1 * backgroundRect.height /sensitivity)){
+      if (dragPosition.dy < backgroundRect.center.dy &&
+          diffY < (-1 * backgroundRect.height / sensitivity)) {
         mTop = true;
       }
 
-      if(mRight && mTop){
+      if (mRight && mTop) {
         mRight = false;
         mTop = false;
         moveTopRight();
       }
 
-      if(mRight && mBottom){
+      if (mRight && mBottom) {
         mRight = false;
         mBottom = false;
         moveBottomRight();
       }
 
-      if(mLeft && mTop){
+      if (mLeft && mTop) {
         mLeft = false;
         mTop = false;
         moveTopLeft();
       }
 
-      if(mLeft && mBottom){
+      if (mLeft && mBottom) {
         mLeft = false;
         mBottom = false;
         moveBottomLeft();
       }
 
-      if(mRight){
+      if (mRight) {
         moveRight();
       }
 
-      if(mLeft){
+      if (mLeft) {
         moveLeft();
       }
 
-      if(mBottom){
+      if (mBottom) {
         moveBottom();
       }
 
-      if(mTop){
+      if (mTop) {
         moveTop();
       }
-
 
       // The maximum distance for the knob position the edge of
       // the background + half of its own size. The knob can wander in the
@@ -171,25 +167,24 @@ class Controller extends Component{
       double nextY = dist * sin(_radAngle);
       Offset nextPoint = Offset(nextX, nextY);
 
-      Offset diff = Offset(
-          backgroundRect.center.dx + nextPoint.dx,
-          backgroundRect.center.dy + nextPoint.dy) - knobRect.center;
+      Offset diff = Offset(backgroundRect.center.dx + nextPoint.dx,
+              backgroundRect.center.dy + nextPoint.dy) -
+          knobRect.center;
       knobRect = knobRect.shift(diff);
-
     }
   }
 
   void onPanStart(DragStartDetails details) {
-      initPositionJoystick(details.globalPosition);
-      dragging = true;
+    initPositionJoystick(details.globalPosition);
+    dragging = true;
   }
 
-  void onTapDown(TapDownDetails details){
-      initPositionJoystick(details.globalPosition);
-      dragging = true;
+  void onTapDown(TapDownDetails details) {
+    initPositionJoystick(details.globalPosition);
+    dragging = true;
   }
 
-  void onTapUp(TapUpDetails details){
+  void onTapUp(TapUpDetails details) {
     dragging = false;
   }
 
@@ -205,14 +200,14 @@ class Controller extends Component{
     idle();
   }
 
-  void onTapDownAtack(TapDownDetails details){
+  void onTapDownAtack(TapDownDetails details) {
     if (atackRect.contains(details.globalPosition)) {
       atackAspectRatio = 2.4;
-      atack();
+      attack();
     }
   }
 
-  void onTapUpAtack(TapUpDetails details){
+  void onTapUpAtack(TapUpDetails details) {
     atackAspectRatio = 2.5;
   }
 
@@ -222,25 +217,15 @@ class Controller extends Component{
     var radius = (tileSize * backgroundAspectRatio) / 2;
 
     Offset osBackground = position;
-    backgroundRect = Rect.fromCircle(
-        center: osBackground,
-        radius: radius
-    );
+    backgroundRect = Rect.fromCircle(center: osBackground, radius: radius);
 
     // The circle radius calculation that will contain the knob
     // image of the joystick
     radius = (tileSize * knobAspectRatio) / 2;
 
-    Offset osKnob = Offset(
-        backgroundRect.center.dx,
-        backgroundRect.center.dy
-    );
-    knobRect = Rect.fromCircle(
-        center: osKnob,
-        radius: radius
-    );
+    Offset osKnob = Offset(backgroundRect.center.dx, backgroundRect.center.dy);
+    knobRect = Rect.fromCircle(center: osKnob, radius: radius);
 
     dragPosition = knobRect.center;
   }
-
 }
