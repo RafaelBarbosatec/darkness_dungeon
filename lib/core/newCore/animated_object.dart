@@ -5,8 +5,8 @@ import 'package:flame/components/component.dart';
 
 class AnimatedObject extends Component {
   Rect position;
-
   FlameAnimation.Animation animation;
+  bool isDestroyed = false;
 
   @override
   void render(Canvas canvas) {
@@ -16,7 +16,17 @@ class AnimatedObject extends Component {
     }
   }
 
+  @override
   void update(double dt) {
     if (animation != null) animation.update(dt);
+  }
+
+  @override
+  bool destroy() {
+    return isDestroyed;
+  }
+
+  void remove() {
+    isDestroyed = true;
   }
 }

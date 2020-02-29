@@ -3,6 +3,7 @@ import 'package:darkness_dungeon/core/Enemy.dart';
 import 'package:darkness_dungeon/core/Player.dart';
 import 'package:darkness_dungeon/core/map/map_game.dart';
 import 'package:darkness_dungeon/core/map/tile.dart';
+import 'package:darkness_dungeon/core/newCore/joystick_controller.dart';
 import 'package:flame/components/component.dart';
 import 'package:flutter/material.dart';
 
@@ -254,5 +255,10 @@ class MapWord extends Component implements MapGame, MapControll {
     enemies.forEach((enemy) =>
         enemy.updateEnemy(t, player, paddingLeft, paddingTop, collisionsRect));
     player.updatePlayer(t, collisionsRect, enemies, decorations);
+  }
+
+  @override
+  void moveCamera(double displacement, Directional directional) {
+    // TODO: implement moveCamera
   }
 }

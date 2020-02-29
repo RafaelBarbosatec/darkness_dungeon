@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flame/components/component.dart';
 
 enum Directional {
@@ -9,9 +11,19 @@ enum Directional {
   MOVE_BOTTOM_RIGHT,
   MOVE_BOTTOM_LEFT,
   MOVE_LEFT,
+  IDLE
+}
+
+abstract class JoystickListener {
+  void joystickChangeDirectional(Directional directional);
+  void joystickAction(int action);
 }
 
 abstract class JoystickController extends Component {
-  Function(Directional) changeDirectional;
-  Function(String) action;
+  JoystickListener joystickListener;
+  @override
+  void render(Canvas c) {}
+
+  @override
+  void update(double t) {}
 }
