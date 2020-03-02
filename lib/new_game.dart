@@ -23,37 +23,37 @@ class _NewGameState extends State<NewGame> {
   void initState() {
     _joystick = NewJoystick(widget.size, widget.size.height / 10);
     _game = RPGGame(
-      joystickController: _joystick,
-      player: NewPlayer(
-          animIdleRight: FlameAnimation.Animation.sequenced(
-            "knight_idle.png",
-            6,
-            textureWidth: 16,
-            textureHeight: 16,
-          ),
-          animIdleLeft: FlameAnimation.Animation.sequenced(
-            "knight_idle_left.png",
-            6,
-            textureWidth: 16,
-            textureHeight: 16,
-          ),
-          animRunLeft: FlameAnimation.Animation.sequenced(
-            "knight_run_left.png",
-            6,
-            textureWidth: 16,
-            textureHeight: 16,
-          ),
-          animRunRight: FlameAnimation.Animation.sequenced(
-            "knight_run.png",
-            6,
-            textureWidth: 16,
-            textureHeight: 16,
-          ),
-          size: 32,
-          speed: 3,
-          initPosition: Position(5, 6)),
-      map: NewMapWorld(MyMaps.state1(widget.size)),
-    );
+        joystickController: _joystick,
+        player: NewPlayer(
+            animIdleRight: FlameAnimation.Animation.sequenced(
+              "knight_idle.png",
+              6,
+              textureWidth: 16,
+              textureHeight: 16,
+            ),
+            animIdleLeft: FlameAnimation.Animation.sequenced(
+              "knight_idle_left.png",
+              6,
+              textureWidth: 16,
+              textureHeight: 16,
+            ),
+            animRunLeft: FlameAnimation.Animation.sequenced(
+              "knight_run_left.png",
+              6,
+              textureWidth: 16,
+              textureHeight: 16,
+            ),
+            animRunRight: FlameAnimation.Animation.sequenced(
+              "knight_run.png",
+              6,
+              textureWidth: 16,
+              textureHeight: 16,
+            ),
+            size: 32,
+            speed: 3,
+            initPosition: Position(5, 6)),
+        map: NewMapWorld(MyMaps.state1(widget.size)),
+        decorations: []);
     super.initState();
   }
 

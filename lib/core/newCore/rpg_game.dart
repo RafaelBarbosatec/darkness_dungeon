@@ -1,18 +1,17 @@
 import 'package:darkness_dungeon/core/map/map_game.dart';
 import 'package:darkness_dungeon/core/newCore/joystick_controller.dart';
+import 'package:darkness_dungeon/core/newCore/new_decoration.dart';
 import 'package:darkness_dungeon/core/newCore/new_enemy.dart';
 import 'package:darkness_dungeon/core/newCore/new_player.dart';
 import 'package:flame/game.dart';
 import 'package:flame/position.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../Decoration.dart';
-
 class RPGGame extends BaseGame {
   final NewPlayer player;
   final MapGame map;
   final List<NewEnemy> enemies;
-  final List<TileDecoration> decorations;
+  final List<NewDecoration> decorations;
   final JoystickController joystickController;
   Position mapCamera = Position.empty();
 

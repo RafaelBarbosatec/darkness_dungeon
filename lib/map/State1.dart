@@ -368,11 +368,18 @@ class MyMaps {
 //          return Tile(randomFloor());
 //        }
 
-        if (indexRow == 7 && indexColumm == 10) {
-          return Tile('itens/barrel.png', collision: true, size: 32);
+        if (indexRow == 3) {
+          return Tile('tile/wall_bottom.png', collision: true, size: 32);
+        }
+        if (indexRow == 4) {
+          return Tile('tile/wall.png', collision: true, size: 32);
         }
 
-        if (indexRow > 5 && indexRow < 10) {
+        if (indexRow == 9) {
+          return Tile('tile/wall_top.png', collision: true, size: 32);
+        }
+
+        if (indexRow > 4 && indexRow < 9) {
           return Tile(randomFloor(), size: 32);
         }
 
