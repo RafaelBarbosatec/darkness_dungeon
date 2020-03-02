@@ -368,9 +368,14 @@ class MyMaps {
 //          return Tile(randomFloor());
 //        }
 
+        if (indexRow == 7 && indexColumm == 10) {
+          return Tile('itens/barrel.png', collision: true, size: 32);
+        }
+
         if (indexRow > 5 && indexRow < 10) {
           return Tile(randomFloor(), size: 32);
         }
+
         return Tile('', size: 32);
       });
     });

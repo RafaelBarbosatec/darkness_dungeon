@@ -1,8 +1,8 @@
 import 'dart:ui';
 
-import 'package:darkness_dungeon/core/map/new_object_collision.dart';
 import 'package:darkness_dungeon/core/newCore/animated_object.dart';
 import 'package:darkness_dungeon/core/newCore/joystick_controller.dart';
+import 'package:darkness_dungeon/core/newCore/new_object_collision.dart';
 import 'package:darkness_dungeon/core/newCore/rpg_game.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/components/mixins/has_game_ref.dart';
@@ -12,7 +12,7 @@ import 'package:flutter/cupertino.dart';
 import 'joystick_controller.dart';
 
 class NewPlayer extends AnimatedObject
-    with NewObjectCollision, HasGameRef<RPGGame>
+    with HasGameRef<RPGGame>, NewObjectCollision
     implements JoystickListener {
   final double size;
   final Position initPosition;
@@ -58,6 +58,9 @@ class NewPlayer extends AnimatedObject
       size,
       size,
     );
+
+    widthCollision = size;
+    heightCollision = size / 3;
 
     _idle();
   }
@@ -117,6 +120,10 @@ class NewPlayer extends AnimatedObject
 
     Rect displacement = position.translate(0, (speed * -1));
 
+    if (isCollision(displacement, gameRef)) {
+      return;
+    }
+
     if (position.top > gameRef.size.height / 2.9 || gameRef.map.isMaxTop()) {
       position = displacement;
     } else {
@@ -141,7 +148,13 @@ class NewPlayer extends AnimatedObject
     if (position.right >= gameRef.size.width) {
       return;
     }
+
     Rect displacement = position.translate(speed, 0);
+
+    if (isCollision(displacement, gameRef)) {
+      return;
+    }
+
     if (position.left < gameRef.size.width / 1.5 || gameRef.map.isMaxRight()) {
       position = displacement;
     } else {
@@ -161,7 +174,13 @@ class NewPlayer extends AnimatedObject
     if (position.bottom >= gameRef.size.height) {
       return;
     }
+
     Rect displacement = position.translate(0, speed);
+
+    if (isCollision(displacement, gameRef)) {
+      return;
+    }
+
     if (position.top < gameRef.size.height / 1.9 || gameRef.map.isMaxBottom()) {
       position = displacement;
     } else {
@@ -187,6 +206,11 @@ class NewPlayer extends AnimatedObject
       return;
     }
     Rect displacement = position.translate(speed * -1, 0);
+
+    if (isCollision(displacement, gameRef)) {
+      return;
+    }
+
     if (position.left > gameRef.size.width / 3 || gameRef.map.isMaxLeft()) {
       position = displacement;
     } else {

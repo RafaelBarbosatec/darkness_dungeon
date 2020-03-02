@@ -50,7 +50,8 @@ class _NewGameState extends State<NewGame> {
             textureHeight: 16,
           ),
           size: 32,
-          initPosition: Position(10, 10)),
+          speed: 3,
+          initPosition: Position(5, 6)),
       map: NewMapWorld(MyMaps.state1(widget.size)),
     );
     super.initState();

@@ -1,7 +1,7 @@
 import 'dart:ui';
 
-import 'package:darkness_dungeon/core/map/new_object_collision.dart';
 import 'package:darkness_dungeon/core/newCore/animated_object.dart';
+import 'package:darkness_dungeon/core/newCore/new_object_collision.dart';
 import 'package:darkness_dungeon/core/newCore/rpg_game.dart';
 import 'package:flame/components/mixins/has_game_ref.dart';
 

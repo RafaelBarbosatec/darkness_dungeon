@@ -1,0 +1,27 @@
+import 'dart:ui';
+
+import 'package:darkness_dungeon/core/newCore/rpg_game.dart';
+
+class NewObjectCollision {
+  double heightCollision = 0;
+  double widthCollision = 0;
+
+  bool isCollision(Rect displacement, RPGGame game) {
+    Rect rectCollision = Rect.fromLTWH(
+        displacement.left + (displacement.width - widthCollision) / 2,
+        displacement.top + (displacement.height - heightCollision),
+        widthCollision,
+        heightCollision);
+
+    var collisions = game.map
+        .getRendered()
+        .where((i) => i.collision && i.position.overlaps(rectCollision))
+        .toList();
+
+    if (collisions.length > 0) {
+      return true;
+    }
+
+    return false;
+  }
+}

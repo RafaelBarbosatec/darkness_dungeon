@@ -140,4 +140,9 @@ class NewMapWorld extends MapGame with HasGameRef<RPGGame> {
       });
     }
   }
+
+  @override
+  List<Tile> getRendered() {
+    return tilesToRender;
+  }
 }

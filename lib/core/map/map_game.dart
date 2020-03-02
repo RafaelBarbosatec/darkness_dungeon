@@ -18,5 +18,7 @@ abstract class MapGame extends Component {
 
   bool isMaxBottom();
 
+  List<Tile> getRendered();
+
   void moveCamera(double displacement, Directional directional);
 }
