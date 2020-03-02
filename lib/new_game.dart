@@ -1,13 +1,11 @@
-import 'package:darkness_dungeon/core/newCore/new_decoration.dart';
 import 'package:darkness_dungeon/core/newCore/new_joystick.dart';
 import 'package:darkness_dungeon/core/newCore/new_map_world.dart';
-import 'package:darkness_dungeon/core/newCore/new_player.dart';
 import 'package:darkness_dungeon/core/newCore/rpg_game.dart';
-import 'package:flame/animation.dart' as FlameAnimation;
+import 'package:darkness_dungeon/map/state1/decorations.dart';
+import 'package:darkness_dungeon/map/state1/map.dart';
+import 'package:darkness_dungeon/player/Knight2.dart';
 import 'package:flame/position.dart';
 import 'package:flutter/material.dart';
-
-import 'map/State1.dart';
 
 class NewGame extends StatefulWidget {
   final Size size;
@@ -24,109 +22,14 @@ class _NewGameState extends State<NewGame> {
   void initState() {
     _joystick = NewJoystick(widget.size, widget.size.height / 10);
     _game = RPGGame(
-        joystickController: _joystick,
-        player: NewPlayer(
-            animIdleRight: FlameAnimation.Animation.sequenced(
-              "knight_idle.png",
-              6,
-              textureWidth: 16,
-              textureHeight: 16,
-            ),
-            animIdleLeft: FlameAnimation.Animation.sequenced(
-              "knight_idle_left.png",
-              6,
-              textureWidth: 16,
-              textureHeight: 16,
-            ),
-            animRunLeft: FlameAnimation.Animation.sequenced(
-              "knight_run_left.png",
-              6,
-              textureWidth: 16,
-              textureHeight: 16,
-            ),
-            animRunRight: FlameAnimation.Animation.sequenced(
-              "knight_run.png",
-              6,
-              textureWidth: 16,
-              textureHeight: 16,
-            ),
-            size: 32,
-            speed: 3,
-            initPosition: Position(5, 6)),
-        map: NewMapWorld(MyMaps.state1(widget.size)),
-        decorations: [
-          NewDecoration(
-            'itens/barrel.png',
-            initPosition: Position(10, 5),
-            size: 32,
-            collision: true,
-          ),
-          NewDecoration(
-            'itens/table.png',
-            initPosition: Position(15, 7),
-            size: 32,
-            collision: true,
-          ),
-          NewDecoration(
-            '',
-            animation: FlameAnimation.Animation.sequenced(
-              "itens/torch_spritesheet.png",
-              6,
-              textureWidth: 16,
-              textureHeight: 16,
-            ),
-            initPosition: Position(4, 4),
-            size: 32,
-          ),
-          NewDecoration(
-            '',
-            animation: FlameAnimation.Animation.sequenced(
-              "itens/torch_spritesheet.png",
-              6,
-              textureWidth: 16,
-              textureHeight: 16,
-            ),
-            initPosition: Position(8, 4),
-            size: 32,
-          ),
-          NewDecoration(
-            '',
-            animation: FlameAnimation.Animation.sequenced(
-              "itens/torch_spritesheet.png",
-              6,
-              textureWidth: 16,
-              textureHeight: 16,
-            ),
-            initPosition: Position(12, 4),
-            size: 32,
-          ),
-          NewDecoration(
-            '',
-            animation: FlameAnimation.Animation.sequenced(
-              "itens/torch_spritesheet.png",
-              6,
-              textureWidth: 16,
-              textureHeight: 16,
-            ),
-            initPosition: Position(16, 4),
-            size: 32,
-          ),
-          NewDecoration(
-            'itens/flag_red.png',
-            initPosition: Position(6, 4),
-            size: 32,
-          ),
-          NewDecoration(
-            'itens/flag_red.png',
-            initPosition: Position(10, 4),
-            size: 32,
-          ),
-          NewDecoration(
-            'itens/flag_red.png',
-            initPosition: Position(14, 4),
-            size: 32,
-          )
-        ]);
+      joystickController: _joystick,
+      player: Knight2(
+        initPosition: Position(5, 6),
+        size: 32,
+      ),
+      map: NewMapWorld(State1Map.map()),
+      decorations: State1Decorations.decorations,
+    );
     super.initState();
   }
 
