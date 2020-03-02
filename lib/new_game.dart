@@ -1,3 +1,4 @@
+import 'package:darkness_dungeon/core/newCore/new_decoration.dart';
 import 'package:darkness_dungeon/core/newCore/new_joystick.dart';
 import 'package:darkness_dungeon/core/newCore/new_map_world.dart';
 import 'package:darkness_dungeon/core/newCore/new_player.dart';
@@ -53,7 +54,79 @@ class _NewGameState extends State<NewGame> {
             speed: 3,
             initPosition: Position(5, 6)),
         map: NewMapWorld(MyMaps.state1(widget.size)),
-        decorations: []);
+        decorations: [
+          NewDecoration(
+            'itens/barrel.png',
+            initPosition: Position(10, 5),
+            size: 32,
+            collision: true,
+          ),
+          NewDecoration(
+            'itens/table.png',
+            initPosition: Position(15, 7),
+            size: 32,
+            collision: true,
+          ),
+          NewDecoration(
+            '',
+            animation: FlameAnimation.Animation.sequenced(
+              "itens/torch_spritesheet.png",
+              6,
+              textureWidth: 16,
+              textureHeight: 16,
+            ),
+            initPosition: Position(4, 4),
+            size: 32,
+          ),
+          NewDecoration(
+            '',
+            animation: FlameAnimation.Animation.sequenced(
+              "itens/torch_spritesheet.png",
+              6,
+              textureWidth: 16,
+              textureHeight: 16,
+            ),
+            initPosition: Position(8, 4),
+            size: 32,
+          ),
+          NewDecoration(
+            '',
+            animation: FlameAnimation.Animation.sequenced(
+              "itens/torch_spritesheet.png",
+              6,
+              textureWidth: 16,
+              textureHeight: 16,
+            ),
+            initPosition: Position(12, 4),
+            size: 32,
+          ),
+          NewDecoration(
+            '',
+            animation: FlameAnimation.Animation.sequenced(
+              "itens/torch_spritesheet.png",
+              6,
+              textureWidth: 16,
+              textureHeight: 16,
+            ),
+            initPosition: Position(16, 4),
+            size: 32,
+          ),
+          NewDecoration(
+            'itens/flag_red.png',
+            initPosition: Position(6, 4),
+            size: 32,
+          ),
+          NewDecoration(
+            'itens/flag_red.png',
+            initPosition: Position(10, 4),
+            size: 32,
+          ),
+          NewDecoration(
+            'itens/flag_red.png',
+            initPosition: Position(14, 4),
+            size: 32,
+          )
+        ]);
     super.initState();
   }
 

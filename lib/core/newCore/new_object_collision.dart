@@ -22,6 +22,16 @@ class NewObjectCollision {
       return true;
     }
 
+    if (game.decorations != null) {
+      var collisionsDecorations = game.decorations
+          .where((i) => i.collision && i.position.overlaps(rectCollision))
+          .toList();
+
+      if (collisionsDecorations.length > 0) {
+        return true;
+      }
+    }
+
     return false;
   }
 }
