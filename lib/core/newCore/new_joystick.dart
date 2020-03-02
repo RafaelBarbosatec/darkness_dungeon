@@ -14,7 +14,7 @@ class NewJoystick extends JoystickController {
   Rect knobRect;
   Sprite knobSprite;
 
-  double attackAspectRatio = 2.5;
+  double attackAspectRatio = 2.0;
   Rect attackRect;
   Sprite attackSprite;
 
@@ -183,13 +183,13 @@ class NewJoystick extends JoystickController {
 
   void onTapDownAttack(TapDownDetails details) {
     if (attackRect.contains(details.globalPosition)) {
-      attackAspectRatio = 2.4;
+      attackAspectRatio = 1.9;
       joystickListener.joystickAction(0);
     }
   }
 
   void onTapUpAttack(TapUpDetails details) {
-    attackAspectRatio = 2.5;
+    attackAspectRatio = 2.0;
   }
 
   void initPositionJoystick(Offset position) {
