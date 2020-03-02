@@ -25,10 +25,31 @@ class _NewGameState extends State<NewGame> {
     _game = RPGGame(
       joystickController: _joystick,
       player: NewPlayer(
-          animationIdle: FlameAnimation.Animation.sequenced(
-              "knight_idle.png", 6,
-              textureWidth: 16, textureHeight: 16),
-          size: 16,
+          animIdleRight: FlameAnimation.Animation.sequenced(
+            "knight_idle.png",
+            6,
+            textureWidth: 16,
+            textureHeight: 16,
+          ),
+          animIdleLeft: FlameAnimation.Animation.sequenced(
+            "knight_idle_left.png",
+            6,
+            textureWidth: 16,
+            textureHeight: 16,
+          ),
+          animRunLeft: FlameAnimation.Animation.sequenced(
+            "knight_run_left.png",
+            6,
+            textureWidth: 16,
+            textureHeight: 16,
+          ),
+          animRunRight: FlameAnimation.Animation.sequenced(
+            "knight_run.png",
+            6,
+            textureWidth: 16,
+            textureHeight: 16,
+          ),
+          size: 32,
           initPosition: Position(10, 10)),
       map: NewMapWorld(MyMaps.state1(widget.size)),
     );

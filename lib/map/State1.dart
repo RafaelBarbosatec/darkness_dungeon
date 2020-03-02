@@ -369,9 +369,9 @@ class MyMaps {
 //        }
 
         if (indexRow > 5 && indexRow < 10) {
-          return Tile(randomFloor());
+          return Tile(randomFloor(), size: 32);
         }
-        return Tile('');
+        return Tile('', size: 32);
       });
     });
   }

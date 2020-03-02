@@ -8,19 +8,57 @@ import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/components/mixins/has_game_ref.dart';
 import 'package:flame/position.dart';
 
+import 'joystick_controller.dart';
+
 class NewPlayer extends AnimatedObject
     with NewObjectCollision, HasGameRef<RPGGame>
     implements JoystickListener {
   final double size;
   final Position initPosition;
-  final FlameAnimation.Animation animationIdle;
+  final Directional initDirectional;
+  final FlameAnimation.Animation animIdleLeft;
+  final FlameAnimation.Animation animIdleRight;
+  final FlameAnimation.Animation animIdleTop;
+  final FlameAnimation.Animation animIdleBottom;
+  final FlameAnimation.Animation animRunTop;
+  final FlameAnimation.Animation animRunRight;
+  final FlameAnimation.Animation animRunBottom;
+  final FlameAnimation.Animation animRunLeft;
   double speed;
+  double life;
+  Directional _statusDirectional;
+  Directional _statusHorizontalDirectional = Directional.MOVE_RIGHT;
 
-  NewPlayer(
-      {this.animationIdle, this.size, this.initPosition, this.speed = 5}) {
-    animation = animationIdle;
-    position =
-        Rect.fromLTWH(initPosition.x * size, initPosition.y * size, size, size);
+  NewPlayer({
+    this.animIdleLeft,
+    this.animIdleRight,
+    this.animIdleTop,
+    this.animIdleBottom,
+    this.animRunTop,
+    this.animRunRight,
+    this.animRunBottom,
+    this.animRunLeft,
+    this.size = 0,
+    this.initPosition,
+    this.initDirectional = Directional.MOVE_RIGHT,
+    this.speed = 5,
+    this.life = 10,
+  }) {
+    _statusDirectional = initDirectional;
+
+    if (initDirectional == Directional.MOVE_LEFT ||
+        initDirectional == Directional.MOVE_RIGHT) {
+      _statusHorizontalDirectional = initDirectional;
+    }
+
+    position = Rect.fromLTWH(
+      (initPosition != null ? initPosition.x : 0.0) * size,
+      (initPosition != null ? initPosition.y : 0.0) * size,
+      size,
+      size,
+    );
+
+    _idle();
   }
 
   @override
@@ -71,7 +109,7 @@ class NewPlayer extends AnimatedObject
     }
   }
 
-  void _moveTop() {
+  void _moveTop({bool addAnimation = true}) {
     if (position.top <= 0) {
       return;
     }
@@ -83,9 +121,16 @@ class NewPlayer extends AnimatedObject
     } else {
       gameRef.map.moveCamera(speed, Directional.MOVE_TOP);
     }
+
+    if (addAnimation &&
+        _statusDirectional != Directional.MOVE_TOP &&
+        animRunTop != null) {
+      animation = animRunTop;
+    }
+    _statusDirectional = Directional.MOVE_TOP;
   }
 
-  void _moveRight() {
+  void _moveRight({bool addAnimation = true}) {
     if (position.right >= gameRef.size.width) {
       return;
     }
@@ -95,9 +140,17 @@ class NewPlayer extends AnimatedObject
     } else {
       gameRef.map.moveCamera(speed, Directional.MOVE_RIGHT);
     }
+
+    if (addAnimation &&
+        _statusDirectional != Directional.MOVE_RIGHT &&
+        animRunRight != null) {
+      animation = animRunRight;
+    }
+    _statusDirectional = Directional.MOVE_RIGHT;
+    _statusHorizontalDirectional = _statusDirectional;
   }
 
-  void _moveBottom() {
+  void _moveBottom({bool addAnimation = true}) {
     if (position.bottom >= gameRef.size.height) {
       return;
     }
@@ -107,9 +160,16 @@ class NewPlayer extends AnimatedObject
     } else {
       gameRef.map.moveCamera(speed, Directional.MOVE_BOTTOM);
     }
+
+    if (addAnimation &&
+        _statusDirectional != Directional.MOVE_BOTTOM &&
+        animRunBottom != null) {
+      animation = animRunBottom;
+    }
+    _statusDirectional = Directional.MOVE_BOTTOM;
   }
 
-  void _moveLeft() {
+  void _moveLeft({bool addAnimation = true}) {
     if (position.left <= 0) {
       return;
     }
@@ -119,27 +179,66 @@ class NewPlayer extends AnimatedObject
     } else {
       gameRef.map.moveCamera(speed, Directional.MOVE_LEFT);
     }
+
+    if (addAnimation &&
+        _statusDirectional != Directional.MOVE_LEFT &&
+        animRunLeft != null) {
+      animation = animRunLeft;
+    }
+    _statusDirectional = Directional.MOVE_LEFT;
+    _statusHorizontalDirectional = _statusDirectional;
+  }
+
+  void _idle() {
+    if (_statusDirectional != Directional.IDLE) {
+      if (_statusDirectional == Directional.MOVE_LEFT && animIdleLeft != null)
+        animation = animIdleLeft;
+      if (_statusDirectional == Directional.MOVE_RIGHT && animIdleRight != null)
+        animation = animIdleRight;
+      if (_statusDirectional == Directional.MOVE_TOP) {
+        if (animIdleTop != null) {
+          animation = animIdleTop;
+        } else {
+          if (_statusHorizontalDirectional == Directional.MOVE_LEFT) {
+            if (animIdleLeft != null) animation = animIdleLeft;
+          } else {
+            if (animIdleRight != null) animation = animIdleRight;
+          }
+        }
+      }
+
+      if (_statusDirectional == Directional.MOVE_BOTTOM) {
+        if (animIdleBottom != null) {
+          animation = animIdleBottom;
+        } else {
+          if (_statusHorizontalDirectional == Directional.MOVE_LEFT) {
+            if (animIdleLeft != null) animation = animIdleLeft;
+          } else {
+            if (animIdleRight != null) animation = animIdleRight;
+          }
+        }
+      }
+    }
+    _statusDirectional = Directional.IDLE;
   }
 
   void _moveBottomRight() {
     _moveRight();
-    _moveBottom();
+    _moveBottom(addAnimation: false);
   }
 
   void _moveBottomLeft() {
     _moveLeft();
-    _moveBottom();
+    _moveBottom(addAnimation: false);
   }
 
   void _moveTopLeft() {
     _moveLeft();
-    _moveTop();
+    _moveTop(addAnimation: false);
   }
 
   void _moveTopRight() {
     _moveRight();
-    _moveTop();
+    _moveTop(addAnimation: false);
   }
-
-  void _idle() {}
 }

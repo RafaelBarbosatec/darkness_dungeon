@@ -32,7 +32,6 @@ class RPGGame extends BaseGame {
           joystickController != null,
         ) {
     joystickController.joystickListener = player;
-    add(joystickController);
 
     add(map);
     enemies?.forEach((enemy) {
@@ -42,5 +41,7 @@ class RPGGame extends BaseGame {
       add(decoration);
     });
     add(player);
+
+    add(joystickController);
   }
 }
