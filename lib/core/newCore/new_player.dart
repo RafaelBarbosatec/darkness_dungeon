@@ -16,7 +16,8 @@ class NewPlayer extends AnimatedObject
   final FlameAnimation.Animation animationIdle;
   double speed;
 
-  NewPlayer({this.animationIdle, this.size, this.initPosition,this.speed = 5}) {
+  NewPlayer(
+      {this.animationIdle, this.size, this.initPosition, this.speed = 5}) {
     animation = animationIdle;
     position =
         Rect.fromLTWH(initPosition.x * size, initPosition.y * size, size, size);
@@ -84,10 +85,6 @@ class NewPlayer extends AnimatedObject
     }
   }
 
-  void _moveTopLeft() {}
-
-  void _moveTopRight() {}
-
   void _moveRight() {
     if (position.right >= gameRef.size.width) {
       return;
@@ -112,10 +109,6 @@ class NewPlayer extends AnimatedObject
     }
   }
 
-  void _moveBottomRight() {}
-
-  void _moveBottomLeft() {}
-
   void _moveLeft() {
     if (position.left <= 0) {
       return;
@@ -126,6 +119,26 @@ class NewPlayer extends AnimatedObject
     } else {
       gameRef.map.moveCamera(speed, Directional.MOVE_LEFT);
     }
+  }
+
+  void _moveBottomRight() {
+    _moveRight();
+    _moveBottom();
+  }
+
+  void _moveBottomLeft() {
+    _moveLeft();
+    _moveBottom();
+  }
+
+  void _moveTopLeft() {
+    _moveLeft();
+    _moveTop();
+  }
+
+  void _moveTopRight() {
+    _moveRight();
+    _moveTop();
   }
 
   void _idle() {}

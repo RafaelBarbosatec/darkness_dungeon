@@ -63,11 +63,6 @@ class NewMapWorld extends MapGame with HasGameRef<RPGGame> {
           gameRef.mapCamera.y = gameRef.mapCamera.y + displacement;
         }
         break;
-      case Directional.MOVE_TOP_LEFT:
-        break;
-      case Directional.MOVE_TOP_RIGHT:
-        // TODO: Handle this case.
-        break;
       case Directional.MOVE_RIGHT:
         if (!isMaxRight()) {
           maxRight = false;
@@ -79,12 +74,6 @@ class NewMapWorld extends MapGame with HasGameRef<RPGGame> {
           gameRef.mapCamera.y = gameRef.mapCamera.y - displacement;
         }
         break;
-      case Directional.MOVE_BOTTOM_RIGHT:
-        // TODO: Handle this case.
-        break;
-      case Directional.MOVE_BOTTOM_LEFT:
-        // TODO: Handle this case.
-        break;
       case Directional.MOVE_LEFT:
         if (gameRef.mapCamera.x > 0) {
           gameRef.mapCamera.x = 0;
@@ -93,8 +82,15 @@ class NewMapWorld extends MapGame with HasGameRef<RPGGame> {
           gameRef.mapCamera.x = gameRef.mapCamera.x + displacement;
         }
         break;
+      case Directional.MOVE_TOP_LEFT:
+        break;
+      case Directional.MOVE_TOP_RIGHT:
+        break;
+      case Directional.MOVE_BOTTOM_RIGHT:
+        break;
+      case Directional.MOVE_BOTTOM_LEFT:
+        break;
       case Directional.IDLE:
-        // TODO: Handle this case.
         break;
     }
   }
