@@ -7,6 +7,7 @@ import 'package:darkness_dungeon/core/newCore/rpg_game.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/components/mixins/has_game_ref.dart';
 import 'package:flame/position.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'joystick_controller.dart';
 
@@ -30,14 +31,14 @@ class NewPlayer extends AnimatedObject
   Directional _statusHorizontalDirectional = Directional.MOVE_RIGHT;
 
   NewPlayer({
-    this.animIdleLeft,
-    this.animIdleRight,
+    @required this.animIdleLeft,
+    @required this.animIdleRight,
     this.animIdleTop,
     this.animIdleBottom,
     this.animRunTop,
-    this.animRunRight,
+    @required this.animRunRight,
     this.animRunBottom,
-    this.animRunLeft,
+    @required this.animRunLeft,
     this.size = 0,
     this.initPosition,
     this.initDirectional = Directional.MOVE_RIGHT,
@@ -122,10 +123,16 @@ class NewPlayer extends AnimatedObject
       gameRef.map.moveCamera(speed, Directional.MOVE_TOP);
     }
 
-    if (addAnimation &&
-        _statusDirectional != Directional.MOVE_TOP &&
-        animRunTop != null) {
-      animation = animRunTop;
+    if (addAnimation && _statusDirectional != Directional.MOVE_TOP) {
+      if (animRunTop != null) {
+        animation = animRunTop;
+      } else {
+        if (_statusHorizontalDirectional == Directional.MOVE_LEFT) {
+          if (animRunLeft != null) animation = animRunLeft;
+        } else {
+          if (animRunRight != null) animation = animRunRight;
+        }
+      }
     }
     _statusDirectional = Directional.MOVE_TOP;
   }
@@ -161,10 +168,16 @@ class NewPlayer extends AnimatedObject
       gameRef.map.moveCamera(speed, Directional.MOVE_BOTTOM);
     }
 
-    if (addAnimation &&
-        _statusDirectional != Directional.MOVE_BOTTOM &&
-        animRunBottom != null) {
-      animation = animRunBottom;
+    if (addAnimation && _statusDirectional != Directional.MOVE_BOTTOM) {
+      if (animRunBottom != null) {
+        animation = animRunBottom;
+      } else {
+        if (_statusHorizontalDirectional == Directional.MOVE_LEFT) {
+          if (animRunLeft != null) animation = animRunLeft;
+        } else {
+          if (animRunRight != null) animation = animRunRight;
+        }
+      }
     }
     _statusDirectional = Directional.MOVE_BOTTOM;
   }
