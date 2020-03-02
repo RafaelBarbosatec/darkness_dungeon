@@ -121,15 +121,15 @@ class NewMapWorld extends MapGame with HasGameRef<RPGGame> {
             tiles[0].size,
             tiles[0].size);
 
-        if (tiles[0].position.top < gameRef.size.height * (tiles[0].size * 2) &&
-            tiles[0].position.top > (tiles[0].size * -2)) {
+        if (tiles[0].position.top < gameRef.size.height + tiles[0].size &&
+            tiles[0].position.top > tiles[0].size * -1) {
           tiles.forEach((tile) {
             if (lastTile != null) {
               tile.position = lastTile.position.translate(lastTile.size, 0);
             }
 
-            if (tile.position.left < gameRef.size.width + (tile.size * 2) &&
-                tile.position.left > (tile.size * -2)) {
+            if (tile.position.left < gameRef.size.width + (tile.size) &&
+                tile.position.left > (tile.size * -1)) {
               if (tile.spriteImg.isNotEmpty) tilesToRender.add(tile);
             }
 
