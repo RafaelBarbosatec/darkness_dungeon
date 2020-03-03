@@ -108,7 +108,6 @@ class NewMapWorld extends NewMapGame with HasGameRef<RPGGame> {
 
   @override
   void update(double t) {
-    verifyMaxTopAndLeft();
     if (lastCameraX != gameRef.mapCamera.x ||
         gameRef.mapCamera.y != lastCameraY) {
       lastCameraX = gameRef.mapCamera.x;
