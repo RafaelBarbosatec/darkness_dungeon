@@ -34,4 +34,10 @@ class NewObjectCollision {
 
     return false;
   }
+
+  bool isCollisionTranslate(
+      Rect position, double translateX, double translateY, RPGGame game) {
+    var moveToCurrent = position.translate(translateX, translateY);
+    return isCollision(moveToCurrent, game);
+  }
 }

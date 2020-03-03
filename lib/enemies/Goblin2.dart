@@ -15,5 +15,16 @@ class Goblin2 extends NewEnemy {
           sizeTileMap: sizeTileMap,
           width: 25,
           height: 25,
+          speed: 1.5,
         );
+
+  @override
+  void update(double dt) {
+    seeAndMoveToPlayer(
+        visionCells: 5,
+        closePlayer: (p) {
+//          print(p);
+        });
+    super.update(dt);
+  }
 }
