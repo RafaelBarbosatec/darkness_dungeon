@@ -33,11 +33,11 @@ class RPGGame extends BaseGame {
     joystickController.joystickListener = player;
 
     add(map);
-    enemies?.forEach((enemy) {
-      add(enemy);
-    });
     decorations?.forEach((decoration) {
       add(decoration);
+    });
+    enemies?.forEach((enemy) {
+      add(enemy);
     });
     add(player);
 
