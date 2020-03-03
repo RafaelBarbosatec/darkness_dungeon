@@ -9,11 +9,9 @@ import 'package:flame/components/mixins/has_game_ref.dart';
 class NewMapWorld extends NewMapGame with HasGameRef<RPGGame> {
   double maxTop = 0;
   double maxLeft = 0;
-  bool maxRight = false;
-  bool maxBottom = false;
   double lastCameraX = -1;
   double lastCameraY = -1;
-  List<NewTile> tilesToRender = List();
+  Iterable<NewTile> tilesToRender = List();
 
   NewMapWorld(Iterable<NewTile> map) : super(map);
 
@@ -33,7 +31,6 @@ class NewMapWorld extends NewMapGame with HasGameRef<RPGGame> {
         else
           return max;
       });
-
       maxLeft = (maxLeft * map.first.size) - gameRef.size.width;
     }
   }
@@ -71,7 +68,6 @@ class NewMapWorld extends NewMapGame with HasGameRef<RPGGame> {
         break;
       case Directional.MOVE_RIGHT:
         if (!isMaxRight()) {
-          maxRight = false;
           gameRef.mapCamera.x = gameRef.mapCamera.x - displacement;
         }
         break;
@@ -108,11 +104,12 @@ class NewMapWorld extends NewMapGame with HasGameRef<RPGGame> {
 
   @override
   void update(double t) {
+    verifyMaxTopAndLeft();
     if (lastCameraX != gameRef.mapCamera.x ||
         gameRef.mapCamera.y != lastCameraY) {
       lastCameraX = gameRef.mapCamera.x;
       lastCameraY = gameRef.mapCamera.y;
-      tilesToRender = map.where((i) => i.isVisible(gameRef)).toList();
+      tilesToRender = map.where((i) => i.isVisible(gameRef));
     }
   }
 
