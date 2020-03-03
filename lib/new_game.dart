@@ -27,7 +27,7 @@ class _NewGameState extends State<NewGame> {
         initPosition: Position(5, 6),
         size: 32,
       ),
-      map: NewMapWorld(State1Map.map()),
+      map: NewMapWorld(State1Map.map2()),
       decorations: State1Decorations.decorations,
     );
     super.initState();

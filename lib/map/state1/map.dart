@@ -1,8 +1,53 @@
 import 'dart:math';
 
 import 'package:darkness_dungeon/core/map/tile.dart';
+import 'package:darkness_dungeon/core/newCore/new_tile.dart';
+import 'package:flame/position.dart';
 
 class State1Map {
+  static Iterable<NewTile> map2() {
+    List<NewTile> tileList = List();
+    List.generate(35, (indexRow) {
+      List.generate(70, (indexColumm) {
+        if (indexRow == 3) {
+          tileList.add(NewTile(
+            'tile/wall_bottom.png',
+            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            collision: true,
+          ));
+          return;
+        }
+        if (indexRow == 4) {
+          tileList.add(NewTile(
+            'tile/wall.png',
+            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            collision: true,
+          ));
+          return;
+        }
+
+        if (indexRow == 9) {
+          tileList.add(NewTile(
+            'tile/wall_top.png',
+            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            collision: true,
+          ));
+          return;
+        }
+
+        if (indexRow > 4 && indexRow < 9) {
+          tileList.add(NewTile(
+            randomFloor(),
+            Position(indexColumm.toDouble(), indexRow.toDouble()),
+          ));
+          return;
+        }
+      });
+    });
+
+    return tileList;
+  }
+
   static List<List<Tile>> map() {
     return List.generate(35, (indexRow) {
       return List.generate(70, (indexColumm) {

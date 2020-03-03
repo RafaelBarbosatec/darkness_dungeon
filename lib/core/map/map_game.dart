@@ -1,4 +1,5 @@
 import 'package:darkness_dungeon/core/newCore/joystick_controller.dart';
+import 'package:darkness_dungeon/core/newCore/new_tile.dart';
 import 'package:flame/components/component.dart';
 
 import 'tile.dart';
@@ -19,6 +20,26 @@ abstract class MapGame extends Component {
   bool isMaxBottom();
 
   List<Tile> getRendered();
+
+  void moveCamera(double displacement, Directional directional);
+}
+
+abstract class NewMapGame extends Component {
+  final Iterable<NewTile> map;
+
+  NewMapGame(this.map);
+
+//  void resetMap(List<List<Tile>> map);
+
+  bool isMaxTop();
+
+  bool isMaxLeft();
+
+  bool isMaxRight();
+
+  bool isMaxBottom();
+
+  List<NewTile> getRendered();
 
   void moveCamera(double displacement, Directional directional);
 }

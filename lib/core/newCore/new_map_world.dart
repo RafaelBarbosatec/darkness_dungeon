@@ -1,34 +1,40 @@
 import 'dart:ui';
 
 import 'package:darkness_dungeon/core/map/map_game.dart';
-import 'package:darkness_dungeon/core/map/tile.dart';
 import 'package:darkness_dungeon/core/newCore/joystick_controller.dart';
+import 'package:darkness_dungeon/core/newCore/new_tile.dart';
 import 'package:darkness_dungeon/core/newCore/rpg_game.dart';
 import 'package:flame/components/mixins/has_game_ref.dart';
 
-class NewMapWorld extends MapGame with HasGameRef<RPGGame> {
+class NewMapWorld extends NewMapGame with HasGameRef<RPGGame> {
   double maxTop = 0;
   double maxLeft = 0;
   bool maxRight = false;
   bool maxBottom = false;
   double lastCameraX = -1;
   double lastCameraY = -1;
-  List<Tile> tilesToRender = List();
+  List<NewTile> tilesToRender = List();
 
-  NewMapWorld(List<List<Tile>> map) : super(map);
+  NewMapWorld(Iterable<NewTile> map) : super(map);
 
   void verifyMaxTopAndLeft() {
     if (maxLeft == 0 || maxTop == 0) {
-      if (map.isNotEmpty && map[0].isNotEmpty) {
-        maxTop = (map.length * map[0][0].size) - gameRef.size.height;
-        map.forEach((list) {
-          if (list.length > maxLeft) {
-            maxLeft = list.length.toDouble();
-          }
-        });
+      maxTop = map.fold(0, (max, tile) {
+        if (tile.initPosition.y > max)
+          return tile.initPosition.y;
+        else
+          return max;
+      });
+      maxTop = (maxTop * map.first.size) - gameRef.size.height;
 
-        maxLeft = maxLeft * map[0][0].size - gameRef.size.width;
-      }
+      maxLeft = map.fold(0, (max, tile) {
+        if (tile.initPosition.x > max)
+          return tile.initPosition.x;
+        else
+          return max;
+      });
+
+      maxLeft = (maxLeft * map.first.size) - gameRef.size.width;
     }
   }
 
@@ -97,11 +103,8 @@ class NewMapWorld extends MapGame with HasGameRef<RPGGame> {
 
   @override
   void render(Canvas canvas) {
-    tilesToRender.forEach((tile) => tile.render(canvas));
+    tilesToRender.forEach((tile) => tile.render(canvas, gameRef.camera));
   }
-
-  @override
-  void resetMap(List<List<Tile>> map) {}
 
   @override
   void update(double t) {
@@ -110,39 +113,12 @@ class NewMapWorld extends MapGame with HasGameRef<RPGGame> {
         gameRef.mapCamera.y != lastCameraY) {
       lastCameraX = gameRef.mapCamera.x;
       lastCameraY = gameRef.mapCamera.y;
-
-      int countY = 0;
-      tilesToRender.clear();
-      map.forEach((tiles) {
-        Tile lastTile;
-        tiles[0].position = Rect.fromLTWH(
-            gameRef.mapCamera.x,
-            (countY * tiles[0].size).toDouble() + gameRef.mapCamera.y,
-            tiles[0].size,
-            tiles[0].size);
-
-        if (tiles[0].position.top < gameRef.size.height + tiles[0].size &&
-            tiles[0].position.top > tiles[0].size * -1) {
-          tiles.forEach((tile) {
-            if (lastTile != null) {
-              tile.position = lastTile.position.translate(lastTile.size, 0);
-            }
-
-            if (tile.position.left < gameRef.size.width + (tile.size) &&
-                tile.position.left > (tile.size * -1)) {
-              if (tile.spriteImg.isNotEmpty) tilesToRender.add(tile);
-            }
-
-            lastTile = tile;
-          });
-        }
-        countY++;
-      });
+      tilesToRender = map.where((i) => i.isVisible(gameRef)).toList();
     }
   }
 
   @override
-  List<Tile> getRendered() {
-    return tilesToRender;
+  List<NewTile> getRendered() {
+    return tilesToRender.toList();
   }
 }

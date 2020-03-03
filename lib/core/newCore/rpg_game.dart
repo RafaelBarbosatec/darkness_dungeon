@@ -9,7 +9,7 @@ import 'package:flutter/cupertino.dart';
 
 class RPGGame extends BaseGame {
   final NewPlayer player;
-  final MapGame map;
+  final NewMapGame map;
   final List<NewEnemy> enemies;
   final List<NewDecoration> decorations;
   final JoystickController joystickController;
