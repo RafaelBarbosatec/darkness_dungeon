@@ -14,7 +14,7 @@ class NewObjectCollision {
         heightCollision);
 
     var collisions = game.map
-        .getRendered()
+        .getCollisionsRendered()
         .where((i) => i.collision && i.position.overlaps(rectCollision))
         .toList();
 

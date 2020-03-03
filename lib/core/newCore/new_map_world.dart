@@ -12,6 +12,7 @@ class NewMapWorld extends NewMapGame with HasGameRef<RPGGame> {
   double lastCameraX = -1;
   double lastCameraY = -1;
   Iterable<NewTile> tilesToRender = List();
+  Iterable<NewTile> tilesCollisionsRendered = List();
 
   NewMapWorld(Iterable<NewTile> map) : super(map);
 
@@ -110,11 +111,17 @@ class NewMapWorld extends NewMapGame with HasGameRef<RPGGame> {
       lastCameraX = gameRef.mapCamera.x;
       lastCameraY = gameRef.mapCamera.y;
       tilesToRender = map.where((i) => i.isVisible(gameRef));
+      tilesCollisionsRendered = tilesToRender.where((i) => i.collision);
     }
   }
 
   @override
   List<NewTile> getRendered() {
     return tilesToRender.toList();
+  }
+
+  @override
+  List<NewTile> getCollisionsRendered() {
+    return tilesCollisionsRendered.toList();
   }
 }

@@ -41,5 +41,7 @@ abstract class NewMapGame extends Component {
 
   List<NewTile> getRendered();
 
+  List<NewTile> getCollisionsRendered();
+
   void moveCamera(double displacement, Directional directional);
 }
