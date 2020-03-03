@@ -14,6 +14,8 @@ import 'joystick_controller.dart';
 class NewPlayer extends AnimatedObject
     with HasGameRef<RPGGame>, NewObjectCollision
     implements JoystickListener {
+  static const REDUCTION_SPEED_DIAGONAL = 0.7;
+
   final double size;
   final Position initPosition;
   final Directional initDirectional;
@@ -113,7 +115,9 @@ class NewPlayer extends AnimatedObject
     }
   }
 
-  void _moveTop({bool addAnimation = true}) {
+  void _moveTop({bool addAnimation = true, bool isDiagonal = false}) {
+    double speed =
+        isDiagonal ? this.speed * REDUCTION_SPEED_DIAGONAL : this.speed;
     if (position.top <= 0) {
       return;
     }
@@ -144,7 +148,9 @@ class NewPlayer extends AnimatedObject
     _statusDirectional = Directional.MOVE_TOP;
   }
 
-  void _moveRight({bool addAnimation = true}) {
+  void _moveRight({bool addAnimation = true, bool isDiagonal = false}) {
+    double speed =
+        isDiagonal ? this.speed * REDUCTION_SPEED_DIAGONAL : this.speed;
     if (position.right >= gameRef.size.width) {
       return;
     }
@@ -170,7 +176,10 @@ class NewPlayer extends AnimatedObject
     _statusHorizontalDirectional = _statusDirectional;
   }
 
-  void _moveBottom({bool addAnimation = true}) {
+  void _moveBottom({bool addAnimation = true, bool isDiagonal = false}) {
+    double speed =
+        isDiagonal ? this.speed * REDUCTION_SPEED_DIAGONAL : this.speed;
+
     if (position.bottom >= gameRef.size.height) {
       return;
     }
@@ -201,7 +210,10 @@ class NewPlayer extends AnimatedObject
     _statusDirectional = Directional.MOVE_BOTTOM;
   }
 
-  void _moveLeft({bool addAnimation = true}) {
+  void _moveLeft({bool addAnimation = true, bool isDiagonal = false}) {
+    double speed =
+        isDiagonal ? this.speed * REDUCTION_SPEED_DIAGONAL : this.speed;
+
     if (position.left <= 0) {
       return;
     }
@@ -260,22 +272,22 @@ class NewPlayer extends AnimatedObject
   }
 
   void _moveBottomRight() {
-    _moveRight();
-    _moveBottom(addAnimation: false);
+    _moveRight(isDiagonal: true);
+    _moveBottom(addAnimation: false, isDiagonal: true);
   }
 
   void _moveBottomLeft() {
-    _moveLeft();
-    _moveBottom(addAnimation: false);
+    _moveLeft(isDiagonal: true);
+    _moveBottom(addAnimation: false, isDiagonal: true);
   }
 
   void _moveTopLeft() {
-    _moveLeft();
-    _moveTop(addAnimation: false);
+    _moveLeft(isDiagonal: true);
+    _moveTop(addAnimation: false, isDiagonal: true);
   }
 
   void _moveTopRight() {
-    _moveRight();
-    _moveTop(addAnimation: false);
+    _moveRight(isDiagonal: true);
+    _moveTop(addAnimation: false, isDiagonal: true);
   }
 }
