@@ -121,6 +121,20 @@ class NewEnemy extends AnimatedObject
           position.center.dx > leftPlayer ? (-1 * speed) : speed;
       double translateY = position.center.dy > topPlayer ? (-1 * speed) : speed;
 
+      if ((position.center.dx > leftPlayer &&
+              position.center.dx - leftPlayer < speed) ||
+          (position.center.dx < leftPlayer &&
+              leftPlayer - position.center.dx < speed)) {
+        translateX = 0;
+      }
+
+      if ((position.center.dy > topPlayer &&
+              position.center.dy - topPlayer < speed) ||
+          position.center.dy < topPlayer &&
+              topPlayer - position.center.dy < speed) {
+        translateY = 0;
+      }
+
       if (translateX > 0) {
         //animToRight();
       } else if (translateX < 0) {
