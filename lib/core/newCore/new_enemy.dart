@@ -41,6 +41,8 @@ class NewEnemy extends AnimatedObject
       height,
     );
     _positionCurrent = this.position;
+    widthCollision = width;
+    heightCollision = height / 3;
   }
 
   @override
