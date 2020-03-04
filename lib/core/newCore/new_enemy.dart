@@ -200,4 +200,8 @@ class NewEnemy extends AnimatedObject
       height,
     );
   }
+
+  void translate(double translateX, double translateY) {
+    _currentPosition = _currentPosition.translate(translateX, translateY);
+  }
 }

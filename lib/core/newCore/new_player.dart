@@ -29,7 +29,8 @@ class NewPlayer extends AnimatedObject
   final FlameAnimation.Animation animRunLeft;
   double speed;
   double life;
-  Directional _statusDirectional;
+  Directional statusDirectional;
+  Directional lastDirectional;
   Directional _statusHorizontalDirectional = Directional.MOVE_RIGHT;
 
   NewPlayer({
@@ -47,7 +48,8 @@ class NewPlayer extends AnimatedObject
     this.speed = 5,
     this.life = 10,
   }) {
-    _statusDirectional = initDirectional;
+    statusDirectional = initDirectional;
+    lastDirectional = initDirectional;
 
     if (initDirectional == Directional.MOVE_LEFT ||
         initDirectional == Directional.MOVE_RIGHT) {
@@ -134,7 +136,7 @@ class NewPlayer extends AnimatedObject
       gameRef.map.moveCamera(speed, Directional.MOVE_TOP);
     }
 
-    if (addAnimation && _statusDirectional != Directional.MOVE_TOP) {
+    if (addAnimation && statusDirectional != Directional.MOVE_TOP) {
       if (animRunTop != null) {
         animation = animRunTop;
       } else {
@@ -145,7 +147,8 @@ class NewPlayer extends AnimatedObject
         }
       }
     }
-    _statusDirectional = Directional.MOVE_TOP;
+    statusDirectional = Directional.MOVE_TOP;
+    lastDirectional = Directional.MOVE_TOP;
   }
 
   void _moveRight({bool addAnimation = true, bool isDiagonal = false}) {
@@ -168,12 +171,13 @@ class NewPlayer extends AnimatedObject
     }
 
     if (addAnimation &&
-        _statusDirectional != Directional.MOVE_RIGHT &&
+        statusDirectional != Directional.MOVE_RIGHT &&
         animRunRight != null) {
       animation = animRunRight;
     }
-    _statusDirectional = Directional.MOVE_RIGHT;
-    _statusHorizontalDirectional = _statusDirectional;
+    statusDirectional = Directional.MOVE_RIGHT;
+    lastDirectional = Directional.MOVE_RIGHT;
+    _statusHorizontalDirectional = statusDirectional;
   }
 
   void _moveBottom({bool addAnimation = true, bool isDiagonal = false}) {
@@ -196,7 +200,7 @@ class NewPlayer extends AnimatedObject
       gameRef.map.moveCamera(speed, Directional.MOVE_BOTTOM);
     }
 
-    if (addAnimation && _statusDirectional != Directional.MOVE_BOTTOM) {
+    if (addAnimation && statusDirectional != Directional.MOVE_BOTTOM) {
       if (animRunBottom != null) {
         animation = animRunBottom;
       } else {
@@ -207,7 +211,8 @@ class NewPlayer extends AnimatedObject
         }
       }
     }
-    _statusDirectional = Directional.MOVE_BOTTOM;
+    statusDirectional = Directional.MOVE_BOTTOM;
+    lastDirectional = Directional.MOVE_BOTTOM;
   }
 
   void _moveLeft({bool addAnimation = true, bool isDiagonal = false}) {
@@ -230,21 +235,22 @@ class NewPlayer extends AnimatedObject
     }
 
     if (addAnimation &&
-        _statusDirectional != Directional.MOVE_LEFT &&
+        statusDirectional != Directional.MOVE_LEFT &&
         animRunLeft != null) {
       animation = animRunLeft;
     }
-    _statusDirectional = Directional.MOVE_LEFT;
-    _statusHorizontalDirectional = _statusDirectional;
+    statusDirectional = Directional.MOVE_LEFT;
+    lastDirectional = Directional.MOVE_LEFT;
+    _statusHorizontalDirectional = statusDirectional;
   }
 
   void _idle() {
-    if (_statusDirectional != Directional.IDLE) {
-      if (_statusDirectional == Directional.MOVE_LEFT && animIdleLeft != null)
+    if (statusDirectional != Directional.IDLE) {
+      if (statusDirectional == Directional.MOVE_LEFT && animIdleLeft != null)
         animation = animIdleLeft;
-      if (_statusDirectional == Directional.MOVE_RIGHT && animIdleRight != null)
+      if (statusDirectional == Directional.MOVE_RIGHT && animIdleRight != null)
         animation = animIdleRight;
-      if (_statusDirectional == Directional.MOVE_TOP) {
+      if (statusDirectional == Directional.MOVE_TOP) {
         if (animIdleTop != null) {
           animation = animIdleTop;
         } else {
@@ -256,7 +262,7 @@ class NewPlayer extends AnimatedObject
         }
       }
 
-      if (_statusDirectional == Directional.MOVE_BOTTOM) {
+      if (statusDirectional == Directional.MOVE_BOTTOM) {
         if (animIdleBottom != null) {
           animation = animIdleBottom;
         } else {
@@ -268,7 +274,7 @@ class NewPlayer extends AnimatedObject
         }
       }
     }
-    _statusDirectional = Directional.IDLE;
+    statusDirectional = Directional.IDLE;
   }
 
   void _moveBottomRight() {
