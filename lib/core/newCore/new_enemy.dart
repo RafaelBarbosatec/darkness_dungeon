@@ -97,7 +97,8 @@ class NewEnemy extends AnimatedObject
       position.top < (gameRef.size.height + height) &&
       position.top > (height * -1) &&
       position.left > (width * -1) &&
-      position.left < (gameRef.size.width + width);
+      position.left < (gameRef.size.width + width) &&
+      !destroy();
 
   void seeAndMoveToPlayer(
       {Function(NewPlayer) closePlayer, double visionCells = 3}) {
