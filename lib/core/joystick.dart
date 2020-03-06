@@ -5,7 +5,7 @@ import 'package:darkness_dungeon/core/util/joystick_controller.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/widgets.dart';
 
-class NewJoystick extends JoystickController {
+class Joystick extends JoystickController {
   double backgroundAspectRatio = 2.2;
   Rect backgroundRect;
   Sprite backgroundSprite;
@@ -26,7 +26,7 @@ class NewJoystick extends JoystickController {
   final double tileSize;
   final Size screenSize;
 
-  NewJoystick(
+  Joystick(
     this.screenSize,
     this.tileSize,
   ) {

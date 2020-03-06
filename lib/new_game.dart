@@ -1,4 +1,4 @@
-import 'package:darkness_dungeon/core/new_joystick.dart';
+import 'package:darkness_dungeon/core/joystick.dart';
 import 'package:darkness_dungeon/core/rpg_game.dart';
 import 'package:darkness_dungeon/map/dungeon_map.dart';
 import 'package:darkness_dungeon/player/knight.dart';
@@ -14,11 +14,11 @@ class NewGame extends StatefulWidget {
 }
 
 class _NewGameState extends State<NewGame> {
-  NewJoystick _joystick;
+  Joystick _joystick;
   RPGGame _game;
   @override
   void initState() {
-    _joystick = NewJoystick(widget.size, widget.size.height / 10);
+    _joystick = Joystick(widget.size, widget.size.height / 10);
     _game = RPGGame(
       joystickController: _joystick,
       player: Knight(

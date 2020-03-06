@@ -8,7 +8,7 @@ import 'package:flame/position.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/widgets.dart';
 
-class NewDecoration extends AnimatedObject with HasGameRef<RPGGame> {
+class GameDecoration extends AnimatedObject with HasGameRef<RPGGame> {
   final double height;
   final double width;
   final String spriteImg;
@@ -20,7 +20,7 @@ class NewDecoration extends AnimatedObject with HasGameRef<RPGGame> {
   Sprite _sprite;
   Rect positionInWorld;
 
-  NewDecoration(
+  GameDecoration(
     this.spriteImg, {
     this.initPosition,
     @required this.height,

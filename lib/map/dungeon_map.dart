@@ -1,9 +1,9 @@
 import 'dart:math';
 
+import 'package:darkness_dungeon/core/decoration.dart';
 import 'package:darkness_dungeon/core/enemy/enemy.dart';
 import 'package:darkness_dungeon/core/map/map_world.dart';
 import 'package:darkness_dungeon/core/map/tile.dart';
-import 'package:darkness_dungeon/core/new_decoration.dart';
 import 'package:darkness_dungeon/enemies/goblin.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/position.dart';
@@ -52,22 +52,22 @@ class DungeonMap {
     return MapWorld(tileList);
   }
 
-  static List<NewDecoration> decorations = [
-    NewDecoration(
+  static List<GameDecoration> decorations = [
+    GameDecoration(
       'itens/barrel.png',
       initPosition: Position(10, 5),
       width: 32,
       height: 32,
       collision: true,
     ),
-    NewDecoration(
+    GameDecoration(
       'itens/table.png',
       initPosition: Position(15, 7),
       width: 32,
       height: 32,
       collision: true,
     ),
-    NewDecoration(
+    GameDecoration(
       '',
       animation: FlameAnimation.Animation.sequenced(
         "itens/torch_spritesheet.png",
@@ -79,7 +79,7 @@ class DungeonMap {
       width: 32,
       height: 32,
     ),
-    NewDecoration(
+    GameDecoration(
       '',
       animation: FlameAnimation.Animation.sequenced(
         "itens/torch_spritesheet.png",
@@ -91,7 +91,7 @@ class DungeonMap {
       width: 32,
       height: 32,
     ),
-    NewDecoration(
+    GameDecoration(
       '',
       animation: FlameAnimation.Animation.sequenced(
         "itens/torch_spritesheet.png",
@@ -103,7 +103,7 @@ class DungeonMap {
       width: 32,
       height: 32,
     ),
-    NewDecoration(
+    GameDecoration(
       '',
       animation: FlameAnimation.Animation.sequenced(
         "itens/torch_spritesheet.png",
@@ -115,19 +115,19 @@ class DungeonMap {
       width: 32,
       height: 32,
     ),
-    NewDecoration(
+    GameDecoration(
       'itens/flag_red.png',
       initPosition: Position(6, 4),
       width: 32,
       height: 32,
     ),
-    NewDecoration(
+    GameDecoration(
       'itens/flag_red.png',
       initPosition: Position(10, 4),
       width: 32,
       height: 32,
     ),
-    NewDecoration(
+    GameDecoration(
       'itens/flag_red.png',
       initPosition: Position(14, 4),
       width: 32,
