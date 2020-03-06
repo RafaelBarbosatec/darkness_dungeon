@@ -1,7 +1,7 @@
 import 'dart:math';
 
+import 'package:darkness_dungeon/core/newCore/enemy/new_enemy.dart';
 import 'package:darkness_dungeon/core/newCore/new_decoration.dart';
-import 'package:darkness_dungeon/core/newCore/new_enemy.dart';
 import 'package:darkness_dungeon/core/newCore/new_map_world.dart';
 import 'package:darkness_dungeon/core/newCore/new_tile.dart';
 import 'package:darkness_dungeon/enemies/Goblin2.dart';
@@ -56,13 +56,15 @@ class DungeonMap {
     NewDecoration(
       'itens/barrel.png',
       initPosition: Position(10, 5),
-      size: 32,
+      width: 32,
+      height: 32,
       collision: true,
     ),
     NewDecoration(
       'itens/table.png',
       initPosition: Position(15, 7),
-      size: 32,
+      width: 32,
+      height: 32,
       collision: true,
     ),
     NewDecoration(
@@ -74,7 +76,8 @@ class DungeonMap {
         textureHeight: 16,
       ),
       initPosition: Position(4, 4),
-      size: 32,
+      width: 32,
+      height: 32,
     ),
     NewDecoration(
       '',
@@ -85,7 +88,8 @@ class DungeonMap {
         textureHeight: 16,
       ),
       initPosition: Position(8, 4),
-      size: 32,
+      width: 32,
+      height: 32,
     ),
     NewDecoration(
       '',
@@ -96,7 +100,8 @@ class DungeonMap {
         textureHeight: 16,
       ),
       initPosition: Position(12, 4),
-      size: 32,
+      width: 32,
+      height: 32,
     ),
     NewDecoration(
       '',
@@ -107,22 +112,26 @@ class DungeonMap {
         textureHeight: 16,
       ),
       initPosition: Position(16, 4),
-      size: 32,
+      width: 32,
+      height: 32,
     ),
     NewDecoration(
       'itens/flag_red.png',
       initPosition: Position(6, 4),
-      size: 32,
+      width: 32,
+      height: 32,
     ),
     NewDecoration(
       'itens/flag_red.png',
       initPosition: Position(10, 4),
-      size: 32,
+      width: 32,
+      height: 32,
     ),
     NewDecoration(
       'itens/flag_red.png',
       initPosition: Position(14, 4),
-      size: 32,
+      width: 32,
+      height: 32,
     )
   ];
 

@@ -6,53 +6,58 @@ import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/components/mixins/has_game_ref.dart';
 import 'package:flame/position.dart';
 import 'package:flame/sprite.dart';
+import 'package:flutter/widgets.dart';
 
 class NewDecoration extends AnimatedGameObject with HasGameRef<RPGGame> {
-  final double size;
+  final double height;
+  final double width;
   final String spriteImg;
   final bool frontFromPlayer;
   final bool collision;
+  final double sizeTileMap;
   final FlameAnimation.Animation animation;
   final Position initPosition;
   Sprite _sprite;
-  Rect _positionCurrent;
+  Rect positionInWorld;
 
   NewDecoration(
     this.spriteImg, {
     this.initPosition,
-    this.size,
+    @required this.height,
+    @required this.width,
     this.frontFromPlayer,
     this.animation,
     this.collision = false,
+    this.sizeTileMap = 32,
   }) {
     this.animation = animation;
     if (spriteImg.isNotEmpty) _sprite = Sprite(spriteImg);
     position = Rect.fromLTWH(
-      (initPosition != null ? initPosition.x : 0.0) * size,
-      (initPosition != null ? initPosition.y : 0.0) * size,
-      size,
-      size,
+      (initPosition != null ? initPosition.x : 0.0) * sizeTileMap,
+      (initPosition != null ? initPosition.y : 0.0) * sizeTileMap,
+      width,
+      height,
     );
-    _positionCurrent = position;
+    positionInWorld = position;
   }
 
   @override
   void update(double dt) {
     position = Rect.fromLTWH(
-      _positionCurrent.left + gameRef.mapCamera.x,
-      _positionCurrent.top + gameRef.mapCamera.y,
-      size,
-      size,
+      positionInWorld.left + gameRef.mapCamera.x,
+      positionInWorld.top + gameRef.mapCamera.y,
+      width,
+      height,
     );
     super.update(dt);
   }
 
   @override
   void render(Canvas canvas) {
-    if (position.top < (gameRef.size.height + size) &&
-        position.top > (size * -1) &&
-        position.left > (size * -1) &&
-        position.left < (gameRef.size.width + size)) {
+    if (position.top < (gameRef.size.height + height) &&
+        position.top > (height * -1) &&
+        position.left > (width * -1) &&
+        position.left < (gameRef.size.width + width)) {
       super.render(canvas);
       if (_sprite != null && _sprite.loaded())
         _sprite.renderRect(canvas, position);

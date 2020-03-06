@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:darkness_dungeon/core/newCore/animated_object.dart';
-import 'package:darkness_dungeon/core/newCore/animated_object_once.dart';
 import 'package:darkness_dungeon/core/newCore/joystick_controller.dart';
 import 'package:darkness_dungeon/core/newCore/new_object_collision.dart';
 import 'package:darkness_dungeon/core/newCore/rpg_game.dart';
@@ -10,7 +9,7 @@ import 'package:flame/components/mixins/has_game_ref.dart';
 import 'package:flame/position.dart';
 import 'package:flutter/cupertino.dart';
 
-import 'joystick_controller.dart';
+export 'package:darkness_dungeon/core/newCore/player/extensions.dart';
 
 class NewPlayer extends AnimatedObject
     with HasGameRef<RPGGame>, NewObjectCollision
@@ -30,6 +29,7 @@ class NewPlayer extends AnimatedObject
   final FlameAnimation.Animation animRunLeft;
   double speed;
   double life;
+  double maxLife;
   Directional statusDirectional;
   Directional lastDirectional;
   Directional _statusHorizontalDirectional = Directional.MOVE_RIGHT;
@@ -67,7 +67,7 @@ class NewPlayer extends AnimatedObject
 
     widthCollision = size;
     heightCollision = size / 3;
-
+    maxLife = life;
     _idle();
   }
 
@@ -315,65 +315,4 @@ class NewPlayer extends AnimatedObject
   }
 
   bool get isDie => _isDie;
-
-  void simpleAttackMelee(
-    double damage, {
-    FlameAnimation.Animation attackRightAnim,
-    FlameAnimation.Animation attackBottomAnim,
-    FlameAnimation.Animation attackLeftAnim,
-    FlameAnimation.Animation attackTopAnim,
-  }) {
-    Rect positionAttack;
-    FlameAnimation.Animation anim = attackRightAnim;
-    double pushLeft = 0;
-    double pushTop = 0;
-    switch (lastDirectional) {
-      case Directional.MOVE_TOP:
-        positionAttack =
-            Rect.fromLTWH(position.left, position.top - size, size, size);
-        anim = attackTopAnim;
-        pushTop = size * -1;
-        break;
-      case Directional.MOVE_TOP_LEFT:
-        break;
-      case Directional.MOVE_TOP_RIGHT:
-        break;
-      case Directional.MOVE_RIGHT:
-        positionAttack =
-            Rect.fromLTWH(position.left + size, position.top, size, size);
-        anim = attackRightAnim;
-        pushLeft = size;
-        break;
-      case Directional.MOVE_BOTTOM:
-        positionAttack =
-            Rect.fromLTWH(position.left, position.top + size, size, size);
-        anim = attackBottomAnim;
-        pushTop = size;
-        break;
-      case Directional.MOVE_BOTTOM_RIGHT:
-        break;
-      case Directional.MOVE_BOTTOM_LEFT:
-        break;
-      case Directional.MOVE_LEFT:
-        positionAttack =
-            Rect.fromLTWH(position.left - size, position.top, size, size);
-        anim = attackLeftAnim;
-        pushLeft = size * -1;
-        break;
-      case Directional.IDLE:
-        break;
-    }
-
-    gameRef.add(AnimatedObjectOnce(animation: anim, position: positionAttack));
-
-    gameRef.enemies.where((i) => i.isVisibleInMap()).forEach((enemy) {
-      if (enemy.position.overlaps(positionAttack)) {
-        enemy.life -= damage;
-        if (enemy.life < 0) {
-          enemy.life = 0;
-        }
-        enemy.translate(pushLeft, pushTop);
-      }
-    });
-  }
 }

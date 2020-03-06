@@ -1,8 +1,8 @@
 import 'package:darkness_dungeon/core/map/map_game.dart';
+import 'package:darkness_dungeon/core/newCore/enemy/new_enemy.dart';
 import 'package:darkness_dungeon/core/newCore/joystick_controller.dart';
 import 'package:darkness_dungeon/core/newCore/new_decoration.dart';
-import 'package:darkness_dungeon/core/newCore/new_enemy.dart';
-import 'package:darkness_dungeon/core/newCore/new_player.dart';
+import 'package:darkness_dungeon/core/newCore/player/new_player.dart';
 import 'package:flame/game.dart';
 import 'package:flame/position.dart';
 import 'package:flutter/cupertino.dart';

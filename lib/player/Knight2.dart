@@ -1,4 +1,4 @@
-import 'package:darkness_dungeon/core/newCore/new_player.dart';
+import 'package:darkness_dungeon/core/newCore/player/new_player.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/position.dart';
 
