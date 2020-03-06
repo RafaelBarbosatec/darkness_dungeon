@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:darkness_dungeon/core/newCore/Direction.dart';
 import 'package:darkness_dungeon/core/newCore/animated_object.dart';
 import 'package:darkness_dungeon/core/newCore/new_object_collision.dart';
 import 'package:darkness_dungeon/core/newCore/rpg_game.dart';
@@ -13,7 +14,12 @@ export 'package:darkness_dungeon/core/newCore/enemy/extensions.dart';
 
 class NewEnemy extends AnimatedObject
     with NewObjectCollision, HasGameRef<RPGGame> {
-  final FlameAnimation.Animation animationIdle;
+  final FlameAnimation.Animation animationIdleRight;
+  final FlameAnimation.Animation animationIdleLeft;
+  final FlameAnimation.Animation animationRunTop;
+  final FlameAnimation.Animation animationRunRight;
+  final FlameAnimation.Animation animationRunLeft;
+  final FlameAnimation.Animation animationRunBottom;
   final double speed;
   final double height;
   final double width;
@@ -24,19 +30,27 @@ class NewEnemy extends AnimatedObject
   double maxLife;
   Rect positionInWorld;
   bool _isDie = false;
+  Direction lastDirection;
+  Direction _lastDirectionHorizontal;
 
   NewEnemy({
-    @required this.animationIdle,
+    @required this.animationIdleRight,
+    @required this.animationIdleLeft,
+    this.animationRunTop,
+    @required this.animationRunRight,
+    @required this.animationRunLeft,
+    this.animationRunBottom,
     @required this.initPosition,
     @required this.height,
     @required this.width,
+    Direction initDirection = Direction.right,
     this.sizeTileMap = 32,
     this.speed = 3,
     this.life = 10,
     this.drawDefaultLife = true,
   }) {
+    lastDirection = initDirection;
     maxLife = life;
-    animation = animationIdle;
     this.position = Rect.fromLTWH(
       initPosition.x * sizeTileMap,
       initPosition.y * sizeTileMap,
@@ -46,6 +60,11 @@ class NewEnemy extends AnimatedObject
     positionInWorld = this.position;
     widthCollision = width;
     heightCollision = height / 3;
+
+    _lastDirectionHorizontal =
+        initDirection == Direction.left ? Direction.left : Direction.right;
+
+    idle();
   }
 
   bool get isDie => _isDie;
@@ -115,6 +134,60 @@ class NewEnemy extends AnimatedObject
 
   void translate(double translateX, double translateY) {
     positionInWorld = positionInWorld.translate(translateX, translateY);
+  }
+
+  void moveTop({double moveSpeed}) {
+    double speed = moveSpeed ?? this.speed;
+    positionInWorld = positionInWorld.translate(0, (speed * -1));
+
+    if (lastDirection != Direction.top) {
+      animation = animationRunTop ??
+          (lastDirection == Direction.right
+              ? animationRunRight
+              : animationRunLeft);
+      lastDirection = Direction.top;
+    }
+  }
+
+  void moveBottom({double moveSpeed}) {
+    double speed = moveSpeed ?? this.speed;
+    positionInWorld = positionInWorld.translate(0, speed);
+
+    if (lastDirection != Direction.bottom) {
+      animation = animationRunBottom ??
+          (lastDirection == Direction.right
+              ? animationRunRight
+              : animationRunLeft);
+      lastDirection = Direction.bottom;
+    }
+  }
+
+  void moveLeft({double moveSpeed}) {
+    double speed = moveSpeed ?? this.speed;
+    positionInWorld = positionInWorld.translate((speed * -1), 0);
+    if (lastDirection != Direction.left) {
+      animation = animationRunLeft;
+      lastDirection = Direction.left;
+    }
+    _lastDirectionHorizontal = Direction.left;
+  }
+
+  void moveRight({double moveSpeed}) {
+    double speed = moveSpeed ?? this.speed;
+    positionInWorld = positionInWorld.translate(speed, 0);
+    if (lastDirection != Direction.right) {
+      animation = animationRunRight;
+      lastDirection = Direction.right;
+    }
+    _lastDirectionHorizontal = Direction.right;
+  }
+
+  void idle() {
+    if (_lastDirectionHorizontal == Direction.left) {
+      animation = animationIdleLeft;
+    } else {
+      animation = animationIdleRight;
+    }
   }
 
   void receiveDamage(double damage) {

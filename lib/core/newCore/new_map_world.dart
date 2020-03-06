@@ -57,9 +57,9 @@ class NewMapWorld extends NewMapGame with HasGameRef<RPGGame> {
   }
 
   @override
-  void moveCamera(double displacement, Directional directional) {
+  void moveCamera(double displacement, JoystickMoveDirectional directional) {
     switch (directional) {
-      case Directional.MOVE_TOP:
+      case JoystickMoveDirectional.MOVE_TOP:
         if (gameRef.mapCamera.y > 0) {
           gameRef.mapCamera.y = 0;
         }
@@ -67,17 +67,17 @@ class NewMapWorld extends NewMapGame with HasGameRef<RPGGame> {
           gameRef.mapCamera.y = gameRef.mapCamera.y + displacement;
         }
         break;
-      case Directional.MOVE_RIGHT:
+      case JoystickMoveDirectional.MOVE_RIGHT:
         if (!isMaxRight()) {
           gameRef.mapCamera.x = gameRef.mapCamera.x - displacement;
         }
         break;
-      case Directional.MOVE_BOTTOM:
+      case JoystickMoveDirectional.MOVE_BOTTOM:
         if (!isMaxBottom()) {
           gameRef.mapCamera.y = gameRef.mapCamera.y - displacement;
         }
         break;
-      case Directional.MOVE_LEFT:
+      case JoystickMoveDirectional.MOVE_LEFT:
         if (gameRef.mapCamera.x > 0) {
           gameRef.mapCamera.x = 0;
         }
@@ -85,15 +85,15 @@ class NewMapWorld extends NewMapGame with HasGameRef<RPGGame> {
           gameRef.mapCamera.x = gameRef.mapCamera.x + displacement;
         }
         break;
-      case Directional.MOVE_TOP_LEFT:
+      case JoystickMoveDirectional.MOVE_TOP_LEFT:
         break;
-      case Directional.MOVE_TOP_RIGHT:
+      case JoystickMoveDirectional.MOVE_TOP_RIGHT:
         break;
-      case Directional.MOVE_BOTTOM_RIGHT:
+      case JoystickMoveDirectional.MOVE_BOTTOM_RIGHT:
         break;
-      case Directional.MOVE_BOTTOM_LEFT:
+      case JoystickMoveDirectional.MOVE_BOTTOM_LEFT:
         break;
-      case Directional.IDLE:
+      case JoystickMoveDirectional.IDLE:
         break;
     }
   }

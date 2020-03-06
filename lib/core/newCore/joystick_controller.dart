@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flame/components/component.dart';
 
-enum Directional {
+enum JoystickMoveDirectional {
   MOVE_TOP,
   MOVE_TOP_LEFT,
   MOVE_TOP_RIGHT,
@@ -15,7 +15,7 @@ enum Directional {
 }
 
 abstract class JoystickListener {
-  void joystickChangeDirectional(Directional directional);
+  void joystickChangeDirectional(JoystickMoveDirectional directional);
   void joystickAction(int action);
 }
 

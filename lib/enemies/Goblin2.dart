@@ -18,8 +18,26 @@ class Goblin2 extends NewEnemy {
     @required this.initPosition,
     this.sizeTileMap = 32,
   }) : super(
-          animationIdle: FlameAnimation.Animation.sequenced(
+          animationIdleRight: FlameAnimation.Animation.sequenced(
             "goblin_idle.png",
+            6,
+            textureWidth: 16,
+            textureHeight: 16,
+          ),
+          animationIdleLeft: FlameAnimation.Animation.sequenced(
+            "goblin_idle.png",
+            6,
+            textureWidth: 16,
+            textureHeight: 16,
+          ),
+          animationRunRight: FlameAnimation.Animation.sequenced(
+            "goblin_run_right.png",
+            6,
+            textureWidth: 16,
+            textureHeight: 16,
+          ),
+          animationRunLeft: FlameAnimation.Animation.sequenced(
+            "goblin_run_right.png",
             6,
             textureWidth: 16,
             textureHeight: 16,

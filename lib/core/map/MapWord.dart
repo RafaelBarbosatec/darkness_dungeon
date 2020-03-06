@@ -258,7 +258,7 @@ class MapWord extends Component implements MapGame, MapControll {
   }
 
   @override
-  void moveCamera(double displacement, Directional directional) {
+  void moveCamera(double displacement, JoystickMoveDirectional directional) {
     // TODO: implement moveCamera
   }
 

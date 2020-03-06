@@ -97,43 +97,49 @@ class NewJoystick extends JoystickController {
       if (mRight && mTop) {
         mRight = false;
         mTop = false;
-        joystickListener.joystickChangeDirectional(Directional.MOVE_TOP_RIGHT);
+        joystickListener
+            .joystickChangeDirectional(JoystickMoveDirectional.MOVE_TOP_RIGHT);
       }
 
       if (mRight && mBottom) {
         mRight = false;
         mBottom = false;
-        joystickListener
-            .joystickChangeDirectional(Directional.MOVE_BOTTOM_RIGHT);
+        joystickListener.joystickChangeDirectional(
+            JoystickMoveDirectional.MOVE_BOTTOM_RIGHT);
       }
 
       if (mLeft && mTop) {
         mLeft = false;
         mTop = false;
-        joystickListener.joystickChangeDirectional(Directional.MOVE_TOP_LEFT);
+        joystickListener
+            .joystickChangeDirectional(JoystickMoveDirectional.MOVE_TOP_LEFT);
       }
 
       if (mLeft && mBottom) {
         mLeft = false;
         mBottom = false;
-        joystickListener
-            .joystickChangeDirectional(Directional.MOVE_BOTTOM_LEFT);
+        joystickListener.joystickChangeDirectional(
+            JoystickMoveDirectional.MOVE_BOTTOM_LEFT);
       }
 
       if (mRight) {
-        joystickListener.joystickChangeDirectional(Directional.MOVE_RIGHT);
+        joystickListener
+            .joystickChangeDirectional(JoystickMoveDirectional.MOVE_RIGHT);
       }
 
       if (mLeft) {
-        joystickListener.joystickChangeDirectional(Directional.MOVE_LEFT);
+        joystickListener
+            .joystickChangeDirectional(JoystickMoveDirectional.MOVE_LEFT);
       }
 
       if (mBottom) {
-        joystickListener.joystickChangeDirectional(Directional.MOVE_BOTTOM);
+        joystickListener
+            .joystickChangeDirectional(JoystickMoveDirectional.MOVE_BOTTOM);
       }
 
       if (mTop) {
-        joystickListener.joystickChangeDirectional(Directional.MOVE_TOP);
+        joystickListener
+            .joystickChangeDirectional(JoystickMoveDirectional.MOVE_TOP);
       }
 
       // The maximum distance for the knob position the edge of
@@ -178,7 +184,7 @@ class NewJoystick extends JoystickController {
   void onPanEnd(DragEndDetails details) {
     dragging = false;
     dragPosition = backgroundRect.center;
-    joystickListener.joystickChangeDirectional(Directional.IDLE);
+    joystickListener.joystickChangeDirectional(JoystickMoveDirectional.IDLE);
   }
 
   void onTapDownAttack(TapDownDetails details) {

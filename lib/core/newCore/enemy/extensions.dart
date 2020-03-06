@@ -23,17 +23,10 @@ extension EnemyExtensions on NewEnemy {
     }
   }
 
-  void seeAndMoveToPlayer({
-    Function(NewPlayer) closePlayer,
-    int visionCells = 3,
-    VoidCallback moveRight,
-    VoidCallback moveLeft,
-    VoidCallback moveBottom,
-    VoidCallback moveTop,
-    VoidCallback idle,
-  }) {
-    if (!isVisibleInMap()) return;
-
+  void seeAndMoveToPlayer(
+      {Function(NewPlayer) closePlayer, int visionCells = 3}) {
+    if (!isVisibleInMap() || isDie) return;
+    idle();
     seePlayer(
         visionCells: visionCells,
         observed: (player) {
@@ -59,23 +52,6 @@ extension EnemyExtensions on NewEnemy {
             translateY = 0;
           }
 
-          if (translateX > 0) {
-            if (moveRight != null) moveRight();
-          } else if (translateX < 0) {
-            if (moveLeft != null) moveLeft();
-          } else if (translateY > 0) {
-            if (moveBottom != null) moveBottom();
-          } else if (translateY < 0) {
-            if (moveTop != null) moveTop();
-          } else {
-            if (idle != null) idle();
-          }
-
-          Rect moveTo = positionInWorld.translate(
-            translateX,
-            translateY,
-          );
-
           var collisionAll = isCollisionTranslate(
             position,
             translateX,
@@ -96,19 +72,38 @@ extension EnemyExtensions on NewEnemy {
           );
 
           if (collisionAll && collisionX && collisionY) {
-            animation = animationIdle;
+            idle();
             return;
           }
 
-          if (collisionAll && !collisionX) {
-            moveTo = positionInWorld.translate(translateX, 0);
-          }
+          if (!collisionAll && !collisionX && !collisionY) {
+            if (translateX > 0) {
+              moveRight(moveSpeed: translateX);
+            } else {
+              moveLeft(moveSpeed: (translateX * -1));
+            }
+            if (translateY > 0) {
+              moveBottom(moveSpeed: translateY);
+            } else {
+              moveTop(moveSpeed: (translateY * -1));
+            }
+          } else {
+            if (!collisionX) {
+              if (translateX > 0) {
+                moveRight(moveSpeed: translateX);
+              } else {
+                moveLeft(moveSpeed: (translateX * -1));
+              }
+            }
 
-          if (collisionAll && !collisionY) {
-            moveTo = positionInWorld.translate(0, translateY);
+            if (!collisionY) {
+              if (translateY > 0) {
+                moveBottom(moveSpeed: translateY);
+              } else {
+                moveTop(moveSpeed: (translateY * -1));
+              }
+            }
           }
-
-          positionInWorld = moveTo;
 
           if (position.overlaps(player.position)) {
             if (closePlayer != null) closePlayer(player);

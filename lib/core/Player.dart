@@ -3,14 +3,14 @@ import 'dart:math';
 
 import 'package:darkness_dungeon/core/AnimationGameObject.dart';
 import 'package:darkness_dungeon/core/Decoration.dart';
-import 'package:darkness_dungeon/core/Direction.dart';
 import 'package:darkness_dungeon/core/Enemy.dart';
 import 'package:darkness_dungeon/core/ObjectCollision.dart';
 import 'package:darkness_dungeon/core/map/MapWord.dart';
+import 'package:darkness_dungeon/core/newCore/Direction.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flutter/material.dart';
 
-import 'Direction.dart';
+import 'newCore/Direction.dart';
 
 class Player extends AnimatedGameObject with ObjectCollision {
   double life;

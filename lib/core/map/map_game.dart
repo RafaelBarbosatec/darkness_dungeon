@@ -21,7 +21,7 @@ abstract class MapGame extends Component {
 
   List<Tile> getRendered();
 
-  void moveCamera(double displacement, Directional directional);
+  void moveCamera(double displacement, JoystickMoveDirectional directional);
 }
 
 abstract class NewMapGame extends Component {
@@ -43,5 +43,5 @@ abstract class NewMapGame extends Component {
 
   List<NewTile> getCollisionsRendered();
 
-  void moveCamera(double displacement, Directional directional);
+  void moveCamera(double displacement, JoystickMoveDirectional directional);
 }

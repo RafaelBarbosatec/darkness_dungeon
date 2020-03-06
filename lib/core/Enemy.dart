@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:darkness_dungeon/core/AnimationGameObject.dart';
-import 'package:darkness_dungeon/core/Direction.dart';
 import 'package:darkness_dungeon/core/ObjectCollision.dart';
 import 'package:darkness_dungeon/core/Player.dart';
+import 'package:darkness_dungeon/core/newCore/Direction.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flutter/material.dart';
 

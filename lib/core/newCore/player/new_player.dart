@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:darkness_dungeon/core/newCore/Direction.dart';
 import 'package:darkness_dungeon/core/newCore/animated_object.dart';
 import 'package:darkness_dungeon/core/newCore/joystick_controller.dart';
 import 'package:darkness_dungeon/core/newCore/new_object_collision.dart';
@@ -18,7 +19,7 @@ class NewPlayer extends AnimatedObject
 
   final double size;
   final Position initPosition;
-  final Directional initDirectional;
+  final Direction initDirection;
   final FlameAnimation.Animation animIdleLeft;
   final FlameAnimation.Animation animIdleRight;
   final FlameAnimation.Animation animIdleTop;
@@ -30,9 +31,9 @@ class NewPlayer extends AnimatedObject
   double speed;
   double life;
   double maxLife;
-  Directional statusDirectional;
-  Directional lastDirectional;
-  Directional _statusHorizontalDirectional = Directional.MOVE_RIGHT;
+  JoystickMoveDirectional statusMoveDirectional;
+  Direction lastDirection;
+  Direction _lastDirectionHorizontal = Direction.right;
   bool _isDie = false;
 
   NewPlayer({
@@ -46,17 +47,19 @@ class NewPlayer extends AnimatedObject
     @required this.animRunLeft,
     this.size = 0,
     this.initPosition,
-    this.initDirectional = Directional.MOVE_RIGHT,
+    this.initDirection = Direction.right,
     this.speed = 5,
     this.life = 10,
   }) {
-    statusDirectional = initDirectional;
-    lastDirectional = initDirectional;
-
-    if (initDirectional == Directional.MOVE_LEFT ||
-        initDirectional == Directional.MOVE_RIGHT) {
-      _statusHorizontalDirectional = initDirectional;
+    lastDirection = initDirection;
+    if (initDirection == Direction.left || initDirection == Direction.right) {
+      _lastDirectionHorizontal = initDirection;
     }
+
+    if (initDirection == Direction.left)
+      statusMoveDirectional = JoystickMoveDirectional.MOVE_LEFT;
+    if (initDirection == Direction.right)
+      statusMoveDirectional = JoystickMoveDirectional.MOVE_RIGHT;
 
     position = Rect.fromLTWH(
       (initPosition != null ? initPosition.x : 0.0) * size,
@@ -88,34 +91,34 @@ class NewPlayer extends AnimatedObject
   }
 
   @override
-  void joystickChangeDirectional(Directional directional) {
+  void joystickChangeDirectional(JoystickMoveDirectional directional) {
     if (_isDie) return;
     switch (directional) {
-      case Directional.MOVE_TOP:
+      case JoystickMoveDirectional.MOVE_TOP:
         _moveTop();
         break;
-      case Directional.MOVE_TOP_LEFT:
+      case JoystickMoveDirectional.MOVE_TOP_LEFT:
         _moveTopLeft();
         break;
-      case Directional.MOVE_TOP_RIGHT:
+      case JoystickMoveDirectional.MOVE_TOP_RIGHT:
         _moveTopRight();
         break;
-      case Directional.MOVE_RIGHT:
+      case JoystickMoveDirectional.MOVE_RIGHT:
         _moveRight();
         break;
-      case Directional.MOVE_BOTTOM:
+      case JoystickMoveDirectional.MOVE_BOTTOM:
         _moveBottom();
         break;
-      case Directional.MOVE_BOTTOM_RIGHT:
+      case JoystickMoveDirectional.MOVE_BOTTOM_RIGHT:
         _moveBottomRight();
         break;
-      case Directional.MOVE_BOTTOM_LEFT:
+      case JoystickMoveDirectional.MOVE_BOTTOM_LEFT:
         _moveBottomLeft();
         break;
-      case Directional.MOVE_LEFT:
+      case JoystickMoveDirectional.MOVE_LEFT:
         _moveLeft();
         break;
-      case Directional.IDLE:
+      case JoystickMoveDirectional.IDLE:
         _idle();
         break;
     }
@@ -137,22 +140,23 @@ class NewPlayer extends AnimatedObject
     if (position.top > gameRef.size.height / 2.9 || gameRef.map.isMaxTop()) {
       position = displacement;
     } else {
-      gameRef.map.moveCamera(speed, Directional.MOVE_TOP);
+      gameRef.map.moveCamera(speed, JoystickMoveDirectional.MOVE_TOP);
     }
 
-    if (addAnimation && statusDirectional != Directional.MOVE_TOP) {
+    if (addAnimation &&
+        statusMoveDirectional != JoystickMoveDirectional.MOVE_TOP) {
       if (animRunTop != null) {
         animation = animRunTop;
       } else {
-        if (_statusHorizontalDirectional == Directional.MOVE_LEFT) {
+        if (_lastDirectionHorizontal == Direction.left) {
           if (animRunLeft != null) animation = animRunLeft;
         } else {
           if (animRunRight != null) animation = animRunRight;
         }
       }
     }
-    statusDirectional = Directional.MOVE_TOP;
-    lastDirectional = Directional.MOVE_TOP;
+    statusMoveDirectional = JoystickMoveDirectional.MOVE_TOP;
+    lastDirection = Direction.top;
   }
 
   void _moveRight({bool addAnimation = true, bool isDiagonal = false}) {
@@ -171,17 +175,17 @@ class NewPlayer extends AnimatedObject
     if (position.left < gameRef.size.width / 1.5 || gameRef.map.isMaxRight()) {
       position = displacement;
     } else {
-      gameRef.map.moveCamera(speed, Directional.MOVE_RIGHT);
+      gameRef.map.moveCamera(speed, JoystickMoveDirectional.MOVE_RIGHT);
     }
 
     if (addAnimation &&
-        statusDirectional != Directional.MOVE_RIGHT &&
+        statusMoveDirectional != JoystickMoveDirectional.MOVE_RIGHT &&
         animRunRight != null) {
       animation = animRunRight;
     }
-    statusDirectional = Directional.MOVE_RIGHT;
-    lastDirectional = Directional.MOVE_RIGHT;
-    _statusHorizontalDirectional = statusDirectional;
+    statusMoveDirectional = JoystickMoveDirectional.MOVE_RIGHT;
+    lastDirection = Direction.right;
+    _lastDirectionHorizontal = Direction.right;
   }
 
   void _moveBottom({bool addAnimation = true, bool isDiagonal = false}) {
@@ -201,22 +205,23 @@ class NewPlayer extends AnimatedObject
     if (position.top < gameRef.size.height / 1.9 || gameRef.map.isMaxBottom()) {
       position = displacement;
     } else {
-      gameRef.map.moveCamera(speed, Directional.MOVE_BOTTOM);
+      gameRef.map.moveCamera(speed, JoystickMoveDirectional.MOVE_BOTTOM);
     }
 
-    if (addAnimation && statusDirectional != Directional.MOVE_BOTTOM) {
+    if (addAnimation &&
+        statusMoveDirectional != JoystickMoveDirectional.MOVE_BOTTOM) {
       if (animRunBottom != null) {
         animation = animRunBottom;
       } else {
-        if (_statusHorizontalDirectional == Directional.MOVE_LEFT) {
+        if (_lastDirectionHorizontal == Direction.left) {
           if (animRunLeft != null) animation = animRunLeft;
         } else {
           if (animRunRight != null) animation = animRunRight;
         }
       }
     }
-    statusDirectional = Directional.MOVE_BOTTOM;
-    lastDirectional = Directional.MOVE_BOTTOM;
+    statusMoveDirectional = JoystickMoveDirectional.MOVE_BOTTOM;
+    lastDirection = Direction.bottom;
   }
 
   void _moveLeft({bool addAnimation = true, bool isDiagonal = false}) {
@@ -235,30 +240,31 @@ class NewPlayer extends AnimatedObject
     if (position.left > gameRef.size.width / 3 || gameRef.map.isMaxLeft()) {
       position = displacement;
     } else {
-      gameRef.map.moveCamera(speed, Directional.MOVE_LEFT);
+      gameRef.map.moveCamera(speed, JoystickMoveDirectional.MOVE_LEFT);
     }
 
     if (addAnimation &&
-        statusDirectional != Directional.MOVE_LEFT &&
+        statusMoveDirectional != JoystickMoveDirectional.MOVE_LEFT &&
         animRunLeft != null) {
       animation = animRunLeft;
     }
-    statusDirectional = Directional.MOVE_LEFT;
-    lastDirectional = Directional.MOVE_LEFT;
-    _statusHorizontalDirectional = statusDirectional;
+    statusMoveDirectional = JoystickMoveDirectional.MOVE_LEFT;
+    lastDirection = Direction.left;
+
+    _lastDirectionHorizontal = Direction.left;
   }
 
   void _idle() {
-    if (statusDirectional != Directional.IDLE) {
-      if (statusDirectional == Directional.MOVE_LEFT && animIdleLeft != null)
-        animation = animIdleLeft;
-      if (statusDirectional == Directional.MOVE_RIGHT && animIdleRight != null)
-        animation = animIdleRight;
-      if (statusDirectional == Directional.MOVE_TOP) {
+    if (statusMoveDirectional != JoystickMoveDirectional.IDLE) {
+      if (statusMoveDirectional == JoystickMoveDirectional.MOVE_LEFT &&
+          animIdleLeft != null) animation = animIdleLeft;
+      if (statusMoveDirectional == JoystickMoveDirectional.MOVE_RIGHT &&
+          animIdleRight != null) animation = animIdleRight;
+      if (statusMoveDirectional == JoystickMoveDirectional.MOVE_TOP) {
         if (animIdleTop != null) {
           animation = animIdleTop;
         } else {
-          if (_statusHorizontalDirectional == Directional.MOVE_LEFT) {
+          if (_lastDirectionHorizontal == Direction.left) {
             if (animIdleLeft != null) animation = animIdleLeft;
           } else {
             if (animIdleRight != null) animation = animIdleRight;
@@ -266,11 +272,11 @@ class NewPlayer extends AnimatedObject
         }
       }
 
-      if (statusDirectional == Directional.MOVE_BOTTOM) {
+      if (statusMoveDirectional == JoystickMoveDirectional.MOVE_BOTTOM) {
         if (animIdleBottom != null) {
           animation = animIdleBottom;
         } else {
-          if (_statusHorizontalDirectional == Directional.MOVE_LEFT) {
+          if (_lastDirectionHorizontal == Direction.left) {
             if (animIdleLeft != null) animation = animIdleLeft;
           } else {
             if (animIdleRight != null) animation = animIdleRight;
@@ -278,7 +284,7 @@ class NewPlayer extends AnimatedObject
         }
       }
     }
-    statusDirectional = Directional.IDLE;
+    statusMoveDirectional = JoystickMoveDirectional.IDLE;
   }
 
   void _moveBottomRight() {
