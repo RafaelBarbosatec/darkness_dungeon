@@ -1,8 +1,8 @@
 import 'dart:ui';
 
-import 'package:darkness_dungeon/core/newCore/rpg_game.dart';
+import 'package:darkness_dungeon/core/rpg_game.dart';
 
-class NewObjectCollision {
+class ObjectCollision {
   double heightCollision = 0;
   double widthCollision = 0;
 

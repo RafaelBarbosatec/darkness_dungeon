@@ -1,19 +1,19 @@
 import 'dart:ui';
 
-import 'package:darkness_dungeon/core/newCore/Direction.dart';
-import 'package:darkness_dungeon/core/newCore/animated_object.dart';
-import 'package:darkness_dungeon/core/newCore/joystick_controller.dart';
-import 'package:darkness_dungeon/core/newCore/new_object_collision.dart';
-import 'package:darkness_dungeon/core/newCore/rpg_game.dart';
+import 'package:darkness_dungeon/core/rpg_game.dart';
+import 'package:darkness_dungeon/core/util/Direction.dart';
+import 'package:darkness_dungeon/core/util/animated_object.dart';
+import 'package:darkness_dungeon/core/util/joystick_controller.dart';
+import 'package:darkness_dungeon/core/util/object_collision.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/components/mixins/has_game_ref.dart';
 import 'package:flame/position.dart';
 import 'package:flutter/cupertino.dart';
 
-export 'package:darkness_dungeon/core/newCore/player/extensions.dart';
+export 'package:darkness_dungeon/core/player/extensions.dart';
 
-class NewPlayer extends AnimatedObject
-    with HasGameRef<RPGGame>, NewObjectCollision
+class Player extends AnimatedObject
+    with HasGameRef<RPGGame>, ObjectCollision
     implements JoystickListener {
   static const REDUCTION_SPEED_DIAGONAL = 0.7;
 
@@ -36,7 +36,7 @@ class NewPlayer extends AnimatedObject
   Direction _lastDirectionHorizontal = Direction.right;
   bool _isDie = false;
 
-  NewPlayer({
+  Player({
     @required this.animIdleLeft,
     @required this.animIdleRight,
     this.animIdleTop,

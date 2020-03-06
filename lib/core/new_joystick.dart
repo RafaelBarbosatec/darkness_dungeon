@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'dart:ui';
 
-import 'package:darkness_dungeon/core/newCore/joystick_controller.dart';
+import 'package:darkness_dungeon/core/util/joystick_controller.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/widgets.dart';
 

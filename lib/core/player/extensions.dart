@@ -1,12 +1,11 @@
 import 'dart:ui';
 
-import 'package:darkness_dungeon/core/newCore/animated_object_once.dart';
-import 'package:darkness_dungeon/core/newCore/player/new_player.dart';
+import 'package:darkness_dungeon/core/player/player.dart';
+import 'package:darkness_dungeon/core/util/Direction.dart';
+import 'package:darkness_dungeon/core/util/animated_object_once.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 
-import '../Direction.dart';
-
-extension EnemyExtensions on NewPlayer {
+extension EnemyExtensions on Player {
   void simpleAttackMelee(
     double damage, {
     FlameAnimation.Animation attackRightAnim,

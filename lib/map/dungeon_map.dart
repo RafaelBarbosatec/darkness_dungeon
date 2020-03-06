@@ -1,20 +1,20 @@
 import 'dart:math';
 
-import 'package:darkness_dungeon/core/newCore/enemy/new_enemy.dart';
-import 'package:darkness_dungeon/core/newCore/new_decoration.dart';
-import 'package:darkness_dungeon/core/newCore/new_map_world.dart';
-import 'package:darkness_dungeon/core/newCore/new_tile.dart';
-import 'package:darkness_dungeon/enemies/Goblin2.dart';
+import 'package:darkness_dungeon/core/enemy/enemy.dart';
+import 'package:darkness_dungeon/core/map/map_world.dart';
+import 'package:darkness_dungeon/core/map/tile.dart';
+import 'package:darkness_dungeon/core/new_decoration.dart';
+import 'package:darkness_dungeon/enemies/goblin.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/position.dart';
 
 class DungeonMap {
-  static NewMapWorld map() {
-    List<NewTile> tileList = List();
+  static MapWorld map() {
+    List<Tile> tileList = List();
     List.generate(35, (indexRow) {
       List.generate(70, (indexColumm) {
         if (indexRow == 3) {
-          tileList.add(NewTile(
+          tileList.add(Tile(
             'tile/wall_bottom.png',
             Position(indexColumm.toDouble(), indexRow.toDouble()),
             collision: true,
@@ -22,7 +22,7 @@ class DungeonMap {
           return;
         }
         if (indexRow == 4) {
-          tileList.add(NewTile(
+          tileList.add(Tile(
             'tile/wall.png',
             Position(indexColumm.toDouble(), indexRow.toDouble()),
             collision: true,
@@ -31,7 +31,7 @@ class DungeonMap {
         }
 
         if (indexRow == 9) {
-          tileList.add(NewTile(
+          tileList.add(Tile(
             'tile/wall_top.png',
             Position(indexColumm.toDouble(), indexRow.toDouble()),
             collision: true,
@@ -40,7 +40,7 @@ class DungeonMap {
         }
 
         if (indexRow > 4 && indexRow < 9) {
-          tileList.add(NewTile(
+          tileList.add(Tile(
             randomFloor(),
             Position(indexColumm.toDouble(), indexRow.toDouble()),
           ));
@@ -49,7 +49,7 @@ class DungeonMap {
       });
     });
 
-    return NewMapWorld(tileList);
+    return MapWorld(tileList);
   }
 
   static List<NewDecoration> decorations = [
@@ -135,8 +135,8 @@ class DungeonMap {
     )
   ];
 
-  static List<NewEnemy> enemies = [
-    Goblin2(initPosition: Position(10, 7)),
+  static List<Enemy> enemies = [
+    Goblin(initPosition: Position(10, 7)),
   ];
 
   static String randomFloor() {

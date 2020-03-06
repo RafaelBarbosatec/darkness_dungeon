@@ -1,19 +1,18 @@
 import 'dart:ui';
 
-import 'package:darkness_dungeon/core/newCore/Direction.dart';
-import 'package:darkness_dungeon/core/newCore/animated_object.dart';
-import 'package:darkness_dungeon/core/newCore/new_object_collision.dart';
-import 'package:darkness_dungeon/core/newCore/rpg_game.dart';
+import 'package:darkness_dungeon/core/rpg_game.dart';
+import 'package:darkness_dungeon/core/util/Direction.dart';
+import 'package:darkness_dungeon/core/util/animated_object.dart';
+import 'package:darkness_dungeon/core/util/object_collision.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/components/mixins/has_game_ref.dart';
 import 'package:flame/position.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-export 'package:darkness_dungeon/core/newCore/enemy/extensions.dart';
+export 'package:darkness_dungeon/core/enemy/extensions.dart';
 
-class NewEnemy extends AnimatedObject
-    with NewObjectCollision, HasGameRef<RPGGame> {
+class Enemy extends AnimatedObject with ObjectCollision, HasGameRef<RPGGame> {
   final FlameAnimation.Animation animationIdleRight;
   final FlameAnimation.Animation animationIdleLeft;
   final FlameAnimation.Animation animationRunTop;
@@ -33,7 +32,7 @@ class NewEnemy extends AnimatedObject
   Direction lastDirection;
   Direction _lastDirectionHorizontal;
 
-  NewEnemy({
+  Enemy({
     @required this.animationIdleRight,
     @required this.animationIdleLeft,
     this.animationRunTop,

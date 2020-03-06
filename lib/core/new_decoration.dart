@@ -1,14 +1,14 @@
 import 'dart:ui';
 
-import 'package:darkness_dungeon/core/AnimationGameObject.dart';
-import 'package:darkness_dungeon/core/newCore/rpg_game.dart';
+import 'package:darkness_dungeon/core/rpg_game.dart';
+import 'package:darkness_dungeon/core/util/animated_object.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/components/mixins/has_game_ref.dart';
 import 'package:flame/position.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/widgets.dart';
 
-class NewDecoration extends AnimatedGameObject with HasGameRef<RPGGame> {
+class NewDecoration extends AnimatedObject with HasGameRef<RPGGame> {
   final double height;
   final double width;
   final String spriteImg;

@@ -1,19 +1,20 @@
+import 'package:darkness_dungeon/core/enemy/enemy.dart';
 import 'package:darkness_dungeon/core/map/map_game.dart';
-import 'package:darkness_dungeon/core/newCore/enemy/new_enemy.dart';
-import 'package:darkness_dungeon/core/newCore/joystick_controller.dart';
-import 'package:darkness_dungeon/core/newCore/new_decoration.dart';
-import 'package:darkness_dungeon/core/newCore/player/new_player.dart';
+import 'package:darkness_dungeon/core/new_decoration.dart';
+import 'package:darkness_dungeon/core/player/player.dart';
+import 'package:darkness_dungeon/core/util/joystick_controller.dart';
 import 'package:flame/game.dart';
 import 'package:flame/position.dart';
 import 'package:flutter/cupertino.dart';
 
 class RPGGame extends BaseGame {
-  final NewPlayer player;
-  final NewMapGame map;
-  final List<NewEnemy> enemies;
+  final Player player;
+  final MapGame map;
+  final List<Enemy> enemies;
   final List<NewDecoration> decorations;
   final JoystickController joystickController;
   Position mapCamera = Position.empty();
+  Function(RPGGame) gameListener;
 
   RPGGame({
     @required this.player,
@@ -42,5 +43,15 @@ class RPGGame extends BaseGame {
     add(player);
 
     add(joystickController);
+  }
+
+  @override
+  void update(double t) {
+    super.update(t);
+    if (gameListener != null) gameListener(this);
+  }
+
+  void addListener(Function(RPGGame) gameListener) {
+    this.gameListener = gameListener;
   }
 }

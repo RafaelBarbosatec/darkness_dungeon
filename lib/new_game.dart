@@ -1,7 +1,7 @@
-import 'package:darkness_dungeon/core/newCore/new_joystick.dart';
-import 'package:darkness_dungeon/core/newCore/rpg_game.dart';
+import 'package:darkness_dungeon/core/new_joystick.dart';
+import 'package:darkness_dungeon/core/rpg_game.dart';
 import 'package:darkness_dungeon/map/dungeon_map.dart';
-import 'package:darkness_dungeon/player/Knight2.dart';
+import 'package:darkness_dungeon/player/knight.dart';
 import 'package:flame/position.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +21,7 @@ class _NewGameState extends State<NewGame> {
     _joystick = NewJoystick(widget.size, widget.size.height / 10);
     _game = RPGGame(
       joystickController: _joystick,
-      player: Knight2(
+      player: Knight(
         initPosition: Position(5, 6),
         size: 32,
       ),

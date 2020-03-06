@@ -1,20 +1,20 @@
 import 'dart:async';
 
-import 'package:darkness_dungeon/core/newCore/animated_object_once.dart';
-import 'package:darkness_dungeon/core/newCore/enemy/new_enemy.dart';
-import 'package:darkness_dungeon/core/newCore/player/new_player.dart';
+import 'package:darkness_dungeon/core/enemy/enemy.dart';
+import 'package:darkness_dungeon/core/player/player.dart';
+import 'package:darkness_dungeon/core/util/animated_object_once.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/position.dart';
 import 'package:flutter/cupertino.dart';
 
-class Goblin2 extends NewEnemy {
+class Goblin extends Enemy {
   final Position initPosition;
   final double sizeTileMap;
   double attack = 10;
   Timer _timerAttack;
   bool _closePlayer;
 
-  Goblin2({
+  Goblin({
     @required this.initPosition,
     this.sizeTileMap = 32,
   }) : super(
@@ -80,7 +80,7 @@ class Goblin2 extends NewEnemy {
     super.die();
   }
 
-  void simpleAttackMelee(double damage, NewPlayer player) {
+  void simpleAttackMelee(double damage, Player player) {
     if (_timerAttack != null && _timerAttack.isActive) {
       return;
     }

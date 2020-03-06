@@ -1,20 +1,20 @@
 import 'dart:ui';
 
 import 'package:darkness_dungeon/core/map/map_game.dart';
-import 'package:darkness_dungeon/core/newCore/joystick_controller.dart';
-import 'package:darkness_dungeon/core/newCore/new_tile.dart';
-import 'package:darkness_dungeon/core/newCore/rpg_game.dart';
+import 'package:darkness_dungeon/core/map/tile.dart';
+import 'package:darkness_dungeon/core/rpg_game.dart';
+import 'package:darkness_dungeon/core/util/joystick_controller.dart';
 import 'package:flame/components/mixins/has_game_ref.dart';
 
-class NewMapWorld extends NewMapGame with HasGameRef<RPGGame> {
+class MapWorld extends MapGame with HasGameRef<RPGGame> {
   double maxTop = 0;
   double maxLeft = 0;
   double lastCameraX = -1;
   double lastCameraY = -1;
-  Iterable<NewTile> tilesToRender = List();
-  Iterable<NewTile> tilesCollisionsRendered = List();
+  Iterable<Tile> tilesToRender = List();
+  Iterable<Tile> tilesCollisionsRendered = List();
 
-  NewMapWorld(Iterable<NewTile> map) : super(map);
+  MapWorld(Iterable<Tile> map) : super(map);
 
   void verifyMaxTopAndLeft() {
     if (maxLeft == 0 || maxTop == 0) {
@@ -116,12 +116,12 @@ class NewMapWorld extends NewMapGame with HasGameRef<RPGGame> {
   }
 
   @override
-  List<NewTile> getRendered() {
+  List<Tile> getRendered() {
     return tilesToRender.toList();
   }
 
   @override
-  List<NewTile> getCollisionsRendered() {
+  List<Tile> getCollisionsRendered() {
     return tilesCollisionsRendered.toList();
   }
 }

@@ -1,13 +1,13 @@
-import 'package:darkness_dungeon/core/newCore/player/new_player.dart';
+import 'package:darkness_dungeon/core/player/player.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/position.dart';
 
-class Knight2 extends NewPlayer {
+class Knight extends Player {
   final double size;
   final Position initPosition;
   double attack = 20;
 
-  Knight2({
+  Knight({
     this.size,
     this.initPosition,
   }) : super(

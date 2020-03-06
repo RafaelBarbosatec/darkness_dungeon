@@ -1,11 +1,11 @@
 import 'dart:ui';
 
-import 'package:darkness_dungeon/core/newCore/enemy/new_enemy.dart';
-import 'package:darkness_dungeon/core/newCore/player/new_player.dart';
+import 'package:darkness_dungeon/core/enemy/enemy.dart';
+import 'package:darkness_dungeon/core/player/player.dart';
 
-extension EnemyExtensions on NewEnemy {
-  void seePlayer({Function(NewPlayer) observed, int visionCells = 3}) {
-    NewPlayer player = gameRef.player;
+extension EnemyExtensions on Enemy {
+  void seePlayer({Function(Player) observed, int visionCells = 3}) {
+    Player player = gameRef.player;
     if (player.isDie || !isVisibleInMap()) return;
 
     double visionWidth = position.width * visionCells * 2;
@@ -23,8 +23,7 @@ extension EnemyExtensions on NewEnemy {
     }
   }
 
-  void seeAndMoveToPlayer(
-      {Function(NewPlayer) closePlayer, int visionCells = 3}) {
+  void seeAndMoveToPlayer({Function(Player) closePlayer, int visionCells = 3}) {
     if (!isVisibleInMap() || isDie) return;
     idle();
     seePlayer(
