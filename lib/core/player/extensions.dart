@@ -5,9 +5,11 @@ import 'package:darkness_dungeon/core/util/Direction.dart';
 import 'package:darkness_dungeon/core/util/animated_object_once.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 
-extension EnemyExtensions on Player {
+extension PlayerExtensions on Player {
   void simpleAttackMelee(
     double damage, {
+    double heightArea = 32,
+    double widthArea = 32,
     FlameAnimation.Animation attackRightAnim,
     FlameAnimation.Animation attackBottomAnim,
     FlameAnimation.Animation attackLeftAnim,
@@ -19,28 +21,28 @@ extension EnemyExtensions on Player {
     double pushTop = 0;
     switch (lastDirection) {
       case Direction.top:
-        positionAttack =
-            Rect.fromLTWH(position.left, position.top - size, size, size);
+        positionAttack = Rect.fromLTWH(
+            position.left, position.top - heightArea, widthArea, heightArea);
         anim = attackTopAnim;
-        pushTop = size * -1;
+        pushTop = heightArea * -1;
         break;
       case Direction.right:
-        positionAttack =
-            Rect.fromLTWH(position.left + size, position.top, size, size);
+        positionAttack = Rect.fromLTWH(
+            position.left + widthArea, position.top, widthArea, heightArea);
         anim = attackRightAnim;
-        pushLeft = size;
+        pushLeft = widthArea;
         break;
       case Direction.bottom:
-        positionAttack =
-            Rect.fromLTWH(position.left, position.top + size, size, size);
+        positionAttack = Rect.fromLTWH(
+            position.left, position.top + heightArea, widthArea, heightArea);
         anim = attackBottomAnim;
-        pushTop = size;
+        pushTop = heightArea;
         break;
       case Direction.left:
-        positionAttack =
-            Rect.fromLTWH(position.left - size, position.top, size, size);
+        positionAttack = Rect.fromLTWH(
+            position.left - widthArea, position.top, widthArea, heightArea);
         anim = attackLeftAnim;
-        pushLeft = size * -1;
+        pushLeft = widthArea * -1;
         break;
     }
 

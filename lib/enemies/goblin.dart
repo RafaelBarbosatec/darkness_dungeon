@@ -10,7 +10,7 @@ import 'package:flutter/cupertino.dart';
 class Goblin extends Enemy {
   final Position initPosition;
   final double sizeTileMap;
-  double attack = 10;
+  double attack = 20;
   Timer _timerAttack;
   bool _closePlayer;
 

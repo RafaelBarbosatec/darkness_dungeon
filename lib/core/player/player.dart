@@ -17,7 +17,9 @@ class Player extends AnimatedObject
     implements JoystickListener {
   static const REDUCTION_SPEED_DIAGONAL = 0.7;
 
-  final double size;
+  final double width;
+  final double height;
+  final double sizeTileMap;
   final Position initPosition;
   final Direction initDirection;
   final FlameAnimation.Animation animIdleLeft;
@@ -45,7 +47,9 @@ class Player extends AnimatedObject
     @required this.animRunRight,
     this.animRunBottom,
     @required this.animRunLeft,
-    this.size = 0,
+    this.width = 16,
+    this.height = 16,
+    this.sizeTileMap = 16,
     this.initPosition,
     this.initDirection = Direction.right,
     this.speed = 5,
@@ -62,14 +66,14 @@ class Player extends AnimatedObject
       statusMoveDirectional = JoystickMoveDirectional.MOVE_RIGHT;
 
     position = Rect.fromLTWH(
-      (initPosition != null ? initPosition.x : 0.0) * size,
-      (initPosition != null ? initPosition.y : 0.0) * size,
-      size,
-      size,
+      (initPosition != null ? initPosition.x : 0.0) * sizeTileMap,
+      (initPosition != null ? initPosition.y : 0.0) * sizeTileMap,
+      width,
+      height,
     );
 
-    widthCollision = size;
-    heightCollision = size / 3;
+    widthCollision = width;
+    heightCollision = height / 3;
     maxLife = life;
     _idle();
   }

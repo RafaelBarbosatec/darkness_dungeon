@@ -32,23 +32,26 @@ extension EnemyExtensions on Enemy {
           double centerXPlayer = player.position.center.dx;
           double centerYPlayer = player.position.center.dy;
 
-          double translateX =
+          double translateX = 0;
+          double translateY = 0;
+
+          translateX =
               position.center.dx > centerXPlayer ? (-1 * speed) : speed;
-          double translateY =
+          translateY =
               position.center.dy > centerYPlayer ? (-1 * speed) : speed;
 
-          if ((position.center.dx > centerXPlayer &&
-                  position.center.dx - centerXPlayer < speed) ||
-              (position.center.dx < centerXPlayer &&
-                  centerXPlayer - position.center.dx < speed)) {
+          if ((translateX < 0 && translateX > -0.1) ||
+              (translateX > 0 && translateX < 0.1)) {
             translateX = 0;
           }
 
-          if ((position.center.dy > centerYPlayer &&
-                  position.center.dy - centerYPlayer < speed) ||
-              position.center.dy < centerYPlayer &&
-                  centerYPlayer - position.center.dy < speed) {
+          if ((translateY < 0 && translateY > -0.1) ||
+              (translateY > 0 && translateY < 0.1)) {
             translateY = 0;
+          }
+
+          if (translateX == 0 && translateY == 0) {
+            return;
           }
 
           var collisionAll = isCollisionTranslate(
@@ -69,6 +72,11 @@ extension EnemyExtensions on Enemy {
             translateY,
             gameRef,
           );
+
+          if (position.overlaps(player.position)) {
+            if (closePlayer != null) closePlayer(player);
+            return;
+          }
 
           if (collisionAll && collisionX && collisionY) {
             idle();
@@ -102,10 +110,6 @@ extension EnemyExtensions on Enemy {
                 moveTop(moveSpeed: (translateY * -1));
               }
             }
-          }
-
-          if (position.overlaps(player.position)) {
-            if (closePlayer != null) closePlayer(player);
           }
         });
   }
