@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:darkness_dungeon/core/rpg_game.dart';
 import 'package:darkness_dungeon/core/util/Direction.dart';
 import 'package:darkness_dungeon/core/util/animated_object.dart';
+import 'package:darkness_dungeon/core/util/animated_object_once.dart';
 import 'package:darkness_dungeon/core/util/object_collision.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/components/mixins/has_game_ref.dart';
@@ -15,6 +16,8 @@ export 'package:darkness_dungeon/core/enemy/extensions.dart';
 class Enemy extends AnimatedObject with ObjectCollision, HasGameRef<RPGGame> {
   final FlameAnimation.Animation animationIdleRight;
   final FlameAnimation.Animation animationIdleLeft;
+  final FlameAnimation.Animation animationIdleTop;
+  final FlameAnimation.Animation animationIdleBottom;
   final FlameAnimation.Animation animationRunTop;
   final FlameAnimation.Animation animationRunRight;
   final FlameAnimation.Animation animationRunLeft;
@@ -35,6 +38,8 @@ class Enemy extends AnimatedObject with ObjectCollision, HasGameRef<RPGGame> {
   Enemy({
     @required this.animationIdleRight,
     @required this.animationIdleLeft,
+    this.animationIdleTop,
+    this.animationIdleBottom,
     this.animationRunTop,
     @required this.animationRunRight,
     @required this.animationRunLeft,
@@ -182,10 +187,36 @@ class Enemy extends AnimatedObject with ObjectCollision, HasGameRef<RPGGame> {
   }
 
   void idle() {
-    if (_lastDirectionHorizontal == Direction.left) {
-      animation = animationIdleLeft;
-    } else {
-      animation = animationIdleRight;
+    switch (lastDirection) {
+      case Direction.left:
+        animation = animationIdleLeft;
+        break;
+      case Direction.right:
+        animation = animationIdleRight;
+        break;
+      case Direction.top:
+        if (animationIdleTop != null) {
+          animation = animationIdleTop;
+        } else {
+          if (_lastDirectionHorizontal == Direction.left) {
+            animation = animationIdleLeft;
+          } else {
+            animation = animationIdleRight;
+          }
+        }
+        break;
+      case Direction.bottom:
+        if (animationIdleBottom != null) {
+          animation = animationIdleBottom;
+        } else {
+          if (_lastDirectionHorizontal == Direction.left) {
+            animation = animationIdleLeft;
+          } else {
+            animation = animationIdleRight;
+          }
+        }
+
+        break;
     }
   }
 
@@ -200,5 +231,16 @@ class Enemy extends AnimatedObject with ObjectCollision, HasGameRef<RPGGame> {
 
   void die() {
     _isDie = true;
+  }
+
+  void addFastAnimation(FlameAnimation.Animation animation) {
+    AnimatedObjectOnce fastAnimation = AnimatedObjectOnce(
+        animation: animation,
+        onlyUpdate: true,
+        onFinish: () {
+          idle();
+        });
+    this.animation = fastAnimation.animation;
+    gameRef.add(fastAnimation);
   }
 }

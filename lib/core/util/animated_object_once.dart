@@ -7,17 +7,19 @@ class AnimatedObjectOnce extends Component {
   final Rect position;
   final FlameAnimation.Animation animation;
   final VoidCallback onFinish;
+  final bool onlyUpdate;
   bool _isDestroyed = false;
 
   AnimatedObjectOnce({
     this.position,
     this.animation,
     this.onFinish,
+    this.onlyUpdate = false,
   });
 
   @override
   void render(Canvas canvas) {
-    if (animation == null) return;
+    if (animation == null || onlyUpdate) return;
     if (animation.loaded()) {
       animation.getSprite().renderRect(canvas, position);
     }

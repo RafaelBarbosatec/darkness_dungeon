@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:darkness_dungeon/core/rpg_game.dart';
 import 'package:darkness_dungeon/core/util/Direction.dart';
 import 'package:darkness_dungeon/core/util/animated_object.dart';
+import 'package:darkness_dungeon/core/util/animated_object_once.dart';
 import 'package:darkness_dungeon/core/util/joystick_controller.dart';
 import 'package:darkness_dungeon/core/util/object_collision.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
@@ -91,7 +92,6 @@ class Player extends AnimatedObject
   @override
   void joystickAction(int action) {
     if (_isDie) return;
-    print(action);
   }
 
   @override
@@ -261,32 +261,35 @@ class Player extends AnimatedObject
   void idle({bool forceAddAnimation = false}) {
     if (statusMoveDirectional != JoystickMoveDirectional.IDLE ||
         forceAddAnimation) {
-      if (statusMoveDirectional == JoystickMoveDirectional.MOVE_LEFT &&
-          animIdleLeft != null) animation = animIdleLeft;
-      if (statusMoveDirectional == JoystickMoveDirectional.MOVE_RIGHT &&
-          animIdleRight != null) animation = animIdleRight;
-      if (statusMoveDirectional == JoystickMoveDirectional.MOVE_TOP) {
-        if (animIdleTop != null) {
-          animation = animIdleTop;
-        } else {
-          if (_lastDirectionHorizontal == Direction.left) {
-            if (animIdleLeft != null) animation = animIdleLeft;
+      switch (lastDirection) {
+        case Direction.left:
+          if (animIdleLeft != null) animation = animIdleLeft;
+          break;
+        case Direction.right:
+          if (animIdleRight != null) animation = animIdleRight;
+          break;
+        case Direction.top:
+          if (animIdleTop != null) {
+            animation = animIdleTop;
           } else {
-            if (animIdleRight != null) animation = animIdleRight;
+            if (_lastDirectionHorizontal == Direction.left) {
+              if (animIdleLeft != null) animation = animIdleLeft;
+            } else {
+              if (animIdleRight != null) animation = animIdleRight;
+            }
           }
-        }
-      }
-
-      if (statusMoveDirectional == JoystickMoveDirectional.MOVE_BOTTOM) {
-        if (animIdleBottom != null) {
-          animation = animIdleBottom;
-        } else {
-          if (_lastDirectionHorizontal == Direction.left) {
-            if (animIdleLeft != null) animation = animIdleLeft;
+          break;
+        case Direction.bottom:
+          if (animIdleBottom != null) {
+            animation = animIdleBottom;
           } else {
-            if (animIdleRight != null) animation = animIdleRight;
+            if (_lastDirectionHorizontal == Direction.left) {
+              if (animIdleLeft != null) animation = animIdleLeft;
+            } else {
+              if (animIdleRight != null) animation = animIdleRight;
+            }
           }
-        }
+          break;
       }
     }
     statusMoveDirectional = JoystickMoveDirectional.IDLE;
@@ -326,4 +329,15 @@ class Player extends AnimatedObject
   }
 
   bool get isDie => _isDie;
+
+  void addFastAnimation(FlameAnimation.Animation animation) {
+    AnimatedObjectOnce fastAnimation = AnimatedObjectOnce(
+        animation: animation,
+        onlyUpdate: true,
+        onFinish: () {
+          idle(forceAddAnimation: true);
+        });
+    this.animation = fastAnimation.animation;
+    gameRef.add(fastAnimation);
+  }
 }
