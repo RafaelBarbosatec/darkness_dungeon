@@ -2,6 +2,9 @@ import 'dart:ui';
 
 import 'package:darkness_dungeon/core/enemy/enemy.dart';
 import 'package:darkness_dungeon/core/player/player.dart';
+import 'package:darkness_dungeon/core/util/Direction.dart';
+import 'package:darkness_dungeon/core/util/animated_object_once.dart';
+import 'package:flame/animation.dart' as FlameAnimation;
 
 extension EnemyExtensions on Enemy {
   void seePlayer({Function(Player) observed, int visionCells = 3}) {
@@ -112,5 +115,67 @@ extension EnemyExtensions on Enemy {
             }
           }
         });
+  }
+
+  void simpleAttackMelee(
+    double damage, {
+    double heightArea = 32,
+    double widthArea = 32,
+    FlameAnimation.Animation attackEffectRightAnim,
+    FlameAnimation.Animation attackEffectBottomAnim,
+    FlameAnimation.Animation attackEffectLeftAnim,
+    FlameAnimation.Animation attackEffectTopAnim,
+  }) {
+    Player player = gameRef.player;
+    if (player.isDie || !isVisibleInMap()) return;
+
+    Rect positionAttack;
+    FlameAnimation.Animation anim = attackEffectRightAnim;
+
+    Direction playerDirection;
+
+    double centerXPlayer = player.position.center.dx;
+    double centerYPlayer = player.position.center.dy;
+
+    double centerYEnemy = position.center.dy;
+    double centerXEnemy = position.center.dx;
+
+    double diffX = centerXEnemy - centerXPlayer;
+    double diffY = centerYEnemy - centerYPlayer;
+
+    double positiveDiffX = diffX > 0 ? diffX : diffX * -1;
+    double positiveDiffY = diffY > 0 ? diffY : diffY * -1;
+    if (positiveDiffX > positiveDiffY) {
+      playerDirection = diffX > 0 ? Direction.left : Direction.right;
+    } else {
+      playerDirection = diffY > 0 ? Direction.top : Direction.bottom;
+    }
+
+    switch (playerDirection) {
+      case Direction.top:
+        positionAttack = Rect.fromLTWH(
+            position.left, position.top - heightArea, widthArea, heightArea);
+        if (attackEffectTopAnim != null) anim = attackEffectTopAnim;
+        break;
+      case Direction.right:
+        positionAttack = Rect.fromLTWH(
+            position.left + widthArea, position.top, widthArea, heightArea);
+        if (attackEffectRightAnim != null) anim = attackEffectRightAnim;
+        break;
+      case Direction.bottom:
+        positionAttack = Rect.fromLTWH(
+            position.left, position.top + heightArea, widthArea, heightArea);
+        if (attackEffectBottomAnim != null) anim = attackEffectBottomAnim;
+        break;
+      case Direction.left:
+        positionAttack = Rect.fromLTWH(
+            position.left - widthArea, position.top, widthArea, heightArea);
+        if (attackEffectLeftAnim != null) anim = attackEffectLeftAnim;
+        break;
+    }
+
+    gameRef.add(AnimatedObjectOnce(animation: anim, position: positionAttack));
+
+    player.receiveDamage(damage);
   }
 }

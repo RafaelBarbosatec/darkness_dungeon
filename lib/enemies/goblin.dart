@@ -10,7 +10,7 @@ import 'package:flutter/cupertino.dart';
 class Goblin extends Enemy {
   final Position initPosition;
   final double sizeTileMap;
-  double attack = 20;
+  double attack = 10;
   Timer _timerAttack;
   bool _closePlayer;
 
@@ -57,7 +57,7 @@ class Goblin extends Enemy {
       visionCells: 5,
       closePlayer: (player) {
         _closePlayer = true;
-        simpleAttackMelee(attack, player);
+        startTimeAttack(player);
       },
     );
     super.update(dt);
@@ -80,17 +80,47 @@ class Goblin extends Enemy {
     super.die();
   }
 
-  void simpleAttackMelee(double damage, Player player) {
+  void startTimeAttack(Player player) {
     if (_timerAttack != null && _timerAttack.isActive) {
       return;
     }
-    player.receiveDamage(damage);
+    execAttack(player);
     _timerAttack = Timer.periodic(new Duration(milliseconds: 1000), (timer) {
       if (_closePlayer) {
-        player.receiveDamage(damage);
+        execAttack(player);
       } else {
         _timerAttack.cancel();
       }
     });
+  }
+
+  void execAttack(Player player) {
+    this.simpleAttackMelee(
+      attack,
+      attackEffectBottomAnim: FlameAnimation.Animation.sequenced(
+        'enemy/atack_effect_bottom.png',
+        6,
+        textureWidth: 16,
+        textureHeight: 16,
+      ),
+      attackEffectLeftAnim: FlameAnimation.Animation.sequenced(
+        'enemy/atack_effect_left.png',
+        6,
+        textureWidth: 16,
+        textureHeight: 16,
+      ),
+      attackEffectRightAnim: FlameAnimation.Animation.sequenced(
+        'enemy/atack_effect_right.png',
+        6,
+        textureWidth: 16,
+        textureHeight: 16,
+      ),
+      attackEffectTopAnim: FlameAnimation.Animation.sequenced(
+        'enemy/atack_effect_top.png',
+        6,
+        textureWidth: 16,
+        textureHeight: 16,
+      ),
+    );
   }
 }

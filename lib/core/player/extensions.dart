@@ -10,38 +10,38 @@ extension PlayerExtensions on Player {
     double damage, {
     double heightArea = 32,
     double widthArea = 32,
-    FlameAnimation.Animation attackRightAnim,
-    FlameAnimation.Animation attackBottomAnim,
-    FlameAnimation.Animation attackLeftAnim,
-    FlameAnimation.Animation attackTopAnim,
+    FlameAnimation.Animation attackEffectRightAnim,
+    FlameAnimation.Animation attackEffectBottomAnim,
+    FlameAnimation.Animation attackEffectLeftAnim,
+    FlameAnimation.Animation attackEffectTopAnim,
   }) {
     Rect positionAttack;
-    FlameAnimation.Animation anim = attackRightAnim;
+    FlameAnimation.Animation anim = attackEffectRightAnim;
     double pushLeft = 0;
     double pushTop = 0;
     switch (lastDirection) {
       case Direction.top:
         positionAttack = Rect.fromLTWH(
             position.left, position.top - heightArea, widthArea, heightArea);
-        anim = attackTopAnim;
+        if (attackEffectTopAnim != null) anim = attackEffectTopAnim;
         pushTop = heightArea * -1;
         break;
       case Direction.right:
         positionAttack = Rect.fromLTWH(
             position.left + widthArea, position.top, widthArea, heightArea);
-        anim = attackRightAnim;
+        if (attackEffectRightAnim != null) anim = attackEffectRightAnim;
         pushLeft = widthArea;
         break;
       case Direction.bottom:
         positionAttack = Rect.fromLTWH(
             position.left, position.top + heightArea, widthArea, heightArea);
-        anim = attackBottomAnim;
+        if (attackEffectBottomAnim != null) anim = attackEffectBottomAnim;
         pushTop = heightArea;
         break;
       case Direction.left:
         positionAttack = Rect.fromLTWH(
             position.left - widthArea, position.top, widthArea, heightArea);
-        anim = attackLeftAnim;
+        if (attackEffectLeftAnim != null) anim = attackEffectLeftAnim;
         pushLeft = widthArea * -1;
         break;
     }

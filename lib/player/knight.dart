@@ -63,25 +63,25 @@ class Knight extends Player {
   void actionAttack() {
     simpleAttackMelee(
       attack,
-      attackBottomAnim: FlameAnimation.Animation.sequenced(
+      attackEffectBottomAnim: FlameAnimation.Animation.sequenced(
         'atack_effect_bottom.png',
         6,
         textureWidth: 16,
         textureHeight: 16,
       ),
-      attackLeftAnim: FlameAnimation.Animation.sequenced(
+      attackEffectLeftAnim: FlameAnimation.Animation.sequenced(
         'atack_effect_left.png',
         6,
         textureWidth: 16,
         textureHeight: 16,
       ),
-      attackRightAnim: FlameAnimation.Animation.sequenced(
+      attackEffectRightAnim: FlameAnimation.Animation.sequenced(
         'atack_effect_right.png',
         6,
         textureWidth: 16,
         textureHeight: 16,
       ),
-      attackTopAnim: FlameAnimation.Animation.sequenced(
+      attackEffectTopAnim: FlameAnimation.Animation.sequenced(
         'atack_effect_top.png',
         6,
         textureWidth: 16,
