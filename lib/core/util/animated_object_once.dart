@@ -6,9 +6,14 @@ import 'package:flame/components/component.dart';
 class AnimatedObjectOnce extends Component {
   final Rect position;
   final FlameAnimation.Animation animation;
+  final VoidCallback onFinish;
   bool _isDestroyed = false;
 
-  AnimatedObjectOnce({this.position, this.animation});
+  AnimatedObjectOnce({
+    this.position,
+    this.animation,
+    this.onFinish,
+  });
 
   @override
   void render(Canvas canvas) {
@@ -20,9 +25,10 @@ class AnimatedObjectOnce extends Component {
 
   @override
   void update(double dt) {
-    if (animation != null) {
+    if (animation != null && !_isDestroyed) {
       animation.update(dt);
       if (animation.isLastFrame) {
+        if (onFinish != null) onFinish();
         remove();
       }
     }

@@ -75,7 +75,7 @@ class Player extends AnimatedObject
     widthCollision = width;
     heightCollision = height / 3;
     maxLife = life;
-    _idle();
+    idle();
   }
 
   @override
@@ -123,7 +123,7 @@ class Player extends AnimatedObject
         _moveLeft();
         break;
       case JoystickMoveDirectional.IDLE:
-        _idle();
+        idle();
         break;
     }
   }
@@ -258,8 +258,9 @@ class Player extends AnimatedObject
     _lastDirectionHorizontal = Direction.left;
   }
 
-  void _idle() {
-    if (statusMoveDirectional != JoystickMoveDirectional.IDLE) {
+  void idle({bool forceAddAnimation = false}) {
+    if (statusMoveDirectional != JoystickMoveDirectional.IDLE ||
+        forceAddAnimation) {
       if (statusMoveDirectional == JoystickMoveDirectional.MOVE_LEFT &&
           animIdleLeft != null) animation = animIdleLeft;
       if (statusMoveDirectional == JoystickMoveDirectional.MOVE_RIGHT &&
