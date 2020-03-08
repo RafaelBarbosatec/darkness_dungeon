@@ -61,6 +61,30 @@ class Knight extends Player {
   }
 
   void actionAttack() {
+    this.simpleAttackRange(
+        animationRight: FlameAnimation.Animation.sequenced(
+          'atack_effect_right.png',
+          6,
+          textureWidth: 16,
+          textureHeight: 16,
+        ),
+        animationLeft: FlameAnimation.Animation.sequenced(
+          'atack_effect_right.png',
+          6,
+          textureWidth: 16,
+          textureHeight: 16,
+        ),
+        animationDestroy: FlameAnimation.Animation.sequenced(
+          'enemy_explosin.png',
+          6,
+          textureWidth: 16,
+          textureHeight: 16,
+        ),
+        width: 25,
+        height: 25,
+        damage: 10,
+        speed: 2);
+    return;
     simpleAttackMelee(
       attack,
       attackEffectBottomAnim: FlameAnimation.Animation.sequenced(

@@ -69,13 +69,34 @@ extension PlayerExtensions on Player {
     double speed = 1.5,
     double damage = 1,
   }) {
-    Position start;
+    Position startPosition;
     FlameAnimation.Animation attackRangeAnimation;
+
+    switch (this.lastDirection) {
+      case Direction.left:
+        if (animationLeft != null) attackRangeAnimation = animationLeft;
+        startPosition = Position(this.position.left - width, this.position.top);
+        break;
+      case Direction.right:
+        if (animationRight != null) attackRangeAnimation = animationRight;
+        startPosition = Position(this.position.right + 10, this.position.top);
+        break;
+      case Direction.top:
+        if (animationTop != null) attackRangeAnimation = animationTop;
+        startPosition =
+            Position(this.position.left, this.position.top - height);
+        break;
+      case Direction.bottom:
+        if (animationBottom != null) attackRangeAnimation = animationBottom;
+        startPosition = Position(this.position.left, this.position.bottom + 10);
+        break;
+    }
+
     gameRef.add(FlyingAttackObject(
       direction: lastDirection,
       flyAnimation: attackRangeAnimation,
       destroyAnimation: animationDestroy,
-      initPosition: start,
+      initPosition: startPosition,
       height: height,
       width: width,
       damage: damage,
