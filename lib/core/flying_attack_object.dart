@@ -18,7 +18,7 @@ class FlyingAttackObject extends AnimatedObject with HasGameRef<RPGGame> {
   final double height;
   final Position initPosition;
   Rect positionInWorld;
-  bool firstUpdate = true;
+  bool _firstUpdate = true;
 
   FlyingAttackObject({
     @required this.initPosition,
@@ -35,11 +35,11 @@ class FlyingAttackObject extends AnimatedObject with HasGameRef<RPGGame> {
 
   @override
   void update(double dt) {
-    if (firstUpdate) {
+    if (_firstUpdate) {
       position = Rect.fromLTWH(initPosition.x - gameRef.mapCamera.x,
           initPosition.y - gameRef.mapCamera.y, width, height);
       positionInWorld = position;
-      firstUpdate = false;
+      _firstUpdate = false;
     }
     _verifyCollision();
     switch (direction) {
@@ -85,10 +85,18 @@ class FlyingAttackObject extends AnimatedObject with HasGameRef<RPGGame> {
 
   void _verifyCollision() {
     bool destroy = false;
+
+    double heightCollision = height / 3;
+    Rect rectCollision = Rect.fromLTWH(
+        position.left + (position.width - width) / 2,
+        position.top + (position.height - heightCollision),
+        width,
+        heightCollision);
+
     var collisionsDecorations = List<GameDecoration>();
     var collisions = gameRef.map
         .getCollisionsRendered()
-        .where((i) => i.collision && i.position.overlaps(position))
+        .where((i) => i.collision && i.position.overlaps(rectCollision))
         .toList();
 
     if (gameRef.decorations != null) {
@@ -113,10 +121,45 @@ class FlyingAttackObject extends AnimatedObject with HasGameRef<RPGGame> {
 
     if (destroy) {
       if (destroyAnimation != null) {
+        Rect positionDestroy;
+        switch (direction) {
+          case Direction.left:
+            positionDestroy = Rect.fromLTWH(
+              position.left - width,
+              position.top,
+              width,
+              height,
+            );
+            break;
+          case Direction.right:
+            positionDestroy = Rect.fromLTWH(
+              position.left + width,
+              position.top,
+              width,
+              height,
+            );
+            break;
+          case Direction.top:
+            positionDestroy = Rect.fromLTWH(
+              position.left,
+              position.top - height,
+              width,
+              height,
+            );
+            break;
+          case Direction.bottom:
+            positionDestroy = Rect.fromLTWH(
+              position.left,
+              position.top + height,
+              width,
+              height,
+            );
+            break;
+        }
         gameRef.add(
           AnimatedObjectOnce(
             animation: destroyAnimation,
-            position: position,
+            position: positionDestroy,
           ),
         );
       }

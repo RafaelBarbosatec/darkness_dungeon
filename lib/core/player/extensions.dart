@@ -79,7 +79,7 @@ extension PlayerExtensions on Player {
         break;
       case Direction.right:
         if (animationRight != null) attackRangeAnimation = animationRight;
-        startPosition = Position(this.position.right + 10, this.position.top);
+        startPosition = Position(this.position.right, this.position.top);
         break;
       case Direction.top:
         if (animationTop != null) attackRangeAnimation = animationTop;
@@ -88,19 +88,21 @@ extension PlayerExtensions on Player {
         break;
       case Direction.bottom:
         if (animationBottom != null) attackRangeAnimation = animationBottom;
-        startPosition = Position(this.position.left, this.position.bottom + 10);
+        startPosition = Position(this.position.left, this.position.bottom);
         break;
     }
 
-    gameRef.add(FlyingAttackObject(
-      direction: lastDirection,
-      flyAnimation: attackRangeAnimation,
-      destroyAnimation: animationDestroy,
-      initPosition: startPosition,
-      height: height,
-      width: width,
-      damage: damage,
-      speed: speed,
-    ));
+    gameRef.add(
+      FlyingAttackObject(
+        direction: lastDirection,
+        flyAnimation: attackRangeAnimation,
+        destroyAnimation: animationDestroy,
+        initPosition: startPosition,
+        height: height,
+        width: width,
+        damage: damage,
+        speed: speed,
+      ),
+    );
   }
 }

@@ -74,6 +74,18 @@ class Knight extends Player {
         textureWidth: 23,
         textureHeight: 23,
       ),
+      animationTop: FlameAnimation.Animation.sequenced(
+        'player/fireball_top.png',
+        3,
+        textureWidth: 23,
+        textureHeight: 23,
+      ),
+      animationBottom: FlameAnimation.Animation.sequenced(
+        'player/fireball_bottom.png',
+        3,
+        textureWidth: 23,
+        textureHeight: 23,
+      ),
       animationDestroy: FlameAnimation.Animation.sequenced(
         'enemy_explosin.png',
         6,
@@ -83,7 +95,7 @@ class Knight extends Player {
       width: 25,
       height: 25,
       damage: 10,
-      speed: 2,
+      speed: speed * 1.5,
     );
     return;
     simpleAttackMelee(

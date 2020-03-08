@@ -137,6 +137,7 @@ class DungeonMap {
 
   static List<Enemy> enemies = [
     Goblin(initPosition: Position(10, 7)),
+    Goblin(initPosition: Position(20, 5)),
   ];
 
   static String randomFloor() {
