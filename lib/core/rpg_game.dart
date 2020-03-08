@@ -8,6 +8,7 @@ import 'package:flame/position.dart';
 import 'package:flutter/cupertino.dart';
 
 class RPGGame extends BaseGame {
+  final BuildContext context;
   final Player player;
   final MapGame map;
   final List<Enemy> enemies;
@@ -17,6 +18,7 @@ class RPGGame extends BaseGame {
   Function(RPGGame) gameListener;
 
   RPGGame({
+    @required this.context,
     @required this.player,
     @required this.map,
     @required this.joystickController,

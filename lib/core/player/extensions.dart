@@ -1,9 +1,11 @@
 import 'dart:ui';
 
+import 'package:darkness_dungeon/core/flying_attack_object.dart';
 import 'package:darkness_dungeon/core/player/player.dart';
 import 'package:darkness_dungeon/core/util/Direction.dart';
 import 'package:darkness_dungeon/core/util/animated_object_once.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
+import 'package:flame/position.dart';
 
 extension PlayerExtensions on Player {
   void simpleAttackMelee(
@@ -54,5 +56,30 @@ extension PlayerExtensions on Player {
         enemy.translate(pushLeft, pushTop);
       }
     });
+  }
+
+  void simpleAttackRange({
+    FlameAnimation.Animation animationRight,
+    FlameAnimation.Animation animationLeft,
+    FlameAnimation.Animation animationTop,
+    FlameAnimation.Animation animationBottom,
+    FlameAnimation.Animation animationDestroy,
+    double width,
+    double height,
+    double speed = 1.5,
+    double damage = 1,
+  }) {
+    Position start;
+    FlameAnimation.Animation attackRangeAnimation;
+    gameRef.add(FlyingAttackObject(
+      direction: lastDirection,
+      flyAnimation: attackRangeAnimation,
+      destroyAnimation: animationDestroy,
+      initPosition: start,
+      height: height,
+      width: width,
+      damage: damage,
+      speed: speed,
+    ));
   }
 }

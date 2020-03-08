@@ -20,6 +20,7 @@ class _NewGameState extends State<NewGame> {
   void initState() {
     _joystick = Joystick(widget.size, widget.size.height / 10);
     _game = RPGGame(
+      context: context,
       joystickController: _joystick,
       player: Knight(
         initPosition: Position(5, 6),
