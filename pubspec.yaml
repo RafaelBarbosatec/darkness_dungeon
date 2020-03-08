@@ -97,6 +97,7 @@ flutter:
     - assets/play_again.png
     - assets/logo_flame.png
     - assets/images/enemy/
+    - assets/images/player/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
