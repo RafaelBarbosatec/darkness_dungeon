@@ -38,6 +38,7 @@ class Player extends AnimatedObject
   Direction lastDirection;
   Direction _lastDirectionHorizontal = Direction.right;
   bool _isDie = false;
+  int lastJoystickAction;
 
   Player({
     @required this.animIdleLeft,
@@ -92,6 +93,7 @@ class Player extends AnimatedObject
   @override
   void joystickAction(int action) {
     if (_isDie) return;
+    lastJoystickAction = action;
   }
 
   @override
