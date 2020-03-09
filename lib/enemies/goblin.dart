@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:darkness_dungeon/core/enemy/enemy.dart';
 import 'package:darkness_dungeon/core/player/player.dart';
+import 'package:darkness_dungeon/core/util/Direction.dart';
 import 'package:darkness_dungeon/core/util/animated_object_once.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/position.dart';
@@ -60,6 +61,69 @@ class Goblin extends Enemy {
         startTimeAttack(player);
       },
     );
+
+    this.seePlayer(
+        observed: (p) {
+          Direction ballDirection;
+
+          var diffX = position.center.dx - p.position.center.dx;
+          var diffPositiveX = diffX < 0 ? diffX *= -1 : diffX;
+          var diffY = position.center.dy - p.position.center.dy;
+          var diffPositiveY = diffY < 0 ? diffY *= -1 : diffY;
+
+          if (diffPositiveX > diffPositiveY) {
+            if (p.position.center.dx > position.center.dx) {
+              ballDirection = Direction.right;
+            } else if (p.position.center.dx < position.center.dx) {
+              ballDirection = Direction.left;
+            }
+          } else {
+            if (p.position.center.dy > position.center.dy) {
+              ballDirection = Direction.bottom;
+            } else if (p.position.center.dy < position.center.dy) {
+              ballDirection = Direction.top;
+            }
+          }
+
+//          this.simpleAttackRange(
+//            animationRight: FlameAnimation.Animation.sequenced(
+//              'player/fireball_right.png',
+//              3,
+//              textureWidth: 23,
+//              textureHeight: 23,
+//            ),
+//            animationLeft: FlameAnimation.Animation.sequenced(
+//              'player/fireball_left.png',
+//              3,
+//              textureWidth: 23,
+//              textureHeight: 23,
+//            ),
+//            animationTop: FlameAnimation.Animation.sequenced(
+//              'player/fireball_top.png',
+//              3,
+//              textureWidth: 23,
+//              textureHeight: 23,
+//            ),
+//            animationBottom: FlameAnimation.Animation.sequenced(
+//              'player/fireball_bottom.png',
+//              3,
+//              textureWidth: 23,
+//              textureHeight: 23,
+//            ),
+//            animationDestroy: FlameAnimation.Animation.sequenced(
+//              'player/explosion_fire.png',
+//              6,
+//              textureWidth: 32,
+//              textureHeight: 32,
+//            ),
+//            width: 25,
+//            height: 25,
+//            damage: 0,
+//            speed: speed * 1.5,
+//            direction: ballDirection,
+//          );
+        },
+        visionCells: 10);
     super.update(dt);
   }
 

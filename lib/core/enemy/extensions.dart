@@ -1,10 +1,13 @@
 import 'dart:ui';
 
 import 'package:darkness_dungeon/core/enemy/enemy.dart';
+import 'package:darkness_dungeon/core/flying_attack_object.dart';
 import 'package:darkness_dungeon/core/player/player.dart';
 import 'package:darkness_dungeon/core/util/Direction.dart';
 import 'package:darkness_dungeon/core/util/animated_object_once.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
+import 'package:flame/position.dart';
+import 'package:flutter/widgets.dart';
 
 extension EnemyExtensions on Enemy {
   void seePlayer({Function(Player) observed, int visionCells = 3}) {
@@ -177,5 +180,69 @@ extension EnemyExtensions on Enemy {
     gameRef.add(AnimatedObjectOnce(animation: anim, position: positionAttack));
 
     player.receiveDamage(damage);
+  }
+
+  void simpleAttackRange({
+    @required FlameAnimation.Animation animationRight,
+    @required FlameAnimation.Animation animationLeft,
+    @required FlameAnimation.Animation animationTop,
+    @required FlameAnimation.Animation animationBottom,
+    @required FlameAnimation.Animation animationDestroy,
+    @required double width,
+    @required double height,
+    double speed = 1.5,
+    double damage = 1,
+    Direction direction,
+  }) {
+    if (isDie) return;
+
+    Position startPosition;
+    FlameAnimation.Animation attackRangeAnimation;
+
+    Direction d = direction != null ? direction : this.lastDirection;
+    switch (d) {
+      case Direction.left:
+        if (animationLeft != null) attackRangeAnimation = animationLeft;
+        startPosition = Position(
+          this.position.left - width,
+          (this.position.top + (this.position.height - height) / 2),
+        );
+        break;
+      case Direction.right:
+        if (animationRight != null) attackRangeAnimation = animationRight;
+        startPosition = Position(
+          this.position.right,
+          (this.position.top + (this.position.height - height) / 2),
+        );
+        break;
+      case Direction.top:
+        if (animationTop != null) attackRangeAnimation = animationTop;
+        startPosition = Position(
+          (this.position.left + (this.position.width - width) / 2),
+          this.position.top - height,
+        );
+        break;
+      case Direction.bottom:
+        if (animationBottom != null) attackRangeAnimation = animationBottom;
+        startPosition = Position(
+          (this.position.left + (this.position.width - width) / 2),
+          this.position.bottom,
+        );
+        break;
+    }
+
+    gameRef.add(
+      FlyingAttackObject(
+        direction: d,
+        flyAnimation: attackRangeAnimation,
+        destroyAnimation: animationDestroy,
+        initPosition: startPosition,
+        height: height,
+        width: width,
+        damage: damage,
+        speed: speed,
+        damageInEnemy: false,
+      ),
+    );
   }
 }
