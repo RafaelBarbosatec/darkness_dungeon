@@ -18,6 +18,10 @@ class Joystick extends JoystickController {
   Rect attackRect;
   Sprite attackSprite;
 
+  double attackRangeAspectRatio = 2.0;
+  Rect attackRangeRect;
+  Sprite attackRangeSprite;
+
   bool dragging = false;
   Offset dragPosition;
 
@@ -33,6 +37,7 @@ class Joystick extends JoystickController {
     backgroundSprite = Sprite('joystick_background.png');
     knobSprite = Sprite('joystick_knob.png');
     attackSprite = Sprite('joystick_atack.png');
+    attackRangeSprite = Sprite('joystick_atack_range.png');
 
     initialize();
   }
@@ -45,18 +50,29 @@ class Joystick extends JoystickController {
       knobSprite.renderRect(canvas, knobRect);
     }
 
-    attackSprite.renderRect(canvas, attackRect);
+    if (attackRect != null) attackSprite.renderRect(canvas, attackRect);
+    if (attackRangeRect != null)
+      attackRangeSprite.renderRect(canvas, attackRangeRect);
   }
 
   void update(double t) {
     var radiusAttack = (tileSize * attackAspectRatio) / 2;
+    var radiusAttackRange = (tileSize * attackRangeAspectRatio) / 2;
 
-    Offset atacknob = Offset(screenSize.width - radiusAttack * 2,
+    Offset atacknob = Offset(screenSize.width - radiusAttack * 4,
         screenSize.height - (radiusAttack * 2));
 
     attackRect = Rect.fromCircle(
       center: atacknob,
       radius: radiusAttack,
+    );
+
+    Offset atackRangenob = Offset(screenSize.width - radiusAttackRange * 2,
+        screenSize.height - (radiusAttackRange * 4));
+
+    attackRangeRect = Rect.fromCircle(
+      center: atackRangenob,
+      radius: radiusAttackRange,
     );
 
     if (dragging) {
@@ -192,10 +208,16 @@ class Joystick extends JoystickController {
       attackAspectRatio = 1.9;
       joystickListener.joystickAction(0);
     }
+
+    if (attackRangeRect.contains(details.globalPosition)) {
+      attackRangeAspectRatio = 1.9;
+      joystickListener.joystickAction(1);
+    }
   }
 
   void onTapUpAttack(TapUpDetails details) {
     attackAspectRatio = 2.0;
+    attackRangeAspectRatio = 2.0;
   }
 
   void initPositionJoystick(Offset position) {

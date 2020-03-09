@@ -44,20 +44,22 @@ class _NewGameState extends State<NewGame> {
             children: <Widget>[
               Expanded(
                 child: GestureDetector(
-                    behavior: HitTestBehavior.opaque,
-                    onPanStart: _joystick.onPanStart,
-                    onPanUpdate: _joystick.onPanUpdate,
-                    onPanEnd: _joystick.onPanEnd,
-                    onTapDown: _joystick.onTapDown,
-                    onTapUp: _joystick.onTapUp,
-                    child: Container()),
+                  behavior: HitTestBehavior.opaque,
+                  onPanStart: _joystick.onPanStart,
+                  onPanUpdate: _joystick.onPanUpdate,
+                  onPanEnd: _joystick.onPanEnd,
+                  onTapDown: _joystick.onTapDown,
+                  onTapUp: _joystick.onTapUp,
+                  child: Container(),
+                ),
               ),
               Expanded(
                 child: GestureDetector(
-                    behavior: HitTestBehavior.opaque,
-                    onTapDown: _joystick.onTapDownAttack,
-                    onTapUp: _joystick.onTapUpAttack,
-                    child: Container()),
+                  behavior: HitTestBehavior.opaque,
+                  onTapDown: _joystick.onTapDownAttack,
+                  onTapUp: _joystick.onTapUpAttack,
+                  child: Container(),
+                ),
               )
             ],
           )

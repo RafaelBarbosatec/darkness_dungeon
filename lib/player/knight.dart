@@ -52,6 +52,10 @@ class Knight extends Player {
     if (action == 0) {
       actionAttack();
     }
+
+    if (action == 1) {
+      actionAttackRange();
+    }
   }
 
   @override
@@ -61,6 +65,36 @@ class Knight extends Player {
   }
 
   void actionAttack() {
+    simpleAttackMelee(
+      attack,
+      attackEffectBottomAnim: FlameAnimation.Animation.sequenced(
+        'atack_effect_bottom.png',
+        6,
+        textureWidth: 16,
+        textureHeight: 16,
+      ),
+      attackEffectLeftAnim: FlameAnimation.Animation.sequenced(
+        'atack_effect_left.png',
+        6,
+        textureWidth: 16,
+        textureHeight: 16,
+      ),
+      attackEffectRightAnim: FlameAnimation.Animation.sequenced(
+        'atack_effect_right.png',
+        6,
+        textureWidth: 16,
+        textureHeight: 16,
+      ),
+      attackEffectTopAnim: FlameAnimation.Animation.sequenced(
+        'atack_effect_top.png',
+        6,
+        textureWidth: 16,
+        textureHeight: 16,
+      ),
+    );
+  }
+
+  void actionAttackRange() {
     this.simpleAttackRange(
       animationRight: FlameAnimation.Animation.sequenced(
         'player/fireball_right.png',
@@ -96,34 +130,6 @@ class Knight extends Player {
       height: 25,
       damage: 10,
       speed: speed * 1.5,
-    );
-    return;
-    simpleAttackMelee(
-      attack,
-      attackEffectBottomAnim: FlameAnimation.Animation.sequenced(
-        'atack_effect_bottom.png',
-        6,
-        textureWidth: 16,
-        textureHeight: 16,
-      ),
-      attackEffectLeftAnim: FlameAnimation.Animation.sequenced(
-        'atack_effect_left.png',
-        6,
-        textureWidth: 16,
-        textureHeight: 16,
-      ),
-      attackEffectRightAnim: FlameAnimation.Animation.sequenced(
-        'atack_effect_right.png',
-        6,
-        textureWidth: 16,
-        textureHeight: 16,
-      ),
-      attackEffectTopAnim: FlameAnimation.Animation.sequenced(
-        'atack_effect_top.png',
-        6,
-        textureWidth: 16,
-        textureHeight: 16,
-      ),
     );
   }
 }
