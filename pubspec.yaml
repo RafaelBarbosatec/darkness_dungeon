@@ -72,7 +72,9 @@ flutter:
     - assets/images/slime_idle.png
     - assets/images/slime_run_right.png
     - assets/images/goblin_idle.png
+    - assets/images/goblin_idle_left.png
     - assets/images/goblin_run_right.png
+    - assets/images/goblin_run_left.png
     - assets/images/itens/barrel.png
     - assets/images/itens/bookshelf.png
     - assets/images/itens/flag_red.png

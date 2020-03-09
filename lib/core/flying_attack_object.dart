@@ -165,7 +165,6 @@ class FlyingAttackObject extends AnimatedObject with HasGameRef<RPGGame> {
             break;
         }
 
-        print(positionDestroy);
         gameRef.add(
           AnimatedObjectOnce(
             animation: destroyAnimation,
