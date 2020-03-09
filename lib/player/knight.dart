@@ -66,7 +66,7 @@ class Knight extends Player {
 
   void actionAttack() {
     simpleAttackMelee(
-      attack,
+      damage: attack,
       attackEffectBottomAnim: FlameAnimation.Animation.sequenced(
         'atack_effect_bottom.png',
         6,

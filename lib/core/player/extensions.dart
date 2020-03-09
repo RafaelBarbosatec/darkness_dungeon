@@ -6,16 +6,17 @@ import 'package:darkness_dungeon/core/util/Direction.dart';
 import 'package:darkness_dungeon/core/util/animated_object_once.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/position.dart';
+import 'package:flutter/widgets.dart';
 
 extension PlayerExtensions on Player {
-  void simpleAttackMelee(
-    double damage, {
+  void simpleAttackMelee({
+    @required FlameAnimation.Animation attackEffectRightAnim,
+    @required FlameAnimation.Animation attackEffectBottomAnim,
+    @required FlameAnimation.Animation attackEffectLeftAnim,
+    @required FlameAnimation.Animation attackEffectTopAnim,
+    @required double damage,
     double heightArea = 32,
     double widthArea = 32,
-    FlameAnimation.Animation attackEffectRightAnim,
-    FlameAnimation.Animation attackEffectBottomAnim,
-    FlameAnimation.Animation attackEffectLeftAnim,
-    FlameAnimation.Animation attackEffectTopAnim,
   }) {
     Rect positionAttack;
     FlameAnimation.Animation anim = attackEffectRightAnim;
@@ -59,13 +60,13 @@ extension PlayerExtensions on Player {
   }
 
   void simpleAttackRange({
-    FlameAnimation.Animation animationRight,
-    FlameAnimation.Animation animationLeft,
-    FlameAnimation.Animation animationTop,
-    FlameAnimation.Animation animationBottom,
-    FlameAnimation.Animation animationDestroy,
-    double width,
-    double height,
+    @required FlameAnimation.Animation animationRight,
+    @required FlameAnimation.Animation animationLeft,
+    @required FlameAnimation.Animation animationTop,
+    @required FlameAnimation.Animation animationBottom,
+    @required FlameAnimation.Animation animationDestroy,
+    @required double width,
+    @required double height,
     double speed = 1.5,
     double damage = 1,
   }) {
