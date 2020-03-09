@@ -17,6 +17,8 @@ class FlyingAttackObject extends AnimatedObject with HasGameRef<RPGGame> {
   final double width;
   final double height;
   final Position initPosition;
+  final bool damageInPlayer;
+  final bool damageInEnemy;
   Rect positionInWorld;
   bool _firstUpdate = true;
 
@@ -29,6 +31,8 @@ class FlyingAttackObject extends AnimatedObject with HasGameRef<RPGGame> {
     this.destroyAnimation,
     this.speed = 1.5,
     this.damage = 1,
+    this.damageInPlayer = true,
+    this.damageInEnemy = true,
   }) {
     animation = flyAnimation;
   }
@@ -107,17 +111,21 @@ class FlyingAttackObject extends AnimatedObject with HasGameRef<RPGGame> {
 
     destroy = collisions.length > 0 || collisionsDecorations.length > 0;
 
-    if (position.overlaps(gameRef.player.position)) {
-      destroy = true;
-      gameRef.player.receiveDamage(damage);
+    if (damageInPlayer) {
+      if (position.overlaps(gameRef.player.position)) {
+        destroy = true;
+        gameRef.player.receiveDamage(damage);
+      }
     }
 
-    gameRef.enemies.where((i) => i.isVisibleInMap()).forEach((enemy) {
-      if (enemy.position.overlaps(position)) {
-        enemy.receiveDamage(damage);
-        destroy = true;
-      }
-    });
+    if (damageInEnemy) {
+      gameRef.enemies.where((i) => i.isVisibleInMap()).forEach((enemy) {
+        if (enemy.position.overlaps(position)) {
+          enemy.receiveDamage(damage);
+          destroy = true;
+        }
+      });
+    }
 
     if (destroy) {
       if (destroyAnimation != null) {

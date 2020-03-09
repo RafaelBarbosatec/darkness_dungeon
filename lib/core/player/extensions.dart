@@ -75,34 +75,45 @@ extension PlayerExtensions on Player {
     switch (this.lastDirection) {
       case Direction.left:
         if (animationLeft != null) attackRangeAnimation = animationLeft;
-        startPosition = Position(this.position.left - width, this.position.top);
+        startPosition = Position(
+          this.position.left - width,
+          (this.position.top + (this.position.height - height) / 2),
+        );
         break;
       case Direction.right:
         if (animationRight != null) attackRangeAnimation = animationRight;
-        startPosition = Position(this.position.right, this.position.top);
+        startPosition = Position(
+          this.position.right,
+          (this.position.top + (this.position.height - height) / 2),
+        );
         break;
       case Direction.top:
         if (animationTop != null) attackRangeAnimation = animationTop;
-        startPosition =
-            Position(this.position.left, this.position.top - height);
+        startPosition = Position(
+          (this.position.left + (this.position.width - width) / 2),
+          this.position.top - height,
+        );
         break;
       case Direction.bottom:
         if (animationBottom != null) attackRangeAnimation = animationBottom;
-        startPosition = Position(this.position.left, this.position.bottom);
+        startPosition = Position(
+          (this.position.left + (this.position.width - width) / 2),
+          this.position.bottom,
+        );
         break;
     }
 
     gameRef.add(
       FlyingAttackObject(
-        direction: lastDirection,
-        flyAnimation: attackRangeAnimation,
-        destroyAnimation: animationDestroy,
-        initPosition: startPosition,
-        height: height,
-        width: width,
-        damage: damage,
-        speed: speed,
-      ),
+          direction: lastDirection,
+          flyAnimation: attackRangeAnimation,
+          destroyAnimation: animationDestroy,
+          initPosition: startPosition,
+          height: height,
+          width: width,
+          damage: damage,
+          speed: speed,
+          damageInPlayer: false),
     );
   }
 }

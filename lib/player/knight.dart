@@ -87,10 +87,10 @@ class Knight extends Player {
         textureHeight: 23,
       ),
       animationDestroy: FlameAnimation.Animation.sequenced(
-        'enemy_explosin.png',
+        'player/explosion_fire.png',
         6,
-        textureWidth: 16,
-        textureHeight: 16,
+        textureWidth: 32,
+        textureHeight: 32,
       ),
       width: 25,
       height: 25,
