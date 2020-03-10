@@ -188,11 +188,11 @@ extension EnemyExtensions on Enemy {
     Direction direction,
     int interval = 1000,
   }) {
-    if (this.timers['attackMelee'] == null) {
-      this.timers['attackMelee'] = Timer(
+    if (this.timers['attackRange'] == null) {
+      this.timers['attackRange'] = Timer(
         Duration(milliseconds: interval),
         () {
-          this.timers['attackMelee'] = null;
+          this.timers['attackRange'] = null;
         },
       );
     } else {
