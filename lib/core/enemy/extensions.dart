@@ -16,7 +16,12 @@ extension EnemyExtensions on Enemy {
       Function() notObserved,
       int visionCells = 3}) {
     Player player = gameRef.player;
-    if (player.isDie || !isVisibleInMap()) return;
+    if (!isVisibleInMap()) return;
+
+    if (player.isDie) {
+      if (notObserved != null) notObserved();
+      return;
+    }
 
     double visionWidth = position.width * visionCells * 2;
     double visionHeight = position.height * visionCells * 2;
@@ -37,52 +42,59 @@ extension EnemyExtensions on Enemy {
 
   void seeAndMoveToPlayer({Function(Player) closePlayer, int visionCells = 3}) {
     if (!isVisibleInMap() || isDie) return;
-    idle();
     seePlayer(
-        visionCells: visionCells,
-        observed: (player) {
-          double centerXPlayer = player.position.center.dx;
-          double centerYPlayer = player.position.center.dy;
+      visionCells: visionCells,
+      observed: (player) {
+        double centerXPlayer = player.position.center.dx;
+        double centerYPlayer = player.position.center.dy;
 
-          double translateX = 0;
-          double translateY = 0;
+        double translateX = 0;
+        double translateY = 0;
 
-          translateX =
-              position.center.dx > centerXPlayer ? (-1 * speed) : speed;
-          translateY =
-              position.center.dy > centerYPlayer ? (-1 * speed) : speed;
+        translateX = position.center.dx > centerXPlayer ? (-1 * speed) : speed;
+        translateX = _adjustTranslate(
+          translateX,
+          position.center.dx,
+          centerXPlayer,
+        );
+        translateY = position.center.dy > centerYPlayer ? (-1 * speed) : speed;
+        translateY = _adjustTranslate(
+          translateY,
+          position.center.dy,
+          centerYPlayer,
+        );
 
-          if ((translateX < 0 && translateX > -0.1) ||
-              (translateX > 0 && translateX < 0.1)) {
-            translateX = 0;
-          }
+        if ((translateX < 0 && translateX > -0.1) ||
+            (translateX > 0 && translateX < 0.1)) {
+          translateX = 0;
+        }
 
-          if ((translateY < 0 && translateY > -0.1) ||
-              (translateY > 0 && translateY < 0.1)) {
-            translateY = 0;
-          }
+        if ((translateY < 0 && translateY > -0.1) ||
+            (translateY > 0 && translateY < 0.1)) {
+          translateY = 0;
+        }
 
-          if (translateX == 0 && translateY == 0) {
-            idle();
-            return;
-          }
+        if (position.overlaps(player.position)) {
+          if (closePlayer != null) closePlayer(player);
+          this.idle();
+          return;
+        }
 
-          if (position.overlaps(player.position)) {
-            if (closePlayer != null) closePlayer(player);
-            return;
-          }
-
-          if (translateX > 0) {
-            moveRight(moveSpeed: translateX);
-          } else {
-            moveLeft(moveSpeed: (translateX * -1));
-          }
-          if (translateY > 0) {
-            moveBottom(moveSpeed: translateY);
-          } else {
-            moveTop(moveSpeed: (translateY * -1));
-          }
-        });
+        if (translateX > 0) {
+          moveRight(moveSpeed: translateX);
+        } else {
+          moveLeft(moveSpeed: (translateX * -1));
+        }
+        if (translateY > 0) {
+          moveBottom(moveSpeed: translateY);
+        } else {
+          moveTop(moveSpeed: (translateY * -1));
+        }
+      },
+      notObserved: () {
+        this.idle();
+      },
+    );
   }
 
   void simpleAttackMelee({
@@ -295,31 +307,19 @@ extension EnemyExtensions on Enemy {
 
           translateX =
               position.center.dx > centerXPlayer ? (-1 * speed) : speed;
-          if (translateX > 0) {
-            double diffX = centerXPlayer - position.center.dx;
-            if (diffX < this.speed) {
-              translateX = diffX;
-            }
-          } else if (translateX < 0) {
-            double diffX = centerXPlayer - position.center.dx;
-            if (diffX > (this.speed * -1)) {
-              translateX = diffX;
-            }
-          }
+          translateX = _adjustTranslate(
+            translateX,
+            position.center.dx,
+            centerXPlayer,
+          );
 
           translateY =
               position.center.dy > centerYPlayer ? (-1 * speed) : speed;
-          if (translateY > 0) {
-            double diffY = centerYPlayer - position.center.dy;
-            if (diffY < this.speed) {
-              translateY = diffY;
-            }
-          } else if (translateY < 0) {
-            double diffY = centerYPlayer - position.center.dx;
-            if (diffY > (this.speed * -1)) {
-              translateY = diffY;
-            }
-          }
+          translateY = _adjustTranslate(
+            translateY,
+            position.center.dy,
+            centerYPlayer,
+          );
 
           if ((translateX < 0 && translateX > -0.1) ||
               (translateX > 0 && translateX < 0.1)) {
@@ -370,5 +370,23 @@ extension EnemyExtensions on Enemy {
         notObserved: () {
           this.idle();
         });
+  }
+
+  double _adjustTranslate(
+      double translate, double centerEnemy, double centerPlayer) {
+    double innerTranslate = translate;
+    if (innerTranslate > 0) {
+      double diffX = centerPlayer - centerEnemy;
+      if (diffX < this.speed) {
+        innerTranslate = diffX;
+      }
+    } else if (innerTranslate < 0) {
+      double diffX = centerPlayer - centerEnemy;
+      if (diffX > (this.speed * -1)) {
+        innerTranslate = diffX;
+      }
+    }
+
+    return innerTranslate;
   }
 }
