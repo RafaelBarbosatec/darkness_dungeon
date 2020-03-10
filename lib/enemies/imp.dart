@@ -5,10 +5,10 @@ import 'package:flame/position.dart';
 
 class Imp extends Enemy {
   static double sizeTile = 32;
-  final Position initPosition;
+  final Position initPositionRelativeTile;
   double attack = 5;
 
-  Imp({this.initPosition})
+  Imp({this.initPositionRelativeTile})
       : super(
           animationIdleRight: FlameAnimation.Animation.sequenced(
             "enemy/imp_idle.png",
@@ -34,7 +34,7 @@ class Imp extends Enemy {
             textureWidth: 16,
             textureHeight: 16,
           ),
-          initPosition: initPosition,
+          initPositionRelativeTile: initPositionRelativeTile,
           sizeTileMap: sizeTile,
           width: 25,
           height: 25,

@@ -16,13 +16,13 @@ class GameDecoration extends AnimatedObject with HasGameRef<RPGGame> {
   final bool collision;
   final double sizeTileMap;
   final FlameAnimation.Animation animation;
-  final Position initPosition;
+  final Position initPositionRelativeTile;
   Sprite _sprite;
   Rect positionInWorld;
 
   GameDecoration(
     this.spriteImg, {
-    this.initPosition,
+    this.initPositionRelativeTile,
     @required this.height,
     @required this.width,
     this.frontFromPlayer,
@@ -33,8 +33,10 @@ class GameDecoration extends AnimatedObject with HasGameRef<RPGGame> {
     this.animation = animation;
     if (spriteImg.isNotEmpty) _sprite = Sprite(spriteImg);
     position = Rect.fromLTWH(
-      (initPosition != null ? initPosition.x : 0.0) * sizeTileMap,
-      (initPosition != null ? initPosition.y : 0.0) * sizeTileMap,
+      (initPositionRelativeTile != null ? initPositionRelativeTile.x : 0.0) *
+          sizeTileMap,
+      (initPositionRelativeTile != null ? initPositionRelativeTile.y : 0.0) *
+          sizeTileMap,
       width,
       height,
     );

@@ -5,11 +5,11 @@ import 'package:flame/position.dart';
 import 'package:flutter/cupertino.dart';
 
 class Goblin extends Enemy {
-  final Position initPosition;
+  final Position initPositionRelativeTile;
   double attack = 10;
 
   Goblin({
-    @required this.initPosition,
+    @required this.initPositionRelativeTile,
   }) : super(
           animationIdleRight: FlameAnimation.Animation.sequenced(
             "goblin_idle.png",
@@ -35,7 +35,7 @@ class Goblin extends Enemy {
             textureWidth: 16,
             textureHeight: 16,
           ),
-          initPosition: initPosition,
+          initPositionRelativeTile: initPositionRelativeTile,
           sizeTileMap: 32,
           width: 25,
           height: 25,

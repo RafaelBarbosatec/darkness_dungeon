@@ -10,14 +10,14 @@ import 'package:flutter/widgets.dart';
 
 class Boss extends Enemy {
   static double sizeTile = 32;
-  final Position initPosition;
+  final Position initPositionRelativeTile;
   double attack = 10;
 
   bool addChild = false;
 
   List<Enemy> childs = List();
 
-  Boss({this.initPosition})
+  Boss({this.initPositionRelativeTile})
       : super(
           animationIdleRight: FlameAnimation.Animation.sequenced(
             "enemy/boss_idle.png",
@@ -43,7 +43,7 @@ class Boss extends Enemy {
             textureWidth: 32,
             textureHeight: 36,
           ),
-          initPosition: initPosition,
+          initPositionRelativeTile: initPositionRelativeTile,
           sizeTileMap: sizeTile,
           width: 32,
           height: 36,
@@ -127,7 +127,7 @@ class Boss extends Enemy {
     }
 
     Enemy e = Imp(
-      initPosition: positionChild,
+      initPositionRelativeTile: positionChild,
     );
 
     gameRef.add(

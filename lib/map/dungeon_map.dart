@@ -57,14 +57,14 @@ class DungeonMap {
   static List<GameDecoration> decorations = [
     GameDecoration(
       'itens/barrel.png',
-      initPosition: Position(10, 5),
+      initPositionRelativeTile: Position(10, 5),
       width: 32,
       height: 32,
       collision: true,
     ),
     GameDecoration(
       'itens/table.png',
-      initPosition: Position(15, 7),
+      initPositionRelativeTile: Position(15, 7),
       width: 32,
       height: 32,
       collision: true,
@@ -77,7 +77,7 @@ class DungeonMap {
         textureWidth: 16,
         textureHeight: 16,
       ),
-      initPosition: Position(4, 4),
+      initPositionRelativeTile: Position(4, 4),
       width: 32,
       height: 32,
     ),
@@ -89,7 +89,7 @@ class DungeonMap {
         textureWidth: 16,
         textureHeight: 16,
       ),
-      initPosition: Position(8, 4),
+      initPositionRelativeTile: Position(8, 4),
       width: 32,
       height: 32,
     ),
@@ -101,7 +101,7 @@ class DungeonMap {
         textureWidth: 16,
         textureHeight: 16,
       ),
-      initPosition: Position(12, 4),
+      initPositionRelativeTile: Position(12, 4),
       width: 32,
       height: 32,
     ),
@@ -113,34 +113,34 @@ class DungeonMap {
         textureWidth: 16,
         textureHeight: 16,
       ),
-      initPosition: Position(16, 4),
+      initPositionRelativeTile: Position(16, 4),
       width: 32,
       height: 32,
     ),
     GameDecoration(
       'itens/flag_red.png',
-      initPosition: Position(6, 4),
+      initPositionRelativeTile: Position(6, 4),
       width: 32,
       height: 32,
     ),
     GameDecoration(
       'itens/flag_red.png',
-      initPosition: Position(10, 4),
+      initPositionRelativeTile: Position(10, 4),
       width: 32,
       height: 32,
     ),
     GameDecoration(
       'itens/flag_red.png',
-      initPosition: Position(14, 4),
+      initPositionRelativeTile: Position(14, 4),
       width: 32,
       height: 32,
     )
   ];
 
   static List<Enemy> enemies = [
-    Goblin(initPosition: Position(10, 7)),
-    Imp(initPosition: Position(12, 7)),
-    Boss(initPosition: Position(20, 6)),
+    Goblin(initPositionRelativeTile: Position(10, 7)),
+    Imp(initPositionRelativeTile: Position(12, 7)),
+    Boss(initPositionRelativeTile: Position(20, 6)),
   ];
 
   static String randomFloor() {
