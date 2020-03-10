@@ -26,8 +26,8 @@ class _NewGameState extends State<NewGame> {
         initPosition: Position(5, 6),
       ),
       map: DungeonMap.map(),
-      decorations: DungeonMap.decorations,
-      enemies: DungeonMap.enemies,
+      decorations: DungeonMap.decorations(),
+      enemies: DungeonMap.enemies(),
     );
     super.initState();
   }

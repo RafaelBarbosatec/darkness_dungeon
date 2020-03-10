@@ -42,13 +42,45 @@ class Joystick extends JoystickController {
     initialize();
   }
 
-  void initialize() async {}
+  void initialize() async {
+    var radius = (tileSize * backgroundAspectRatio) / 2;
+
+    Offset osBackground =
+        Offset(radius * 3, screenSize.height - (radius + radius));
+    backgroundRect = Rect.fromCircle(center: osBackground, radius: radius);
+
+    // The circle radius calculation that will contain the knob
+    // image of the joystick
+    radius = (tileSize * knobAspectRatio) / 2;
+
+    Offset osKnob = Offset(backgroundRect.center.dx, backgroundRect.center.dy);
+    knobRect = Rect.fromCircle(center: osKnob, radius: radius);
+
+    dragPosition = knobRect.center;
+
+    var radiusAttack = (tileSize * attackAspectRatio) / 2;
+    var radiusAttackRange = (tileSize * attackRangeAspectRatio) / 2;
+
+    Offset attackNob = Offset(screenSize.width - radiusAttack * 4,
+        screenSize.height - (radiusAttack * 2));
+
+    attackRect = Rect.fromCircle(
+      center: attackNob,
+      radius: radiusAttack,
+    );
+
+    Offset attackRangeNob = Offset(screenSize.width - radiusAttackRange * 2,
+        screenSize.height - (radiusAttackRange * 4));
+
+    attackRangeRect = Rect.fromCircle(
+      center: attackRangeNob,
+      radius: radiusAttackRange,
+    );
+  }
 
   void render(Canvas canvas) {
-    if (dragging) {
-      backgroundSprite.renderRect(canvas, backgroundRect);
-      knobSprite.renderRect(canvas, knobRect);
-    }
+    backgroundSprite.renderRect(canvas, backgroundRect);
+    knobSprite.renderRect(canvas, knobRect);
 
     if (attackRect != null) attackSprite.renderRect(canvas, attackRect);
     if (attackRangeRect != null)
@@ -56,25 +88,6 @@ class Joystick extends JoystickController {
   }
 
   void update(double t) {
-    var radiusAttack = (tileSize * attackAspectRatio) / 2;
-    var radiusAttackRange = (tileSize * attackRangeAspectRatio) / 2;
-
-    Offset atacknob = Offset(screenSize.width - radiusAttack * 4,
-        screenSize.height - (radiusAttack * 2));
-
-    attackRect = Rect.fromCircle(
-      center: atacknob,
-      radius: radiusAttack,
-    );
-
-    Offset atackRangenob = Offset(screenSize.width - radiusAttackRange * 2,
-        screenSize.height - (radiusAttackRange * 4));
-
-    attackRangeRect = Rect.fromCircle(
-      center: atackRangenob,
-      radius: radiusAttackRange,
-    );
-
     if (dragging) {
       double _radAngle = atan2(dragPosition.dy - backgroundRect.center.dy,
           dragPosition.dx - backgroundRect.center.dx);
@@ -174,16 +187,17 @@ class Joystick extends JoystickController {
               backgroundRect.center.dy + nextPoint.dy) -
           knobRect.center;
       knobRect = knobRect.shift(diff);
+    } else {
+      Offset diff = dragPosition - knobRect.center;
+      knobRect = knobRect.shift(diff);
     }
   }
 
   void onPanStart(DragStartDetails details) {
-    initPositionJoystick(details.globalPosition);
     dragging = true;
   }
 
   void onTapDown(TapDownDetails details) {
-    initPositionJoystick(details.globalPosition);
     dragging = true;
   }
 

@@ -54,94 +54,98 @@ class DungeonMap {
     return MapWorld(tileList);
   }
 
-  static List<GameDecoration> decorations = [
-    GameDecoration(
-      'itens/barrel.png',
-      initPositionRelativeTile: Position(10, 5),
-      width: 32,
-      height: 32,
-      collision: true,
-    ),
-    GameDecoration(
-      'itens/table.png',
-      initPositionRelativeTile: Position(15, 7),
-      width: 32,
-      height: 32,
-      collision: true,
-    ),
-    GameDecoration(
-      '',
-      animation: FlameAnimation.Animation.sequenced(
-        "itens/torch_spritesheet.png",
-        6,
-        textureWidth: 16,
-        textureHeight: 16,
+  static List<GameDecoration> decorations() {
+    return [
+      GameDecoration(
+        'itens/barrel.png',
+        initPositionRelativeTile: Position(10, 5),
+        width: 32,
+        height: 32,
+        collision: true,
       ),
-      initPositionRelativeTile: Position(4, 4),
-      width: 32,
-      height: 32,
-    ),
-    GameDecoration(
-      '',
-      animation: FlameAnimation.Animation.sequenced(
-        "itens/torch_spritesheet.png",
-        6,
-        textureWidth: 16,
-        textureHeight: 16,
+      GameDecoration(
+        'itens/table.png',
+        initPositionRelativeTile: Position(15, 7),
+        width: 32,
+        height: 32,
+        collision: true,
       ),
-      initPositionRelativeTile: Position(8, 4),
-      width: 32,
-      height: 32,
-    ),
-    GameDecoration(
-      '',
-      animation: FlameAnimation.Animation.sequenced(
-        "itens/torch_spritesheet.png",
-        6,
-        textureWidth: 16,
-        textureHeight: 16,
+      GameDecoration(
+        '',
+        animation: FlameAnimation.Animation.sequenced(
+          "itens/torch_spritesheet.png",
+          6,
+          textureWidth: 16,
+          textureHeight: 16,
+        ),
+        initPositionRelativeTile: Position(4, 4),
+        width: 32,
+        height: 32,
       ),
-      initPositionRelativeTile: Position(12, 4),
-      width: 32,
-      height: 32,
-    ),
-    GameDecoration(
-      '',
-      animation: FlameAnimation.Animation.sequenced(
-        "itens/torch_spritesheet.png",
-        6,
-        textureWidth: 16,
-        textureHeight: 16,
+      GameDecoration(
+        '',
+        animation: FlameAnimation.Animation.sequenced(
+          "itens/torch_spritesheet.png",
+          6,
+          textureWidth: 16,
+          textureHeight: 16,
+        ),
+        initPositionRelativeTile: Position(8, 4),
+        width: 32,
+        height: 32,
       ),
-      initPositionRelativeTile: Position(16, 4),
-      width: 32,
-      height: 32,
-    ),
-    GameDecoration(
-      'itens/flag_red.png',
-      initPositionRelativeTile: Position(6, 4),
-      width: 32,
-      height: 32,
-    ),
-    GameDecoration(
-      'itens/flag_red.png',
-      initPositionRelativeTile: Position(10, 4),
-      width: 32,
-      height: 32,
-    ),
-    GameDecoration(
-      'itens/flag_red.png',
-      initPositionRelativeTile: Position(14, 4),
-      width: 32,
-      height: 32,
-    )
-  ];
+      GameDecoration(
+        '',
+        animation: FlameAnimation.Animation.sequenced(
+          "itens/torch_spritesheet.png",
+          6,
+          textureWidth: 16,
+          textureHeight: 16,
+        ),
+        initPositionRelativeTile: Position(12, 4),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        '',
+        animation: FlameAnimation.Animation.sequenced(
+          "itens/torch_spritesheet.png",
+          6,
+          textureWidth: 16,
+          textureHeight: 16,
+        ),
+        initPositionRelativeTile: Position(16, 4),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        'itens/flag_red.png',
+        initPositionRelativeTile: Position(6, 4),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        'itens/flag_red.png',
+        initPositionRelativeTile: Position(10, 4),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        'itens/flag_red.png',
+        initPositionRelativeTile: Position(14, 4),
+        width: 32,
+        height: 32,
+      )
+    ];
+  }
 
-  static List<Enemy> enemies = [
-    Goblin(initPositionRelativeTile: Position(10, 7)),
-    Imp(initPositionRelativeTile: Position(12, 7)),
-    Boss(initPositionRelativeTile: Position(20, 6)),
-  ];
+  static List<Enemy> enemies() {
+    return [
+      Goblin(initPositionRelativeTile: Position(10, 7)),
+      Imp(initPositionRelativeTile: Position(12, 7)),
+      Boss(initPositionRelativeTile: Position(20, 6)),
+    ];
+  }
 
   static String randomFloor() {
     int p = Random().nextInt(6);
