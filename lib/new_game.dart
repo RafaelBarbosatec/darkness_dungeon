@@ -24,8 +24,6 @@ class _NewGameState extends State<NewGame> {
       joystickController: _joystick,
       player: Knight(
         initPosition: Position(5, 6),
-        width: 32,
-        height: 32,
       ),
       map: DungeonMap.map(),
       decorations: DungeonMap.decorations,

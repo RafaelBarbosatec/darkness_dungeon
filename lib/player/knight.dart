@@ -3,14 +3,10 @@ import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/position.dart';
 
 class Knight extends Player {
-  final double width;
-  final double height;
   final Position initPosition;
   double attack = 20;
 
   Knight({
-    this.width,
-    this.height,
     this.initPosition,
   }) : super(
           animIdleLeft: FlameAnimation.Animation.sequenced(
@@ -37,8 +33,8 @@ class Knight extends Player {
             textureWidth: 16,
             textureHeight: 16,
           ),
-          width: width,
-          height: height,
+          width: 32,
+          height: 32,
           sizeTileMap: 32,
           initPosition: initPosition,
         ) {
