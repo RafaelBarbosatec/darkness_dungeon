@@ -1,8 +1,4 @@
-import 'dart:async';
-
 import 'package:darkness_dungeon/core/enemy/enemy.dart';
-import 'package:darkness_dungeon/core/player/player.dart';
-import 'package:darkness_dungeon/core/util/Direction.dart';
 import 'package:darkness_dungeon/core/util/animated_object_once.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/position.dart';
@@ -12,8 +8,6 @@ class Goblin extends Enemy {
   final Position initPosition;
   final double sizeTileMap;
   double attack = 10;
-  Timer _timerAttack;
-  bool _closePlayer;
 
   Goblin({
     @required this.initPosition,
@@ -53,77 +47,15 @@ class Goblin extends Enemy {
 
   @override
   void update(double dt) {
-    _closePlayer = false;
-    seeAndMoveToPlayer(
-      visionCells: 5,
-      closePlayer: (player) {
-        _closePlayer = true;
-        startTimeAttack(player);
-      },
-    );
-
-    this.seePlayer(
-        observed: (p) {
-          Direction ballDirection;
-
-          var diffX = position.center.dx - p.position.center.dx;
-          var diffPositiveX = diffX < 0 ? diffX *= -1 : diffX;
-          var diffY = position.center.dy - p.position.center.dy;
-          var diffPositiveY = diffY < 0 ? diffY *= -1 : diffY;
-
-          if (diffPositiveX > diffPositiveY) {
-            if (p.position.center.dx > position.center.dx) {
-              ballDirection = Direction.right;
-            } else if (p.position.center.dx < position.center.dx) {
-              ballDirection = Direction.left;
-            }
-          } else {
-            if (p.position.center.dy > position.center.dy) {
-              ballDirection = Direction.bottom;
-            } else if (p.position.center.dy < position.center.dy) {
-              ballDirection = Direction.top;
-            }
-          }
-
-//          this.simpleAttackRange(
-//            animationRight: FlameAnimation.Animation.sequenced(
-//              'player/fireball_right.png',
-//              3,
-//              textureWidth: 23,
-//              textureHeight: 23,
-//            ),
-//            animationLeft: FlameAnimation.Animation.sequenced(
-//              'player/fireball_left.png',
-//              3,
-//              textureWidth: 23,
-//              textureHeight: 23,
-//            ),
-//            animationTop: FlameAnimation.Animation.sequenced(
-//              'player/fireball_top.png',
-//              3,
-//              textureWidth: 23,
-//              textureHeight: 23,
-//            ),
-//            animationBottom: FlameAnimation.Animation.sequenced(
-//              'player/fireball_bottom.png',
-//              3,
-//              textureWidth: 23,
-//              textureHeight: 23,
-//            ),
-//            animationDestroy: FlameAnimation.Animation.sequenced(
-//              'player/explosion_fire.png',
-//              6,
-//              textureWidth: 32,
-//              textureHeight: 32,
-//            ),
-//            width: 25,
-//            height: 25,
-//            damage: 0,
-//            speed: speed * 1.5,
-//            direction: ballDirection,
-//          );
-        },
-        visionCells: 10);
+//    this.seeAndMoveToPlayer(
+//      visionCells: 5,
+//      closePlayer: (player) {
+//        execAttack();
+//      },
+//    );
+    this.seeAndMoveToAttackRange(positioned: (p) {
+      execAttackRange();
+    });
     super.update(dt);
   }
 
@@ -144,23 +76,12 @@ class Goblin extends Enemy {
     super.die();
   }
 
-  void startTimeAttack(Player player) {
-    if (_timerAttack != null && _timerAttack.isActive) {
-      return;
-    }
-    execAttack(player);
-    _timerAttack = Timer.periodic(new Duration(milliseconds: 1000), (timer) {
-      if (_closePlayer) {
-        execAttack(player);
-      } else {
-        _timerAttack.cancel();
-      }
-    });
-  }
-
-  void execAttack(Player player) {
+  void execAttack() {
     this.simpleAttackMelee(
-      attack,
+      heightArea: 20,
+      widthArea: 20,
+      damage: attack,
+      interval: 1000,
       attackEffectBottomAnim: FlameAnimation.Animation.sequenced(
         'enemy/atack_effect_bottom.png',
         6,
@@ -185,6 +106,45 @@ class Goblin extends Enemy {
         textureWidth: 16,
         textureHeight: 16,
       ),
+    );
+  }
+
+  void execAttackRange() {
+    this.simpleAttackRange(
+      animationRight: FlameAnimation.Animation.sequenced(
+        'player/fireball_right.png',
+        3,
+        textureWidth: 23,
+        textureHeight: 23,
+      ),
+      animationLeft: FlameAnimation.Animation.sequenced(
+        'player/fireball_left.png',
+        3,
+        textureWidth: 23,
+        textureHeight: 23,
+      ),
+      animationTop: FlameAnimation.Animation.sequenced(
+        'player/fireball_top.png',
+        3,
+        textureWidth: 23,
+        textureHeight: 23,
+      ),
+      animationBottom: FlameAnimation.Animation.sequenced(
+        'player/fireball_bottom.png',
+        3,
+        textureWidth: 23,
+        textureHeight: 23,
+      ),
+      animationDestroy: FlameAnimation.Animation.sequenced(
+        'player/explosion_fire.png',
+        6,
+        textureWidth: 32,
+        textureHeight: 32,
+      ),
+      width: 25,
+      height: 25,
+      damage: 10,
+      speed: speed * 1.5,
     );
   }
 }

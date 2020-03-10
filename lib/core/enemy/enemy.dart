@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:darkness_dungeon/core/rpg_game.dart';
@@ -33,7 +34,8 @@ class Enemy extends AnimatedObject with ObjectCollision, HasGameRef<RPGGame> {
   Rect positionInWorld;
   bool _isDie = false;
   Direction lastDirection;
-  Direction _lastDirectionHorizontal;
+  Direction lastDirectionHorizontal;
+  Map<String, Timer> timers = Map();
 
   Enemy({
     @required this.animationIdleRight,
@@ -65,7 +67,7 @@ class Enemy extends AnimatedObject with ObjectCollision, HasGameRef<RPGGame> {
     widthCollision = width;
     heightCollision = height / 3;
 
-    _lastDirectionHorizontal =
+    lastDirectionHorizontal =
         initDirection == Direction.left ? Direction.left : Direction.right;
 
     idle();
@@ -142,11 +144,21 @@ class Enemy extends AnimatedObject with ObjectCollision, HasGameRef<RPGGame> {
 
   void moveTop({double moveSpeed}) {
     double speed = moveSpeed ?? this.speed;
+
+    var collision = isCollisionTranslate(
+      position,
+      0,
+      (speed * -1),
+      gameRef,
+    );
+
+    if (collision) return;
+
     positionInWorld = positionInWorld.translate(0, (speed * -1));
 
     if (lastDirection != Direction.top) {
       animation = animationRunTop ??
-          (lastDirection == Direction.right
+          (lastDirectionHorizontal == Direction.right
               ? animationRunRight
               : animationRunLeft);
       lastDirection = Direction.top;
@@ -155,11 +167,20 @@ class Enemy extends AnimatedObject with ObjectCollision, HasGameRef<RPGGame> {
 
   void moveBottom({double moveSpeed}) {
     double speed = moveSpeed ?? this.speed;
+
+    var collision = isCollisionTranslate(
+      position,
+      0,
+      speed,
+      gameRef,
+    );
+    if (collision) return;
+
     positionInWorld = positionInWorld.translate(0, speed);
 
     if (lastDirection != Direction.bottom) {
       animation = animationRunBottom ??
-          (lastDirection == Direction.right
+          (lastDirectionHorizontal == Direction.right
               ? animationRunRight
               : animationRunLeft);
       lastDirection = Direction.bottom;
@@ -168,22 +189,41 @@ class Enemy extends AnimatedObject with ObjectCollision, HasGameRef<RPGGame> {
 
   void moveLeft({double moveSpeed}) {
     double speed = moveSpeed ?? this.speed;
+
+    var collision = isCollisionTranslate(
+      position,
+      (speed * -1),
+      0,
+      gameRef,
+    );
+    if (collision) return;
+
     positionInWorld = positionInWorld.translate((speed * -1), 0);
     if (lastDirection != Direction.left) {
       animation = animationRunLeft;
       lastDirection = Direction.left;
     }
-    _lastDirectionHorizontal = Direction.left;
+    lastDirectionHorizontal = Direction.left;
   }
 
   void moveRight({double moveSpeed}) {
     double speed = moveSpeed ?? this.speed;
+
+    var collision = isCollisionTranslate(
+      position,
+      speed,
+      0,
+      gameRef,
+    );
+
+    if (collision) return;
+
     positionInWorld = positionInWorld.translate(speed, 0);
     if (lastDirection != Direction.right) {
       animation = animationRunRight;
       lastDirection = Direction.right;
     }
-    _lastDirectionHorizontal = Direction.right;
+    lastDirectionHorizontal = Direction.right;
   }
 
   void idle() {
@@ -198,7 +238,7 @@ class Enemy extends AnimatedObject with ObjectCollision, HasGameRef<RPGGame> {
         if (animationIdleTop != null) {
           animation = animationIdleTop;
         } else {
-          if (_lastDirectionHorizontal == Direction.left) {
+          if (lastDirectionHorizontal == Direction.left) {
             animation = animationIdleLeft;
           } else {
             animation = animationIdleRight;
@@ -209,7 +249,7 @@ class Enemy extends AnimatedObject with ObjectCollision, HasGameRef<RPGGame> {
         if (animationIdleBottom != null) {
           animation = animationIdleBottom;
         } else {
-          if (_lastDirectionHorizontal == Direction.left) {
+          if (lastDirectionHorizontal == Direction.left) {
             animation = animationIdleLeft;
           } else {
             animation = animationIdleRight;
