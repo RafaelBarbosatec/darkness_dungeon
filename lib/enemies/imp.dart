@@ -44,48 +44,45 @@ class Imp extends Enemy {
 
   @override
   void update(double dt) {
-    this.seeAndMoveToAttackRange(positioned: (p) {
-      execAttackRange();
-    });
+    this.seeAndMoveToPlayer(
+      visionCells: 5,
+      closePlayer: (player) {
+        execAttack();
+      },
+    );
     super.update(dt);
   }
 
-  void execAttackRange() {
-    this.simpleAttackRange(
-      animationRight: FlameAnimation.Animation.sequenced(
-        'player/fireball_right.png',
-        3,
-        textureWidth: 23,
-        textureHeight: 23,
-      ),
-      animationLeft: FlameAnimation.Animation.sequenced(
-        'player/fireball_left.png',
-        3,
-        textureWidth: 23,
-        textureHeight: 23,
-      ),
-      animationTop: FlameAnimation.Animation.sequenced(
-        'player/fireball_top.png',
-        3,
-        textureWidth: 23,
-        textureHeight: 23,
-      ),
-      animationBottom: FlameAnimation.Animation.sequenced(
-        'player/fireball_bottom.png',
-        3,
-        textureWidth: 23,
-        textureHeight: 23,
-      ),
-      animationDestroy: FlameAnimation.Animation.sequenced(
-        'player/explosion_fire.png',
+  void execAttack() {
+    this.simpleAttackMelee(
+      heightArea: 20,
+      widthArea: 20,
+      damage: attack,
+      interval: 1000,
+      attackEffectBottomAnim: FlameAnimation.Animation.sequenced(
+        'enemy/atack_effect_bottom.png',
         6,
-        textureWidth: 32,
-        textureHeight: 32,
+        textureWidth: 16,
+        textureHeight: 16,
       ),
-      width: 25,
-      height: 25,
-      damage: 10,
-      speed: speed * 1.5,
+      attackEffectLeftAnim: FlameAnimation.Animation.sequenced(
+        'enemy/atack_effect_left.png',
+        6,
+        textureWidth: 16,
+        textureHeight: 16,
+      ),
+      attackEffectRightAnim: FlameAnimation.Animation.sequenced(
+        'enemy/atack_effect_right.png',
+        6,
+        textureWidth: 16,
+        textureHeight: 16,
+      ),
+      attackEffectTopAnim: FlameAnimation.Animation.sequenced(
+        'enemy/atack_effect_top.png',
+        6,
+        textureWidth: 16,
+        textureHeight: 16,
+      ),
     );
   }
 

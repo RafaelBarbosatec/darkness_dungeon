@@ -37,10 +37,9 @@ class Knight extends Player {
           height: 32,
           sizeTileMap: 32,
           initPosition: initPosition,
-        ) {
-    speed = 3;
-    life = 200;
-  }
+          life: 200,
+          speed: 3,
+        );
 
   @override
   void joystickAction(int action) {

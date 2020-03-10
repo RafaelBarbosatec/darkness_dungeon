@@ -1,5 +1,6 @@
 import 'package:darkness_dungeon/core/decoration.dart';
 import 'package:darkness_dungeon/core/enemy/enemy.dart';
+import 'package:darkness_dungeon/core/game_interface.dart';
 import 'package:darkness_dungeon/core/map/map_game.dart';
 import 'package:darkness_dungeon/core/player/player.dart';
 import 'package:darkness_dungeon/core/util/joystick_controller.dart';
@@ -10,6 +11,7 @@ import 'package:flutter/cupertino.dart';
 class RPGGame extends BaseGame {
   final BuildContext context;
   final Player player;
+  final GameInterface interface;
   final MapGame map;
   final List<Enemy> enemies;
   final List<GameDecoration> decorations;
@@ -22,6 +24,7 @@ class RPGGame extends BaseGame {
     @required this.player,
     @required this.map,
     @required this.joystickController,
+    this.interface,
     this.enemies,
     this.decorations,
   })  : assert(
@@ -45,6 +48,10 @@ class RPGGame extends BaseGame {
     add(player);
 
     add(joystickController);
+
+    if (interface != null) {
+      add(interface);
+    }
   }
 
   @override

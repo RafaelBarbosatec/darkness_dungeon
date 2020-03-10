@@ -2,6 +2,7 @@ import 'package:darkness_dungeon/core/joystick.dart';
 import 'package:darkness_dungeon/core/rpg_game.dart';
 import 'package:darkness_dungeon/map/dungeon_map.dart';
 import 'package:darkness_dungeon/player/knight.dart';
+import 'package:darkness_dungeon/player/knight_interface.dart';
 import 'package:flame/position.dart';
 import 'package:flutter/material.dart';
 
@@ -25,6 +26,7 @@ class _NewGameState extends State<NewGame> {
       player: Knight(
         initPosition: Position(5, 6),
       ),
+      interface: KnightInterface(),
       map: DungeonMap.map(),
       decorations: DungeonMap.decorations(),
       enemies: DungeonMap.enemies(),
