@@ -56,7 +56,10 @@ extension PlayerExtensions on Player {
     gameRef.enemies.where((i) => i.isVisibleInMap()).forEach((enemy) {
       if (enemy.position.overlaps(positionAttack)) {
         enemy.receiveDamage(damage);
-        enemy.translate(pushLeft, pushTop);
+        if (!this.isCollision(
+            enemy.positionInWorld.translate(pushLeft, pushTop), this.gameRef)) {
+          enemy.translate(pushLeft, pushTop);
+        }
       }
     });
   }

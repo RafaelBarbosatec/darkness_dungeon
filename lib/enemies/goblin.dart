@@ -6,12 +6,10 @@ import 'package:flutter/cupertino.dart';
 
 class Goblin extends Enemy {
   final Position initPosition;
-  final double sizeTileMap;
   double attack = 10;
 
   Goblin({
     @required this.initPosition,
-    this.sizeTileMap = 32,
   }) : super(
           animationIdleRight: FlameAnimation.Animation.sequenced(
             "goblin_idle.png",
@@ -38,7 +36,7 @@ class Goblin extends Enemy {
             textureHeight: 16,
           ),
           initPosition: initPosition,
-          sizeTileMap: sizeTileMap,
+          sizeTileMap: 32,
           width: 25,
           height: 25,
           speed: 1.5,
@@ -47,15 +45,12 @@ class Goblin extends Enemy {
 
   @override
   void update(double dt) {
-//    this.seeAndMoveToPlayer(
-//      visionCells: 5,
-//      closePlayer: (player) {
-//        execAttack();
-//      },
-//    );
-    this.seeAndMoveToAttackRange(positioned: (p) {
-      execAttackRange();
-    });
+    this.seeAndMoveToPlayer(
+      visionCells: 5,
+      closePlayer: (player) {
+        execAttack();
+      },
+    );
     super.update(dt);
   }
 
@@ -106,45 +101,6 @@ class Goblin extends Enemy {
         textureWidth: 16,
         textureHeight: 16,
       ),
-    );
-  }
-
-  void execAttackRange() {
-    this.simpleAttackRange(
-      animationRight: FlameAnimation.Animation.sequenced(
-        'player/fireball_right.png',
-        3,
-        textureWidth: 23,
-        textureHeight: 23,
-      ),
-      animationLeft: FlameAnimation.Animation.sequenced(
-        'player/fireball_left.png',
-        3,
-        textureWidth: 23,
-        textureHeight: 23,
-      ),
-      animationTop: FlameAnimation.Animation.sequenced(
-        'player/fireball_top.png',
-        3,
-        textureWidth: 23,
-        textureHeight: 23,
-      ),
-      animationBottom: FlameAnimation.Animation.sequenced(
-        'player/fireball_bottom.png',
-        3,
-        textureWidth: 23,
-        textureHeight: 23,
-      ),
-      animationDestroy: FlameAnimation.Animation.sequenced(
-        'player/explosion_fire.png',
-        6,
-        textureWidth: 32,
-        textureHeight: 32,
-      ),
-      width: 25,
-      height: 25,
-      damage: 10,
-      speed: speed * 1.5,
     );
   }
 }

@@ -56,4 +56,9 @@ class RPGGame extends BaseGame {
   void addListener(Function(RPGGame) gameListener) {
     this.gameListener = gameListener;
   }
+
+  void addEnemy(Enemy enemy) {
+    enemies.add(enemy);
+    add(enemy);
+  }
 }

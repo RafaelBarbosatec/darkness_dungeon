@@ -4,7 +4,9 @@ import 'package:darkness_dungeon/core/decoration.dart';
 import 'package:darkness_dungeon/core/enemy/enemy.dart';
 import 'package:darkness_dungeon/core/map/map_world.dart';
 import 'package:darkness_dungeon/core/map/tile.dart';
+import 'package:darkness_dungeon/enemies/boss.dart';
 import 'package:darkness_dungeon/enemies/goblin.dart';
+import 'package:darkness_dungeon/enemies/imp.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/position.dart';
 
@@ -137,7 +139,8 @@ class DungeonMap {
 
   static List<Enemy> enemies = [
     Goblin(initPosition: Position(10, 7)),
-    Goblin(initPosition: Position(20, 5)),
+    Imp(initPosition: Position(12, 7)),
+    Boss(initPosition: Position(20, 6)),
   ];
 
   static String randomFloor() {
