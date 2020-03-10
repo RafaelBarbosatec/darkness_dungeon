@@ -277,6 +277,18 @@ extension EnemyExtensions on Enemy {
       this.lastDirectionHorizontal = finalDirection;
     }
 
+    if (this.isCollision(
+      Rect.fromLTWH(
+        startPosition.x,
+        startPosition.y,
+        width,
+        height,
+      ),
+      this.gameRef,
+    )) {
+      return;
+    }
+
     gameRef.add(
       FlyingAttackObject(
         direction: finalDirection,
@@ -390,7 +402,7 @@ extension EnemyExtensions on Enemy {
     return innerTranslate;
   }
 
-  Direction directionThatThePlayerIs() {
+  Direction directionThatPlayerIs() {
     Player player = this.gameRef.player;
     var diffX = position.center.dx - player.position.center.dx;
     var diffPositiveX = diffX < 0 ? diffX *= -1 : diffX;

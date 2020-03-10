@@ -6,6 +6,7 @@ import 'package:darkness_dungeon/core/util/Direction.dart';
 import 'package:darkness_dungeon/core/util/animated_object_once.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/position.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 extension PlayerExtensions on Player {
@@ -109,6 +110,18 @@ extension PlayerExtensions on Player {
           this.position.bottom,
         );
         break;
+    }
+
+    if (this.isCollision(
+      Rect.fromLTWH(
+        startPosition.x,
+        startPosition.y,
+        width,
+        height,
+      ),
+      this.gameRef,
+    )) {
+      return;
     }
 
     gameRef.add(

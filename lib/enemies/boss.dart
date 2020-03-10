@@ -103,7 +103,7 @@ class Boss extends Enemy {
     Position positionChild;
     Rect positionExplosion;
 
-    switch (this.directionThatThePlayerIs()) {
+    switch (this.directionThatPlayerIs()) {
       case Direction.left:
         positionChild = Position((positionInWorld.left - width * 2) / sizeTile,
             positionInWorld.top / sizeTile);
