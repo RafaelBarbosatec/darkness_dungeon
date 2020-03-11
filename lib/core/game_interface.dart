@@ -3,8 +3,10 @@ import 'dart:ui';
 import 'package:darkness_dungeon/core/rpg_game.dart';
 import 'package:flame/components/component.dart';
 import 'package:flame/components/mixins/has_game_ref.dart';
+import 'package:flame/gestures.dart';
+import 'package:flutter/widgets.dart';
 
-class GameInterface extends Component with HasGameRef<RPGGame> {
+class GameInterface extends Component with HasGameRef<RPGGame>, TapDetector {
   @override
   int priority() {
     return 10;

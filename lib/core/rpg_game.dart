@@ -5,10 +5,11 @@ import 'package:darkness_dungeon/core/map/map_game.dart';
 import 'package:darkness_dungeon/core/player/player.dart';
 import 'package:darkness_dungeon/core/util/joystick_controller.dart';
 import 'package:flame/game.dart';
+import 'package:flame/gestures.dart';
 import 'package:flame/position.dart';
 import 'package:flutter/cupertino.dart';
 
-class RPGGame extends BaseGame {
+class RPGGame extends BaseGame with TapDetector {
   final BuildContext context;
   final Player player;
   final GameInterface interface;
@@ -72,5 +73,29 @@ class RPGGame extends BaseGame {
   void addDecoration(GameDecoration decoration) {
     decorations.add(decoration);
     add(decoration);
+  }
+
+  @override
+  void onTapDown(TapDownDetails details) {
+    if(interface != null) interface.onTapDown(details);
+    print(
+        "Player tap down on ${details.globalPosition.dx} - ${details.globalPosition.dy}");
+  }
+
+  @override
+  void onTapUp(TapUpDetails details) {
+    if(interface != null) interface.onTapUp(details);
+    print(
+        "Player tap up on ${details.globalPosition.dx} - ${details.globalPosition.dy}");
+  }
+
+  @override
+  void onTap() {
+    if(interface != null) interface.onTap();
+  }
+
+  @override
+  void onTapCancel() {
+    if(interface != null) interface.onTapCancel();
   }
 }

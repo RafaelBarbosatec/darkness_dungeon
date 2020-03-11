@@ -48,16 +48,28 @@ class _NewGameState extends State<NewGame> {
                   onPanStart: _joystick.onPanStart,
                   onPanUpdate: _joystick.onPanUpdate,
                   onPanEnd: _joystick.onPanEnd,
-                  onTapDown: _joystick.onTapDown,
-                  onTapUp: _joystick.onTapUp,
+                  onTapDown: (d) {
+                    _joystick.onTapDown(d);
+                    _game.onTapDown(d);
+                  },
+                  onTapUp: (d) {
+                    _joystick.onTapUp(d);
+                    _game.onTapUp(d);
+                  },
                   child: Container(),
                 ),
               ),
               Expanded(
                 child: GestureDetector(
                   behavior: HitTestBehavior.opaque,
-                  onTapDown: _joystick.onTapDownAttack,
-                  onTapUp: _joystick.onTapUpAttack,
+                  onTapDown: (d) {
+                    _joystick.onTapDownAttack(d);
+                    _game.onTapDown(d);
+                  },
+                  onTapUp: (d) {
+                    _joystick.onTapUpAttack(d);
+                    _game.onTapUp(d);
+                  },
                   child: Container(),
                 ),
               )
