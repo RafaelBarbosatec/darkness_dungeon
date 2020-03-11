@@ -68,4 +68,9 @@ class RPGGame extends BaseGame {
     enemies.add(enemy);
     add(enemy);
   }
+
+  void addDecoration(GameDecoration decoration) {
+    decorations.add(decoration);
+    add(decoration);
+  }
 }

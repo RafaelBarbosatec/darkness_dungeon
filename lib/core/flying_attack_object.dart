@@ -90,12 +90,12 @@ class FlyingAttackObject extends AnimatedObject with HasGameRef<RPGGame> {
   bool _verifyCollision() {
     bool destroy = false;
 
-    double heightCollision = height / 3;
     Rect rectCollision = Rect.fromLTWH(
-        position.left,
-        position.top + (position.height - heightCollision),
-        width,
-        heightCollision);
+      position.left,
+      position.top + (height - height / 3),
+      width,
+      (height - height / 2),
+    );
 
     var collisionsDecorations = List<GameDecoration>();
     var collisions = gameRef.map
@@ -105,7 +105,7 @@ class FlyingAttackObject extends AnimatedObject with HasGameRef<RPGGame> {
 
     if (gameRef.decorations != null) {
       collisionsDecorations = gameRef.decorations
-          .where((i) => i.collision && i.position.overlaps(position))
+          .where((i) => i.collision && i.position.overlaps(rectCollision))
           .toList();
     }
 

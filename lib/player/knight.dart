@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:darkness_dungeon/core/player/player.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/position.dart';
@@ -5,6 +7,8 @@ import 'package:flame/position.dart';
 class Knight extends Player {
   final Position initPosition;
   double attack = 20;
+  double stamina = 100;
+  Timer _timerStamina;
 
   Knight({
     this.initPosition,
@@ -60,6 +64,10 @@ class Knight extends Player {
   }
 
   void actionAttack() {
+    if (stamina < 15) {
+      return;
+    }
+    incrementStamina(15);
     this.simpleAttackMelee(
       damage: attack,
       attackEffectBottomAnim: FlameAnimation.Animation.sequenced(
@@ -90,6 +98,10 @@ class Knight extends Player {
   }
 
   void actionAttackRange() {
+    if (stamina < 10) {
+      return;
+    }
+    incrementStamina(10);
     this.simpleAttackRange(
       animationRight: FlameAnimation.Animation.sequenced(
         'player/fireball_right.png',
@@ -126,5 +138,33 @@ class Knight extends Player {
       damage: 10,
       speed: speed * 1.5,
     );
+  }
+
+  @override
+  void update(double dt) {
+    _verifyStamina();
+    super.update(dt);
+  }
+
+  void _verifyStamina() {
+    if (_timerStamina == null) {
+      _timerStamina = Timer(Duration(milliseconds: 150), () {
+        _timerStamina = null;
+      });
+    } else {
+      return;
+    }
+
+    stamina += 2;
+    if (stamina > 100) {
+      stamina = 100;
+    }
+  }
+
+  void incrementStamina(int i) {
+    stamina -= i;
+    if (stamina < 0) {
+      stamina = 0;
+    }
   }
 }

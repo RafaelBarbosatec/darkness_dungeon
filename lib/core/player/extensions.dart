@@ -115,9 +115,9 @@ extension PlayerExtensions on Player {
     if (this.isCollision(
       Rect.fromLTWH(
         startPosition.x,
-        startPosition.y,
+        startPosition.y + (height - height / 3),
         width,
-        height,
+        (height - height / 2),
       ),
       this.gameRef,
     )) {

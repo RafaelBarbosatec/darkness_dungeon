@@ -75,7 +75,7 @@ class Player extends AnimatedObject
     );
 
     widthCollision = width;
-    heightCollision = height / 3;
+    heightCollision = height / 2;
     maxLife = life;
     idle();
   }
