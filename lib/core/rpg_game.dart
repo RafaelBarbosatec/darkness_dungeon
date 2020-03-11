@@ -77,25 +77,21 @@ class RPGGame extends BaseGame with TapDetector {
 
   @override
   void onTapDown(TapDownDetails details) {
-    if(interface != null) interface.onTapDown(details);
-    print(
-        "Player tap down on ${details.globalPosition.dx} - ${details.globalPosition.dy}");
+    if (interface != null) interface.onTapDown(details);
   }
 
   @override
   void onTapUp(TapUpDetails details) {
-    if(interface != null) interface.onTapUp(details);
-    print(
-        "Player tap up on ${details.globalPosition.dx} - ${details.globalPosition.dy}");
+    if (interface != null) interface.onTapUp(details);
   }
 
   @override
   void onTap() {
-    if(interface != null) interface.onTap();
+    if (interface != null) interface.onTap();
   }
 
   @override
   void onTapCancel() {
-    if(interface != null) interface.onTapCancel();
+    if (interface != null) interface.onTapCancel();
   }
 }
