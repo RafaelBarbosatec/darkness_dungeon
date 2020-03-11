@@ -139,8 +139,8 @@ class DungeonMap {
 
   static List<Enemy> enemies() {
     return [
-      Goblin(initPositionRelativeTile: Position(10, 7)),
-      Imp(initPositionRelativeTile: Position(12, 7)),
+      Goblin(initPositionRelativeTile: Position(14, 6)),
+      Imp(initPositionRelativeTile: Position(10, 7)),
       Boss(initPositionRelativeTile: Position(20, 6)),
     ];
   }

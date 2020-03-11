@@ -6,7 +6,7 @@ import 'package:flame/position.dart';
 class Imp extends Enemy {
   static double sizeTile = 32;
   final Position initPositionRelativeTile;
-  double attack = 5;
+  double attack = 8;
 
   Imp({this.initPositionRelativeTile})
       : super(
