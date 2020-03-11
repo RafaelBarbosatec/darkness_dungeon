@@ -14,8 +14,8 @@ class Chest extends GameDecoration {
             textureWidth: 16,
             textureHeight: 16,
           ),
-          width: 32,
-          height: 32,
+          width: 16,
+          height: 16,
           initPositionRelativeTile: initPositionRelativeTile,
         );
 
