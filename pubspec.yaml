@@ -14,7 +14,7 @@ description: A new Flutter application.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.6.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -40,6 +40,7 @@ flutter:
     - assets/images/joystick_background.png
     - assets/images/joystick_knob.png
     - assets/images/joystick_atack.png
+    - assets/images/joystick_atack_range.png
     - assets/images/knight_idle.png
     - assets/images/knight_idle_left.png
     - assets/images/knight_run.png
@@ -71,15 +72,9 @@ flutter:
     - assets/images/slime_idle.png
     - assets/images/slime_run_right.png
     - assets/images/goblin_idle.png
+    - assets/images/goblin_idle_left.png
     - assets/images/goblin_run_right.png
-    - assets/images/itens/barrel.png
-    - assets/images/itens/bookshelf.png
-    - assets/images/itens/flag_red.png
-    - assets/images/itens/flag_green.png
-    - assets/images/itens/prisoner.png
-    - assets/images/itens/table.png
-    - assets/images/itens/chest_spritesheet.png
-    - assets/images/itens/torch_spritesheet.png
+    - assets/images/goblin_run_left.png
     - assets/images/health_ui.png
     - assets/images/crypt.png
     - assets/images/atack_effect_right.png
@@ -87,15 +82,12 @@ flutter:
     - assets/images/atack_effect_bottom.png
     - assets/images/atack_effect_top.png
     - assets/images/enemy_explosin.png
-    - assets/images/boss_idle.png
-    - assets/images/boos_run_right.png
-    - assets/images/boos_run_left.png
-    - assets/images/mini_boss_idle.png
-    - assets/images/mini_boss_run_left.png
-    - assets/images/mini_boss_run_right.png
     - assets/game_over.png
     - assets/play_again.png
     - assets/logo_flame.png
+    - assets/images/enemy/
+    - assets/images/player/
+    - assets/images/itens/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
