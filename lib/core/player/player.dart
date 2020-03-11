@@ -342,4 +342,11 @@ class Player extends AnimatedObject
     this.animation = fastAnimation.animation;
     gameRef.add(fastAnimation);
   }
+
+  void addLife(double life) {
+    this.life += life;
+    if (this.life > maxLife) {
+      this.life = maxLife;
+    }
+  }
 }

@@ -75,14 +75,6 @@ flutter:
     - assets/images/goblin_idle_left.png
     - assets/images/goblin_run_right.png
     - assets/images/goblin_run_left.png
-    - assets/images/itens/barrel.png
-    - assets/images/itens/bookshelf.png
-    - assets/images/itens/flag_red.png
-    - assets/images/itens/flag_green.png
-    - assets/images/itens/prisoner.png
-    - assets/images/itens/table.png
-    - assets/images/itens/chest_spritesheet.png
-    - assets/images/itens/torch_spritesheet.png
     - assets/images/health_ui.png
     - assets/images/crypt.png
     - assets/images/atack_effect_right.png
@@ -95,6 +87,7 @@ flutter:
     - assets/logo_flame.png
     - assets/images/enemy/
     - assets/images/player/
+    - assets/images/itens/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

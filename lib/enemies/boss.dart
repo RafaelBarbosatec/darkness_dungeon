@@ -11,7 +11,7 @@ import 'package:flutter/widgets.dart';
 class Boss extends Enemy {
   static double sizeTile = 32;
   final Position initPositionRelativeTile;
-  double attack = 10;
+  double attack = 15;
 
   bool addChild = false;
 
@@ -151,7 +151,7 @@ class Boss extends Enemy {
       heightArea: 20,
       widthArea: 20,
       damage: attack,
-      interval: 500,
+      interval: 1000,
       attackEffectBottomAnim: FlameAnimation.Animation.sequenced(
         'enemy/atack_effect_bottom.png',
         6,

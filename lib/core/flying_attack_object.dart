@@ -1,4 +1,4 @@
-import 'package:darkness_dungeon/core/decoration.dart';
+import 'package:darkness_dungeon/core/decoration/decoration.dart';
 import 'package:darkness_dungeon/core/rpg_game.dart';
 import 'package:darkness_dungeon/core/util/Direction.dart';
 import 'package:darkness_dungeon/core/util/animated_object.dart';

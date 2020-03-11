@@ -8,6 +8,8 @@ import 'package:flame/position.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/widgets.dart';
 
+export 'package:darkness_dungeon/core/decoration/extensions.dart';
+
 class GameDecoration extends AnimatedObject with HasGameRef<RPGGame> {
   final double height;
   final double width;
@@ -20,8 +22,8 @@ class GameDecoration extends AnimatedObject with HasGameRef<RPGGame> {
   Sprite _sprite;
   Rect positionInWorld;
 
-  GameDecoration(
-    this.spriteImg, {
+  GameDecoration({
+    this.spriteImg,
     this.initPositionRelativeTile,
     @required this.height,
     @required this.width,
@@ -31,7 +33,7 @@ class GameDecoration extends AnimatedObject with HasGameRef<RPGGame> {
     this.sizeTileMap = 32,
   }) {
     this.animation = animation;
-    if (spriteImg.isNotEmpty) _sprite = Sprite(spriteImg);
+    if (spriteImg != null && spriteImg.isNotEmpty) _sprite = Sprite(spriteImg);
     position = Rect.fromLTWH(
       (initPositionRelativeTile != null ? initPositionRelativeTile.x : 0.0) *
           sizeTileMap,
@@ -65,4 +67,11 @@ class GameDecoration extends AnimatedObject with HasGameRef<RPGGame> {
         _sprite.renderRect(canvas, position);
     }
   }
+
+  bool isVisibleInMap() =>
+      position.top < (gameRef.size.height + height) &&
+      position.top > (height * -1) &&
+      position.left > (width * -1) &&
+      position.left < (gameRef.size.width + width) &&
+      !destroy();
 }

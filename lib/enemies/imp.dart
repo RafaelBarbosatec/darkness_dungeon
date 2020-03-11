@@ -58,7 +58,7 @@ class Imp extends Enemy {
       heightArea: 20,
       widthArea: 20,
       damage: attack,
-      interval: 1000,
+      interval: 300,
       attackEffectBottomAnim: FlameAnimation.Animation.sequenced(
         'enemy/atack_effect_bottom.png',
         6,

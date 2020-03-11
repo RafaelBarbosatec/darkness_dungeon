@@ -61,7 +61,7 @@ class KnightInterface extends GameInterface {
 
   void _drawStamina(Canvas canvas) {
     double xBar = 49;
-    double yBar = 49;
+    double yBar = 48;
 
     double currentBarStamina = (stamina * widthBar) / maxStamina;
 
