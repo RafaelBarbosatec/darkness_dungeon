@@ -17,20 +17,11 @@ class NewGame extends StatefulWidget {
 class _NewGameState extends State<NewGame> {
   Joystick _joystick;
   RPGGame _game;
+  bool visibleGameOver = false;
   @override
   void initState() {
     _joystick = Joystick(widget.size, widget.size.height / 10);
-    _game = RPGGame(
-      context: context,
-      joystickController: _joystick,
-      player: Knight(
-        initPosition: Position(5, 6),
-      ),
-      interface: KnightInterface(),
-      map: DungeonMap.map(),
-      decorations: DungeonMap.decorations(),
-      enemies: DungeonMap.enemies(),
-    );
+    _game = _createGame();
     super.initState();
   }
 
@@ -78,5 +69,69 @@ class _NewGameState extends State<NewGame> {
         ],
       ),
     );
+  }
+
+  RPGGame _createGame() {
+    return RPGGame(
+      context: context,
+      joystickController: _joystick,
+      player: Knight(
+        initPosition: Position(5, 6),
+      ),
+      interface: KnightInterface(),
+      map: DungeonMap.map(),
+      decorations: DungeonMap.decorations(),
+      enemies: DungeonMap.enemies(),
+    )..addListener((game) {
+        if (game.player.isDie && !visibleGameOver) {
+          _showDialogGameOver();
+        }
+      });
+  }
+
+  void _showDialogGameOver() {
+    setState(() {
+      visibleGameOver = true;
+    });
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Image.asset(
+                  'assets/game_over.png',
+                  height: 100,
+                ),
+                SizedBox(
+                  height: 10.0,
+                ),
+                RaisedButton(
+                  color: Colors.transparent,
+                  onPressed: () {
+                    setState(() {
+                      _game = _createGame();
+                    });
+
+                    Future.delayed(Duration(seconds: 1), () {
+                      visibleGameOver = false;
+                    });
+
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    "PLAY AGAIN",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Normal',
+                        fontSize: 20.0),
+                  ),
+                )
+              ],
+            ),
+          );
+        });
   }
 }
