@@ -6,15 +6,15 @@ import 'package:darkness_dungeon/player/knight_interface.dart';
 import 'package:flame/position.dart';
 import 'package:flutter/material.dart';
 
-class NewGame extends StatefulWidget {
+class Game extends StatefulWidget {
   final Size size;
 
-  const NewGame({Key key, this.size}) : super(key: key);
+  const Game({Key key, this.size}) : super(key: key);
   @override
-  _NewGameState createState() => _NewGameState();
+  _GameState createState() => _GameState();
 }
 
-class _NewGameState extends State<NewGame> {
+class _GameState extends State<Game> {
   Joystick _joystick;
   RPGGame _game;
   bool visibleGameOver = false;

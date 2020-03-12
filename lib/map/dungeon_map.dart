@@ -66,7 +66,7 @@ class DungeonMap {
         height: 32,
         collision: true,
       ),
-      Chest(getWorldPosition(18, 8)),
+      Chest(getWorldPosition(18, 7)),
       GameDecoration(
         spriteImg: 'itens/table.png',
         initPosition: getWorldPosition(15, 7),

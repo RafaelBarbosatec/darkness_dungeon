@@ -1,4 +1,4 @@
-import 'package:darkness_dungeon/new_game.dart';
+import 'package:darkness_dungeon/game.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/flame.dart';
 import 'package:flame/position.dart';
@@ -57,7 +57,7 @@ class _MenuState extends State<Menu> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => NewGame(
+                        builder: (context) => Game(
                               size: size,
                             )),
                   );

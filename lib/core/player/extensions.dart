@@ -112,18 +112,6 @@ extension PlayerExtensions on Player {
         break;
     }
 
-    if (this.isCollision(
-      Rect.fromLTWH(
-        startPosition.x,
-        startPosition.y + (height - height / 3),
-        width,
-        (height - height / 2),
-      ),
-      this.gameRef,
-    )) {
-      return;
-    }
-
     gameRef.add(
       FlyingAttackObject(
           direction: lastDirection,

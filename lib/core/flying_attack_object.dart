@@ -45,7 +45,7 @@ class FlyingAttackObject extends AnimatedObject with HasGameRef<RPGGame> {
       positionInWorld = position;
       _firstUpdate = false;
     }
-    if (_verifyCollision()) return;
+
     switch (direction) {
       case Direction.left:
         positionInWorld = positionInWorld.translate(speed * -1, 0);
@@ -74,6 +74,9 @@ class FlyingAttackObject extends AnimatedObject with HasGameRef<RPGGame> {
         position.top < gameRef.size.height * -2) {
       remove();
     }
+
+    if (_verifyCollision()) return;
+
     super.update(dt);
   }
 
@@ -92,9 +95,9 @@ class FlyingAttackObject extends AnimatedObject with HasGameRef<RPGGame> {
 
     Rect rectCollision = Rect.fromLTWH(
       position.left,
-      position.top + (height - height / 3),
+      position.top + (height / 2),
       width,
-      (height - height / 2),
+      height / 3,
     );
 
     var collisionsDecorations = List<GameDecoration>();
@@ -158,7 +161,7 @@ class FlyingAttackObject extends AnimatedObject with HasGameRef<RPGGame> {
           case Direction.bottom:
             positionDestroy = Rect.fromLTWH(
               position.left,
-              position.top + height,
+              position.bottom,
               width,
               height,
             );

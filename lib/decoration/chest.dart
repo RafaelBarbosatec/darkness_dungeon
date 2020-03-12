@@ -23,15 +23,19 @@ class Chest extends GameDecoration {
   void update(double dt) {
     this.seePlayer(
         observed: (player) {
-          gameRef.addDecoration(PotionLife(Position(
-            positionInWorld.translate(width * 2, 0).left,
-            positionInWorld.top,
-          )));
+          gameRef.addDecoration(PotionLife(
+              Position(
+                positionInWorld.translate(width * 2, 0).left,
+                positionInWorld.top,
+              ),
+              30));
 
-          gameRef.addDecoration(PotionLife(Position(
-            positionInWorld.translate(width * 2, 0).left,
-            positionInWorld.top + height * 2,
-          )));
+          gameRef.addDecoration(PotionLife(
+              Position(
+                positionInWorld.translate(width * 2, 0).left,
+                positionInWorld.top + height * 2,
+              ),
+              30));
 
           gameRef.add(
             AnimatedObjectOnce(
