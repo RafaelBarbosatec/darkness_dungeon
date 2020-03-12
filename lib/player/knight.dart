@@ -42,7 +42,7 @@ class Knight extends Player {
           sizeTileMap: 32,
           initPosition: initPosition,
           life: 200,
-          speed: 3,
+          speed: 2.5,
         );
 
   @override

@@ -9,15 +9,14 @@ import 'package:flame/position.dart';
 import 'package:flutter/widgets.dart';
 
 class Boss extends Enemy {
-  static double sizeTile = 32;
-  final Position initPositionRelativeTile;
+  final Position initPosition;
   double attack = 15;
 
   bool addChild = false;
 
   List<Enemy> childs = List();
 
-  Boss({this.initPositionRelativeTile})
+  Boss({this.initPosition})
       : super(
           animationIdleRight: FlameAnimation.Animation.sequenced(
             "enemy/boss_idle.png",
@@ -43,12 +42,11 @@ class Boss extends Enemy {
             textureWidth: 32,
             textureHeight: 36,
           ),
-          initPositionRelativeTile: initPositionRelativeTile,
-          sizeTileMap: sizeTile,
+          initPosition: initPosition,
           width: 32,
           height: 36,
-          speed: 1.5,
-          life: 100,
+          speed: 1,
+          life: 200,
         );
 
   @override
@@ -100,34 +98,28 @@ class Boss extends Enemy {
       return;
     }
 
-    Position positionChild;
     Rect positionExplosion;
 
     switch (this.directionThatPlayerIs()) {
       case Direction.left:
-        positionChild = Position((positionInWorld.left - width * 2) / sizeTile,
-            positionInWorld.top / sizeTile);
-        positionExplosion = position.translate(width * -2, 0);
+        positionExplosion = positionInWorld.translate(width * -2, 0);
         break;
       case Direction.right:
-        positionChild = Position((positionInWorld.right + width * 2) / sizeTile,
-            positionInWorld.top / sizeTile);
-        positionExplosion = position.translate(width * 3, 0);
+        positionExplosion = positionInWorld.translate(width * 3, 0);
         break;
       case Direction.top:
-        positionChild = Position(positionInWorld.left / sizeTile,
-            (positionInWorld.top - height) / sizeTile);
-        positionExplosion = position.translate(0, height * -1);
+        positionExplosion = positionInWorld.translate(0, height * -1);
         break;
       case Direction.bottom:
-        positionChild = Position(positionInWorld.left / sizeTile,
-            (positionInWorld.bottom + height) / sizeTile);
-        positionExplosion = position.translate(0, height * 2);
+        positionExplosion = positionInWorld.translate(0, height * 2);
         break;
     }
 
     Enemy e = Imp(
-      initPositionRelativeTile: positionChild,
+      initPosition: Position(
+        positionExplosion.left,
+        positionExplosion.top,
+      ),
     );
 
     gameRef.add(

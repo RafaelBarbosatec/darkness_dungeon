@@ -26,8 +26,7 @@ class Enemy extends AnimatedObject with ObjectCollision, HasGameRef<RPGGame> {
   final double speed;
   final double height;
   final double width;
-  final double sizeTileMap;
-  final Position initPositionRelativeTile;
+  final Position initPosition;
   final bool drawDefaultLife;
   double life;
   double maxLife;
@@ -46,11 +45,10 @@ class Enemy extends AnimatedObject with ObjectCollision, HasGameRef<RPGGame> {
     @required this.animationRunRight,
     @required this.animationRunLeft,
     this.animationRunBottom,
-    @required this.initPositionRelativeTile,
+    @required this.initPosition,
     @required this.height,
     @required this.width,
     Direction initDirection = Direction.right,
-    this.sizeTileMap = 32,
     this.speed = 3,
     this.life = 10,
     this.drawDefaultLife = true,
@@ -58,8 +56,8 @@ class Enemy extends AnimatedObject with ObjectCollision, HasGameRef<RPGGame> {
     lastDirection = initDirection;
     maxLife = life;
     this.position = Rect.fromLTWH(
-      initPositionRelativeTile.x * sizeTileMap,
-      initPositionRelativeTile.y * sizeTileMap,
+      initPosition.x,
+      initPosition.y,
       width,
       height,
     );

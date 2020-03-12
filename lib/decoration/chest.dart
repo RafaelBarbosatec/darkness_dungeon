@@ -5,8 +5,8 @@ import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/position.dart';
 
 class Chest extends GameDecoration {
-  final Position initPositionRelativeTile;
-  Chest(this.initPositionRelativeTile)
+  final Position initPosition;
+  Chest(this.initPosition)
       : super(
           animation: FlameAnimation.Animation.sequenced(
             "itens/chest_spritesheet.png",
@@ -16,7 +16,7 @@ class Chest extends GameDecoration {
           ),
           width: 16,
           height: 16,
-          initPositionRelativeTile: initPositionRelativeTile,
+          initPosition: initPosition,
         );
 
   @override

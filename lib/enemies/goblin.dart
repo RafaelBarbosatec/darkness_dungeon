@@ -5,11 +5,11 @@ import 'package:flame/position.dart';
 import 'package:flutter/cupertino.dart';
 
 class Goblin extends Enemy {
-  final Position initPositionRelativeTile;
-  double attack = 10;
+  final Position initPosition;
+  double attack = 20;
 
   Goblin({
-    @required this.initPositionRelativeTile,
+    @required this.initPosition,
   }) : super(
           animationIdleRight: FlameAnimation.Animation.sequenced(
             "goblin_idle.png",
@@ -35,8 +35,7 @@ class Goblin extends Enemy {
             textureWidth: 16,
             textureHeight: 16,
           ),
-          initPositionRelativeTile: initPositionRelativeTile,
-          sizeTileMap: 32,
+          initPosition: initPosition,
           width: 25,
           height: 25,
           speed: 1.5,
@@ -45,9 +44,11 @@ class Goblin extends Enemy {
 
   @override
   void update(double dt) {
-    this.seeAndMoveToAttackRange(positioned: (p) {
-      execAttackRange();
-    });
+    this.seeAndMoveToAttackRange(
+        positioned: (p) {
+          execAttackRange();
+        },
+        visionCells: 8);
 
     super.update(dt);
   }
@@ -103,7 +104,7 @@ class Goblin extends Enemy {
       ),
       width: 25,
       height: 25,
-      damage: 10,
+      damage: attack,
       speed: speed * 1.5,
     );
   }

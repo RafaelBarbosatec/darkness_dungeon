@@ -16,29 +16,25 @@ class GameDecoration extends AnimatedObject with HasGameRef<RPGGame> {
   final String spriteImg;
   final bool frontFromPlayer;
   final bool collision;
-  final double sizeTileMap;
   final FlameAnimation.Animation animation;
-  final Position initPositionRelativeTile;
+  final Position initPosition;
   Sprite _sprite;
   Rect positionInWorld;
 
   GameDecoration({
     this.spriteImg,
-    this.initPositionRelativeTile,
+    @required this.initPosition,
     @required this.height,
     @required this.width,
-    this.frontFromPlayer,
+    this.frontFromPlayer = false,
     this.animation,
     this.collision = false,
-    this.sizeTileMap = 32,
   }) {
     this.animation = animation;
     if (spriteImg != null && spriteImg.isNotEmpty) _sprite = Sprite(spriteImg);
     position = Rect.fromLTWH(
-      (initPositionRelativeTile != null ? initPositionRelativeTile.x : 0.0) *
-          sizeTileMap,
-      (initPositionRelativeTile != null ? initPositionRelativeTile.y : 0.0) *
-          sizeTileMap,
+      initPosition.x,
+      initPosition.y,
       width,
       height,
     );
@@ -65,6 +61,15 @@ class GameDecoration extends AnimatedObject with HasGameRef<RPGGame> {
       super.render(canvas);
       if (_sprite != null && _sprite.loaded())
         _sprite.renderRect(canvas, position);
+    }
+  }
+
+  @override
+  int priority() {
+    if (frontFromPlayer) {
+      return 1;
+    } else {
+      return super.priority();
     }
   }
 

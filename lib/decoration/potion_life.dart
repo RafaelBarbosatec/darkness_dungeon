@@ -7,26 +7,17 @@ class PotionLife extends GameDecoration {
   PotionLife(this.initPosition)
       : super(
           spriteImg: 'itens/potion_life.png',
-          initPositionRelativeTile: getPosition(initPosition),
-          width: 10,
-          height: 10,
+          initPosition: initPosition,
+          width: 16,
+          height: 16,
         );
 
   @override
   void update(double dt) {
-    this.seePlayer(
-        observed: (player) {
-          player.addLife(40);
-          remove();
-        },
-        visionCells: 1);
+    if (position.overlaps(gameRef.player.position)) {
+      gameRef.player.addLife(40);
+      remove();
+    }
     super.update(dt);
-  }
-
-  static Position getPosition(Position position) {
-    return Position(
-      position.x / 32,
-      position.y / 32,
-    );
   }
 }
