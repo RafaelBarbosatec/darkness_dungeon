@@ -58,7 +58,7 @@ extension PlayerExtensions on Player {
       if (enemy.positionInWorld.overlaps(positionAttack)) {
         enemy.receiveDamage(damage);
         if (!this.isCollision(
-            enemy.positionInWorld.translate(pushLeft, pushTop), this.gameRef)) {
+            enemy.position.translate(pushLeft, pushTop), this.gameRef)) {
           enemy.translate(pushLeft, pushTop);
         }
       }

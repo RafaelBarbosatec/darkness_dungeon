@@ -45,7 +45,7 @@ class Chest extends GameDecoration {
                 textureWidth: 16,
                 textureHeight: 16,
               ),
-              position: position.translate(width * 2, 0),
+              position: positionInWorld.translate(width * 2, 0),
             ),
           );
 
@@ -57,7 +57,7 @@ class Chest extends GameDecoration {
                 textureWidth: 16,
                 textureHeight: 16,
               ),
-              position: position.translate(width * 2, height * 2),
+              position: positionInWorld.translate(width * 2, height * 2),
             ),
           );
 
