@@ -53,7 +53,7 @@ class Boss extends Enemy {
   void update(double dt) {
     this.seePlayer(
       observed: (player) {
-        if (childs.isEmpty || childs.where((e) => !e.isDie).length == 0) {
+        if (childs.isEmpty || childs.where((e) => !e.isDead).length == 0) {
           addChildInMap();
         }
       },

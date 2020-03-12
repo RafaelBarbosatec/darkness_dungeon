@@ -19,7 +19,7 @@ extension PlayerExtensions on Player {
     double heightArea = 32,
     double widthArea = 32,
   }) {
-    if (isDie) return;
+    if (isDead) return;
 
     Rect positionAttack;
     FlameAnimation.Animation anim = attackEffectRightAnim;
@@ -76,7 +76,7 @@ extension PlayerExtensions on Player {
     double speed = 1.5,
     double damage = 1,
   }) {
-    if (isDie) return;
+    if (isDead) return;
 
     Position startPosition;
     FlameAnimation.Animation attackRangeAnimation;

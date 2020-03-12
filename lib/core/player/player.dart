@@ -37,7 +37,7 @@ class Player extends AnimatedObject
   JoystickMoveDirectional statusMoveDirectional;
   Direction lastDirection;
   Direction _lastDirectionHorizontal = Direction.right;
-  bool _isDie = false;
+  bool _isDead = false;
   int lastJoystickAction;
 
   Player({
@@ -92,13 +92,13 @@ class Player extends AnimatedObject
 
   @override
   void joystickAction(int action) {
-    if (_isDie) return;
+    if (_isDead) return;
     lastJoystickAction = action;
   }
 
   @override
   void joystickChangeDirectional(JoystickMoveDirectional directional) {
-    if (_isDie) return;
+    if (_isDead) return;
     switch (directional) {
       case JoystickMoveDirectional.MOVE_TOP:
         _moveTop();
@@ -327,10 +327,10 @@ class Player extends AnimatedObject
   }
 
   void die() {
-    _isDie = true;
+    _isDead = true;
   }
 
-  bool get isDie => _isDie;
+  bool get isDead => _isDead;
 
   void addFastAnimation(FlameAnimation.Animation animation) {
     AnimatedObjectOnce fastAnimation = AnimatedObjectOnce(

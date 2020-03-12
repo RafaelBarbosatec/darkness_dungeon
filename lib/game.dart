@@ -83,7 +83,7 @@ class _GameState extends State<Game> {
       decorations: DungeonMap.decorations(),
       enemies: DungeonMap.enemies(),
     )..addListener((game) {
-        if (game.player.isDie && !visibleGameOver) {
+        if (game.player.isDead && !visibleGameOver) {
           _showDialogGameOver();
         }
       });

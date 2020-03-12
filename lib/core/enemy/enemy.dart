@@ -31,7 +31,7 @@ class Enemy extends AnimatedObject with ObjectCollision, HasGameRef<RPGGame> {
   double life;
   double maxLife;
   Rect positionInWorld;
-  bool _isDie = false;
+  bool _isDead = false;
   Direction lastDirection;
   Direction lastDirectionHorizontal;
   Map<String, Timer> timers = Map();
@@ -71,7 +71,7 @@ class Enemy extends AnimatedObject with ObjectCollision, HasGameRef<RPGGame> {
     idle();
   }
 
-  bool get isDie => _isDie;
+  bool get isDead => _isDead;
 
   @override
   void render(Canvas canvas) {
@@ -268,7 +268,7 @@ class Enemy extends AnimatedObject with ObjectCollision, HasGameRef<RPGGame> {
   }
 
   void die() {
-    _isDie = true;
+    _isDead = true;
   }
 
   void addFastAnimation(FlameAnimation.Animation animation) {

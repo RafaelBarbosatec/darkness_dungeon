@@ -12,7 +12,7 @@ extension GameDecorationExtensions on GameDecoration {
     Player player = gameRef.player;
     if (!isVisibleInMap()) return;
 
-    if (player.isDie) {
+    if (player.isDead) {
       if (notObserved != null) notObserved();
       return;
     }

@@ -18,7 +18,7 @@ extension EnemyExtensions on Enemy {
     Player player = gameRef.player;
     if (!isVisibleInMap()) return;
 
-    if (player.isDie) {
+    if (player.isDead) {
       if (notObserved != null) notObserved();
       return;
     }
@@ -41,7 +41,7 @@ extension EnemyExtensions on Enemy {
   }
 
   void seeAndMoveToPlayer({Function(Player) closePlayer, int visionCells = 3}) {
-    if (!isVisibleInMap() || isDie) return;
+    if (!isVisibleInMap() || isDead) return;
     seePlayer(
       visionCells: visionCells,
       observed: (player) {
@@ -119,7 +119,7 @@ extension EnemyExtensions on Enemy {
     }
     Player player = gameRef.player;
 
-    if (player.isDie || !isVisibleInMap() || isDie) return;
+    if (player.isDead || !isVisibleInMap() || isDead) return;
 
     Rect positionAttack;
     FlameAnimation.Animation anim = attackEffectRightAnim;
@@ -213,7 +213,7 @@ extension EnemyExtensions on Enemy {
 
     Player player = this.gameRef.player;
 
-    if (player.isDie || !isVisibleInMap() || isDie) return;
+    if (player.isDead || !isVisibleInMap() || isDead) return;
 
     Position startPosition;
     FlameAnimation.Animation attackRangeAnimation;
@@ -298,7 +298,7 @@ extension EnemyExtensions on Enemy {
 
   void seeAndMoveToAttackRange(
       {Function(Player) positioned, int visionCells = 5}) {
-    if (!isVisibleInMap() || isDie) return;
+    if (!isVisibleInMap() || isDead) return;
 
     seePlayer(
         visionCells: visionCells,
