@@ -66,7 +66,7 @@ class DungeonMap {
         height: 32,
         collision: true,
       ),
-      Chest(getWorldPosition(20, 6)),
+      Chest(getWorldPosition(18, 8)),
       GameDecoration(
         spriteImg: 'itens/table.png',
         initPosition: getWorldPosition(15, 7),
@@ -143,7 +143,7 @@ class DungeonMap {
     return [
       Goblin(initPosition: getWorldPosition(14, 6)),
       Imp(initPosition: getWorldPosition(10, 7)),
-      Boss(initPosition: getWorldPosition(20, 6)),
+      Boss(initPosition: getWorldPosition(25, 6)),
     ];
   }
 
