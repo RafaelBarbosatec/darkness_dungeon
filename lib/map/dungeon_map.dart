@@ -61,22 +61,22 @@ class DungeonMap {
     return [
       GameDecoration(
         spriteImg: 'itens/barrel.png',
-        initPosition: getWorldPosition(10, 5),
+        initPosition: getRelativeTilePosition(10, 5),
         width: 32,
         height: 32,
         collision: true,
       ),
-      Chest(getWorldPosition(18, 7)),
+      Chest(getRelativeTilePosition(18, 7)),
       GameDecoration(
         spriteImg: 'itens/table.png',
-        initPosition: getWorldPosition(15, 7),
+        initPosition: getRelativeTilePosition(15, 7),
         width: 32,
         height: 32,
         collision: true,
       ),
       GameDecoration(
         spriteImg: 'itens/table.png',
-        initPosition: getWorldPosition(27, 6),
+        initPosition: getRelativeTilePosition(27, 6),
         width: 32,
         height: 32,
         collision: true,
@@ -88,7 +88,7 @@ class DungeonMap {
           textureWidth: 16,
           textureHeight: 16,
         ),
-        initPosition: getWorldPosition(4, 4),
+        initPosition: getRelativeTilePosition(4, 4),
         width: 32,
         height: 32,
       ),
@@ -99,7 +99,7 @@ class DungeonMap {
           textureWidth: 16,
           textureHeight: 16,
         ),
-        initPosition: getWorldPosition(8, 4),
+        initPosition: getRelativeTilePosition(8, 4),
         width: 32,
         height: 32,
       ),
@@ -110,7 +110,7 @@ class DungeonMap {
           textureWidth: 16,
           textureHeight: 16,
         ),
-        initPosition: getWorldPosition(12, 4),
+        initPosition: getRelativeTilePosition(12, 4),
         width: 32,
         height: 32,
       ),
@@ -121,25 +121,25 @@ class DungeonMap {
           textureWidth: 16,
           textureHeight: 16,
         ),
-        initPosition: getWorldPosition(16, 4),
+        initPosition: getRelativeTilePosition(16, 4),
         width: 32,
         height: 32,
       ),
       GameDecoration(
         spriteImg: 'itens/flag_red.png',
-        initPosition: getWorldPosition(6, 4),
+        initPosition: getRelativeTilePosition(6, 4),
         width: 32,
         height: 32,
       ),
       GameDecoration(
         spriteImg: 'itens/flag_red.png',
-        initPosition: getWorldPosition(10, 4),
+        initPosition: getRelativeTilePosition(10, 4),
         width: 32,
         height: 32,
       ),
       GameDecoration(
         spriteImg: 'itens/flag_red.png',
-        initPosition: getWorldPosition(14, 4),
+        initPosition: getRelativeTilePosition(14, 4),
         width: 32,
         height: 32,
       )
@@ -148,9 +148,9 @@ class DungeonMap {
 
   static List<Enemy> enemies() {
     return [
-      Goblin(initPosition: getWorldPosition(14, 6)),
-      Imp(initPosition: getWorldPosition(10, 7)),
-      Boss(initPosition: getWorldPosition(25, 6)),
+      Goblin(initPosition: getRelativeTilePosition(14, 6)),
+      Imp(initPosition: getRelativeTilePosition(10, 7)),
+      Boss(initPosition: getRelativeTilePosition(25, 6)),
     ];
   }
 
@@ -180,7 +180,7 @@ class DungeonMap {
     return sprite;
   }
 
-  static Position getWorldPosition(int x, int y) {
+  static Position getRelativeTilePosition(int x, int y) {
     return Position(
       (x * tileSize).toDouble(),
       (y * tileSize).toDouble(),
