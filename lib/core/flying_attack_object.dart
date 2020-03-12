@@ -20,7 +20,6 @@ class FlyingAttackObject extends AnimatedObject with HasGameRef<RPGGame> {
   final bool damageInPlayer;
   final bool damageInEnemy;
   Rect positionInWorld;
-  bool _firstUpdate = true;
 
   FlyingAttackObject({
     @required this.initPosition,
@@ -35,17 +34,14 @@ class FlyingAttackObject extends AnimatedObject with HasGameRef<RPGGame> {
     this.damageInEnemy = true,
   }) {
     animation = flyAnimation;
+    position =
+        position = Rect.fromLTWH(initPosition.x, initPosition.y, width, height);
+    positionInWorld = position;
+    positionInWorld = position;
   }
 
   @override
   void update(double dt) {
-    if (_firstUpdate) {
-      position = Rect.fromLTWH(initPosition.x - gameRef.mapCamera.x,
-          initPosition.y - gameRef.mapCamera.y, width, height);
-      positionInWorld = position;
-      _firstUpdate = false;
-    }
-
     switch (direction) {
       case Direction.left:
         positionInWorld = positionInWorld.translate(speed * -1, 0);
@@ -94,8 +90,8 @@ class FlyingAttackObject extends AnimatedObject with HasGameRef<RPGGame> {
     bool destroy = false;
 
     Rect rectCollision = Rect.fromLTWH(
-      position.left,
-      position.top + (height / 2),
+      positionInWorld.left,
+      positionInWorld.top + (height / 2),
       width,
       height / 3,
     );
@@ -103,12 +99,15 @@ class FlyingAttackObject extends AnimatedObject with HasGameRef<RPGGame> {
     var collisionsDecorations = List<GameDecoration>();
     var collisions = gameRef.map
         .getCollisionsRendered()
-        .where((i) => i.collision && i.position.overlaps(rectCollision))
+        .where((i) =>
+            i.collision &&
+            _transformPositionInWord(i.position).overlaps(rectCollision))
         .toList();
 
     if (gameRef.decorations != null) {
       collisionsDecorations = gameRef.decorations
-          .where((i) => i.collision && i.position.overlaps(rectCollision))
+          .where(
+              (i) => i.collision && i.positionInWorld.overlaps(rectCollision))
           .toList();
     }
 
@@ -123,7 +122,7 @@ class FlyingAttackObject extends AnimatedObject with HasGameRef<RPGGame> {
 
     if (damageInEnemy) {
       gameRef.enemies.where((i) => i.isVisibleInMap()).forEach((enemy) {
-        if (enemy.position.overlaps(position)) {
+        if (enemy.positionInWorld.overlaps(positionInWorld)) {
           enemy.receiveDamage(damage);
           destroy = true;
         }
@@ -136,32 +135,32 @@ class FlyingAttackObject extends AnimatedObject with HasGameRef<RPGGame> {
         switch (direction) {
           case Direction.left:
             positionDestroy = Rect.fromLTWH(
-              position.left - width,
-              position.top,
+              positionInWorld.left - width,
+              positionInWorld.top,
               width,
               height,
             );
             break;
           case Direction.right:
             positionDestroy = Rect.fromLTWH(
-              position.left + width,
-              position.top,
+              positionInWorld.left + width,
+              positionInWorld.top,
               width,
               height,
             );
             break;
           case Direction.top:
             positionDestroy = Rect.fromLTWH(
-              position.left,
-              position.top - height,
+              positionInWorld.left,
+              positionInWorld.top - height,
               width,
               height,
             );
             break;
           case Direction.bottom:
             positionDestroy = Rect.fromLTWH(
-              position.left,
-              position.bottom,
+              positionInWorld.left,
+              positionInWorld.bottom,
               width,
               height,
             );
@@ -180,4 +179,11 @@ class FlyingAttackObject extends AnimatedObject with HasGameRef<RPGGame> {
 
     return destroy;
   }
+
+  _transformPositionInWord(Rect position) => Rect.fromLTWH(
+        position.left - gameRef.mapCamera.x,
+        position.top - gameRef.mapCamera.y,
+        position.width,
+        position.height,
+      );
 }

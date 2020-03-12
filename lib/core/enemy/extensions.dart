@@ -146,8 +146,8 @@ extension EnemyExtensions on Enemy {
     switch (playerDirection) {
       case Direction.top:
         positionAttack = Rect.fromLTWH(
-          position.left + (this.width - widthArea) / 2,
-          position.top - this.height,
+          this.positionInWorld.left + (this.width - widthArea) / 2,
+          this.positionInWorld.top - this.height,
           widthArea,
           heightArea,
         );
@@ -155,8 +155,8 @@ extension EnemyExtensions on Enemy {
         break;
       case Direction.right:
         positionAttack = Rect.fromLTWH(
-          position.right,
-          position.top + (this.height - heightArea) / 2,
+          this.positionInWorld.right,
+          this.positionInWorld.top + (this.height - heightArea) / 2,
           widthArea,
           heightArea,
         );
@@ -164,8 +164,8 @@ extension EnemyExtensions on Enemy {
         break;
       case Direction.bottom:
         positionAttack = Rect.fromLTWH(
-          position.left + (this.width - widthArea) / 2,
-          position.bottom,
+          this.positionInWorld.left + (this.width - widthArea) / 2,
+          this.positionInWorld.bottom,
           widthArea,
           heightArea,
         );
@@ -173,8 +173,8 @@ extension EnemyExtensions on Enemy {
         break;
       case Direction.left:
         positionAttack = Rect.fromLTWH(
-          position.left - this.width,
-          position.top + (this.height - heightArea) / 2,
+          this.positionInWorld.left - this.width,
+          this.positionInWorld.top + (this.height - heightArea) / 2,
           widthArea,
           heightArea,
         );
@@ -245,29 +245,33 @@ extension EnemyExtensions on Enemy {
       case Direction.left:
         if (animationLeft != null) attackRangeAnimation = animationLeft;
         startPosition = Position(
-          this.position.left - width,
-          (this.position.top + (this.position.height - height) / 2),
+          this.positionInWorld.left - width,
+          (this.positionInWorld.top +
+              (this.positionInWorld.height - height) / 2),
         );
         break;
       case Direction.right:
         if (animationRight != null) attackRangeAnimation = animationRight;
         startPosition = Position(
-          this.position.right,
-          (this.position.top + (this.position.height - height) / 2),
+          this.positionInWorld.right,
+          (this.positionInWorld.top +
+              (this.positionInWorld.height - height) / 2),
         );
         break;
       case Direction.top:
         if (animationTop != null) attackRangeAnimation = animationTop;
         startPosition = Position(
-          (this.position.left + (this.position.width - width) / 2),
-          this.position.top - height,
+          (this.positionInWorld.left +
+              (this.positionInWorld.width - width) / 2),
+          this.positionInWorld.top - height,
         );
         break;
       case Direction.bottom:
         if (animationBottom != null) attackRangeAnimation = animationBottom;
         startPosition = Position(
-          (this.position.left + (this.position.width - width) / 2),
-          this.position.bottom,
+          (this.positionInWorld.left +
+              (this.positionInWorld.width - width) / 2),
+          this.positionInWorld.bottom,
         );
         break;
     }
@@ -275,18 +279,6 @@ extension EnemyExtensions on Enemy {
     this.lastDirection = finalDirection;
     if (finalDirection == Direction.right || finalDirection == Direction.left) {
       this.lastDirectionHorizontal = finalDirection;
-    }
-
-    if (this.isCollision(
-      Rect.fromLTWH(
-        startPosition.x,
-        startPosition.y + (height - height / 3),
-        width,
-        (height - height / 2),
-      ),
-      this.gameRef,
-    )) {
-      return;
     }
 
     gameRef.add(

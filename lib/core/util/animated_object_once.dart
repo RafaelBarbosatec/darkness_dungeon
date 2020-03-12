@@ -12,7 +12,6 @@ class AnimatedObjectOnce extends Component with HasGameRef<RPGGame> {
   final bool onlyUpdate;
   bool _isDestroyed = false;
   Rect positionInWorld;
-  bool _isFirstUpdate = true;
 
   AnimatedObjectOnce({
     this.position,
@@ -33,17 +32,6 @@ class AnimatedObjectOnce extends Component with HasGameRef<RPGGame> {
 
   @override
   void update(double dt) {
-    if (_isFirstUpdate) {
-      position = Rect.fromLTWH(
-        position.left - gameRef.mapCamera.x,
-        position.top - gameRef.mapCamera.y,
-        position.width,
-        position.height,
-      );
-      positionInWorld = position;
-      _isFirstUpdate = false;
-    }
-
     if (animation != null && !_isDestroyed) {
       animation.update(dt);
       if (animation.isLastFrame) {

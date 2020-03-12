@@ -27,26 +27,26 @@ extension PlayerExtensions on Player {
     double pushTop = 0;
     switch (lastDirection) {
       case Direction.top:
-        positionAttack = Rect.fromLTWH(
-            position.left, position.top - heightArea, widthArea, heightArea);
+        positionAttack = Rect.fromLTWH(positionInWorld.left,
+            positionInWorld.top - heightArea, widthArea, heightArea);
         if (attackEffectTopAnim != null) anim = attackEffectTopAnim;
         pushTop = heightArea * -1;
         break;
       case Direction.right:
-        positionAttack = Rect.fromLTWH(
-            position.left + widthArea, position.top, widthArea, heightArea);
+        positionAttack = Rect.fromLTWH(positionInWorld.left + widthArea,
+            positionInWorld.top, widthArea, heightArea);
         if (attackEffectRightAnim != null) anim = attackEffectRightAnim;
         pushLeft = widthArea;
         break;
       case Direction.bottom:
-        positionAttack = Rect.fromLTWH(
-            position.left, position.top + heightArea, widthArea, heightArea);
+        positionAttack = Rect.fromLTWH(positionInWorld.left,
+            positionInWorld.top + heightArea, widthArea, heightArea);
         if (attackEffectBottomAnim != null) anim = attackEffectBottomAnim;
         pushTop = heightArea;
         break;
       case Direction.left:
-        positionAttack = Rect.fromLTWH(
-            position.left - widthArea, position.top, widthArea, heightArea);
+        positionAttack = Rect.fromLTWH(positionInWorld.left - widthArea,
+            positionInWorld.top, widthArea, heightArea);
         if (attackEffectLeftAnim != null) anim = attackEffectLeftAnim;
         pushLeft = widthArea * -1;
         break;
@@ -55,7 +55,7 @@ extension PlayerExtensions on Player {
     gameRef.add(AnimatedObjectOnce(animation: anim, position: positionAttack));
 
     gameRef.enemies.where((i) => i.isVisibleInMap()).forEach((enemy) {
-      if (enemy.position.overlaps(positionAttack)) {
+      if (enemy.positionInWorld.overlaps(positionAttack)) {
         enemy.receiveDamage(damage);
         if (!this.isCollision(
             enemy.positionInWorld.translate(pushLeft, pushTop), this.gameRef)) {
@@ -85,29 +85,33 @@ extension PlayerExtensions on Player {
       case Direction.left:
         if (animationLeft != null) attackRangeAnimation = animationLeft;
         startPosition = Position(
-          this.position.left - width,
-          (this.position.top + (this.position.height - height) / 2),
+          this.positionInWorld.left - width,
+          (this.positionInWorld.top +
+              (this.positionInWorld.height - height) / 2),
         );
         break;
       case Direction.right:
         if (animationRight != null) attackRangeAnimation = animationRight;
         startPosition = Position(
-          this.position.right,
-          (this.position.top + (this.position.height - height) / 2),
+          this.positionInWorld.right,
+          (this.positionInWorld.top +
+              (this.positionInWorld.height - height) / 2),
         );
         break;
       case Direction.top:
         if (animationTop != null) attackRangeAnimation = animationTop;
         startPosition = Position(
-          (this.position.left + (this.position.width - width) / 2),
-          this.position.top - height,
+          (this.positionInWorld.left +
+              (this.positionInWorld.width - width) / 2),
+          this.positionInWorld.top - height,
         );
         break;
       case Direction.bottom:
         if (animationBottom != null) attackRangeAnimation = animationBottom;
         startPosition = Position(
-          (this.position.left + (this.position.width - width) / 2),
-          this.position.bottom,
+          (this.positionInWorld.left +
+              (this.positionInWorld.width - width) / 2),
+          this.positionInWorld.bottom,
         );
         break;
     }

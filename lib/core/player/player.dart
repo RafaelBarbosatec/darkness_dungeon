@@ -349,4 +349,11 @@ class Player extends AnimatedObject
       this.life = maxLife;
     }
   }
+
+  Rect get positionInWorld => Rect.fromLTWH(
+        position.left - gameRef.mapCamera.x,
+        position.top - gameRef.mapCamera.y,
+        position.width,
+        position.height,
+      );
 }

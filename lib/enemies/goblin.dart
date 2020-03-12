@@ -63,7 +63,7 @@ class Goblin extends Enemy {
           textureWidth: 16,
           textureHeight: 16,
         ),
-        position: position,
+        position: positionInWorld,
       ),
     );
     remove();

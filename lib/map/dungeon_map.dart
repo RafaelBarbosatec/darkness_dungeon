@@ -75,6 +75,13 @@ class DungeonMap {
         collision: true,
       ),
       GameDecoration(
+        spriteImg: 'itens/table.png',
+        initPosition: getWorldPosition(27, 6),
+        width: 32,
+        height: 32,
+        collision: true,
+      ),
+      GameDecoration(
         animation: FlameAnimation.Animation.sequenced(
           "itens/torch_spritesheet.png",
           6,
