@@ -6,7 +6,8 @@ import 'package:flutter/cupertino.dart';
 
 class Goblin extends Enemy {
   final Position initPosition;
-  double attack = 20;
+  double attack = 25;
+  bool _seePlayerClose = false;
 
   Goblin({
     @required this.initPosition,
@@ -44,11 +45,26 @@ class Goblin extends Enemy {
 
   @override
   void update(double dt) {
-    this.seeAndMoveToAttackRange(
+    _seePlayerClose = false;
+    this.seePlayer(
+        observed: (player) {
+          _seePlayerClose = true;
+          this.seeAndMoveToPlayer(
+              closePlayer: (player) {
+                execAttack();
+              },
+              visionCells: 3);
+        },
+        visionCells: 3);
+
+    if (!_seePlayerClose) {
+      this.seeAndMoveToAttackRange(
         positioned: (p) {
           execAttackRange();
         },
-        visionCells: 8);
+        visionCells: 8,
+      );
+    }
 
     super.update(dt);
   }
@@ -106,6 +122,39 @@ class Goblin extends Enemy {
       height: 25,
       damage: attack,
       speed: speed * 1.5,
+    );
+  }
+
+  void execAttack() {
+    this.simpleAttackMelee(
+      heightArea: 20,
+      widthArea: 20,
+      damage: attack / 2,
+      interval: 300,
+      attackEffectBottomAnim: FlameAnimation.Animation.sequenced(
+        'enemy/atack_effect_bottom.png',
+        6,
+        textureWidth: 16,
+        textureHeight: 16,
+      ),
+      attackEffectLeftAnim: FlameAnimation.Animation.sequenced(
+        'enemy/atack_effect_left.png',
+        6,
+        textureWidth: 16,
+        textureHeight: 16,
+      ),
+      attackEffectRightAnim: FlameAnimation.Animation.sequenced(
+        'enemy/atack_effect_right.png',
+        6,
+        textureWidth: 16,
+        textureHeight: 16,
+      ),
+      attackEffectTopAnim: FlameAnimation.Animation.sequenced(
+        'enemy/atack_effect_top.png',
+        6,
+        textureWidth: 16,
+        textureHeight: 16,
+      ),
     );
   }
 }
