@@ -68,10 +68,10 @@ class FlyingAttackObject extends AnimatedObject with HasGameRef<RPGGame> {
       height,
     );
 
-    if (position.right > gameRef.size.width * 2 ||
-        position.left < gameRef.size.width * -2 ||
-        position.bottom > gameRef.size.height * 2 ||
-        position.top < gameRef.size.height * -2) {
+    if (position.right > gameRef.size.width * 1.5 ||
+        position.left < gameRef.size.width * -1.5 ||
+        position.bottom > gameRef.size.height * 1.5 ||
+        position.top < gameRef.size.height * -1.5) {
       remove();
     }
 
