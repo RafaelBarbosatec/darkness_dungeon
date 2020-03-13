@@ -1,4 +1,5 @@
-import 'package:darkness_dungeon/core/joystick.dart';
+import 'package:darkness_dungeon/core/joystick/joystick2.dart';
+import 'package:darkness_dungeon/core/joystick/joystick_action.dart';
 import 'package:darkness_dungeon/core/rpg_game.dart';
 import 'package:darkness_dungeon/map/dungeon_map.dart';
 import 'package:darkness_dungeon/player/knight.dart';
@@ -15,12 +16,31 @@ class Game extends StatefulWidget {
 }
 
 class _GameState extends State<Game> {
-  Joystick _joystick;
+  Joystck2 _joystick;
   RPGGame _game;
   bool visibleGameOver = false;
   @override
   void initState() {
-    _joystick = Joystick(widget.size, widget.size.height / 10);
+    _joystick = Joystck2(
+      screenSize: widget.size,
+      actions: [
+        JoystickAction(
+          actionId: 0,
+          pathSprite: 'joystick_atack.png',
+          size: 50,
+          marginBottom: 50,
+          marginRight: 50,
+        ),
+        JoystickAction(
+          actionId: 1,
+          pathSprite: 'joystick_atack_range.png',
+          size: 50,
+          marginTop: 50,
+          marginRight: 50,
+          align: JoystickActionAlign.TOP,
+        )
+      ],
+    );
     _game = _createGame();
     super.initState();
   }
@@ -47,6 +67,9 @@ class _GameState extends State<Game> {
                     _joystick.onTapUp(d);
                     _game.onTapUp(d);
                   },
+                  onTapCancel: () {
+                    _joystick.onTapCancel();
+                  },
                   child: Container(),
                 ),
               ),
@@ -60,6 +83,9 @@ class _GameState extends State<Game> {
                   onTapUp: (d) {
                     _joystick.onTapUpAttack(d);
                     _game.onTapUp(d);
+                  },
+                  onTapCancel: () {
+                    _joystick.onTapCancel();
                   },
                   child: Container(),
                 ),
