@@ -18,7 +18,7 @@ class RPGGame extends BaseGame with TapDetector {
   final List<GameDecoration> decorations;
   final JoystickController joystickController;
   Position mapCamera = Position.empty();
-  Function(RPGGame) gameListener;
+  Function(RPGGame) _gameListener;
 
   RPGGame({
     @required this.context,
@@ -28,41 +28,29 @@ class RPGGame extends BaseGame with TapDetector {
     this.interface,
     this.enemies,
     this.decorations,
-  })  : assert(
-          player != null,
-        ),
-        assert(
-          map != null,
-        ),
-        assert(
-          joystickController != null,
-        ) {
+  })  : assert(player != null),
+        assert(map != null),
+        assert(context != null),
+        assert(joystickController != null) {
     joystickController.joystickListener = player;
 
     add(map);
-    decorations?.forEach((decoration) {
-      add(decoration);
-    });
-    enemies?.forEach((enemy) {
-      add(enemy);
-    });
+    decorations?.forEach((decoration) => add(decoration));
+    enemies?.forEach((enemy) => add(enemy));
     add(player);
-
     add(joystickController);
 
-    if (interface != null) {
-      add(interface);
-    }
+    if (interface != null) add(interface);
   }
 
   @override
   void update(double t) {
     super.update(t);
-    if (gameListener != null) gameListener(this);
+    if (_gameListener != null) _gameListener(this);
   }
 
   void addListener(Function(RPGGame) gameListener) {
-    this.gameListener = gameListener;
+    this._gameListener = gameListener;
   }
 
   void addEnemy(Enemy enemy) {
@@ -77,21 +65,29 @@ class RPGGame extends BaseGame with TapDetector {
 
   @override
   void onTapDown(TapDownDetails details) {
-    if (interface != null) interface.onTapDown(details);
+    components
+        .where((item) => item is TapDetector)
+        .forEach((item) => (item as TapDetector).onTapDown(details));
   }
 
   @override
   void onTapUp(TapUpDetails details) {
-    if (interface != null) interface.onTapUp(details);
+    components
+        .where((item) => item is TapDetector)
+        .forEach((item) => (item as TapDetector).onTapUp(details));
   }
 
   @override
   void onTap() {
-    if (interface != null) interface.onTap();
+    components
+        .where((item) => item is TapDetector)
+        .forEach((item) => (item as TapDetector).onTap());
   }
 
   @override
   void onTapCancel() {
-    if (interface != null) interface.onTapCancel();
+    components
+        .where((item) => item is TapDetector)
+        .forEach((item) => (item as TapDetector).onTapCancel());
   }
 }

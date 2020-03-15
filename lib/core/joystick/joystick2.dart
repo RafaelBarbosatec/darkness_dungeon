@@ -53,7 +53,7 @@ class Joystck2 extends JoystickController {
 
     Offset osKnob =
         Offset(_backgroundRect.center.dx, _backgroundRect.center.dy);
-    _knobRect = Rect.fromCircle(center: osKnob, radius: sizeDirectional / 3);
+    _knobRect = Rect.fromCircle(center: osKnob, radius: sizeDirectional / 4);
 
     _dragPosition = _knobRect.center;
 

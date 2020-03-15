@@ -26,4 +26,9 @@ abstract class JoystickController extends Component {
 
   @override
   void update(double t) {}
+
+  @override
+  int priority() {
+    return 20;
+  }
 }
