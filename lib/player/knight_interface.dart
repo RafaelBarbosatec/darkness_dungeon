@@ -92,10 +92,4 @@ class KnightInterface extends GameInterface {
     double factor = 0.3375;
     healthBar.renderRect(c, Rect.fromLTWH(padding, padding, w, w * factor));
   }
-
-  @override
-  void onTapDown(TapDownDetails details) {
-    print(details);
-    super.onTapDown(details);
-  }
 }
