@@ -9,6 +9,4 @@
 
 ![](https://github.com/RafaelBarbosatec/darkness_dungeon/blob/master/gameplay.gif)
 
-Project designed to exploit Flame potential for RPG games.
-
-Maybe future package util to make own RPG game.
+Teste game under construction with Bonfire - [![pub package](https://img.shields.io/pub/v/bonfire.svg)](https://pub.dev/packages/bonfire)
