@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:darkness_dungeon/core/game_interface.dart';
+import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/player/knight.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/material.dart';

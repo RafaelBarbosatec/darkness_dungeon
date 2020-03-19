@@ -20,7 +20,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  flame: ^0.18.1
+  bonfire: ^0.0.2
   flame_splash_screen: ^0.0.1
 
 
@@ -37,54 +37,9 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/joystick_background.png
-    - assets/images/joystick_knob.png
-    - assets/images/joystick_atack.png
-    - assets/images/joystick_atack_range.png
-    - assets/images/knight_idle.png
-    - assets/images/knight_idle_left.png
-    - assets/images/knight_run.png
-    - assets/images/knight_run_left.png
-    - assets/images/tile/floor_1.png
-    - assets/images/tile/floor_2.png
-    - assets/images/tile/floor_3.png
-    - assets/images/tile/floor_4.png
-    - assets/images/tile/floor_5.png
-    - assets/images/tile/floor_6.png
-    - assets/images/tile/floor_7.png
-    - assets/images/tile/floor_8.png
-    - assets/images/tile/floor_9.png
-    - assets/images/tile/floor_10.png
-    - assets/images/tile/wall.png
-    - assets/images/tile/wall_bottom.png
-    - assets/images/tile/wall_top.png
-    - assets/images/tile/wall_left.png
-    - assets/images/tile/wall_right.png
-    - assets/images/tile/wall_top_inner_left.png
-    - assets/images/tile/wall_top_inner_right.png
-    - assets/images/tile/wall_bottom_right.png
-    - assets/images/tile/wall_left_and_top.png
-    - assets/images/tile/wall_right_and_bottom.png
-    - assets/images/tile/wall_bottom_left.png
-    - assets/images/tile/wall_left_and_bottom.png
-    - assets/images/tile/wall_turn_left_top.png
-    - assets/images/tile/empty.png
-    - assets/images/slime_idle.png
-    - assets/images/slime_run_right.png
-    - assets/images/goblin_idle.png
-    - assets/images/goblin_idle_left.png
-    - assets/images/goblin_run_right.png
-    - assets/images/goblin_run_left.png
-    - assets/images/health_ui.png
-    - assets/images/crypt.png
-    - assets/images/atack_effect_right.png
-    - assets/images/atack_effect_left.png
-    - assets/images/atack_effect_bottom.png
-    - assets/images/atack_effect_top.png
-    - assets/images/enemy_explosin.png
-    - assets/game_over.png
-    - assets/play_again.png
-    - assets/logo_flame.png
+    - assets/
+    - assets/images/
+    - assets/images/tile/
     - assets/images/enemy/
     - assets/images/player/
     - assets/images/itens/

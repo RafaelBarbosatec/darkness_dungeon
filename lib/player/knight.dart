@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:darkness_dungeon/core/player/player.dart';
+import 'package:bonfire/bonfire.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/position.dart';
 
@@ -39,7 +39,6 @@ class Knight extends Player {
           ),
           width: 32,
           height: 32,
-          sizeTileMap: 32,
           initPosition: initPosition,
           life: 200,
           speed: 2.5,
@@ -60,6 +59,17 @@ class Knight extends Player {
   @override
   void die() {
     remove();
+    gameRef.addDecoration(
+      GameDecoration(
+        initPosition: Position(
+          positionInWorld.left,
+          positionInWorld.top,
+        ),
+        height: 30,
+        width: 30,
+        spriteImg: 'player/crypt.png',
+      ),
+    );
     super.die();
   }
 
@@ -166,5 +176,11 @@ class Knight extends Player {
     if (stamina < 0) {
       stamina = 0;
     }
+  }
+
+  @override
+  void receiveDamage(double damage) {
+    this.showDamage(damage);
+    super.receiveDamage(damage);
   }
 }

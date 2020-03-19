@@ -1,5 +1,4 @@
-import 'package:darkness_dungeon/core/decoration/decoration.dart';
-import 'package:darkness_dungeon/core/util/animated_object_once.dart';
+import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/decoration/potion_life.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/position.dart';

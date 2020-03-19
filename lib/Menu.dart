@@ -52,14 +52,10 @@ class _MenuState extends State<Menu> {
                         color: Colors.white,
                         fontFamily: 'Normal',
                         fontSize: 17.0)),
-                onPressed: () async {
-                  Size size = await Flame.util.initialDimensions();
+                onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => Game(
-                              size: size,
-                            )),
+                    MaterialPageRoute(builder: (context) => Game()),
                   );
                 })
           ],

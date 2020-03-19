@@ -1,5 +1,4 @@
-import 'package:darkness_dungeon/core/enemy/enemy.dart';
-import 'package:darkness_dungeon/core/util/animated_object_once.dart';
+import 'package:bonfire/bonfire.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/position.dart';
 import 'package:flutter/cupertino.dart';
@@ -156,5 +155,11 @@ class Goblin extends Enemy {
         textureHeight: 16,
       ),
     );
+  }
+
+  @override
+  void receiveDamage(double damage) {
+    this.showDamage(damage);
+    super.receiveDamage(damage);
   }
 }

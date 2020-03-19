@@ -1,9 +1,6 @@
 import 'dart:math';
 
-import 'package:darkness_dungeon/core/decoration/decoration.dart';
-import 'package:darkness_dungeon/core/enemy/enemy.dart';
-import 'package:darkness_dungeon/core/map/map_world.dart';
-import 'package:darkness_dungeon/core/map/tile.dart';
+import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/decoration/chest.dart';
 import 'package:darkness_dungeon/enemies/boss.dart';
 import 'package:darkness_dungeon/enemies/goblin.dart';
