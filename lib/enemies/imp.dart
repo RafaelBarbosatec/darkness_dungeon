@@ -1,6 +1,8 @@
 import 'package:bonfire/bonfire.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/position.dart';
+import 'package:flame/text_config.dart';
+import 'package:flutter/material.dart';
 
 class Imp extends Enemy {
   final Position initPosition;
@@ -102,7 +104,14 @@ class Imp extends Enemy {
 
   @override
   void receiveDamage(double damage) {
-    this.showDamage(damage);
+    this.showDamage(
+      damage,
+      config: TextConfig(
+        fontSize: 10,
+        color: Colors.white,
+        fontFamily: 'Normal',
+      ),
+    );
     super.receiveDamage(damage);
   }
 }

@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:bonfire/bonfire.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/position.dart';
+import 'package:flame/text_config.dart';
+import 'package:flutter/material.dart';
 
 class Knight extends Player {
   final Position initPosition;
@@ -180,7 +182,14 @@ class Knight extends Player {
 
   @override
   void receiveDamage(double damage) {
-    this.showDamage(damage);
+    this.showDamage(
+      damage,
+      config: TextConfig(
+        fontSize: 10,
+        color: Colors.red,
+        fontFamily: 'Normal',
+      ),
+    );
     super.receiveDamage(damage);
   }
 }
