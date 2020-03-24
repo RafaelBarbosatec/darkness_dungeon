@@ -57,6 +57,7 @@ class Boss extends Enemy {
 
   @override
   void update(double dt) {
+    super.update(dt);
     this.seePlayer(
       observed: (player) {
         if (childs.isEmpty || childs.where((e) => !e.isDead).length == 0) {
@@ -72,7 +73,6 @@ class Boss extends Enemy {
       },
       visionCells: 3,
     );
-    super.update(dt);
   }
 
   @override

@@ -49,13 +49,13 @@ class Imp extends Enemy {
 
   @override
   void update(double dt) {
+    super.update(dt);
     this.seeAndMoveToPlayer(
       visionCells: 5,
       closePlayer: (player) {
         execAttack();
       },
     );
-    super.update(dt);
   }
 
   void execAttack() {

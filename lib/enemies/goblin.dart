@@ -52,6 +52,7 @@ class Goblin extends Enemy {
 
   @override
   void update(double dt) {
+    super.update(dt);
     _seePlayerClose = false;
     this.seePlayer(
         observed: (player) {
@@ -72,8 +73,6 @@ class Goblin extends Enemy {
         visionCells: 8,
       );
     }
-
-    super.update(dt);
   }
 
   @override
