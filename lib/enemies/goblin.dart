@@ -45,6 +45,12 @@ class Goblin extends Enemy {
         );
 
   @override
+  void render(Canvas canvas) {
+    this.drawDefaultLifeBar(canvas);
+    super.render(canvas);
+  }
+
+  @override
   void update(double dt) {
     _seePlayerClose = false;
     this.seePlayer(

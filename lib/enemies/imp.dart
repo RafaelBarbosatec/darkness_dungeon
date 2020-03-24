@@ -42,6 +42,12 @@ class Imp extends Enemy {
         );
 
   @override
+  void render(Canvas canvas) {
+    this.drawDefaultLifeBar(canvas);
+    super.render(canvas);
+  }
+
+  @override
   void update(double dt) {
     this.seeAndMoveToPlayer(
       visionCells: 5,

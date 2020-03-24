@@ -50,6 +50,12 @@ class Boss extends Enemy {
         );
 
   @override
+  void render(Canvas canvas) {
+    this.drawDefaultLifeBar(canvas);
+    super.render(canvas);
+  }
+
+  @override
   void update(double dt) {
     this.seePlayer(
       observed: (player) {
