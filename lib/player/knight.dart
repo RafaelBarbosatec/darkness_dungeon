@@ -186,7 +186,7 @@ class Knight extends Player {
       damage,
       config: TextConfig(
         fontSize: 10,
-        color: Colors.red,
+        color: Colors.orange,
         fontFamily: 'Normal',
       ),
     );
