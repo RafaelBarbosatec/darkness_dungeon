@@ -13,7 +13,7 @@ class DungeonMap {
 
   static MapWorld map() {
     List<Tile> tileList = List();
-    List.generate(35, (indexRow) {
+    List.generate(40, (indexRow) {
       List.generate(70, (indexColumm) {
         ///SALÃO 1
         if (indexColumm == 3 && indexRow >= 4 && indexRow < 10) {
@@ -250,7 +250,7 @@ class DungeonMap {
           ));
         }
 
-        if (indexRow >= 13 && indexRow <= 25 && indexColumm == 5) {
+        if (indexRow >= 13 && indexRow <= 28 && indexColumm == 5) {
           tileList.add(Tile(
             'tile/wall_left.png',
             Position(indexColumm.toDouble(), indexRow.toDouble()),
@@ -353,7 +353,7 @@ class DungeonMap {
         }
 
         if (indexRow >= 17 &&
-            indexRow <= 25 &&
+            indexRow <= 29 &&
             indexColumm >= 6 &&
             indexColumm <= 8) {
           tileList.add(Tile(
@@ -376,6 +376,89 @@ class DungeonMap {
             indexRow <= 30 &&
             indexColumm >= 23 &&
             indexColumm <= 25) {
+          tileList.add(Tile(
+            randomFloor(),
+            Position(indexColumm.toDouble(), indexRow.toDouble()),
+          ));
+        }
+
+        /// SALÃO 2
+
+        if (indexRow >= 24 && indexRow <= 27 && indexColumm == 9) {
+          tileList.add(Tile(
+            'tile/wall_right.png',
+            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            collision: true,
+          ));
+        }
+
+        if (indexRow == 28 && indexColumm == 9) {
+          tileList.add(Tile(
+            'tile/wall_right_and_bottom.png',
+            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            collision: true,
+          ));
+        }
+
+        if (indexRow == 28 && indexColumm >= 10 && indexColumm <= 13) {
+          tileList.add(Tile(
+            'tile/wall_top.png',
+            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            collision: true,
+          ));
+        }
+
+        if (indexRow == 29 && indexColumm >= 9 && indexColumm <= 13) {
+          tileList.add(Tile(
+            'tile/wall.png',
+            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            collision: true,
+          ));
+        }
+
+        if (indexRow == 28 && indexColumm >= 4 && indexColumm <= 5) {
+          tileList.add(Tile(
+            'tile/wall_top.png',
+            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            collision: true,
+          ));
+        }
+        if (indexRow == 29 && indexColumm >= 4 && indexColumm <= 5) {
+          tileList.add(Tile(
+            'tile/wall.png',
+            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            collision: true,
+          ));
+        }
+
+        if (indexRow >= 29 && indexRow <= 36 && indexColumm == 3) {
+          tileList.add(Tile(
+            'tile/wall_left.png',
+            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            collision: true,
+          ));
+        }
+
+        if (indexRow == 37 && indexColumm >= 4 && indexColumm <= 13) {
+          tileList.add(Tile(
+            'tile/wall_bottom.png',
+            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            collision: true,
+          ));
+        }
+
+        if (indexRow >= 29 && indexRow <= 36 && indexColumm == 14) {
+          tileList.add(Tile(
+            'tile/wall_right.png',
+            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            collision: true,
+          ));
+        }
+
+        if (indexRow >= 30 &&
+            indexRow <= 36 &&
+            indexColumm >= 4 &&
+            indexColumm <= 13) {
           tileList.add(Tile(
             randomFloor(),
             Position(indexColumm.toDouble(), indexRow.toDouble()),

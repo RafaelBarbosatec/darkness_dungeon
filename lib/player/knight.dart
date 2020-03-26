@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bonfire/bonfire.dart';
+import 'package:bonfire/util/collision/collision.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/position.dart';
 import 'package:flame/text_config.dart';
@@ -15,36 +16,36 @@ class Knight extends Player {
   Knight({
     this.initPosition,
   }) : super(
-          animIdleLeft: FlameAnimation.Animation.sequenced(
-            "knight_idle_left.png",
-            6,
-            textureWidth: 16,
-            textureHeight: 16,
-          ),
-          animIdleRight: FlameAnimation.Animation.sequenced(
-            "knight_idle.png",
-            6,
-            textureWidth: 16,
-            textureHeight: 16,
-          ),
-          animRunRight: FlameAnimation.Animation.sequenced(
-            "knight_run.png",
-            6,
-            textureWidth: 16,
-            textureHeight: 16,
-          ),
-          animRunLeft: FlameAnimation.Animation.sequenced(
-            "knight_run_left.png",
-            6,
-            textureWidth: 16,
-            textureHeight: 16,
-          ),
-          width: 32,
-          height: 32,
-          initPosition: initPosition,
-          life: 200,
-          speed: 2.5,
-        );
+            animIdleLeft: FlameAnimation.Animation.sequenced(
+              "knight_idle_left.png",
+              6,
+              textureWidth: 16,
+              textureHeight: 16,
+            ),
+            animIdleRight: FlameAnimation.Animation.sequenced(
+              "knight_idle.png",
+              6,
+              textureWidth: 16,
+              textureHeight: 16,
+            ),
+            animRunRight: FlameAnimation.Animation.sequenced(
+              "knight_run.png",
+              6,
+              textureWidth: 16,
+              textureHeight: 16,
+            ),
+            animRunLeft: FlameAnimation.Animation.sequenced(
+              "knight_run_left.png",
+              6,
+              textureWidth: 16,
+              textureHeight: 16,
+            ),
+            width: 32,
+            height: 32,
+            initPosition: initPosition,
+            life: 200,
+            speed: 2.5,
+            collision: Collision(width: 20, height: 14));
 
   @override
   void joystickAction(int action) {
@@ -156,6 +157,12 @@ class Knight extends Player {
   void update(double dt) {
     _verifyStamina();
     super.update(dt);
+  }
+
+  @override
+  void render(Canvas c) {
+    super.render(c);
+    this.drawPositionCollision(c);
   }
 
   void _verifyStamina() {
