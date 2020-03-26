@@ -37,9 +37,10 @@ class _MenuState extends State<Menu> {
               height: 20.0,
             ),
             Flame.util.animationAsWidget(
-                Position(50, 50),
-                FlameAnimation.Animation.sequenced("knight_run.png", 6,
-                    textureWidth: 16, textureHeight: 16)),
+              Position(50, 50),
+              FlameAnimation.Animation.sequenced("knight_run.png", 6,
+                  textureWidth: 16, textureHeight: 16),
+            ),
             SizedBox(
               height: 10.0,
             ),

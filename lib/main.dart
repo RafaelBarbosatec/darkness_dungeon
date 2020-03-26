@@ -1,4 +1,4 @@
-import 'package:darkness_dungeon/Menu.dart';
+import 'package:darkness_dungeon/game.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +8,7 @@ void main() async {
   await Flame.util.fullScreen();
   runApp(
     MaterialApp(
-      home: Menu(),
+      home: Game(),
     ),
   );
 }
