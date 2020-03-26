@@ -40,6 +40,7 @@ class Game extends StatelessWidget {
       map: DungeonMap.map(),
       decorations: DungeonMap.decorations(),
       enemies: DungeonMap.enemies(),
+      constructionMode: true,
       listener: (context, game) {},
     );
   }
