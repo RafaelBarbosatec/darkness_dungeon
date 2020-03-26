@@ -320,7 +320,7 @@ class DungeonMap {
           ));
         }
 
-        if (indexRow >= 23 && indexRow <= 31 && indexColumm == 22) {
+        if (indexRow >= 24 && indexRow <= 30 && indexColumm == 22) {
           tileList.add(Tile(
             'tile/wall_left.png',
             Position(indexColumm.toDouble(), indexRow.toDouble()),
@@ -328,7 +328,7 @@ class DungeonMap {
           ));
         }
 
-        if (indexRow == 22 && indexColumm >= 10 && indexColumm <= 21) {
+        if (indexRow == 23 && indexColumm >= 10 && indexColumm <= 21) {
           tileList.add(Tile(
             'tile/wall_bottom.png',
             Position(indexColumm.toDouble(), indexRow.toDouble()),
@@ -336,7 +336,7 @@ class DungeonMap {
           ));
         }
 
-        if (indexRow == 22 && indexColumm == 22) {
+        if (indexRow == 23 && indexColumm == 22) {
           tileList.add(Tile(
             'tile/wall_turn_left_top.png',
             Position(indexColumm.toDouble(), indexRow.toDouble()),
@@ -344,11 +344,41 @@ class DungeonMap {
           ));
         }
 
-        if (indexRow == 22 && indexColumm == 9) {
+        if (indexRow == 23 && indexColumm == 9) {
           tileList.add(Tile(
             'tile/wall_left_and_top.png',
             Position(indexColumm.toDouble(), indexRow.toDouble()),
             collision: true,
+          ));
+        }
+
+        if (indexRow >= 17 &&
+            indexRow <= 25 &&
+            indexColumm >= 6 &&
+            indexColumm <= 8) {
+          tileList.add(Tile(
+            randomFloor(),
+            Position(indexColumm.toDouble(), indexRow.toDouble()),
+          ));
+        }
+
+        if (indexRow >= 20 &&
+            indexRow <= 22 &&
+            indexColumm >= 9 &&
+            indexColumm <= 25) {
+          tileList.add(Tile(
+            randomFloor(),
+            Position(indexColumm.toDouble(), indexRow.toDouble()),
+          ));
+        }
+
+        if (indexRow >= 23 &&
+            indexRow <= 30 &&
+            indexColumm >= 23 &&
+            indexColumm <= 25) {
+          tileList.add(Tile(
+            randomFloor(),
+            Position(indexColumm.toDouble(), indexRow.toDouble()),
           ));
         }
       });
