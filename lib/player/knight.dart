@@ -45,7 +45,7 @@ class Knight extends Player {
             initPosition: initPosition,
             life: 200,
             speed: 2.5,
-            collision: Collision(width: 20, height: 14));
+            collision: Collision(width: 20, height: 16));
 
   @override
   void joystickAction(int action) {
@@ -162,7 +162,6 @@ class Knight extends Player {
   @override
   void render(Canvas c) {
     super.render(c);
-    this.drawPositionCollision(c);
   }
 
   void _verifyStamina() {
