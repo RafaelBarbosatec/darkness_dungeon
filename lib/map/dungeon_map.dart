@@ -607,6 +607,52 @@ class DungeonMap {
         width: 32,
         height: 32,
       ),
+      GameDecoration(
+        spriteImg: 'itens/flag_green.png',
+        initPosition: getRelativeTilePosition(14, 13),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        spriteImg: 'itens/flag_green.png',
+        initPosition: getRelativeTilePosition(12, 13),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        animation: FlameAnimation.Animation.sequenced(
+          "itens/torch_spritesheet.png",
+          6,
+          textureWidth: 16,
+          textureHeight: 16,
+        ),
+        initPosition: getRelativeTilePosition(13, 13),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        spriteImg: 'itens/flag_green.png',
+        initPosition: getRelativeTilePosition(9, 13),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        animation: FlameAnimation.Animation.sequenced(
+          "itens/torch_spritesheet.png",
+          6,
+          textureWidth: 16,
+          textureHeight: 16,
+        ),
+        initPosition: getRelativeTilePosition(8, 13),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        spriteImg: 'itens/flag_green.png',
+        initPosition: getRelativeTilePosition(7, 13),
+        width: 32,
+        height: 32,
+      ),
     ];
     return [
       GameDecoration(
