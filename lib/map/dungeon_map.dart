@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:bonfire/bonfire.dart';
-import 'package:darkness_dungeon/decoration/chest.dart';
 import 'package:darkness_dungeon/enemies/boss.dart';
 import 'package:darkness_dungeon/enemies/goblin.dart';
 import 'package:darkness_dungeon/enemies/imp.dart';
@@ -442,6 +441,7 @@ class DungeonMap {
         initPosition: getRelativeTilePosition(6, 8),
         width: 32,
         height: 32,
+        collision: true,
       ),
       GameDecoration(
         spriteImg: 'itens/flag_red.png',
@@ -506,18 +506,21 @@ class DungeonMap {
         initPosition: getRelativeTilePosition(18, 7),
         width: 32,
         height: 32,
+        collision: true,
       ),
       GameDecoration(
         spriteImg: 'itens/barrel.png',
         initPosition: getRelativeTilePosition(12, 8),
         width: 32,
         height: 32,
+        collision: true,
       ),
       GameDecoration(
         spriteImg: 'itens/barrel.png',
         initPosition: getRelativeTilePosition(16, 12),
         width: 32,
         height: 32,
+        collision: true,
       ),
       GameDecoration(
         spriteImg: 'itens/flag_green.png',
@@ -600,12 +603,14 @@ class DungeonMap {
         initPosition: getRelativeTilePosition(24, 16),
         width: 32,
         height: 32,
+        collision: true,
       ),
       GameDecoration(
         spriteImg: 'itens/barrel.png',
         initPosition: getRelativeTilePosition(35, 14),
         width: 32,
         height: 32,
+        collision: true,
       ),
       GameDecoration(
         spriteImg: 'itens/flag_green.png',
@@ -627,6 +632,18 @@ class DungeonMap {
           textureHeight: 16,
         ),
         initPosition: getRelativeTilePosition(13, 13),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        spriteImg: 'itens/prisoner.png',
+        initPosition: getRelativeTilePosition(10, 13),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        spriteImg: 'itens/prisoner.png',
+        initPosition: getRelativeTilePosition(11, 13),
         width: 32,
         height: 32,
       ),
@@ -653,92 +670,6 @@ class DungeonMap {
         width: 32,
         height: 32,
       ),
-    ];
-    return [
-      GameDecoration(
-        spriteImg: 'itens/barrel.png',
-        initPosition: getRelativeTilePosition(10, 5),
-        width: 32,
-        height: 32,
-        collision: true,
-      ),
-      Chest(getRelativeTilePosition(18, 7)),
-      GameDecoration(
-        spriteImg: 'itens/table.png',
-        initPosition: getRelativeTilePosition(15, 7),
-        width: 32,
-        height: 32,
-        collision: true,
-      ),
-      GameDecoration(
-        spriteImg: 'itens/table.png',
-        initPosition: getRelativeTilePosition(27, 6),
-        width: 32,
-        height: 32,
-        collision: true,
-      ),
-      GameDecoration(
-        animation: FlameAnimation.Animation.sequenced(
-          "itens/torch_spritesheet.png",
-          6,
-          textureWidth: 16,
-          textureHeight: 16,
-        ),
-        initPosition: getRelativeTilePosition(4, 4),
-        width: 32,
-        height: 32,
-      ),
-      GameDecoration(
-        animation: FlameAnimation.Animation.sequenced(
-          "itens/torch_spritesheet.png",
-          6,
-          textureWidth: 16,
-          textureHeight: 16,
-        ),
-        initPosition: getRelativeTilePosition(8, 4),
-        width: 32,
-        height: 32,
-      ),
-      GameDecoration(
-        animation: FlameAnimation.Animation.sequenced(
-          "itens/torch_spritesheet.png",
-          6,
-          textureWidth: 16,
-          textureHeight: 16,
-        ),
-        initPosition: getRelativeTilePosition(12, 4),
-        width: 32,
-        height: 32,
-      ),
-      GameDecoration(
-        animation: FlameAnimation.Animation.sequenced(
-          "itens/torch_spritesheet.png",
-          6,
-          textureWidth: 16,
-          textureHeight: 16,
-        ),
-        initPosition: getRelativeTilePosition(16, 4),
-        width: 32,
-        height: 32,
-      ),
-      GameDecoration(
-        spriteImg: 'itens/flag_red.png',
-        initPosition: getRelativeTilePosition(6, 4),
-        width: 32,
-        height: 32,
-      ),
-      GameDecoration(
-        spriteImg: 'itens/flag_red.png',
-        initPosition: getRelativeTilePosition(10, 4),
-        width: 32,
-        height: 32,
-      ),
-      GameDecoration(
-        spriteImg: 'itens/flag_red.png',
-        initPosition: getRelativeTilePosition(14, 4),
-        width: 32,
-        height: 32,
-      )
     ];
   }
 
