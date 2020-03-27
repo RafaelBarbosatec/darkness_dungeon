@@ -13,447 +13,420 @@ class DungeonMap {
 
   static MapWorld map() {
     List<Tile> tileList = List();
-    List.generate(40, (indexRow) {
-      List.generate(70, (indexColumm) {
+    List.generate(40, (y) {
+      List.generate(70, (x) {
         ///SALÃO 1
-        if (indexColumm == 3 && indexRow >= 4 && indexRow < 10) {
+        if (x == 3 && y >= 4 && y < 10) {
           tileList.add(Tile(
             'tile/wall_left.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
 
-        if (indexRow == 3 && indexColumm >= 4 && indexColumm <= 8) {
+        if (y == 3 && x >= 4 && x <= 8) {
           tileList.add(Tile(
             'tile/wall_top.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
 
-        if (indexRow == 4 && indexColumm >= 4 && indexColumm <= 8) {
+        if (y == 4 && x >= 4 && x <= 8) {
           tileList.add(Tile(
             'tile/wall.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
 
-        if (indexRow == 10 && indexColumm >= 4 && indexColumm <= 8) {
+        if (y == 10 && x >= 4 && x <= 8) {
           tileList.add(Tile(
             'tile/wall_bottom.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
 
-        if (indexRow == 4 && indexColumm == 9) {
+        if (y == 4 && x == 9) {
           tileList.add(Tile(
             'tile/wall_right_and_bottom.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
 
-        if (indexRow == 9 && indexColumm == 9) {
+        if (y == 9 && x == 9) {
           tileList.add(Tile(
             'tile/wall_left_and_top.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
 
-        if (indexRow == 10 && indexColumm == 9) {
+        if (y == 10 && x == 9) {
           tileList.add(Tile(
             'tile/wall_bottom_right.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
 
-        if (indexRow >= 5 &&
-            indexRow <= 9 &&
-            indexColumm >= 4 &&
-            indexColumm <= 8) {
+        if (y >= 5 && y <= 9 && x >= 4 && x <= 8) {
           tileList.add(Tile(
             randomFloor(),
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
           ));
         }
 
         /// CORREDOR 1
 
-        if (indexRow == 4 && indexColumm >= 10 && indexColumm <= 18) {
+        if (y == 4 && x >= 10 && x <= 18) {
           tileList.add(Tile(
             'tile/wall_top.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
 
-        if (indexRow == 5 && indexColumm >= 9 && indexColumm <= 18) {
+        if (y == 5 && x >= 9 && x <= 18) {
           tileList.add(Tile(
             'tile/wall.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
 
-        if (indexRow >= 5 && indexRow <= 12 && indexColumm == 19) {
+        if (y >= 5 && y <= 12 && x == 19) {
           tileList.add(Tile(
             'tile/wall_right.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
 
-        if (indexRow == 9 && indexColumm >= 10 && indexColumm <= 14) {
+        if (y == 9 && x >= 10 && x <= 14) {
           tileList.add(Tile(
             'tile/wall_bottom.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
 
-        if (indexRow == 9 && indexColumm == 15) {
+        if (y == 9 && x == 15) {
           tileList.add(Tile(
             'tile/wall_turn_left_top.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
 
-        if (indexRow >= 10 && indexRow <= 11 && indexColumm == 15) {
+        if (y >= 10 && y <= 11 && x == 15) {
           tileList.add(Tile(
             'tile/wall_left.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
 
-        if (indexRow == 12 && indexColumm == 15) {
+        if (y == 12 && x == 15) {
           tileList.add(Tile(
             'tile/wall_left_and_bottom.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
 
-        if (indexRow >= 6 &&
-            indexRow <= 8 &&
-            indexColumm >= 9 &&
-            indexColumm <= 18) {
+        if (y >= 6 && y <= 8 && x >= 9 && x <= 18) {
           tileList.add(Tile(
             randomFloor(),
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
           ));
         }
 
-        if (indexRow >= 9 &&
-            indexRow <= 13 &&
-            indexColumm >= 16 &&
-            indexColumm <= 18) {
+        if (y >= 9 && y <= 13 && x >= 16 && x <= 18) {
           tileList.add(Tile(
             randomFloor(),
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
           ));
         }
 
         /// CORREDOR 2
 
-        if (indexRow == 12 && indexColumm >= 19 && indexColumm <= 35) {
+        if (y == 12 && x >= 19 && x <= 35) {
           tileList.add(Tile(
             'tile/wall_top.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
 
-        if (indexRow == 13 && indexColumm >= 19 && indexColumm <= 35) {
+        if (y == 13 && x >= 19 && x <= 35) {
           tileList.add(Tile(
             'tile/wall.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
 
-        if (indexRow >= 13 && indexRow <= 20 && indexColumm == 36) {
+        if (y >= 13 && y <= 20 && x == 36) {
           tileList.add(Tile(
             'tile/wall_right.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
 
-        if (indexRow == 21 && indexColumm <= 35 && indexColumm >= 33) {
+        if (y == 21 && x <= 35 && x >= 33) {
           tileList.add(Tile(
             'tile/wall_bottom.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
 
-        if (indexRow >= 18 && indexRow <= 20 && indexColumm == 32) {
+        if (y >= 18 && y <= 20 && x == 32) {
           tileList.add(Tile(
             'tile/wall_left.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
 
-        if (indexRow == 17 && indexColumm == 32) {
+        if (y == 17 && x == 32) {
           tileList.add(Tile(
             'tile/wall_turn_left_top.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
 
-        if (indexRow == 17 && indexColumm <= 31 && indexColumm >= 9) {
+        if (y == 17 && x <= 31 && x >= 9) {
           tileList.add(Tile(
             'tile/wall_bottom.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
 
-        if (indexRow == 17 && indexColumm == 9) {
+        if (y == 17 && x == 9) {
           tileList.add(Tile(
             'tile/wall_left_and_top.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
 
-        if (indexRow == 12 && indexColumm <= 14 && indexColumm >= 6) {
+        if (y == 12 && x <= 14 && x >= 6) {
           tileList.add(Tile(
             'tile/wall_top.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
 
-        if (indexRow == 13 && indexColumm <= 15 && indexColumm >= 6) {
+        if (y == 13 && x <= 15 && x >= 6) {
           tileList.add(Tile(
             'tile/wall.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
 
-        if (indexRow >= 13 && indexRow <= 28 && indexColumm == 5) {
+        if (y >= 13 && y <= 28 && x == 5) {
           tileList.add(Tile(
             'tile/wall_left.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
 
-        if (indexRow >= 14 &&
-            indexRow <= 16 &&
-            indexColumm >= 6 &&
-            indexColumm <= 35) {
+        if (y >= 14 && y <= 16 && x >= 6 && x <= 35) {
           tileList.add(Tile(
             randomFloor(),
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
           ));
         }
 
-        if (indexRow >= 17 &&
-            indexRow <= 20 &&
-            indexColumm >= 33 &&
-            indexColumm <= 35) {
+        if (y >= 17 && y <= 20 && x >= 33 && x <= 35) {
           tileList.add(Tile(
             randomFloor(),
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
           ));
         }
 
         /// CORREDOR 3
 
-        if (indexRow == 18 && indexColumm == 9) {
+        if (y == 18 && x == 9) {
           tileList.add(Tile(
             'tile/wall_right_and_bottom.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
 
-        if (indexRow == 18 && indexColumm >= 10 && indexColumm <= 25) {
+        if (y == 18 && x >= 10 && x <= 25) {
           tileList.add(Tile(
             'tile/wall_top.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
 
-        if (indexRow == 19 && indexColumm >= 9 && indexColumm <= 25) {
+        if (y == 19 && x >= 9 && x <= 25) {
           tileList.add(Tile(
             'tile/wall.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
 
-        if (indexRow >= 19 && indexRow <= 30 && indexColumm == 26) {
+        if (y >= 19 && y <= 30 && x == 26) {
           tileList.add(Tile(
             'tile/wall_right.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
 
-        if (indexRow == 31 && indexColumm >= 23 && indexColumm <= 25) {
+        if (y == 31 && x >= 23 && x <= 25) {
           tileList.add(Tile(
             'tile/wall_bottom.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
 
-        if (indexRow >= 24 && indexRow <= 30 && indexColumm == 22) {
+        if (y >= 24 && y <= 30 && x == 22) {
           tileList.add(Tile(
             'tile/wall_left.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
 
-        if (indexRow == 23 && indexColumm >= 10 && indexColumm <= 21) {
+        if (y == 23 && x >= 10 && x <= 21) {
           tileList.add(Tile(
             'tile/wall_bottom.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
 
-        if (indexRow == 23 && indexColumm == 22) {
+        if (y == 23 && x == 22) {
           tileList.add(Tile(
             'tile/wall_turn_left_top.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
 
-        if (indexRow == 23 && indexColumm == 9) {
+        if (y == 23 && x == 9) {
           tileList.add(Tile(
             'tile/wall_left_and_top.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
 
-        if (indexRow >= 17 &&
-            indexRow <= 29 &&
-            indexColumm >= 6 &&
-            indexColumm <= 8) {
+        if (y >= 17 && y <= 29 && x >= 6 && x <= 8) {
           tileList.add(Tile(
             randomFloor(),
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
           ));
         }
 
-        if (indexRow >= 20 &&
-            indexRow <= 22 &&
-            indexColumm >= 9 &&
-            indexColumm <= 25) {
+        if (y >= 20 && y <= 22 && x >= 9 && x <= 25) {
           tileList.add(Tile(
             randomFloor(),
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
           ));
         }
 
-        if (indexRow >= 23 &&
-            indexRow <= 30 &&
-            indexColumm >= 23 &&
-            indexColumm <= 25) {
+        if (y >= 23 && y <= 30 && x >= 23 && x <= 25) {
           tileList.add(Tile(
             randomFloor(),
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
           ));
         }
 
         /// SALÃO 2
 
-        if (indexRow >= 24 && indexRow <= 27 && indexColumm == 9) {
+        if (y >= 24 && y <= 27 && x == 9) {
           tileList.add(Tile(
             'tile/wall_right.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
 
-        if (indexRow == 28 && indexColumm == 9) {
+        if (y == 28 && x == 9) {
           tileList.add(Tile(
             'tile/wall_right_and_bottom.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
 
-        if (indexRow == 28 && indexColumm >= 10 && indexColumm <= 13) {
+        if (y == 28 && x >= 10 && x <= 13) {
           tileList.add(Tile(
             'tile/wall_top.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
 
-        if (indexRow == 29 && indexColumm >= 9 && indexColumm <= 13) {
+        if (y == 29 && x >= 9 && x <= 13) {
           tileList.add(Tile(
             'tile/wall.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
 
-        if (indexRow == 28 && indexColumm >= 4 && indexColumm <= 5) {
+        if (y == 28 && x >= 4 && x <= 5) {
           tileList.add(Tile(
             'tile/wall_top.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
-        if (indexRow == 29 && indexColumm >= 4 && indexColumm <= 5) {
+        if (y == 29 && x >= 4 && x <= 5) {
           tileList.add(Tile(
             'tile/wall.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
 
-        if (indexRow >= 29 && indexRow <= 36 && indexColumm == 3) {
+        if (y >= 29 && y <= 36 && x == 3) {
           tileList.add(Tile(
             'tile/wall_left.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
 
-        if (indexRow == 37 && indexColumm >= 4 && indexColumm <= 13) {
+        if (y == 37 && x >= 4 && x <= 13) {
           tileList.add(Tile(
             'tile/wall_bottom.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
 
-        if (indexRow >= 29 && indexRow <= 36 && indexColumm == 14) {
+        if (y >= 29 && y <= 36 && x == 14) {
           tileList.add(Tile(
             'tile/wall_right.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
             collision: true,
           ));
         }
 
-        if (indexRow >= 30 &&
-            indexRow <= 36 &&
-            indexColumm >= 4 &&
-            indexColumm <= 13) {
+        if (y >= 30 && y <= 36 && x >= 4 && x <= 13) {
           tileList.add(Tile(
             randomFloor(),
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
+            Position(x.toDouble(), y.toDouble()),
           ));
         }
       });
@@ -463,7 +436,178 @@ class DungeonMap {
   }
 
   static List<GameDecoration> decorations() {
-    return [];
+    return [
+      GameDecoration(
+        spriteImg: 'itens/table.png',
+        initPosition: getRelativeTilePosition(6, 8),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        spriteImg: 'itens/flag_red.png',
+        initPosition: getRelativeTilePosition(5, 4),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        animation: FlameAnimation.Animation.sequenced(
+          "itens/torch_spritesheet.png",
+          6,
+          textureWidth: 16,
+          textureHeight: 16,
+        ),
+        initPosition: getRelativeTilePosition(6, 4),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        spriteImg: 'itens/flag_red.png',
+        initPosition: getRelativeTilePosition(7, 4),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        spriteImg: 'itens/bookshelf.png',
+        initPosition: getRelativeTilePosition(10, 5),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        spriteImg: 'itens/flag_red.png',
+        initPosition: getRelativeTilePosition(12, 5),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        animation: FlameAnimation.Animation.sequenced(
+          "itens/torch_spritesheet.png",
+          6,
+          textureWidth: 16,
+          textureHeight: 16,
+        ),
+        initPosition: getRelativeTilePosition(13, 5),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        spriteImg: 'itens/flag_red.png',
+        initPosition: getRelativeTilePosition(14, 5),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        spriteImg: 'itens/bookshelf.png',
+        initPosition: getRelativeTilePosition(17, 5),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        spriteImg: 'itens/barrel.png',
+        initPosition: getRelativeTilePosition(18, 7),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        spriteImg: 'itens/barrel.png',
+        initPosition: getRelativeTilePosition(12, 8),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        spriteImg: 'itens/barrel.png',
+        initPosition: getRelativeTilePosition(16, 12),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        spriteImg: 'itens/flag_green.png',
+        initPosition: getRelativeTilePosition(20, 13),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        spriteImg: 'itens/prisoner.png',
+        initPosition: getRelativeTilePosition(21, 13),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        spriteImg: 'itens/flag_green.png',
+        initPosition: getRelativeTilePosition(22, 13),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        animation: FlameAnimation.Animation.sequenced(
+          "itens/torch_spritesheet.png",
+          6,
+          textureWidth: 16,
+          textureHeight: 16,
+        ),
+        initPosition: getRelativeTilePosition(24, 13),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        spriteImg: 'itens/flag_green.png',
+        initPosition: getRelativeTilePosition(26, 13),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        spriteImg: 'itens/prisoner.png',
+        initPosition: getRelativeTilePosition(27, 13),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        spriteImg: 'itens/flag_green.png',
+        initPosition: getRelativeTilePosition(28, 13),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        animation: FlameAnimation.Animation.sequenced(
+          "itens/torch_spritesheet.png",
+          6,
+          textureWidth: 16,
+          textureHeight: 16,
+        ),
+        initPosition: getRelativeTilePosition(30, 13),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        spriteImg: 'itens/flag_green.png',
+        initPosition: getRelativeTilePosition(32, 13),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        spriteImg: 'itens/prisoner.png',
+        initPosition: getRelativeTilePosition(33, 13),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        spriteImg: 'itens/flag_green.png',
+        initPosition: getRelativeTilePosition(34, 13),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        spriteImg: 'itens/barrel.png',
+        initPosition: getRelativeTilePosition(24, 16),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        spriteImg: 'itens/barrel.png',
+        initPosition: getRelativeTilePosition(35, 14),
+        width: 32,
+        height: 32,
+      ),
+    ];
     return [
       GameDecoration(
         spriteImg: 'itens/barrel.png',
