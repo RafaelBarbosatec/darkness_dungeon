@@ -50,15 +50,7 @@ class DungeonMap {
 
         if (indexRow == 4 && indexColumm == 9) {
           tileList.add(Tile(
-            'tile/wall_right.png',
-            Position(indexColumm.toDouble(), indexRow.toDouble()),
-            collision: true,
-          ));
-        }
-
-        if (indexRow == 3 && indexColumm == 9) {
-          tileList.add(Tile(
-            'tile/wall_top_inner_right.png',
+            'tile/wall_right_and_bottom.png',
             Position(indexColumm.toDouble(), indexRow.toDouble()),
             collision: true,
           ));
@@ -92,7 +84,7 @@ class DungeonMap {
 
         /// CORREDOR 1
 
-        if (indexRow == 4 && indexColumm >= 9 && indexColumm <= 18) {
+        if (indexRow == 4 && indexColumm >= 10 && indexColumm <= 18) {
           tileList.add(Tile(
             'tile/wall_top.png',
             Position(indexColumm.toDouble(), indexRow.toDouble()),

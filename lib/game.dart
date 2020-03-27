@@ -1,6 +1,5 @@
 import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/map/dungeon_map.dart';
-import 'package:darkness_dungeon/player/knight.dart';
 import 'package:darkness_dungeon/player/knight_interface.dart';
 import 'package:flutter/material.dart';
 
@@ -33,9 +32,9 @@ class Game extends StatelessWidget {
           )
         ],
       ),
-      player: Knight(
-        initPosition: Position(5 * 32.0, 6 * 32.0),
-      ),
+//      player: Knight(
+//        initPosition: Position(5 * 32.0, 6 * 32.0),
+//      ),
       interface: KnightInterface(),
       map: DungeonMap.map(),
       decorations: DungeonMap.decorations(),

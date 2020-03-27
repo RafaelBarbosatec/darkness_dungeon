@@ -20,7 +20,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  bonfire: ^0.0.10
+  bonfire: ^0.0.11
   flame_splash_screen: ^0.0.1
 
 
