@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:bonfire/bonfire.dart';
+import 'package:darkness_dungeon/decoration/door.dart';
+import 'package:darkness_dungeon/decoration/key.dart';
 import 'package:darkness_dungeon/enemies/boss.dart';
 import 'package:darkness_dungeon/enemies/goblin.dart';
 import 'package:darkness_dungeon/enemies/imp.dart';
@@ -232,7 +234,15 @@ class DungeonMap {
           ));
         }
 
-        if (y >= 13 && y <= 28 && x == 5) {
+        if (y >= 13 && y <= 16 && x == 5) {
+          tileList.add(Tile(
+            'tile/wall_left.png',
+            Position(x.toDouble(), y.toDouble()),
+            collision: true,
+          ));
+        }
+
+        if (y >= 20 && y <= 28 && x == 5) {
           tileList.add(Tile(
             'tile/wall_left.png',
             Position(x.toDouble(), y.toDouble()),
@@ -328,7 +338,14 @@ class DungeonMap {
           ));
         }
 
-        if (y >= 17 && y <= 29 && x >= 6 && x <= 8) {
+        if (y >= 17 && y <= 19 && x >= 7 && x <= 8) {
+          tileList.add(Tile(
+            randomFloor(),
+            Position(x.toDouble(), y.toDouble()),
+          ));
+        }
+
+        if (y >= 20 && y <= 29 && x >= 6 && x <= 8) {
           tileList.add(Tile(
             randomFloor(),
             Position(x.toDouble(), y.toDouble()),
@@ -346,6 +363,28 @@ class DungeonMap {
           tileList.add(Tile(
             randomFloor(),
             Position(x.toDouble(), y.toDouble()),
+          ));
+        }
+
+        if (x == 6 && y == 17) {
+          tileList.add(Tile(
+            'tile/wall_turn_left_top.png',
+            Position(x.toDouble(), y.toDouble()),
+            collision: true,
+          ));
+        }
+        if (x == 6 && y == 18) {
+          tileList.add(Tile(
+            'tile/wall_left.png',
+            Position(x.toDouble(), y.toDouble()),
+            collision: true,
+          ));
+        }
+        if (x == 6 && y == 19) {
+          tileList.add(Tile(
+            'tile/wall_left_and_bottom.png',
+            Position(x.toDouble(), y.toDouble()),
+            collision: true,
           ));
         }
 
@@ -541,6 +580,12 @@ class DungeonMap {
         height: 32,
       ),
       GameDecoration(
+        spriteImg: 'tile/wall_grid.png',
+        initPosition: getRelativeTilePosition(23, 13),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
         animation: FlameAnimation.Animation.sequenced(
           "itens/torch_spritesheet.png",
           6,
@@ -577,6 +622,12 @@ class DungeonMap {
           textureHeight: 16,
         ),
         initPosition: getRelativeTilePosition(30, 13),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        spriteImg: 'tile/wall_grid.png',
+        initPosition: getRelativeTilePosition(31, 13),
         width: 32,
         height: 32,
       ),
@@ -642,7 +693,7 @@ class DungeonMap {
         height: 32,
       ),
       GameDecoration(
-        spriteImg: 'itens/prisoner.png',
+        spriteImg: 'tile/wall_grid.png',
         initPosition: getRelativeTilePosition(11, 13),
         width: 32,
         height: 32,
@@ -670,6 +721,113 @@ class DungeonMap {
         width: 32,
         height: 32,
       ),
+      GameDecoration(
+        spriteImg: 'itens/table_2.png',
+        initPosition: getRelativeTilePosition(16, 15),
+        width: 64,
+        height: 32,
+        collision: true,
+      ),
+      GameDecoration(
+        spriteImg: 'itens/barrel.png',
+        initPosition: getRelativeTilePosition(6, 14),
+        width: 32,
+        height: 32,
+        collision: true,
+      ),
+      GameDecoration(
+        spriteImg: 'tile/wall_grid.png',
+        initPosition: getRelativeTilePosition(10, 19),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        spriteImg: 'tile/wall_grid.png',
+        initPosition: getRelativeTilePosition(14, 19),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        spriteImg: 'tile/wall_grid.png',
+        initPosition: getRelativeTilePosition(18, 19),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        spriteImg: 'tile/wall_grid.png',
+        initPosition: getRelativeTilePosition(22, 19),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        animation: FlameAnimation.Animation.sequenced(
+          "itens/torch_spritesheet.png",
+          6,
+          textureWidth: 16,
+          textureHeight: 16,
+        ),
+        initPosition: getRelativeTilePosition(12, 19),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        animation: FlameAnimation.Animation.sequenced(
+          "itens/torch_spritesheet.png",
+          6,
+          textureWidth: 16,
+          textureHeight: 16,
+        ),
+        initPosition: getRelativeTilePosition(16, 19),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        animation: FlameAnimation.Animation.sequenced(
+          "itens/torch_spritesheet.png",
+          6,
+          textureWidth: 16,
+          textureHeight: 16,
+        ),
+        initPosition: getRelativeTilePosition(20, 19),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        animation: FlameAnimation.Animation.sequenced(
+          "itens/torch_spritesheet.png",
+          6,
+          textureWidth: 16,
+          textureHeight: 16,
+        ),
+        initPosition: getRelativeTilePosition(5, 29),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        animation: FlameAnimation.Animation.sequenced(
+          "itens/torch_spritesheet.png",
+          6,
+          textureWidth: 16,
+          textureHeight: 16,
+        ),
+        initPosition: getRelativeTilePosition(9, 29),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        spriteImg: 'tile/wall_grid.png',
+        initPosition: getRelativeTilePosition(13, 29),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
+        spriteImg: 'itens/prisoner.png',
+        initPosition: getRelativeTilePosition(11, 29),
+        width: 32,
+        height: 32,
+      ),
+      Door(getRelativeTilePosition(7, 17)),
+      DoorKey(getRelativeTilePosition(34, 20)),
     ];
   }
 

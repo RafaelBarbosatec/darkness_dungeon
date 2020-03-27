@@ -12,6 +12,7 @@ class Knight extends Player {
   double attack = 20;
   double stamina = 100;
   Timer _timerStamina;
+  bool containKey = false;
 
   Knight({
     this.initPosition,
