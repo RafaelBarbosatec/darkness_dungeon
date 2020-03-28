@@ -189,6 +189,7 @@ class Knight extends Player {
 
   @override
   void receiveDamage(double damage) {
+    if (isDead) return;
     this.showDamage(
       damage,
       config: TextConfig(
