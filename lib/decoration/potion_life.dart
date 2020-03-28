@@ -10,15 +10,15 @@ class PotionLife extends GameDecoration {
 
   PotionLife(this.initPosition, this.life)
       : super(
-          spriteImg: 'itens/potion_life.png',
+          spriteImg: 'itens/potion_red.png',
           initPosition: initPosition,
-          width: 16,
-          height: 16,
+          width: 32,
+          height: 32,
         );
 
   @override
   void update(double dt) {
-    if (position.overlaps(gameRef.player.position)) {
+    if (gameRef.player != null && position.overlaps(gameRef.player.position)) {
       Timer.periodic(Duration(milliseconds: 100), (timer) {
         if (_lifeDistributed >= life) {
           timer.cancel();

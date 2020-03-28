@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/decoration/door.dart';
 import 'package:darkness_dungeon/decoration/key.dart';
+import 'package:darkness_dungeon/decoration/potion_life.dart';
 import 'package:darkness_dungeon/decoration/spikes.dart';
 import 'package:darkness_dungeon/enemies/boss.dart';
 import 'package:darkness_dungeon/enemies/goblin.dart';
@@ -372,9 +373,23 @@ class DungeonMap {
           ));
         }
 
-        if (y >= 23 && y <= 30 && x >= 23 && x <= 25) {
+        if (y >= 23 && y <= 24 && x >= 23 && x <= 25) {
           tileList.add(Tile(
             randomFloor(),
+            Position(x.toDouble(), y.toDouble()),
+          ));
+        }
+
+        if (y == 25 && x >= 23 && x <= 25) {
+          tileList.add(Tile(
+            'tile/floor_9.png',
+            Position(x.toDouble(), y.toDouble()),
+          ));
+        }
+
+        if (y >= 27 && y <= 30 && x >= 23 && x <= 25) {
+          tileList.add(Tile(
+            'tile/floor_10.png',
             Position(x.toDouble(), y.toDouble()),
           ));
         }
@@ -855,6 +870,12 @@ class DungeonMap {
       Spikes(getRelativeTilePosition(35, 18), damage: 25),
       Door(getRelativeTilePosition(7, 17)),
       DoorKey(getRelativeTilePosition(34, 20)),
+      PotionLife(getRelativeTilePosition(23, 28), 50),
+      PotionLife(getRelativeTilePosition(24, 29), 50),
+      PotionLife(getRelativeTilePosition(25, 30), 50),
+      Spikes(getRelativeTilePosition(23, 26), damage: 25),
+      Spikes(getRelativeTilePosition(24, 26), damage: 25),
+      Spikes(getRelativeTilePosition(25, 26), damage: 25),
     ];
   }
 
