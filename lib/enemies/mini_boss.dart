@@ -1,47 +1,46 @@
 import 'package:bonfire/bonfire.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
-import 'package:flame/position.dart';
 import 'package:flame/text_config.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
-class Goblin extends Enemy {
+class MiniBoss extends Enemy {
   final Position initPosition;
-  double attack = 25;
+  double attack = 50;
   bool _seePlayerClose = false;
 
-  Goblin({
+  MiniBoss({
     @required this.initPosition,
   }) : super(
           animationIdleRight: FlameAnimation.Animation.sequenced(
-            "enemy/goblin/goblin_idle.png",
-            6,
+            "enemy/mini_boss/mini_boss_idle.png",
+            4,
             textureWidth: 16,
-            textureHeight: 16,
+            textureHeight: 24,
           ),
           animationIdleLeft: FlameAnimation.Animation.sequenced(
-            "enemy/goblin/goblin_idle_left.png",
-            6,
+            "enemy/mini_boss/mini_boss_idle.png",
+            4,
             textureWidth: 16,
-            textureHeight: 16,
+            textureHeight: 24,
           ),
           animationRunRight: FlameAnimation.Animation.sequenced(
-            "enemy/goblin/goblin_run_right.png",
-            6,
+            "enemy/mini_boss/mini_boss_run_right.png",
+            4,
             textureWidth: 16,
-            textureHeight: 16,
+            textureHeight: 24,
           ),
           animationRunLeft: FlameAnimation.Animation.sequenced(
-            "enemy/goblin/goblin_run_left.png",
-            6,
+            "enemy/mini_boss/mini_boss_run_left.png",
+            4,
             textureWidth: 16,
-            textureHeight: 16,
+            textureHeight: 24,
           ),
           initPosition: initPosition,
-          width: 25,
-          height: 25,
-          speed: 1.5,
-          life: 100,
+          width: 22,
+          height: 30,
+          speed: 2.0,
+          life: 150,
         );
 
   @override
@@ -53,29 +52,27 @@ class Goblin extends Enemy {
   @override
   void update(double dt) {
     super.update(dt);
-//    _seePlayerClose = false;
+    _seePlayerClose = false;
     this.seePlayer(
       observed: (player) {
-//        _seePlayerClose = true;
+        _seePlayerClose = true;
+        this.seeAndMoveToPlayer(
+          closePlayer: (player) {
+            execAttack();
+          },
+          visionCells: 3,
+        );
       },
       visionCells: 3,
     );
-
-    this.seeAndMoveToPlayer(
-      closePlayer: (player) {
-        execAttack();
-      },
-      visionCells: 3,
-    );
-
-//    if (!_seePlayerClose) {
-//      this.seeAndMoveToAttackRange(
-//        positioned: (p) {
-//          execAttackRange();
-//        },
-//        visionCells: 8,
-//      );
-//    }
+    if (!_seePlayerClose) {
+      this.seeAndMoveToAttackRange(
+        positioned: (p) {
+          execAttackRange();
+        },
+        visionCells: 8,
+      );
+    }
   }
 
   @override
@@ -138,8 +135,8 @@ class Goblin extends Enemy {
     this.simpleAttackMelee(
       heightArea: 20,
       widthArea: 20,
-      damage: attack,
-      interval: 800,
+      damage: attack / 3,
+      interval: 300,
       attackEffectBottomAnim: FlameAnimation.Animation.sequenced(
         'enemy/atack_effect_bottom.png',
         6,

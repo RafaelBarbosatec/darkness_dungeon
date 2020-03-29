@@ -10,7 +10,7 @@ import 'package:flutter/widgets.dart';
 
 class Boss extends Enemy {
   final Position initPosition;
-  double attack = 15;
+  double attack = 30;
 
   bool addChild = false;
 
@@ -19,32 +19,32 @@ class Boss extends Enemy {
   Boss({this.initPosition})
       : super(
           animationIdleRight: FlameAnimation.Animation.sequenced(
-            "enemy/boss_idle.png",
+            "enemy/boss/boss_idle.png",
             4,
             textureWidth: 32,
             textureHeight: 36,
           ),
           animationIdleLeft: FlameAnimation.Animation.sequenced(
-            "enemy/boss_idle.png",
+            "enemy/boss/boss_idle.png",
             4,
             textureWidth: 32,
             textureHeight: 36,
           ),
           animationRunRight: FlameAnimation.Animation.sequenced(
-            "enemy/boss_run_right.png",
+            "enemy/boss/boss_run_right.png",
             4,
             textureWidth: 32,
             textureHeight: 36,
           ),
           animationRunLeft: FlameAnimation.Animation.sequenced(
-            "enemy/boss_run_left.png",
+            "enemy/boss/boss_run_left.png",
             4,
             textureWidth: 32,
             textureHeight: 36,
           ),
           initPosition: initPosition,
-          width: 32,
-          height: 36,
+          width: 36,
+          height: 40,
           speed: 1,
           life: 200,
         );
@@ -52,6 +52,8 @@ class Boss extends Enemy {
   @override
   void render(Canvas canvas) {
     this.drawDefaultLifeBar(canvas);
+    drawBarInvoquerEnemy(canvas);
+
     super.render(canvas);
   }
 
@@ -60,7 +62,8 @@ class Boss extends Enemy {
     super.update(dt);
     this.seePlayer(
       observed: (player) {
-        if (childs.isEmpty || childs.where((e) => !e.isDead).length == 0) {
+        if (childs.isEmpty ||
+            childs.where((e) => !e.isDead).length == 0 && childs.length < 3) {
           addChildInMap();
         }
       },
@@ -80,10 +83,10 @@ class Boss extends Enemy {
     gameRef.add(
       AnimatedObjectOnce(
         animation: FlameAnimation.Animation.sequenced(
-          "enemy_explosin.png",
-          6,
-          textureWidth: 16,
-          textureHeight: 16,
+          "explosion.png",
+          7,
+          textureWidth: 32,
+          textureHeight: 32,
         ),
         position: positionInWorld,
       ),
@@ -111,10 +114,10 @@ class Boss extends Enemy {
         positionExplosion = positionInWorld.translate(width * -2, 0);
         break;
       case Direction.right:
-        positionExplosion = positionInWorld.translate(width * 3, 0);
+        positionExplosion = positionInWorld.translate(width * 2, 0);
         break;
       case Direction.top:
-        positionExplosion = positionInWorld.translate(0, height * -1);
+        positionExplosion = positionInWorld.translate(0, height * -2);
         break;
       case Direction.bottom:
         positionExplosion = positionInWorld.translate(0, height * 2);
@@ -131,7 +134,7 @@ class Boss extends Enemy {
     gameRef.add(
       AnimatedObjectOnce(
         animation: FlameAnimation.Animation.sequenced(
-          "enemy_explosin.png",
+          "smoke_explosin.png",
           6,
           textureWidth: 16,
           textureHeight: 16,
@@ -149,7 +152,7 @@ class Boss extends Enemy {
       heightArea: 20,
       widthArea: 20,
       damage: attack,
-      interval: 1000,
+      interval: 1500,
       attackEffectBottomAnim: FlameAnimation.Animation.sequenced(
         'enemy/atack_effect_bottom.png',
         6,
@@ -188,5 +191,38 @@ class Boss extends Enemy {
       ),
     );
     super.receiveDamage(damage);
+  }
+
+  void drawBarInvoquerEnemy(Canvas canvas) {
+    double yPosition = position.top;
+    double widthBar = (width - 10) / 3;
+    if (childs.length < 1)
+      canvas.drawLine(
+          Offset(position.left, yPosition),
+          Offset(position.left + widthBar, yPosition),
+          Paint()
+            ..color = Colors.orange
+            ..strokeWidth = 1
+            ..style = PaintingStyle.fill);
+
+    double lastX = position.left + widthBar + 5;
+    if (childs.length < 2)
+      canvas.drawLine(
+          Offset(lastX, yPosition),
+          Offset(lastX + widthBar, yPosition),
+          Paint()
+            ..color = Colors.orange
+            ..strokeWidth = 1
+            ..style = PaintingStyle.fill);
+
+    lastX = lastX + widthBar + 5;
+    if (childs.length < 3)
+      canvas.drawLine(
+          Offset(lastX, yPosition),
+          Offset(lastX + widthBar, yPosition),
+          Paint()
+            ..color = Colors.orange
+            ..strokeWidth = 1
+            ..style = PaintingStyle.fill);
   }
 }

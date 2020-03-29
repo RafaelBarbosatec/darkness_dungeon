@@ -8,6 +8,7 @@ import 'package:darkness_dungeon/decoration/spikes.dart';
 import 'package:darkness_dungeon/enemies/boss.dart';
 import 'package:darkness_dungeon/enemies/goblin.dart';
 import 'package:darkness_dungeon/enemies/imp.dart';
+import 'package:darkness_dungeon/enemies/mini_boss.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/position.dart';
 
@@ -865,26 +866,36 @@ class DungeonMap {
         height: 32,
         collision: true,
       ),
-      Spikes(getRelativeTilePosition(33, 18), damage: 25),
-      Spikes(getRelativeTilePosition(34, 18), damage: 25),
-      Spikes(getRelativeTilePosition(35, 18), damage: 25),
+      Spikes(getRelativeTilePosition(33, 18), damage: 30),
+      Spikes(getRelativeTilePosition(34, 18), damage: 30),
+      Spikes(getRelativeTilePosition(35, 18), damage: 30),
       Door(getRelativeTilePosition(7, 17)),
       DoorKey(getRelativeTilePosition(34, 20)),
       PotionLife(getRelativeTilePosition(23, 28), 50),
       PotionLife(getRelativeTilePosition(24, 29), 50),
       PotionLife(getRelativeTilePosition(25, 30), 50),
-      Spikes(getRelativeTilePosition(23, 26), damage: 25),
-      Spikes(getRelativeTilePosition(24, 26), damage: 25),
-      Spikes(getRelativeTilePosition(25, 26), damage: 25),
+      Spikes(getRelativeTilePosition(23, 26), damage: 30),
+      Spikes(getRelativeTilePosition(24, 26), damage: 30),
+      Spikes(getRelativeTilePosition(25, 26), damage: 30),
     ];
   }
 
   static List<Enemy> enemies() {
-    return [];
     return [
-      Goblin(initPosition: getRelativeTilePosition(14, 6)),
-      Imp(initPosition: getRelativeTilePosition(10, 7)),
-      Boss(initPosition: getRelativeTilePosition(25, 6)),
+      Goblin(initPosition: getRelativeTilePosition(18, 9)),
+      Goblin(initPosition: getRelativeTilePosition(16, 11)),
+      Goblin(initPosition: getRelativeTilePosition(13, 16)),
+      Goblin(initPosition: getRelativeTilePosition(8, 15)),
+      Imp(initPosition: getRelativeTilePosition(21, 15)),
+      Imp(initPosition: getRelativeTilePosition(28, 16)),
+      Imp(initPosition: getRelativeTilePosition(35, 17)),
+      Imp(initPosition: getRelativeTilePosition(32, 15)),
+      MiniBoss(initPosition: getRelativeTilePosition(7, 28)),
+      MiniBoss(initPosition: getRelativeTilePosition(18, 21)),
+      Imp(initPosition: getRelativeTilePosition(23, 24)),
+      Imp(initPosition: getRelativeTilePosition(6, 20)),
+      Imp(initPosition: getRelativeTilePosition(25, 24)),
+      Boss(initPosition: getRelativeTilePosition(8, 34)),
     ];
   }
 
