@@ -70,7 +70,7 @@ class MiniBoss extends Enemy {
         positioned: (p) {
           execAttackRange();
         },
-        visionCells: 8,
+        visionCells: 7,
       );
     }
   }

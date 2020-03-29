@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/enemies/imp.dart';
+import 'package:darkness_dungeon/enemies/mini_boss.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/position.dart';
 import 'package:flame/text_config.dart';
@@ -124,12 +125,19 @@ class Boss extends Enemy {
         break;
     }
 
-    Enemy e = Imp(
-      initPosition: Position(
-        positionExplosion.left,
-        positionExplosion.top,
-      ),
-    );
+    Enemy e = childs.length == 2
+        ? MiniBoss(
+            initPosition: Position(
+              positionExplosion.left,
+              positionExplosion.top,
+            ),
+          )
+        : Imp(
+            initPosition: Position(
+              positionExplosion.left,
+              positionExplosion.top,
+            ),
+          );
 
     gameRef.add(
       AnimatedObjectOnce(
