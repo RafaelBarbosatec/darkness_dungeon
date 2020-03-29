@@ -9,6 +9,7 @@ import 'package:darkness_dungeon/enemies/boss.dart';
 import 'package:darkness_dungeon/enemies/goblin.dart';
 import 'package:darkness_dungeon/enemies/imp.dart';
 import 'package:darkness_dungeon/enemies/mini_boss.dart';
+import 'package:darkness_dungeon/npc/wizard_npc.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/position.dart';
 
@@ -880,6 +881,7 @@ class DungeonMap {
         height: 32,
         collision: true,
       ),
+      WizardNPC(getRelativeTilePosition(10, 6)),
       Spikes(getRelativeTilePosition(33, 18), damage: 30),
       Spikes(getRelativeTilePosition(34, 18), damage: 30),
       Spikes(getRelativeTilePosition(35, 18), damage: 30),

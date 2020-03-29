@@ -39,6 +39,8 @@ flutter:
   assets:
     - assets/
     - assets/images/
+    - assets/images/emote/
+    - assets/images/npc/
     - assets/images/tile/
     - assets/images/enemy/
     - assets/images/enemy/goblin/

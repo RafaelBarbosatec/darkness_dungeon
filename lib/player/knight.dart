@@ -160,7 +160,7 @@ class Knight extends Player {
     if (isDead) return;
     _verifyStamina();
     this.seeEnemy(
-      visionCells: 8,
+      visionCells: 6,
       notObserved: () {
         showObserveEnemy = false;
       },
@@ -214,7 +214,7 @@ class Knight extends Player {
     super.receiveDamage(damage);
   }
 
-  void _showEmote({String emote = 'player/emote_exclamacao.png'}) {
+  void _showEmote({String emote = 'emote/emote_exclamacao.png'}) {
     gameRef.add(
       AnimatedFollowerObject(
         animation: FlameAnimation.Animation.sequenced(
