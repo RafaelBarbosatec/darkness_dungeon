@@ -13,6 +13,7 @@ class Knight extends Player {
   double stamina = 100;
   Timer _timerStamina;
   bool containKey = false;
+  bool showObserveEnemy = false;
 
   Knight({
     this.initPosition,
@@ -156,7 +157,19 @@ class Knight extends Player {
 
   @override
   void update(double dt) {
+    if (isDead) return;
     _verifyStamina();
+    this.seeEnemy(
+      visionCells: 8,
+      notObserved: () {
+        showObserveEnemy = false;
+      },
+      observed: (enemies) {
+        if (showObserveEnemy) return;
+        showObserveEnemy = true;
+        _showEmote();
+      },
+    );
     super.update(dt);
   }
 
@@ -199,5 +212,22 @@ class Knight extends Player {
       ),
     );
     super.receiveDamage(damage);
+  }
+
+  void _showEmote({String emote = 'player/emote_exclamacao.png'}) {
+    gameRef.add(
+      AnimatedFollowerObject(
+        animation: FlameAnimation.Animation.sequenced(
+          emote,
+          8,
+          textureWidth: 32,
+          textureHeight: 32,
+        ),
+        target: this,
+        width: 16,
+        height: 16,
+        positionFromTarget: Position(18, -6),
+      ),
+    );
   }
 }

@@ -882,7 +882,7 @@ class DungeonMap {
 
   static List<Enemy> enemies() {
     return [
-      Goblin(initPosition: getRelativeTilePosition(18, 9)),
+      Goblin(initPosition: getRelativeTilePosition(18, 8)),
       Goblin(initPosition: getRelativeTilePosition(16, 11)),
       Goblin(initPosition: getRelativeTilePosition(13, 16)),
       Goblin(initPosition: getRelativeTilePosition(8, 15)),
