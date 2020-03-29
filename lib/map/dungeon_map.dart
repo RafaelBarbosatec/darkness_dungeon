@@ -496,6 +496,20 @@ class DungeonMap {
             Position(x.toDouble(), y.toDouble()),
           ));
         }
+
+        if (y == 20 && x == 38) {
+          tileList.add(Tile(
+            '',
+            Position(x.toDouble(), y.toDouble()),
+          ));
+        }
+
+        if (y == 39 && x == 3) {
+          tileList.add(Tile(
+            '',
+            Position(x.toDouble(), y.toDouble()),
+          ));
+        }
       });
     });
 
@@ -873,7 +887,7 @@ class DungeonMap {
       DoorKey(getRelativeTilePosition(34, 20)),
       PotionLife(getRelativeTilePosition(23, 28), 50),
       PotionLife(getRelativeTilePosition(24, 29), 50),
-      PotionLife(getRelativeTilePosition(25, 30), 50),
+      PotionLife(getRelativeTilePosition(35, 20), 50),
       Spikes(getRelativeTilePosition(23, 26), damage: 30),
       Spikes(getRelativeTilePosition(24, 26), damage: 30),
       Spikes(getRelativeTilePosition(25, 26), damage: 30),
@@ -895,7 +909,7 @@ class DungeonMap {
       Imp(initPosition: getRelativeTilePosition(18, 22)),
       Imp(initPosition: getRelativeTilePosition(6, 20)),
       Imp(initPosition: getRelativeTilePosition(11, 21)),
-      Boss(initPosition: getRelativeTilePosition(8, 34)),
+      Boss(initPosition: getRelativeTilePosition(9, 35)),
     ];
   }
 

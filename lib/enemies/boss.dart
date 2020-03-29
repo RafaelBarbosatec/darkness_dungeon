@@ -11,7 +11,7 @@ import 'package:flutter/widgets.dart';
 
 class Boss extends Enemy {
   final Position initPosition;
-  double attack = 30;
+  double attack = 40;
 
   bool addChild = false;
 
@@ -68,7 +68,7 @@ class Boss extends Enemy {
           addChildInMap();
         }
       },
-      visionCells: 6,
+      visionCells: 4,
     );
 
     this.seeAndMoveToPlayer(
