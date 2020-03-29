@@ -1,4 +1,4 @@
-import 'package:darkness_dungeon/game.dart';
+import 'package:darkness_dungeon/util/conversation.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/flame.dart';
 import 'package:flame/position.dart';
@@ -54,10 +54,11 @@ class _MenuState extends State<Menu> {
                         fontFamily: 'Normal',
                         fontSize: 17.0)),
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Game()),
-                  );
+//                  Navigator.push(
+//                    context,
+//                    MaterialPageRoute(builder: (context) => Game()),
+//                  );
+                  Conversation.show(context, List());
                 })
           ],
         ),

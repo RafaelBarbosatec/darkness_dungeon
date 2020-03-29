@@ -64,7 +64,7 @@ flutter:
   fonts:
    - family: Normal
      fonts:
-       - asset: fonts/Minecraft.ttf
+       - asset: fonts/font_pixel.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
