@@ -1,4 +1,5 @@
 import 'package:darkness_dungeon/util/conversation.dart';
+import 'package:darkness_dungeon/util/talk.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/flame.dart';
 import 'package:flame/position.dart';
@@ -58,7 +59,33 @@ class _MenuState extends State<Menu> {
 //                    context,
 //                    MaterialPageRoute(builder: (context) => Game()),
 //                  );
-                  Conversation.show(context, List());
+                  Conversation.show(context, [
+                    Talk(
+                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque convallis pulvinar libero, sit amet finibus lectus porttitor at. ',
+                      Flame.util.animationAsWidget(
+                        Position(80, 100),
+                        FlameAnimation.Animation.sequenced(
+                          "npc/wizard_idle_left.png",
+                          4,
+                          textureWidth: 16,
+                          textureHeight: 22,
+                        ),
+                      ),
+                    ),
+                    Talk(
+                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque convallis pulvinar libero, sit amet finibus lectus porttitor at. ',
+                      Flame.util.animationAsWidget(
+                        Position(80, 100),
+                        FlameAnimation.Animation.sequenced(
+                          "npc/wizard_idle_left.png",
+                          4,
+                          textureWidth: 16,
+                          textureHeight: 22,
+                        ),
+                      ),
+                      personDirection: PersonDirection.RIGHT,
+                    )
+                  ]);
                 })
           ],
         ),
