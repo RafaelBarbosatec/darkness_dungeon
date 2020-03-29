@@ -892,9 +892,9 @@ class DungeonMap {
       Imp(initPosition: getRelativeTilePosition(32, 15)),
       MiniBoss(initPosition: getRelativeTilePosition(7, 28)),
       MiniBoss(initPosition: getRelativeTilePosition(25, 24)),
-      Imp(initPosition: getRelativeTilePosition(19, 20)),
+      Imp(initPosition: getRelativeTilePosition(18, 22)),
       Imp(initPosition: getRelativeTilePosition(6, 20)),
-      Imp(initPosition: getRelativeTilePosition(14, 22)),
+      Imp(initPosition: getRelativeTilePosition(11, 21)),
       Boss(initPosition: getRelativeTilePosition(8, 34)),
     ];
   }

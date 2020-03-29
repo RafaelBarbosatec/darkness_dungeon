@@ -38,7 +38,7 @@ class Imp extends Enemy {
           width: 25,
           height: 25,
           speed: 2,
-          life: 100,
+          life: 80,
         );
 
   @override

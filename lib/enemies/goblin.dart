@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 class Goblin extends Enemy {
   final Position initPosition;
   double attack = 25;
-  bool _seePlayerClose = false;
 
   Goblin({
     @required this.initPosition,
@@ -41,7 +40,7 @@ class Goblin extends Enemy {
           width: 25,
           height: 25,
           speed: 1.5,
-          life: 100,
+          life: 120,
         );
 
   @override
@@ -53,29 +52,13 @@ class Goblin extends Enemy {
   @override
   void update(double dt) {
     super.update(dt);
-//    _seePlayerClose = false;
-    this.seePlayer(
-      observed: (player) {
-//        _seePlayerClose = true;
-      },
-      visionCells: 3,
-    );
 
     this.seeAndMoveToPlayer(
       closePlayer: (player) {
         execAttack();
       },
-      visionCells: 3,
+      visionCells: 4,
     );
-
-//    if (!_seePlayerClose) {
-//      this.seeAndMoveToAttackRange(
-//        positioned: (p) {
-//          execAttackRange();
-//        },
-//        visionCells: 8,
-//      );
-//    }
   }
 
   @override
