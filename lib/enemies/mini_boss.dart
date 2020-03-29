@@ -39,7 +39,7 @@ class MiniBoss extends Enemy {
           initPosition: initPosition,
           width: 22,
           height: 30,
-          speed: 2.0,
+          speed: 1.5,
           life: 150,
         );
 

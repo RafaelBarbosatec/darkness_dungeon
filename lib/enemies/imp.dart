@@ -37,7 +37,7 @@ class Imp extends Enemy {
           initPosition: initPosition,
           width: 25,
           height: 25,
-          speed: 1.5,
+          speed: 2,
           life: 100,
         );
 
