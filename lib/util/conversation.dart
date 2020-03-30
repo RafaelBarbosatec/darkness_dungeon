@@ -3,28 +3,32 @@ import 'dart:async';
 import 'package:darkness_dungeon/util/talk.dart';
 import 'package:flutter/material.dart';
 
-class Conversation {
-  static show(BuildContext context, List<Talk> list) {
+class Conversation extends StatefulWidget {
+  static show(BuildContext context, List<Talk> talkList,
+      {VoidCallback finish, ValueChanged<int> onChangeTalk}) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return ConversationWidget(
-          talks: list,
+        return Conversation(
+          talks: talkList,
+          finish: finish,
+          onChangeTalk: onChangeTalk,
         );
       },
     );
   }
-}
 
-class ConversationWidget extends StatefulWidget {
   final List<Talk> talks;
+  final VoidCallback finish;
+  final ValueChanged<int> onChangeTalk;
 
-  const ConversationWidget({Key key, this.talks}) : super(key: key);
+  const Conversation({Key key, this.talks, this.finish, this.onChangeTalk})
+      : super(key: key);
   @override
-  _ConversationWidgetState createState() => _ConversationWidgetState();
+  _ConversationState createState() => _ConversationState();
 }
 
-class _ConversationWidgetState extends State<ConversationWidget> {
+class _ConversationState extends State<Conversation> {
   Timer timer;
   Talk currentTalk;
   int currentIndexTalk = 0;
@@ -121,7 +125,9 @@ class _ConversationWidgetState extends State<ConversationWidget> {
         currentTalk = widget.talks[currentIndexTalk];
       });
       startShowText();
+      if (widget.onChangeTalk != null) widget.onChangeTalk(currentIndexTalk);
     } else {
+      if (widget.finish != null) widget.finish();
       Navigator.pop(context);
     }
   }

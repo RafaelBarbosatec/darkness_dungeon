@@ -1,5 +1,6 @@
 import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/util/conversation.dart';
+import 'package:darkness_dungeon/util/talk.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 
 class WizardNPC extends GameDecoration {
@@ -29,9 +30,6 @@ class WizardNPC extends GameDecoration {
             _showIntroduction();
           }
         },
-        notObserved: () {
-          _showConversation = false;
-        },
         visionCells: 2);
   }
 
@@ -53,6 +51,36 @@ class WizardNPC extends GameDecoration {
   }
 
   void _showIntroduction() {
-    Conversation.show(gameRef.context, List());
+    Conversation.show(gameRef.context, [
+      Talk(
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque convallis pulvinar libero, sit amet finibus lectus porttitor at. ',
+          Flame.util.animationAsWidget(
+            Position(80, 100),
+            FlameAnimation.Animation.sequenced(
+              "npc/wizard_idle_left.png",
+              4,
+              textureWidth: 16,
+              textureHeight: 22,
+            ),
+          ),
+          personDirection: PersonDirection.RIGHT),
+      Talk(
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque convallis pulvinar libero, sit amet finibus lectus porttitor at. ',
+        Flame.util.animationAsWidget(
+          Position(80, 100),
+          FlameAnimation.Animation.sequenced(
+            "player/knight_idle.png",
+            4,
+            textureWidth: 16,
+            textureHeight: 22,
+          ),
+        ),
+        personDirection: PersonDirection.LEFT,
+      )
+    ], finish: () {
+      print('finish');
+    }, onChangeTalk: (index) {
+      print(index);
+    });
   }
 }
