@@ -34,7 +34,7 @@ class Game extends StatelessWidget {
         ],
       ),
       player: Knight(
-        initPosition: Position(5 * 32.0, 6 * 32.0),
+        initPosition: Position(5 * 32.0, 36 * 32.0),
       ),
       interface: KnightInterface(),
       map: DungeonMap.map(),

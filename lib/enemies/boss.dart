@@ -275,8 +275,8 @@ class Boss extends Enemy {
             FlameAnimation.Animation.sequenced(
               "npc/kid_idle_left.png",
               4,
-              textureWidth: 32,
-              textureHeight: 36,
+              textureWidth: 16,
+              textureHeight: 22,
             ),
           ),
           personDirection: PersonDirection.RIGHT,
@@ -288,8 +288,8 @@ class Boss extends Enemy {
             FlameAnimation.Animation.sequenced(
               "enemy/boss/boss_idle.png",
               4,
-              textureWidth: 16,
-              textureHeight: 22,
+              textureWidth: 32,
+              textureHeight: 36,
             ),
           ),
           personDirection: PersonDirection.LEFT,
@@ -314,8 +314,8 @@ class Boss extends Enemy {
             FlameAnimation.Animation.sequenced(
               "enemy/boss/boss_idle.png",
               4,
-              textureWidth: 16,
-              textureHeight: 22,
+              textureWidth: 32,
+              textureHeight: 36,
             ),
           ),
           personDirection: PersonDirection.RIGHT,
