@@ -55,19 +55,20 @@ class WizardNPC extends GameDecoration {
       gameRef.context,
       [
         Talk(
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque convallis pulvinar libero, sit amet finibus lectus porttitor at. ',
-            Flame.util.animationAsWidget(
-              Position(80, 100),
-              FlameAnimation.Animation.sequenced(
-                "npc/wizard_idle_left.png",
-                4,
-                textureWidth: 16,
-                textureHeight: 22,
-              ),
+          'Olá meu jovem cavaleiro!\nOque você faz aqui?',
+          Flame.util.animationAsWidget(
+            Position(80, 100),
+            FlameAnimation.Animation.sequenced(
+              "npc/wizard_idle_left.png",
+              4,
+              textureWidth: 16,
+              textureHeight: 22,
             ),
-            personDirection: PersonDirection.RIGHT),
+          ),
+          personDirection: PersonDirection.RIGHT,
+        ),
         Talk(
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque convallis pulvinar libero, sit amet finibus lectus porttitor at. ',
+          'Olá!\nFui enviado para resgatar uma criança que foi sequestradas por criaturas que moram nessas redondezas.',
           Flame.util.animationAsWidget(
             Position(80, 100),
             FlameAnimation.Animation.sequenced(
@@ -78,7 +79,46 @@ class WizardNPC extends GameDecoration {
             ),
           ),
           personDirection: PersonDirection.LEFT,
-        )
+        ),
+        Talk(
+          'Humm...\nNão quero te desmotivar, mas você é o quinto cavaleiro enviado para essa tarefa. Até o momento nenhum retornou com vida e seus corpos estão pindurados pela parede como trofeus.',
+          Flame.util.animationAsWidget(
+            Position(80, 100),
+            FlameAnimation.Animation.sequenced(
+              "npc/wizard_idle_left.png",
+              4,
+              textureWidth: 16,
+              textureHeight: 22,
+            ),
+          ),
+          personDirection: PersonDirection.RIGHT,
+        ),
+        Talk(
+          'Não se preocupe meu velhinho. Caveleiro igual a mim jamais existiu!\nVou exterminar cada criatura desse lugar e resgatar a criança!',
+          Flame.util.animationAsWidget(
+            Position(80, 100),
+            FlameAnimation.Animation.sequenced(
+              "player/knight_idle.png",
+              4,
+              textureWidth: 16,
+              textureHeight: 22,
+            ),
+          ),
+          personDirection: PersonDirection.LEFT,
+        ),
+        Talk(
+          'É, alto estima é oque não falta em você!\nDepois não diga que não avisei!\nBoa sorte!',
+          Flame.util.animationAsWidget(
+            Position(80, 100),
+            FlameAnimation.Animation.sequenced(
+              "npc/wizard_idle_left.png",
+              4,
+              textureWidth: 16,
+              textureHeight: 22,
+            ),
+          ),
+          personDirection: PersonDirection.RIGHT,
+        ),
       ],
     );
   }
