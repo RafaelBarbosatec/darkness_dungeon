@@ -61,20 +61,20 @@ class _MenuState extends State<Menu> {
                 );
               },
             ),
-            SizedBox(
-              height: 5.0,
-            ),
-            RaisedButton(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5.0)),
-              color: Color.fromARGB(255, 118, 82, 78),
-              child: Text(
-                getString('credits_cap'),
-                style: TextStyle(
-                    color: Colors.white, fontFamily: 'Normal', fontSize: 17.0),
-              ),
-              onPressed: () {},
-            )
+//            SizedBox(
+//              height: 5.0,
+//            ),
+//            RaisedButton(
+//              shape: RoundedRectangleBorder(
+//                  borderRadius: BorderRadius.circular(5.0)),
+//              color: Color.fromARGB(255, 118, 82, 78),
+//              child: Text(
+//                getString('credits_cap'),
+//                style: TextStyle(
+//                    color: Colors.white, fontFamily: 'Normal', fontSize: 17.0),
+//              ),
+//              onPressed: () {},
+//            )
           ],
         ),
       ),
