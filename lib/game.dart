@@ -2,11 +2,18 @@ import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/map/dungeon_map.dart';
 import 'package:darkness_dungeon/player/knight.dart';
 import 'package:darkness_dungeon/player/knight_interface.dart';
+import 'package:darkness_dungeon/util/dialogs.dart';
 import 'package:flutter/material.dart';
 
-class Game extends StatelessWidget {
+class Game extends StatefulWidget {
   const Game({Key key}) : super(key: key);
 
+  @override
+  _GameState createState() => _GameState();
+}
+
+class _GameState extends State<Game> {
+  bool showGameOver = false;
   @override
   Widget build(BuildContext context) {
     return BonfireWidget(
@@ -34,14 +41,36 @@ class Game extends StatelessWidget {
         ],
       ),
       player: Knight(
-        initPosition: Position(5 * 32.0, 36 * 32.0),
+        initPosition: Position(5 * 32.0, 6 * 32.0),
       ),
       interface: KnightInterface(),
       map: DungeonMap.map(),
       decorations: DungeonMap.decorations(),
       enemies: DungeonMap.enemies(),
 //      constructionMode: true,
-      listener: (context, game) {},
+      listener: (context, game) {
+        if (game.player.isDead) {
+          if (!showGameOver) {
+            showGameOver = true;
+            _showDialogGameOver();
+          }
+        }
+      },
+    );
+  }
+
+  void _showDialogGameOver() {
+    setState(() {
+      showGameOver = true;
+    });
+    Dialogs.showGameOver(
+      context,
+      () {
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => Game()),
+          (Route<dynamic> route) => false,
+        );
+      },
     );
   }
 }

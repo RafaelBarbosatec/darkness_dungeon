@@ -16,7 +16,7 @@ class Boss extends Enemy {
   double attack = 40;
 
   bool addChild = false;
-  bool firsSeePlayer = false;
+  bool firstSeePlayer = false;
 
   List<Enemy> children = List();
 
@@ -64,10 +64,10 @@ class Boss extends Enemy {
   @override
   void update(double dt) {
     super.update(dt);
-    if (!firsSeePlayer) {
+    if (!firstSeePlayer) {
       this.seePlayer(
         observed: (p) {
-          firsSeePlayer = true;
+          firstSeePlayer = true;
           gameRef.gameCamera.moveToPositionAnimated(
               Position(positionInWorld.left, positionInWorld.top), finish: () {
             _showConversation();
