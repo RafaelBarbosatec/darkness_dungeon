@@ -47,7 +47,6 @@ class _GameState extends State<Game> {
       map: DungeonMap.map(),
       decorations: DungeonMap.decorations(),
       enemies: DungeonMap.enemies(),
-//      constructionMode: true,
       listener: (context, game) {
         if (game.player.isDead) {
           if (!showGameOver) {

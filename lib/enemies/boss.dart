@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/enemies/imp.dart';
 import 'package:darkness_dungeon/enemies/mini_boss.dart';
+import 'package:darkness_dungeon/map/dungeon_map.dart';
 import 'package:darkness_dungeon/util/conversation.dart';
 import 'package:darkness_dungeon/util/localization/strings_location.dart';
 import 'package:darkness_dungeon/util/talk.dart';
@@ -104,7 +105,7 @@ class Boss extends Enemy {
       closePlayer: (player) {
         execAttack();
       },
-      visionCells: 3,
+      visionCells: 4,
     );
   }
 
@@ -333,8 +334,8 @@ class Boss extends Enemy {
   }
 
   void addInitChild() {
-    addImp(13 * 32.0, 32 * 32.0);
-    addImp(13 * 32.0, 34 * 32.0);
+    addImp(13.0 * DungeonMap.tileSize, 32.0 * DungeonMap.tileSize);
+    addImp(13.0 * DungeonMap.tileSize, 34.0 * DungeonMap.tileSize);
   }
 
   void addImp(double x, double y) {
