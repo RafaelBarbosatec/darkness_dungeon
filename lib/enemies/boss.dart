@@ -18,7 +18,7 @@ class Boss extends Enemy {
   bool addChild = false;
   bool firsSeePlayer = false;
 
-  List<Enemy> childs = List();
+  List<Enemy> children = List();
 
   Boss({this.initPosition})
       : super(
@@ -56,7 +56,7 @@ class Boss extends Enemy {
   @override
   void render(Canvas canvas) {
     this.drawDefaultLifeBar(canvas);
-    drawBarInvoquerEnemy(canvas);
+    drawBarSummonEnemy(canvas);
 
     super.render(canvas);
   }
@@ -78,23 +78,24 @@ class Boss extends Enemy {
     }
     this.seePlayer(
       observed: (player) {
-        if (childs.isEmpty ||
-            childs.where((e) => !e.isDead).length == 0 && childs.length < 3) {
+        if (children.isEmpty ||
+            children.where((e) => !e.isDead).length == 0 &&
+                children.length < 3) {
           addChildInMap();
         }
       },
-      visionCells: 4,
+      visionCells: 5,
     );
 
-    if (life < 150 && childs.length == 0) {
+    if (life < 150 && children.length == 0) {
       addChildInMap();
     }
 
-    if (life < 100 && childs.length == 1) {
+    if (life < 100 && children.length == 1) {
       addChildInMap();
     }
 
-    if (life < 50 && childs.length == 2) {
+    if (life < 50 && children.length == 2) {
       addChildInMap();
     }
 
@@ -119,7 +120,7 @@ class Boss extends Enemy {
         position: positionInWorld,
       ),
     );
-    childs.forEach((e) {
+    children.forEach((e) {
       if (!e.isDead) e.die();
     });
     remove();
@@ -155,7 +156,7 @@ class Boss extends Enemy {
         break;
     }
 
-    Enemy e = childs.length == 2
+    Enemy e = children.length == 2
         ? MiniBoss(
             initPosition: Position(
               positionExplosion.left,
@@ -181,7 +182,7 @@ class Boss extends Enemy {
       ),
     );
 
-    childs.add(e);
+    children.add(e);
     gameRef.addEnemy(e);
   }
 
@@ -231,10 +232,10 @@ class Boss extends Enemy {
     super.receiveDamage(damage);
   }
 
-  void drawBarInvoquerEnemy(Canvas canvas) {
+  void drawBarSummonEnemy(Canvas canvas) {
     double yPosition = position.top;
     double widthBar = (width - 10) / 3;
-    if (childs.length < 1)
+    if (children.length < 1)
       canvas.drawLine(
           Offset(position.left, yPosition),
           Offset(position.left + widthBar, yPosition),
@@ -244,7 +245,7 @@ class Boss extends Enemy {
             ..style = PaintingStyle.fill);
 
     double lastX = position.left + widthBar + 5;
-    if (childs.length < 2)
+    if (children.length < 2)
       canvas.drawLine(
           Offset(lastX, yPosition),
           Offset(lastX + widthBar, yPosition),
@@ -254,7 +255,7 @@ class Boss extends Enemy {
             ..style = PaintingStyle.fill);
 
     lastX = lastX + widthBar + 5;
-    if (childs.length < 3)
+    if (children.length < 3)
       canvas.drawLine(
           Offset(lastX, yPosition),
           Offset(lastX + widthBar, yPosition),
