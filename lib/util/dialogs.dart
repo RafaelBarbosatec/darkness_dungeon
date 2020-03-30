@@ -1,4 +1,4 @@
-import 'package:darkness_dungeon/Menu.dart';
+import 'package:darkness_dungeon/menu.dart';
 import 'package:darkness_dungeon/util/localization/strings_location.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
