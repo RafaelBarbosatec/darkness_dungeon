@@ -19,6 +19,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
   bonfire: ^0.0.13
   flame_splash_screen: ^0.0.1
@@ -49,6 +51,8 @@ flutter:
     - assets/images/enemy/boss/
     - assets/images/player/
     - assets/images/itens/
+    - resources/lang/en.json
+    - resources/lang/pt.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
