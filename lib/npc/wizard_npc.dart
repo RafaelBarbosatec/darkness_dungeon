@@ -81,7 +81,7 @@ class WizardNPC extends GameDecoration {
           personDirection: PersonDirection.LEFT,
         ),
         Talk(
-          'Humm...\nNão quero te desmotivar, mas você é o quinto cavaleiro enviado para essa tarefa. Até o momento nenhum retornou com vida e seus corpos estão pindurados pela parede como trofeus.',
+          'Humm...\nNão quero te desmotivar, mas você é o quinto cavaleiro enviado para essa tarefa. Até o momento nenhum retornou com vida e seus corpos estão pindurados pelas paredes como trofeus.',
           Flame.util.animationAsWidget(
             Position(80, 100),
             FlameAnimation.Animation.sequenced(

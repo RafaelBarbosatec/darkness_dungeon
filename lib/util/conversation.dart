@@ -88,6 +88,7 @@ class _ConversationState extends State<Conversation> {
                       builder: (context, snapshot) {
                         return SingleChildScrollView(
                           scrollDirection: Axis.vertical,
+                          physics: BouncingScrollPhysics(),
                           child: Text(
                             snapshot.hasData ? snapshot.data : '',
                             style: TextStyle(

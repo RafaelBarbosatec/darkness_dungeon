@@ -86,6 +86,18 @@ class Boss extends Enemy {
       visionCells: 4,
     );
 
+    if (life < 150 && childs.length == 0) {
+      addChildInMap();
+    }
+
+    if (life < 100 && childs.length == 1) {
+      addChildInMap();
+    }
+
+    if (life < 50 && childs.length == 2) {
+      addChildInMap();
+    }
+
     this.seeAndMoveToPlayer(
       closePlayer: (player) {
         execAttack();
@@ -107,6 +119,9 @@ class Boss extends Enemy {
         position: positionInWorld,
       ),
     );
+    childs.forEach((e) {
+      if (!e.isDead) e.die();
+    });
     remove();
     super.die();
   }
