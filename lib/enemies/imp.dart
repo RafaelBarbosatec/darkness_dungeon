@@ -6,30 +6,30 @@ import 'package:flutter/material.dart';
 
 class Imp extends Enemy {
   final Position initPosition;
-  double attack = 8;
+  double attack = 10;
 
   Imp({this.initPosition})
       : super(
           animationIdleRight: FlameAnimation.Animation.sequenced(
-            "enemy/imp_idle.png",
+            "enemy/imp/imp_idle.png",
             4,
             textureWidth: 16,
             textureHeight: 16,
           ),
           animationIdleLeft: FlameAnimation.Animation.sequenced(
-            "enemy/imp_idle.png",
+            "enemy/imp/imp_idle_left.png",
             4,
             textureWidth: 16,
             textureHeight: 16,
           ),
           animationRunRight: FlameAnimation.Animation.sequenced(
-            "enemy/imp_run_right.png",
+            "enemy/imp/imp_run_right.png",
             4,
             textureWidth: 16,
             textureHeight: 16,
           ),
           animationRunLeft: FlameAnimation.Animation.sequenced(
-            "enemy/imp_run_left.png",
+            "enemy/imp/imp_run_left.png",
             4,
             textureWidth: 16,
             textureHeight: 16,
@@ -37,8 +37,8 @@ class Imp extends Enemy {
           initPosition: initPosition,
           width: 25,
           height: 25,
-          speed: 1.5,
-          life: 100,
+          speed: 2,
+          life: 80,
         );
 
   @override
@@ -96,7 +96,7 @@ class Imp extends Enemy {
     gameRef.add(
       AnimatedObjectOnce(
         animation: FlameAnimation.Animation.sequenced(
-          "enemy_explosin.png",
+          "smoke_explosin.png",
           6,
           textureWidth: 16,
           textureHeight: 16,

@@ -1,4 +1,5 @@
 import 'package:darkness_dungeon/game.dart';
+import 'package:darkness_dungeon/util/localization/strings_location.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/flame.dart';
 import 'package:flame/position.dart';
@@ -37,27 +38,43 @@ class _MenuState extends State<Menu> {
               height: 20.0,
             ),
             Flame.util.animationAsWidget(
-                Position(50, 50),
-                FlameAnimation.Animation.sequenced("knight_run.png", 6,
-                    textureWidth: 16, textureHeight: 16)),
+              Position(50, 50),
+              FlameAnimation.Animation.sequenced("player/knight_run.png", 6,
+                  textureWidth: 16, textureHeight: 16),
+            ),
             SizedBox(
               height: 10.0,
             ),
             RaisedButton(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0)),
-                color: Color.fromARGB(255, 118, 82, 78),
-                child: Text("PLAY",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'Normal',
-                        fontSize: 17.0)),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Game()),
-                  );
-                })
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5.0)),
+              color: Color.fromARGB(255, 118, 82, 78),
+              child: Text(
+                getString('play_cap'),
+                style: TextStyle(
+                    color: Colors.white, fontFamily: 'Normal', fontSize: 17.0),
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Game()),
+                );
+              },
+            ),
+            SizedBox(
+              height: 5.0,
+            ),
+            RaisedButton(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5.0)),
+              color: Color.fromARGB(255, 118, 82, 78),
+              child: Text(
+                getString('credits_cap'),
+                style: TextStyle(
+                    color: Colors.white, fontFamily: 'Normal', fontSize: 17.0),
+              ),
+              onPressed: () {},
+            )
           ],
         ),
       ),
@@ -68,11 +85,19 @@ class _MenuState extends State<Menu> {
           children: <Widget>[
             Align(
               alignment: Alignment.centerLeft,
-              child: Text("Powered by rafaelbarbosatec",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'Normal',
-                      fontSize: 12.0)),
+              child: Text(
+                getString('powered_by'),
+                style: TextStyle(
+                    color: Colors.white, fontFamily: 'Normal', fontSize: 12.0),
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Text(
+                getString('built_with'),
+                style: TextStyle(
+                    color: Colors.white, fontFamily: 'Normal', fontSize: 12.0),
+              ),
             ),
           ],
         ),

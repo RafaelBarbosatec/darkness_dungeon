@@ -8,31 +8,30 @@ import 'package:flutter/material.dart';
 class Goblin extends Enemy {
   final Position initPosition;
   double attack = 25;
-  bool _seePlayerClose = false;
 
   Goblin({
     @required this.initPosition,
   }) : super(
           animationIdleRight: FlameAnimation.Animation.sequenced(
-            "goblin_idle.png",
+            "enemy/goblin/goblin_idle.png",
             6,
             textureWidth: 16,
             textureHeight: 16,
           ),
           animationIdleLeft: FlameAnimation.Animation.sequenced(
-            "goblin_idle_left.png",
+            "enemy/goblin/goblin_idle_left.png",
             6,
             textureWidth: 16,
             textureHeight: 16,
           ),
           animationRunRight: FlameAnimation.Animation.sequenced(
-            "goblin_run_right.png",
+            "enemy/goblin/goblin_run_right.png",
             6,
             textureWidth: 16,
             textureHeight: 16,
           ),
           animationRunLeft: FlameAnimation.Animation.sequenced(
-            "goblin_run_left.png",
+            "enemy/goblin/goblin_run_left.png",
             6,
             textureWidth: 16,
             textureHeight: 16,
@@ -41,7 +40,7 @@ class Goblin extends Enemy {
           width: 25,
           height: 25,
           speed: 1.5,
-          life: 100,
+          life: 120,
         );
 
   @override
@@ -53,26 +52,13 @@ class Goblin extends Enemy {
   @override
   void update(double dt) {
     super.update(dt);
-    _seePlayerClose = false;
-    this.seePlayer(
-        observed: (player) {
-          _seePlayerClose = true;
-          this.seeAndMoveToPlayer(
-              closePlayer: (player) {
-                execAttack();
-              },
-              visionCells: 3);
-        },
-        visionCells: 3);
 
-    if (!_seePlayerClose) {
-      this.seeAndMoveToAttackRange(
-        positioned: (p) {
-          execAttackRange();
-        },
-        visionCells: 8,
-      );
-    }
+    this.seeAndMoveToPlayer(
+      closePlayer: (player) {
+        execAttack();
+      },
+      visionCells: 4,
+    );
   }
 
   @override
@@ -80,7 +66,7 @@ class Goblin extends Enemy {
     gameRef.add(
       AnimatedObjectOnce(
         animation: FlameAnimation.Animation.sequenced(
-          "enemy_explosin.png",
+          "smoke_explosin.png",
           6,
           textureWidth: 16,
           textureHeight: 16,
@@ -135,8 +121,8 @@ class Goblin extends Enemy {
     this.simpleAttackMelee(
       heightArea: 20,
       widthArea: 20,
-      damage: attack / 2,
-      interval: 300,
+      damage: attack,
+      interval: 800,
       attackEffectBottomAnim: FlameAnimation.Animation.sequenced(
         'enemy/atack_effect_bottom.png',
         6,

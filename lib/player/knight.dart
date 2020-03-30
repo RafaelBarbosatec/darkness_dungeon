@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bonfire/bonfire.dart';
+import 'package:bonfire/util/collision/collision.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/position.dart';
 import 'package:flame/text_config.dart';
@@ -11,40 +12,42 @@ class Knight extends Player {
   double attack = 20;
   double stamina = 100;
   Timer _timerStamina;
+  bool containKey = false;
+  bool showObserveEnemy = false;
 
   Knight({
     this.initPosition,
   }) : super(
-          animIdleLeft: FlameAnimation.Animation.sequenced(
-            "knight_idle_left.png",
-            6,
-            textureWidth: 16,
-            textureHeight: 16,
-          ),
-          animIdleRight: FlameAnimation.Animation.sequenced(
-            "knight_idle.png",
-            6,
-            textureWidth: 16,
-            textureHeight: 16,
-          ),
-          animRunRight: FlameAnimation.Animation.sequenced(
-            "knight_run.png",
-            6,
-            textureWidth: 16,
-            textureHeight: 16,
-          ),
-          animRunLeft: FlameAnimation.Animation.sequenced(
-            "knight_run_left.png",
-            6,
-            textureWidth: 16,
-            textureHeight: 16,
-          ),
-          width: 32,
-          height: 32,
-          initPosition: initPosition,
-          life: 200,
-          speed: 2.5,
-        );
+            animIdleLeft: FlameAnimation.Animation.sequenced(
+              "player/knight_idle_left.png",
+              6,
+              textureWidth: 16,
+              textureHeight: 16,
+            ),
+            animIdleRight: FlameAnimation.Animation.sequenced(
+              "player/knight_idle.png",
+              6,
+              textureWidth: 16,
+              textureHeight: 16,
+            ),
+            animRunRight: FlameAnimation.Animation.sequenced(
+              "player/knight_run.png",
+              6,
+              textureWidth: 16,
+              textureHeight: 16,
+            ),
+            animRunLeft: FlameAnimation.Animation.sequenced(
+              "player/knight_run_left.png",
+              6,
+              textureWidth: 16,
+              textureHeight: 16,
+            ),
+            width: 32,
+            height: 32,
+            initPosition: initPosition,
+            life: 200,
+            speed: 2.5,
+            collision: Collision(width: 20, height: 16));
 
   @override
   void joystickAction(int action) {
@@ -83,25 +86,25 @@ class Knight extends Player {
     this.simpleAttackMelee(
       damage: attack,
       attackEffectBottomAnim: FlameAnimation.Animation.sequenced(
-        'atack_effect_bottom.png',
+        'player/atack_effect_bottom.png',
         6,
         textureWidth: 16,
         textureHeight: 16,
       ),
       attackEffectLeftAnim: FlameAnimation.Animation.sequenced(
-        'atack_effect_left.png',
+        'player/atack_effect_left.png',
         6,
         textureWidth: 16,
         textureHeight: 16,
       ),
       attackEffectRightAnim: FlameAnimation.Animation.sequenced(
-        'atack_effect_right.png',
+        'player/atack_effect_right.png',
         6,
         textureWidth: 16,
         textureHeight: 16,
       ),
       attackEffectTopAnim: FlameAnimation.Animation.sequenced(
-        'atack_effect_top.png',
+        'player/atack_effect_top.png',
         6,
         textureWidth: 16,
         textureHeight: 16,
@@ -154,8 +157,25 @@ class Knight extends Player {
 
   @override
   void update(double dt) {
+    if (isDead) return;
     _verifyStamina();
+    this.seeEnemy(
+      visionCells: 6,
+      notObserved: () {
+        showObserveEnemy = false;
+      },
+      observed: (enemies) {
+        if (showObserveEnemy) return;
+        showObserveEnemy = true;
+        _showEmote();
+      },
+    );
     super.update(dt);
+  }
+
+  @override
+  void render(Canvas c) {
+    super.render(c);
   }
 
   void _verifyStamina() {
@@ -182,6 +202,7 @@ class Knight extends Player {
 
   @override
   void receiveDamage(double damage) {
+    if (isDead) return;
     this.showDamage(
       damage,
       config: TextConfig(
@@ -191,5 +212,22 @@ class Knight extends Player {
       ),
     );
     super.receiveDamage(damage);
+  }
+
+  void _showEmote({String emote = 'emote/emote_exclamacao.png'}) {
+    gameRef.add(
+      AnimatedFollowerObject(
+        animation: FlameAnimation.Animation.sequenced(
+          emote,
+          8,
+          textureWidth: 32,
+          textureHeight: 32,
+        ),
+        target: this,
+        width: 16,
+        height: 16,
+        positionFromTarget: Position(18, -6),
+      ),
+    );
   }
 }
