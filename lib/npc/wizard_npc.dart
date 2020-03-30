@@ -1,5 +1,6 @@
 import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/util/conversation.dart';
+import 'package:darkness_dungeon/util/localization/strings_location.dart';
 import 'package:darkness_dungeon/util/talk.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 
@@ -55,7 +56,7 @@ class WizardNPC extends GameDecoration {
       gameRef.context,
       [
         Talk(
-          'Olá meu jovem cavaleiro!\nOque você faz aqui?',
+          getString('talk_wizard_1'),
           Flame.util.animationAsWidget(
             Position(80, 100),
             FlameAnimation.Animation.sequenced(
@@ -68,7 +69,7 @@ class WizardNPC extends GameDecoration {
           personDirection: PersonDirection.RIGHT,
         ),
         Talk(
-          'Olá!\nFui enviado para resgatar uma criança que foi sequestradas por criaturas que moram nessas redondezas.',
+          getString('talk_player_1'),
           Flame.util.animationAsWidget(
             Position(80, 100),
             FlameAnimation.Animation.sequenced(
@@ -81,7 +82,7 @@ class WizardNPC extends GameDecoration {
           personDirection: PersonDirection.LEFT,
         ),
         Talk(
-          'Humm...\nNão quero te desmotivar, mas você é o quinto cavaleiro enviado para essa tarefa. Até o momento nenhum retornou com vida e seus corpos estão pindurados pelas paredes como trofeus.',
+          getString('talk_wizard_2'),
           Flame.util.animationAsWidget(
             Position(80, 100),
             FlameAnimation.Animation.sequenced(
@@ -94,7 +95,7 @@ class WizardNPC extends GameDecoration {
           personDirection: PersonDirection.RIGHT,
         ),
         Talk(
-          'Não se preocupe meu velhinho. Caveleiro igual a mim jamais existiu!\nVou exterminar cada criatura desse lugar e resgatar a criança!',
+          getString('talk_player_2'),
           Flame.util.animationAsWidget(
             Position(80, 100),
             FlameAnimation.Animation.sequenced(
@@ -107,7 +108,7 @@ class WizardNPC extends GameDecoration {
           personDirection: PersonDirection.LEFT,
         ),
         Talk(
-          'É, confiança é oque não falta em você!\nDepois não diga que não avisei!\nBoa sorte!',
+          getString('talk_wizard_3'),
           Flame.util.animationAsWidget(
             Position(80, 100),
             FlameAnimation.Animation.sequenced(

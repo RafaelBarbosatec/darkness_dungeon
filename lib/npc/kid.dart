@@ -2,6 +2,7 @@ import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/enemies/boss.dart';
 import 'package:darkness_dungeon/util/conversation.dart';
 import 'package:darkness_dungeon/util/dialogs.dart';
+import 'package:darkness_dungeon/util/localization/strings_location.dart';
 import 'package:darkness_dungeon/util/talk.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 
@@ -44,7 +45,7 @@ class Kid extends GameDecoration {
   void _startConversation() {
     Conversation.show(gameRef.context, [
       Talk(
-        'Graças a deus!!!\nVocê conseguiu derrotar essa criatura horrível! Muito Obrigado!\nNem sei como te agradecer!',
+        getString('talk_kid_2'),
         Flame.util.animationAsWidget(
           Position(80, 100),
           FlameAnimation.Animation.sequenced(
@@ -57,7 +58,7 @@ class Kid extends GameDecoration {
         personDirection: PersonDirection.RIGHT,
       ),
       Talk(
-        'Foi uma horra poder te ajudar! E não se preocupe em me recompensar, seu pai me prometeu uma fortuna para te resgatar! :-)',
+        getString('talk_player_4'),
         Flame.util.animationAsWidget(
           Position(80, 100),
           FlameAnimation.Animation.sequenced(

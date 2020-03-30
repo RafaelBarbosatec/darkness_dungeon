@@ -1,4 +1,5 @@
 import 'package:darkness_dungeon/Menu.dart';
+import 'package:darkness_dungeon/util/localization/strings_location.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +24,7 @@ class Dialogs {
                 color: Colors.transparent,
                 onPressed: playAgain,
                 child: Text(
-                  "PLAY AGAIN",
+                  getString('play_again_cap'),
                   style: TextStyle(
                       color: Colors.white,
                       fontFamily: 'Normal',
@@ -49,7 +50,7 @@ class Dialogs {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Text(
-                  "Parabêns!",
+                  getString('congratulations'),
                   style: TextStyle(
                       color: Colors.white,
                       fontFamily: 'Normal',
@@ -61,7 +62,7 @@ class Dialogs {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 100),
                   child: Text(
-                    "Agradeço por ter testado esse game e comprovado o poder do Flame e do Bonfire.\nTalvez poderemos ter uma continuação do game!\nEspero que tenha gostado!",
+                    getString('thanks'),
                     style: TextStyle(
                         color: Colors.white,
                         fontFamily: 'Normal',

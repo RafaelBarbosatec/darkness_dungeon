@@ -4,6 +4,7 @@ import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/enemies/imp.dart';
 import 'package:darkness_dungeon/enemies/mini_boss.dart';
 import 'package:darkness_dungeon/util/conversation.dart';
+import 'package:darkness_dungeon/util/localization/strings_location.dart';
 import 'package:darkness_dungeon/util/talk.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/position.dart';
@@ -270,7 +271,7 @@ class Boss extends Enemy {
       gameRef.context,
       [
         Talk(
-          'Socoroooo! Socoroooo!',
+          getString('talk_kid_1'),
           Flame.util.animationAsWidget(
             Position(80, 100),
             FlameAnimation.Animation.sequenced(
@@ -283,7 +284,7 @@ class Boss extends Enemy {
           personDirection: PersonDirection.RIGHT,
         ),
         Talk(
-          'Cala a boca sua criaturinha apetitosa!\nChegou a hora de sentir o gostinho de sua pele macia! ha ha ha ha',
+          getString('talk_boss_1'),
           Flame.util.animationAsWidget(
             Position(80, 100),
             FlameAnimation.Animation.sequenced(
@@ -296,7 +297,7 @@ class Boss extends Enemy {
           personDirection: PersonDirection.LEFT,
         ),
         Talk(
-          'Não vai ser dessa vez sua criatura repugnante!\nSeus dias de monstruosidades chegaram ao fim!',
+          getString('talk_player_3'),
           Flame.util.animationAsWidget(
             Position(80, 100),
             FlameAnimation.Animation.sequenced(
@@ -309,7 +310,7 @@ class Boss extends Enemy {
           personDirection: PersonDirection.LEFT,
         ),
         Talk(
-          'Hora hora! Mais um cavaleiro de ego inflado pensando que pode me deter! ha ha ha ha\nPode vim!',
+          getString('talk_boss_2'),
           Flame.util.animationAsWidget(
             Position(80, 100),
             FlameAnimation.Animation.sequenced(
