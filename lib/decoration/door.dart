@@ -7,6 +7,7 @@ import 'package:flame/animation.dart' as FlameAnimation;
 
 class Door extends GameDecoration {
   bool open = false;
+  bool showDialog = false;
 
   Door(Position position)
       : super(
@@ -43,9 +44,15 @@ class Door extends GameDecoration {
               remove();
             });
           } else {
-            _showIntroduction();
+            if (!showDialog) {
+              showDialog = true;
+              _showIntroduction();
+            }
           }
         }
+      },
+      notObserved: () {
+        showDialog = false;
       },
       visionCells: 1,
     );
