@@ -45,20 +45,35 @@ class _MenuState extends State<Menu> {
               height: 10.0,
             ),
             RaisedButton(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0)),
-                color: Color.fromARGB(255, 118, 82, 78),
-                child: Text("PLAY",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'Normal',
-                        fontSize: 17.0)),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Game()),
-                  );
-                })
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5.0)),
+              color: Color.fromARGB(255, 118, 82, 78),
+              child: Text("PLAY",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Normal',
+                      fontSize: 17.0)),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Game()),
+                );
+              },
+            ),
+            SizedBox(
+              height: 5.0,
+            ),
+            RaisedButton(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5.0)),
+              color: Color.fromARGB(255, 118, 82, 78),
+              child: Text("CREDITS",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Normal',
+                      fontSize: 17.0)),
+              onPressed: () {},
+            )
           ],
         ),
       ),
@@ -70,6 +85,14 @@ class _MenuState extends State<Menu> {
             Align(
               alignment: Alignment.centerLeft,
               child: Text("Powered by rafaelbarbosatec",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Normal',
+                      fontSize: 12.0)),
+            ),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Text("Built with Bonfire",
                   style: TextStyle(
                       color: Colors.white,
                       fontFamily: 'Normal',
