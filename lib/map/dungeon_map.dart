@@ -436,7 +436,7 @@ class DungeonMap {
           ));
         }
 
-        if (y == 28 && x >= 10 && x <= 13) {
+        if (y == 28 && x >= 10 && x <= 18) {
           tileList.add(Tile(
             'tile/wall_top.png',
             Position(x.toDouble(), y.toDouble()),
@@ -444,7 +444,7 @@ class DungeonMap {
           ));
         }
 
-        if (y == 29 && x >= 9 && x <= 13) {
+        if (y == 29 && x >= 9 && x <= 18) {
           tileList.add(Tile(
             'tile/wall.png',
             Position(x.toDouble(), y.toDouble()),
@@ -475,7 +475,7 @@ class DungeonMap {
           ));
         }
 
-        if (y == 37 && x >= 4 && x <= 13) {
+        if (y == 37 && x >= 4 && x <= 18) {
           tileList.add(Tile(
             'tile/wall_bottom.png',
             Position(x.toDouble(), y.toDouble()),
@@ -483,7 +483,7 @@ class DungeonMap {
           ));
         }
 
-        if (y >= 29 && y <= 36 && x == 14) {
+        if (y >= 29 && y <= 36 && x == 19) {
           tileList.add(Tile(
             'tile/wall_right.png',
             Position(x.toDouble(), y.toDouble()),
@@ -491,7 +491,7 @@ class DungeonMap {
           ));
         }
 
-        if (y >= 30 && y <= 36 && x >= 4 && x <= 13) {
+        if (y >= 30 && y <= 36 && x >= 4 && x <= 18) {
           tileList.add(Tile(
             randomFloor(),
             Position(x.toDouble(), y.toDouble()),
@@ -835,6 +835,17 @@ class DungeonMap {
         height: 32,
       ),
       GameDecoration(
+        animation: FlameAnimation.Animation.sequenced(
+          "itens/torch_spritesheet.png",
+          6,
+          textureWidth: 16,
+          textureHeight: 16,
+        ),
+        initPosition: getRelativeTilePosition(14, 29),
+        width: 32,
+        height: 32,
+      ),
+      GameDecoration(
         spriteImg: 'tile/wall_grid.png',
         initPosition: getRelativeTilePosition(13, 29),
         width: 32,
@@ -881,6 +892,19 @@ class DungeonMap {
         height: 32,
         collision: true,
       ),
+      GameDecoration(
+        spriteImg: 'itens/table_2.png',
+        initPosition: getRelativeTilePosition(10, 35),
+        width: 64,
+        height: 32,
+        collision: true,
+      ),
+      GameDecoration(
+        spriteImg: 'itens/prisoner.png',
+        initPosition: getRelativeTilePosition(16, 29),
+        width: 32,
+        height: 32,
+      ),
       WizardNPC(getRelativeTilePosition(10, 6)),
       Spikes(getRelativeTilePosition(33, 18), damage: 30),
       Spikes(getRelativeTilePosition(34, 18), damage: 30),
@@ -911,7 +935,7 @@ class DungeonMap {
       Imp(initPosition: getRelativeTilePosition(18, 22)),
       Imp(initPosition: getRelativeTilePosition(6, 20)),
       Imp(initPosition: getRelativeTilePosition(11, 21)),
-      Boss(initPosition: getRelativeTilePosition(9, 35)),
+      Boss(initPosition: getRelativeTilePosition(15, 33)),
     ];
   }
 

@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/enemies/imp.dart';
 import 'package:darkness_dungeon/enemies/mini_boss.dart';
+import 'package:darkness_dungeon/util/conversation.dart';
+import 'package:darkness_dungeon/util/talk.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/position.dart';
 import 'package:flame/text_config.dart';
@@ -14,6 +16,7 @@ class Boss extends Enemy {
   double attack = 40;
 
   bool addChild = false;
+  bool firsSeePlayer = false;
 
   List<Enemy> childs = List();
 
@@ -61,6 +64,18 @@ class Boss extends Enemy {
   @override
   void update(double dt) {
     super.update(dt);
+    if (!firsSeePlayer) {
+      this.seePlayer(
+        observed: (p) {
+          firsSeePlayer = true;
+          gameRef.gameCamera.moveToPositionAnimated(
+              Position(positionInWorld.left, positionInWorld.top), finish: () {
+            _showConversation();
+          });
+        },
+        visionCells: 6,
+      );
+    }
     this.seePlayer(
       observed: (player) {
         if (childs.isEmpty ||
@@ -232,5 +247,67 @@ class Boss extends Enemy {
             ..color = Colors.orange
             ..strokeWidth = 1
             ..style = PaintingStyle.fill);
+  }
+
+  void _showConversation() {
+    Conversation.show(gameRef.context, [
+      Talk(
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque convallis pulvinar libero, sit amet finibus lectus porttitor at. ',
+          Flame.util.animationAsWidget(
+            Position(80, 100),
+            FlameAnimation.Animation.sequenced(
+              "enemy/boss/boss_idle.png",
+              4,
+              textureWidth: 32,
+              textureHeight: 36,
+            ),
+          ),
+          personDirection: PersonDirection.RIGHT),
+      Talk(
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque convallis pulvinar libero, sit amet finibus lectus porttitor at. ',
+        Flame.util.animationAsWidget(
+          Position(80, 100),
+          FlameAnimation.Animation.sequenced(
+            "player/knight_idle.png",
+            4,
+            textureWidth: 16,
+            textureHeight: 22,
+          ),
+        ),
+        personDirection: PersonDirection.LEFT,
+      )
+    ], finish: () {
+      addInitChild();
+      Future.delayed(Duration(milliseconds: 500), () {
+        gameRef.gameCamera.moveToPlayerAnimated();
+      });
+    }, onChangeTalk: (index) {
+      print(index);
+    });
+  }
+
+  void addInitChild() {
+    addImp(13 * 32.0, 32 * 32.0);
+    addImp(13 * 32.0, 34 * 32.0);
+  }
+
+  void addImp(double x, double y) {
+    gameRef.add(
+      AnimatedObjectOnce(
+        animation: FlameAnimation.Animation.sequenced(
+          "smoke_explosin.png",
+          6,
+          textureWidth: 16,
+          textureHeight: 16,
+        ),
+        position: Rect.fromLTWH(x, y, 32, 32),
+      ),
+    );
+    gameRef.addEnemy(Imp(
+      initPosition: Position(
+        x,
+        y,
+      ),
+    ));
   }
 }
