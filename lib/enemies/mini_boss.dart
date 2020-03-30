@@ -19,7 +19,7 @@ class MiniBoss extends Enemy {
             textureHeight: 24,
           ),
           animationIdleLeft: FlameAnimation.Animation.sequenced(
-            "enemy/mini_boss/mini_boss_idle.png",
+            "enemy/mini_boss/mini_boss_idle_left.png",
             4,
             textureWidth: 16,
             textureHeight: 24,

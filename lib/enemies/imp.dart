@@ -17,7 +17,7 @@ class Imp extends Enemy {
             textureHeight: 16,
           ),
           animationIdleLeft: FlameAnimation.Animation.sequenced(
-            "enemy/imp/imp_idle.png",
+            "enemy/imp/imp_idle_left.png",
             4,
             textureWidth: 16,
             textureHeight: 16,

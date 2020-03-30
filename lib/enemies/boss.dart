@@ -29,7 +29,7 @@ class Boss extends Enemy {
             textureHeight: 36,
           ),
           animationIdleLeft: FlameAnimation.Animation.sequenced(
-            "enemy/boss/boss_idle.png",
+            "enemy/boss/boss_idle_left.png",
             4,
             textureWidth: 32,
             textureHeight: 36,
