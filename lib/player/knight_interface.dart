@@ -15,8 +15,10 @@ class KnightInterface extends GameInterface {
   double strokeWidth = 10;
   double padding = 20;
   Sprite healthBar;
+  Sprite key;
   KnightInterface() {
     healthBar = Sprite('health_ui.png');
+    key = Sprite('itens/key_silver.png');
   }
 
   @override
@@ -37,6 +39,7 @@ class KnightInterface extends GameInterface {
     try {
       _drawLife(c);
       _drawStamina(c);
+      _drawKey(c);
     } catch (e) {}
     _drawSprite(c);
     super.render(c);
@@ -94,5 +97,11 @@ class KnightInterface extends GameInterface {
     double w = 120;
     double factor = 0.3375;
     healthBar.renderRect(c, Rect.fromLTWH(padding, padding, w, w * factor));
+  }
+
+  void _drawKey(Canvas c) {
+    if (gameRef.player != null && (gameRef.player as Knight).containKey) {
+      key.renderRect(c, Rect.fromLTWH(150, padding, 35, 30));
+    }
   }
 }

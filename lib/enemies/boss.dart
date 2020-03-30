@@ -49,7 +49,7 @@ class Boss extends Enemy {
           initPosition: initPosition,
           width: 36,
           height: 40,
-          speed: 1,
+          speed: 1.5,
           life: 200,
         );
 
