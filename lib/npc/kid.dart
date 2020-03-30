@@ -45,7 +45,7 @@ class Kid extends GameDecoration {
         gameRef.context,
         [
           Talk(
-            'Graças a deus!!!\nVocê conseguiu derrotar essa criatura horrível! Muito Obrigado!\n Nem sei como te agradecer!',
+            'Graças a deus!!!\nVocê conseguiu derrotar essa criatura horrível! Muito Obrigado!\nNem sei como te agradecer!',
             Flame.util.animationAsWidget(
               Position(80, 100),
               FlameAnimation.Animation.sequenced(
@@ -58,7 +58,7 @@ class Kid extends GameDecoration {
             personDirection: PersonDirection.RIGHT,
           ),
           Talk(
-            'Foi uma horra poder te ajudar! E não se preocupe em me recompensar, seu pai me prometeu uma fortuna caso leva-se você pra casa! :-)',
+            'Foi uma horra poder te ajudar! E não se preocupe em me recompensar, seu pai me prometeu uma fortuna para te resgatar! :-)',
             Flame.util.animationAsWidget(
               Position(80, 100),
               FlameAnimation.Animation.sequenced(
