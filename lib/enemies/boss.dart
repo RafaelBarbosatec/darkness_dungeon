@@ -265,40 +265,69 @@ class Boss extends Enemy {
   }
 
   void _showConversation() {
-    Conversation.show(gameRef.context, [
-      Talk(
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque convallis pulvinar libero, sit amet finibus lectus porttitor at. ',
+    Conversation.show(
+      gameRef.context,
+      [
+        Talk(
+          'Socoroooo! Socoroooo!',
           Flame.util.animationAsWidget(
             Position(80, 100),
             FlameAnimation.Animation.sequenced(
-              "enemy/boss/boss_idle.png",
+              "npc/kid_idle_left.png",
               4,
               textureWidth: 32,
               textureHeight: 36,
             ),
           ),
-          personDirection: PersonDirection.RIGHT),
-      Talk(
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque convallis pulvinar libero, sit amet finibus lectus porttitor at. ',
-        Flame.util.animationAsWidget(
-          Position(80, 100),
-          FlameAnimation.Animation.sequenced(
-            "player/knight_idle.png",
-            4,
-            textureWidth: 16,
-            textureHeight: 22,
-          ),
+          personDirection: PersonDirection.RIGHT,
         ),
-        personDirection: PersonDirection.LEFT,
-      )
-    ], finish: () {
-      addInitChild();
-      Future.delayed(Duration(milliseconds: 500), () {
-        gameRef.gameCamera.moveToPlayerAnimated();
-      });
-    }, onChangeTalk: (index) {
-      print(index);
-    });
+        Talk(
+          'Cala a boca sua criaturinha apetitosa!\nChegou a hora de sentir o gostinho de sua pele macia! ha ha ha ha',
+          Flame.util.animationAsWidget(
+            Position(80, 100),
+            FlameAnimation.Animation.sequenced(
+              "enemy/boss/boss_idle.png",
+              4,
+              textureWidth: 16,
+              textureHeight: 22,
+            ),
+          ),
+          personDirection: PersonDirection.LEFT,
+        ),
+        Talk(
+          'Não vai ser dessa vez sua criatura repugnante!\nSeus dias de monstruosidades chegaram ao fim!',
+          Flame.util.animationAsWidget(
+            Position(80, 100),
+            FlameAnimation.Animation.sequenced(
+              "player/knight_idle.png",
+              4,
+              textureWidth: 16,
+              textureHeight: 22,
+            ),
+          ),
+          personDirection: PersonDirection.LEFT,
+        ),
+        Talk(
+          'Hora hora! Mais um cavaleiro de ego inflado pensando que pode me deter! ha ha ha ha\nPode vim!',
+          Flame.util.animationAsWidget(
+            Position(80, 100),
+            FlameAnimation.Animation.sequenced(
+              "enemy/boss/boss_idle.png",
+              4,
+              textureWidth: 16,
+              textureHeight: 22,
+            ),
+          ),
+          personDirection: PersonDirection.RIGHT,
+        ),
+      ],
+      finish: () {
+        addInitChild();
+        Future.delayed(Duration(milliseconds: 500), () {
+          gameRef.gameCamera.moveToPlayerAnimated();
+        });
+      },
+    );
   }
 
   void addInitChild() {

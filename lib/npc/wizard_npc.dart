@@ -107,7 +107,7 @@ class WizardNPC extends GameDecoration {
           personDirection: PersonDirection.LEFT,
         ),
         Talk(
-          'É, alto estima é oque não falta em você!\nDepois não diga que não avisei!\nBoa sorte!',
+          'É, confiança é oque não falta em você!\nDepois não diga que não avisei!\nBoa sorte!',
           Flame.util.animationAsWidget(
             Position(80, 100),
             FlameAnimation.Animation.sequenced(
