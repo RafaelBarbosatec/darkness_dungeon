@@ -6,7 +6,15 @@
 
 
 # Darkness Dungeon
+Game developed for the purpose of testing the use of the Bonfire package!
 
-![](https://github.com/RafaelBarbosatec/darkness_dungeon/blob/master/gameplay.gif)
+## Used packages:
+Bonfire - [![pub package](https://img.shields.io/pub/v/bonfire.svg)](https://pub.dev/packages/bonfire)
 
-Teste game under construction with Bonfire - [![pub package](https://img.shields.io/pub/v/bonfire.svg)](https://pub.dev/packages/bonfire)
+Flame - [![pub package](https://img.shields.io/pub/v/flame.svg)](https://pub.dev/packages/flame)
+
+## Used sprites:
+
+[Dungeontileset](https://0x72.itch.io/dungeontileset-ii)
+
+[Simple Dungeon Crawler](https://o-lobster.itch.io/simple-dungeon-crawler-16x16-pixel-pack)
