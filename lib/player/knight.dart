@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 
 class Knight extends Player {
   final Position initPosition;
-  double attack = 20;
+  double attack = 25;
   double stamina = 100;
   Timer _timerStamina;
   bool containKey = false;
@@ -82,7 +82,7 @@ class Knight extends Player {
     if (stamina < 15) {
       return;
     }
-    incrementStamina(15);
+    decrementStamina(15);
     this.simpleAttackMelee(
       damage: attack,
       attackEffectBottomAnim: FlameAnimation.Animation.sequenced(
@@ -116,7 +116,7 @@ class Knight extends Player {
     if (stamina < 10) {
       return;
     }
-    incrementStamina(10);
+    decrementStamina(10);
     this.simpleAttackRange(
       animationRight: FlameAnimation.Animation.sequenced(
         'player/fireball_right.png',
@@ -193,7 +193,7 @@ class Knight extends Player {
     }
   }
 
-  void incrementStamina(int i) {
+  void decrementStamina(int i) {
     stamina -= i;
     if (stamina < 0) {
       stamina = 0;

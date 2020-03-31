@@ -32,6 +32,6 @@ class MyLocalizations {
   }
 
   String trans(String key) {
-    return this._sentences[key];
+    return this._sentences[key] ?? '';
   }
 }
