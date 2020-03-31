@@ -7,6 +7,7 @@ import 'package:flame/flame.dart';
 import 'package:flame/position.dart';
 import 'package:flame_splash_screen/flame_splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Menu extends StatefulWidget {
   @override
@@ -149,18 +150,60 @@ class _MenuState extends State<Menu> {
           children: <Widget>[
             Align(
               alignment: Alignment.centerLeft,
-              child: Text(
-                getString('powered_by'),
-                style: TextStyle(
-                    color: Colors.white, fontFamily: 'Normal', fontSize: 12.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Text(
+                    getString('powered_by'),
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Normal',
+                        fontSize: 12.0),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      _launchURL('https://github.com/RafaelBarbosatec');
+                    },
+                    child: Text(
+                      'rafaelbarbosatec',
+                      style: TextStyle(
+                        decoration: TextDecoration.underline,
+                        color: Colors.blue,
+                        fontFamily: 'Normal',
+                        fontSize: 12.0,
+                      ),
+                    ),
+                  )
+                ],
               ),
             ),
             Align(
               alignment: Alignment.bottomRight,
-              child: Text(
-                getString('built_with'),
-                style: TextStyle(
-                    color: Colors.white, fontFamily: 'Normal', fontSize: 12.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Text(
+                    getString('built_with'),
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Normal',
+                        fontSize: 12.0),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      _launchURL('https://github.com/RafaelBarbosatec/bonfire');
+                    },
+                    child: Text(
+                      'Bonfire',
+                      style: TextStyle(
+                        decoration: TextDecoration.underline,
+                        color: Colors.blue,
+                        fontFamily: 'Normal',
+                        fontSize: 12.0,
+                      ),
+                    ),
+                  )
+                ],
               ),
             ),
           ],
@@ -190,5 +233,13 @@ class _MenuState extends State<Menu> {
         }
       });
     });
+  }
+
+  void _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
