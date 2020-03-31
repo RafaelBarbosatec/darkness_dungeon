@@ -8,7 +8,7 @@ class DoorKey extends GameDecoration {
           initPosition: position,
           width: 32,
           height: 32,
-          collision: false,
+          withCollision: false,
         );
 
   @override

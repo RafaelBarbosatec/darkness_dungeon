@@ -22,7 +22,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
-  bonfire: ^0.0.13
+  bonfire: ^0.0.14
   flame_splash_screen: ^0.0.1
 
 

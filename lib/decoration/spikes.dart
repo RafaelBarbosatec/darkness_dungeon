@@ -22,7 +22,8 @@ class Spikes extends GameDecoration {
     if (this.animation.currentIndex == this.animation.frames.length - 1 ||
         this.animation.currentIndex == this.animation.frames.length - 2) {
       if (gameRef.player != null) {
-        if (gameRef.player.position.overlaps(position) && !_infligeDamage) {
+        if (gameRef.player.rectCollision.overlaps(position) &&
+            !_infligeDamage) {
           _infligeDamage = true;
           gameRef.player.receiveDamage(damage);
         }

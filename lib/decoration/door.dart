@@ -15,7 +15,7 @@ class Door extends GameDecoration {
           initPosition: position,
           width: 64,
           height: 64,
-          collision: true,
+          withCollision: true,
         );
 
   @override
