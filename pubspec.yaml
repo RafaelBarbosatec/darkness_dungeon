@@ -30,6 +30,14 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  flutter_launcher_icons: "^0.7.3"
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path_android: "icone/icone_android.png"
+  image_path_ios: "icone/icone_ios.png"
+
 flutter:
 
   # The following line ensures that the Material Icons font is
