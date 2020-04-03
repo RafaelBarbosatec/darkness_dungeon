@@ -73,7 +73,7 @@ class Boss extends Enemy {
             _showConversation();
           });
         },
-        visionCells: 6,
+        visionCells: 5,
       );
     }
     this.seePlayer(
@@ -84,7 +84,7 @@ class Boss extends Enemy {
           addChildInMap();
         }
       },
-      visionCells: 5,
+      visionCells: 4,
     );
 
     if (life < 150 && children.length == 0) {
