@@ -158,6 +158,9 @@ class Knight extends Player {
       height: 25,
       damage: 10,
       speed: speed * 1.5,
+      destroy: () {
+        Flame.audio.play('explosion.wav');
+      },
     );
   }
 

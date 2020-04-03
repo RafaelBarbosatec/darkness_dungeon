@@ -59,37 +59,38 @@ class Imp extends Enemy {
   }
 
   void execAttack() {
-    Flame.audio.play('attack_enemy.mp3');
     this.simpleAttackMelee(
-      heightArea: 20,
-      widthArea: 20,
-      damage: attack,
-      interval: 300,
-      attackEffectBottomAnim: FlameAnimation.Animation.sequenced(
-        'enemy/atack_effect_bottom.png',
-        6,
-        textureWidth: 16,
-        textureHeight: 16,
-      ),
-      attackEffectLeftAnim: FlameAnimation.Animation.sequenced(
-        'enemy/atack_effect_left.png',
-        6,
-        textureWidth: 16,
-        textureHeight: 16,
-      ),
-      attackEffectRightAnim: FlameAnimation.Animation.sequenced(
-        'enemy/atack_effect_right.png',
-        6,
-        textureWidth: 16,
-        textureHeight: 16,
-      ),
-      attackEffectTopAnim: FlameAnimation.Animation.sequenced(
-        'enemy/atack_effect_top.png',
-        6,
-        textureWidth: 16,
-        textureHeight: 16,
-      ),
-    );
+        heightArea: 20,
+        widthArea: 20,
+        damage: attack,
+        interval: 300,
+        attackEffectBottomAnim: FlameAnimation.Animation.sequenced(
+          'enemy/atack_effect_bottom.png',
+          6,
+          textureWidth: 16,
+          textureHeight: 16,
+        ),
+        attackEffectLeftAnim: FlameAnimation.Animation.sequenced(
+          'enemy/atack_effect_left.png',
+          6,
+          textureWidth: 16,
+          textureHeight: 16,
+        ),
+        attackEffectRightAnim: FlameAnimation.Animation.sequenced(
+          'enemy/atack_effect_right.png',
+          6,
+          textureWidth: 16,
+          textureHeight: 16,
+        ),
+        attackEffectTopAnim: FlameAnimation.Animation.sequenced(
+          'enemy/atack_effect_top.png',
+          6,
+          textureWidth: 16,
+          textureHeight: 16,
+        ),
+        execute: () {
+          Flame.audio.play('attack_enemy.mp3');
+        });
   }
 
   @override

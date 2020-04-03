@@ -93,7 +93,6 @@ class MiniBoss extends Enemy {
   }
 
   void execAttackRange() {
-    Flame.audio.play('attack_fire_ball.wav');
     this.simpleAttackRange(
       animationRight: FlameAnimation.Animation.sequenced(
         'player/fireball_right.png',
@@ -129,41 +128,48 @@ class MiniBoss extends Enemy {
       height: 25,
       damage: attack,
       speed: speed * 1.5,
+      execute: () {
+        Flame.audio.play('attack_fire_ball.wav');
+      },
+      destroy: () {
+        Flame.audio.play('explosion.wav');
+      },
     );
   }
 
   void execAttack() {
-    Flame.audio.play('attack_enemy.mp3');
     this.simpleAttackMelee(
-      heightArea: 20,
-      widthArea: 20,
-      damage: attack / 3,
-      interval: 300,
-      attackEffectBottomAnim: FlameAnimation.Animation.sequenced(
-        'enemy/atack_effect_bottom.png',
-        6,
-        textureWidth: 16,
-        textureHeight: 16,
-      ),
-      attackEffectLeftAnim: FlameAnimation.Animation.sequenced(
-        'enemy/atack_effect_left.png',
-        6,
-        textureWidth: 16,
-        textureHeight: 16,
-      ),
-      attackEffectRightAnim: FlameAnimation.Animation.sequenced(
-        'enemy/atack_effect_right.png',
-        6,
-        textureWidth: 16,
-        textureHeight: 16,
-      ),
-      attackEffectTopAnim: FlameAnimation.Animation.sequenced(
-        'enemy/atack_effect_top.png',
-        6,
-        textureWidth: 16,
-        textureHeight: 16,
-      ),
-    );
+        heightArea: 20,
+        widthArea: 20,
+        damage: attack / 3,
+        interval: 300,
+        attackEffectBottomAnim: FlameAnimation.Animation.sequenced(
+          'enemy/atack_effect_bottom.png',
+          6,
+          textureWidth: 16,
+          textureHeight: 16,
+        ),
+        attackEffectLeftAnim: FlameAnimation.Animation.sequenced(
+          'enemy/atack_effect_left.png',
+          6,
+          textureWidth: 16,
+          textureHeight: 16,
+        ),
+        attackEffectRightAnim: FlameAnimation.Animation.sequenced(
+          'enemy/atack_effect_right.png',
+          6,
+          textureWidth: 16,
+          textureHeight: 16,
+        ),
+        attackEffectTopAnim: FlameAnimation.Animation.sequenced(
+          'enemy/atack_effect_top.png',
+          6,
+          textureWidth: 16,
+          textureHeight: 16,
+        ),
+        execute: () {
+          Flame.audio.play('attack_enemy.mp3');
+        });
   }
 
   @override
