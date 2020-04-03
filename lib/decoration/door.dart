@@ -1,8 +1,6 @@
 import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/player/knight.dart';
-import 'package:darkness_dungeon/util/conversation.dart';
 import 'package:darkness_dungeon/util/localization/strings_location.dart';
-import 'package:darkness_dungeon/util/talk.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 
 class Door extends GameDecoration {
@@ -59,10 +57,10 @@ class Door extends GameDecoration {
   }
 
   void _showIntroduction() {
-    Conversation.show(
+    TalkDialog.show(
       gameRef.context,
       [
-        Talk(
+        Say(
           getString('door_without_key'),
           Flame.util.animationAsWidget(
             Position(80, 100),

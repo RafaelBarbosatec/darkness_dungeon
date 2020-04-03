@@ -4,9 +4,7 @@ import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/enemies/imp.dart';
 import 'package:darkness_dungeon/enemies/mini_boss.dart';
 import 'package:darkness_dungeon/map/dungeon_map.dart';
-import 'package:darkness_dungeon/util/conversation.dart';
 import 'package:darkness_dungeon/util/localization/strings_location.dart';
-import 'package:darkness_dungeon/util/talk.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/position.dart';
 import 'package:flame/text_config.dart';
@@ -189,6 +187,7 @@ class Boss extends Enemy {
   }
 
   void execAttack() {
+    Flame.audio.play('attack_enemy.mp3');
     this.simpleAttackMelee(
       heightArea: 20,
       widthArea: 20,
@@ -268,10 +267,10 @@ class Boss extends Enemy {
   }
 
   void _showConversation() {
-    Conversation.show(
+    TalkDialog.show(
       gameRef.context,
       [
-        Talk(
+        Say(
           getString('talk_kid_1'),
           Flame.util.animationAsWidget(
             Position(80, 100),
@@ -284,7 +283,7 @@ class Boss extends Enemy {
           ),
           personDirection: PersonDirection.RIGHT,
         ),
-        Talk(
+        Say(
           getString('talk_boss_1'),
           Flame.util.animationAsWidget(
             Position(80, 100),
@@ -297,7 +296,7 @@ class Boss extends Enemy {
           ),
           personDirection: PersonDirection.LEFT,
         ),
-        Talk(
+        Say(
           getString('talk_player_3'),
           Flame.util.animationAsWidget(
             Position(80, 100),
@@ -310,7 +309,7 @@ class Boss extends Enemy {
           ),
           personDirection: PersonDirection.LEFT,
         ),
-        Talk(
+        Say(
           getString('talk_boss_2'),
           Flame.util.animationAsWidget(
             Position(80, 100),

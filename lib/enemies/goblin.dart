@@ -78,46 +78,8 @@ class Goblin extends Enemy {
     super.die();
   }
 
-  void execAttackRange() {
-    this.simpleAttackRange(
-      animationRight: FlameAnimation.Animation.sequenced(
-        'player/fireball_right.png',
-        3,
-        textureWidth: 23,
-        textureHeight: 23,
-      ),
-      animationLeft: FlameAnimation.Animation.sequenced(
-        'player/fireball_left.png',
-        3,
-        textureWidth: 23,
-        textureHeight: 23,
-      ),
-      animationTop: FlameAnimation.Animation.sequenced(
-        'player/fireball_top.png',
-        3,
-        textureWidth: 23,
-        textureHeight: 23,
-      ),
-      animationBottom: FlameAnimation.Animation.sequenced(
-        'player/fireball_bottom.png',
-        3,
-        textureWidth: 23,
-        textureHeight: 23,
-      ),
-      animationDestroy: FlameAnimation.Animation.sequenced(
-        'player/explosion_fire.png',
-        6,
-        textureWidth: 32,
-        textureHeight: 32,
-      ),
-      width: 25,
-      height: 25,
-      damage: attack,
-      speed: speed * 1.5,
-    );
-  }
-
   void execAttack() {
+    Flame.audio.play('attack_enemy.mp3');
     this.simpleAttackMelee(
       heightArea: 20,
       widthArea: 20,

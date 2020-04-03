@@ -59,6 +59,7 @@ class Imp extends Enemy {
   }
 
   void execAttack() {
+    Flame.audio.play('attack_enemy.mp3');
     this.simpleAttackMelee(
       heightArea: 20,
       widthArea: 20,

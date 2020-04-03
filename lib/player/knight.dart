@@ -82,6 +82,9 @@ class Knight extends Player {
     if (stamina < 15) {
       return;
     }
+
+    Flame.audio.play('attack_player.mp3');
+
     decrementStamina(15);
     this.simpleAttackMelee(
       damage: attack,
@@ -116,6 +119,9 @@ class Knight extends Player {
     if (stamina < 10) {
       return;
     }
+
+    Flame.audio.play('attack_fire_ball.wav');
+
     decrementStamina(10);
     this.simpleAttackRange(
       animationRight: FlameAnimation.Animation.sequenced(

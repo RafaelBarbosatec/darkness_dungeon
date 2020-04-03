@@ -1,7 +1,5 @@
 import 'package:bonfire/bonfire.dart';
-import 'package:darkness_dungeon/util/conversation.dart';
 import 'package:darkness_dungeon/util/localization/strings_location.dart';
-import 'package:darkness_dungeon/util/talk.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 
 class WizardNPC extends GameDecoration {
@@ -52,10 +50,10 @@ class WizardNPC extends GameDecoration {
   }
 
   void _showIntroduction() {
-    Conversation.show(
+    TalkDialog.show(
       gameRef.context,
       [
-        Talk(
+        Say(
           getString('talk_wizard_1'),
           Flame.util.animationAsWidget(
             Position(80, 100),
@@ -68,7 +66,7 @@ class WizardNPC extends GameDecoration {
           ),
           personDirection: PersonDirection.RIGHT,
         ),
-        Talk(
+        Say(
           getString('talk_player_1'),
           Flame.util.animationAsWidget(
             Position(80, 100),
@@ -81,7 +79,7 @@ class WizardNPC extends GameDecoration {
           ),
           personDirection: PersonDirection.LEFT,
         ),
-        Talk(
+        Say(
           getString('talk_wizard_2'),
           Flame.util.animationAsWidget(
             Position(80, 100),
@@ -94,7 +92,7 @@ class WizardNPC extends GameDecoration {
           ),
           personDirection: PersonDirection.RIGHT,
         ),
-        Talk(
+        Say(
           getString('talk_player_2'),
           Flame.util.animationAsWidget(
             Position(80, 100),
@@ -107,7 +105,7 @@ class WizardNPC extends GameDecoration {
           ),
           personDirection: PersonDirection.LEFT,
         ),
-        Talk(
+        Say(
           getString('talk_wizard_3'),
           Flame.util.animationAsWidget(
             Position(80, 100),

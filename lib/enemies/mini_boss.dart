@@ -93,6 +93,7 @@ class MiniBoss extends Enemy {
   }
 
   void execAttackRange() {
+    Flame.audio.play('attack_fire_ball.wav');
     this.simpleAttackRange(
       animationRight: FlameAnimation.Animation.sequenced(
         'player/fireball_right.png',
@@ -132,6 +133,7 @@ class MiniBoss extends Enemy {
   }
 
   void execAttack() {
+    Flame.audio.play('attack_enemy.mp3');
     this.simpleAttackMelee(
       heightArea: 20,
       widthArea: 20,

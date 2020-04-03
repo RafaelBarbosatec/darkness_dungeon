@@ -1,9 +1,7 @@
 import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/enemies/boss.dart';
-import 'package:darkness_dungeon/util/conversation.dart';
 import 'package:darkness_dungeon/util/dialogs.dart';
 import 'package:darkness_dungeon/util/localization/strings_location.dart';
-import 'package:darkness_dungeon/util/talk.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 
 class Kid extends GameDecoration {
@@ -43,8 +41,8 @@ class Kid extends GameDecoration {
   }
 
   void _startConversation() {
-    Conversation.show(gameRef.context, [
-      Talk(
+    TalkDialog.show(gameRef.context, [
+      Say(
         getString('talk_kid_2'),
         Flame.util.animationAsWidget(
           Position(80, 100),
@@ -57,7 +55,7 @@ class Kid extends GameDecoration {
         ),
         personDirection: PersonDirection.RIGHT,
       ),
-      Talk(
+      Say(
         getString('talk_player_4'),
         Flame.util.animationAsWidget(
           Position(80, 100),
