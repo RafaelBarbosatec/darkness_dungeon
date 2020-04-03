@@ -14,6 +14,14 @@ class Game extends StatefulWidget {
 
 class _GameState extends State<Game> {
   bool showGameOver = false;
+
+  @override
+  void initState() {
+    Flame.audio.clearAll();
+    Flame.audio.loopLongAudio('sound_bg.mp3', volume: 0.6);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BonfireWidget(

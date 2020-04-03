@@ -83,7 +83,7 @@ class Knight extends Player {
       return;
     }
 
-    Flame.audio.play('attack_player.mp3');
+    Flame.audio.play('attack_player.mp3', volume: 0.4);
 
     decrementStamina(15);
     this.simpleAttackMelee(
@@ -120,7 +120,7 @@ class Knight extends Player {
       return;
     }
 
-    Flame.audio.play('attack_fire_ball.wav');
+    Flame.audio.play('attack_fire_ball.wav', volume: 0.3);
 
     decrementStamina(10);
     this.simpleAttackRange(
