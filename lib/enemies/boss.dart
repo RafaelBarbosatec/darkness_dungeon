@@ -268,69 +268,69 @@ class Boss extends Enemy {
   }
 
   void _showConversation() {
-    TalkDialog.show(
-      gameRef.context,
-      [
-        Say(
-          getString('talk_kid_1'),
-          Flame.util.animationAsWidget(
-            Position(80, 100),
-            FlameAnimation.Animation.sequenced(
-              "npc/kid_idle_left.png",
-              4,
-              textureWidth: 16,
-              textureHeight: 22,
-            ),
+    Flame.audio.play('sound_interaction.wav', volume: 0.4);
+    TalkDialog.show(gameRef.context, [
+      Say(
+        getString('talk_kid_1'),
+        Flame.util.animationAsWidget(
+          Position(80, 100),
+          FlameAnimation.Animation.sequenced(
+            "npc/kid_idle_left.png",
+            4,
+            textureWidth: 16,
+            textureHeight: 22,
           ),
-          personDirection: PersonDirection.RIGHT,
         ),
-        Say(
-          getString('talk_boss_1'),
-          Flame.util.animationAsWidget(
-            Position(80, 100),
-            FlameAnimation.Animation.sequenced(
-              "enemy/boss/boss_idle.png",
-              4,
-              textureWidth: 32,
-              textureHeight: 36,
-            ),
+        personDirection: PersonDirection.RIGHT,
+      ),
+      Say(
+        getString('talk_boss_1'),
+        Flame.util.animationAsWidget(
+          Position(80, 100),
+          FlameAnimation.Animation.sequenced(
+            "enemy/boss/boss_idle.png",
+            4,
+            textureWidth: 32,
+            textureHeight: 36,
           ),
-          personDirection: PersonDirection.LEFT,
         ),
-        Say(
-          getString('talk_player_3'),
-          Flame.util.animationAsWidget(
-            Position(80, 100),
-            FlameAnimation.Animation.sequenced(
-              "player/knight_idle.png",
-              4,
-              textureWidth: 16,
-              textureHeight: 22,
-            ),
+        personDirection: PersonDirection.LEFT,
+      ),
+      Say(
+        getString('talk_player_3'),
+        Flame.util.animationAsWidget(
+          Position(80, 100),
+          FlameAnimation.Animation.sequenced(
+            "player/knight_idle.png",
+            4,
+            textureWidth: 16,
+            textureHeight: 22,
           ),
-          personDirection: PersonDirection.LEFT,
         ),
-        Say(
-          getString('talk_boss_2'),
-          Flame.util.animationAsWidget(
-            Position(80, 100),
-            FlameAnimation.Animation.sequenced(
-              "enemy/boss/boss_idle.png",
-              4,
-              textureWidth: 32,
-              textureHeight: 36,
-            ),
+        personDirection: PersonDirection.LEFT,
+      ),
+      Say(
+        getString('talk_boss_2'),
+        Flame.util.animationAsWidget(
+          Position(80, 100),
+          FlameAnimation.Animation.sequenced(
+            "enemy/boss/boss_idle.png",
+            4,
+            textureWidth: 32,
+            textureHeight: 36,
           ),
-          personDirection: PersonDirection.RIGHT,
         ),
-      ],
-      finish: () {
-        addInitChild();
-        Future.delayed(Duration(milliseconds: 500), () {
-          gameRef.gameCamera.moveToPlayerAnimated();
-        });
-      },
-    );
+        personDirection: PersonDirection.RIGHT,
+      ),
+    ], finish: () {
+      Flame.audio.play('sound_interaction.wav', volume: 0.4);
+      addInitChild();
+      Future.delayed(Duration(milliseconds: 500), () {
+        gameRef.gameCamera.moveToPlayerAnimated();
+      });
+    }, onChangeTalk: (index) {
+      Flame.audio.play('sound_interaction.wav', volume: 0.4);
+    });
   }
 
   void addInitChild() {

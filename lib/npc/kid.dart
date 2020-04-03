@@ -41,6 +41,7 @@ class Kid extends GameDecoration {
   }
 
   void _startConversation() {
+    Flame.audio.play('sound_interaction.wav', volume: 0.4);
     TalkDialog.show(gameRef.context, [
       Say(
         getString('talk_kid_2'),
@@ -69,9 +70,12 @@ class Kid extends GameDecoration {
         personDirection: PersonDirection.LEFT,
       ),
     ], finish: () {
+      Flame.audio.play('sound_interaction.wav', volume: 0.4);
       gameRef.gameCamera.moveToPlayerAnimated(finish: () {
         Dialogs.showCongratulations(gameRef.context);
       });
+    }, onChangeTalk: (index) {
+      Flame.audio.play('sound_interaction.wav', volume: 0.4);
     });
   }
 }
