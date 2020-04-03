@@ -327,6 +327,7 @@ class Boss extends Enemy {
       addInitChild();
       Future.delayed(Duration(milliseconds: 500), () {
         gameRef.gameCamera.moveToPlayerAnimated();
+        Flame.audio.loopLongAudio('battle_boss.mp3', volume: 0.6);
       });
     }, onChangeTalk: (index) {
       Flame.audio.play('sound_interaction.wav', volume: 0.4);
