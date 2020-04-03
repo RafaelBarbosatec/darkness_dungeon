@@ -143,70 +143,73 @@ class _MenuState extends State<Menu> {
           ],
         ),
       ),
-      bottomNavigationBar: Container(
-        height: 20,
-        margin: EdgeInsets.all(20.0),
-        child: Stack(
-          children: <Widget>[
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Text(
-                    getString('powered_by'),
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'Normal',
-                        fontSize: 12.0),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      _launchURL('https://github.com/RafaelBarbosatec');
-                    },
-                    child: Text(
-                      'rafaelbarbosatec',
+      bottomNavigationBar: SafeArea(
+        child: Container(
+          height: 20,
+          margin: EdgeInsets.all(20.0),
+          child: Stack(
+            children: <Widget>[
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Text(
+                      getString('powered_by'),
                       style: TextStyle(
-                        decoration: TextDecoration.underline,
-                        color: Colors.blue,
-                        fontFamily: 'Normal',
-                        fontSize: 12.0,
-                      ),
+                          color: Colors.white,
+                          fontFamily: 'Normal',
+                          fontSize: 12.0),
                     ),
-                  )
-                ],
+                    InkWell(
+                      onTap: () {
+                        _launchURL('https://github.com/RafaelBarbosatec');
+                      },
+                      child: Text(
+                        'rafaelbarbosatec',
+                        style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          color: Colors.blue,
+                          fontFamily: 'Normal',
+                          fontSize: 12.0,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
-            Align(
-              alignment: Alignment.bottomRight,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Text(
-                    getString('built_with'),
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'Normal',
-                        fontSize: 12.0),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      _launchURL('https://github.com/RafaelBarbosatec/bonfire');
-                    },
-                    child: Text(
-                      'Bonfire',
+              Align(
+                alignment: Alignment.bottomRight,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Text(
+                      getString('built_with'),
                       style: TextStyle(
-                        decoration: TextDecoration.underline,
-                        color: Colors.blue,
-                        fontFamily: 'Normal',
-                        fontSize: 12.0,
-                      ),
+                          color: Colors.white,
+                          fontFamily: 'Normal',
+                          fontSize: 12.0),
                     ),
-                  )
-                ],
+                    InkWell(
+                      onTap: () {
+                        _launchURL(
+                            'https://github.com/RafaelBarbosatec/bonfire');
+                      },
+                      child: Text(
+                        'Bonfire',
+                        style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          color: Colors.blue,
+                          fontFamily: 'Normal',
+                          fontSize: 12.0,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
