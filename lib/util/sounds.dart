@@ -21,7 +21,9 @@ class Sounds {
 
   static void stopBackgroundSound() {
     if (audioBackground != null) {
-      audioBackground.stop();
+      audioBackground.stop().then((resp) {
+        audioBackground = null;
+      });
     }
   }
 
