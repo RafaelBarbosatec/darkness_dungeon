@@ -3,6 +3,7 @@ import 'package:darkness_dungeon/map/dungeon_map.dart';
 import 'package:darkness_dungeon/player/knight.dart';
 import 'package:darkness_dungeon/player/knight_interface.dart';
 import 'package:darkness_dungeon/util/dialogs.dart';
+import 'package:darkness_dungeon/util/sounds.dart';
 import 'package:flutter/material.dart';
 
 class Game extends StatefulWidget {
@@ -17,9 +18,14 @@ class _GameState extends State<Game> {
 
   @override
   void initState() {
-    Flame.audio.clearAll();
-    Flame.audio.loopLongAudio('sound_bg.mp3', volume: 0.6);
+    Sounds.playBackgroundSound();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    Sounds.stopBackgroundSound();
+    super.dispose();
   }
 
   @override

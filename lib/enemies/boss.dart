@@ -50,7 +50,7 @@ class Boss extends Enemy {
           initPosition: initPosition,
           width: 36,
           height: 40,
-          speed: 1.5,
+          speed: 1.3,
           life: 200,
         );
 
@@ -104,7 +104,7 @@ class Boss extends Enemy {
       closePlayer: (player) {
         execAttack();
       },
-      visionCells: 4,
+      visionCells: 3,
     );
   }
 
@@ -328,7 +328,7 @@ class Boss extends Enemy {
       addInitChild();
       Future.delayed(Duration(milliseconds: 500), () {
         gameRef.gameCamera.moveToPlayerAnimated();
-        Flame.audio.loopLongAudio('battle_boss.mp3', volume: 0.6);
+        Sounds.playBackgroundBoosSound();
       });
     }, onChangeTalk: (index) {
       Flame.audio.play('sound_interaction.wav', volume: 0.4);

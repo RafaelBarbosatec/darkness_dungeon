@@ -1,6 +1,8 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:bonfire/bonfire.dart';
 
 class Sounds {
+  static AudioPlayer audioBackground;
   static void attackPlayerMelee() {
     Flame.audio.play('attack_player.mp3', volume: 0.4);
   }
@@ -15,5 +17,27 @@ class Sounds {
 
   static void explosion() {
     Flame.audio.play('explosion.wav');
+  }
+
+  static void stopBackgroundSound() {
+    if (audioBackground != null) {
+      audioBackground.stop();
+    }
+  }
+
+  static void playBackgroundSound() {
+    stopBackgroundSound();
+    Flame.audio.loopLongAudio('sound_bg.mp3', volume: 0.6).then((audioPlayer) {
+      audioBackground = audioPlayer;
+    });
+  }
+
+  static void playBackgroundBoosSound() {
+    stopBackgroundSound();
+    Flame.audio
+        .loopLongAudio('battle_boss.mp3', volume: 0.6)
+        .then((audioPlayer) {
+      audioBackground = audioPlayer;
+    });
   }
 }
