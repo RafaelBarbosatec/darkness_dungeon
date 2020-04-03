@@ -5,6 +5,7 @@ import 'package:darkness_dungeon/enemies/imp.dart';
 import 'package:darkness_dungeon/enemies/mini_boss.dart';
 import 'package:darkness_dungeon/map/dungeon_map.dart';
 import 'package:darkness_dungeon/util/localization/strings_location.dart';
+import 'package:darkness_dungeon/util/sounds.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/position.dart';
 import 'package:flame/text_config.dart';
@@ -217,7 +218,7 @@ class Boss extends Enemy {
           textureHeight: 16,
         ),
         execute: () {
-          Flame.audio.play('attack_enemy.mp3');
+          Sounds.attackEnemyMelee();
         });
   }
 
@@ -335,8 +336,8 @@ class Boss extends Enemy {
   }
 
   void addInitChild() {
-    addImp(13.0 * DungeonMap.tileSize, 32.0 * DungeonMap.tileSize);
-    addImp(13.0 * DungeonMap.tileSize, 34.0 * DungeonMap.tileSize);
+    addImp(14.0 * DungeonMap.tileSize, 32.0 * DungeonMap.tileSize);
+    addImp(14.0 * DungeonMap.tileSize, 34.0 * DungeonMap.tileSize);
   }
 
   void addImp(double x, double y) {

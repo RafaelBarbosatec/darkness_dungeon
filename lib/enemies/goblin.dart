@@ -1,4 +1,5 @@
 import 'package:bonfire/bonfire.dart';
+import 'package:darkness_dungeon/util/sounds.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/position.dart';
 import 'package:flame/text_config.dart';
@@ -109,7 +110,7 @@ class Goblin extends Enemy {
           textureHeight: 16,
         ),
         execute: () {
-          Flame.audio.play('attack_enemy.mp3');
+          Sounds.attackEnemyMelee();
         });
   }
 

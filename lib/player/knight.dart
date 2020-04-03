@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bonfire/bonfire.dart';
 import 'package:bonfire/util/collision/collision.dart';
+import 'package:darkness_dungeon/util/sounds.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/position.dart';
 import 'package:flame/text_config.dart';
@@ -83,8 +84,7 @@ class Knight extends Player {
       return;
     }
 
-    Flame.audio.play('attack_player.mp3', volume: 0.4);
-
+    Sounds.attackPlayerMelee();
     decrementStamina(15);
     this.simpleAttackMelee(
       damage: attack,
@@ -120,7 +120,7 @@ class Knight extends Player {
       return;
     }
 
-    Flame.audio.play('attack_fire_ball.wav', volume: 0.3);
+    Sounds.attackRange();
 
     decrementStamina(10);
     this.simpleAttackRange(
@@ -159,7 +159,7 @@ class Knight extends Player {
       damage: 10,
       speed: speed * 1.5,
       destroy: () {
-        Flame.audio.play('explosion.wav');
+        Sounds.explosion();
       },
     );
   }

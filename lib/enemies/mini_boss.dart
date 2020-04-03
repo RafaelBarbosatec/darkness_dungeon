@@ -1,4 +1,5 @@
 import 'package:bonfire/bonfire.dart';
+import 'package:darkness_dungeon/util/sounds.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/text_config.dart';
 import 'package:flutter/material.dart';
@@ -129,10 +130,10 @@ class MiniBoss extends Enemy {
       damage: attack,
       speed: speed * 1.5,
       execute: () {
-        Flame.audio.play('attack_fire_ball.wav');
+        Sounds.attackRange();
       },
       destroy: () {
-        Flame.audio.play('explosion.wav');
+        Sounds.explosion();
       },
     );
   }
@@ -168,7 +169,7 @@ class MiniBoss extends Enemy {
           textureHeight: 16,
         ),
         execute: () {
-          Flame.audio.play('attack_enemy.mp3');
+          Sounds.attackEnemyMelee();
         });
   }
 
