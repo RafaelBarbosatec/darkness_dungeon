@@ -2,6 +2,7 @@ import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/enemies/boss.dart';
 import 'package:darkness_dungeon/util/dialogs.dart';
 import 'package:darkness_dungeon/util/localization/strings_location.dart';
+import 'package:darkness_dungeon/util/sounds.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 
 class Kid extends GameDecoration {
@@ -41,7 +42,7 @@ class Kid extends GameDecoration {
   }
 
   void _startConversation() {
-    Flame.audio.play('sound_interaction.wav', volume: 0.4);
+    Sounds.interaction();
     TalkDialog.show(gameRef.context, [
       Say(
         getString('talk_kid_2'),
@@ -70,12 +71,12 @@ class Kid extends GameDecoration {
         personDirection: PersonDirection.LEFT,
       ),
     ], finish: () {
-      Flame.audio.play('sound_interaction.wav', volume: 0.4);
+      Sounds.interaction();
       gameRef.gameCamera.moveToPlayerAnimated(finish: () {
         Dialogs.showCongratulations(gameRef.context);
       });
     }, onChangeTalk: (index) {
-      Flame.audio.play('sound_interaction.wav', volume: 0.4);
+      Sounds.interaction();
     });
   }
 }

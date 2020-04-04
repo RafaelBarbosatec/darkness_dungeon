@@ -1,5 +1,6 @@
 import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/util/localization/strings_location.dart';
+import 'package:darkness_dungeon/util/sounds.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 
 class WizardNPC extends GameDecoration {
@@ -50,7 +51,7 @@ class WizardNPC extends GameDecoration {
   }
 
   void _showIntroduction() {
-    Flame.audio.play('sound_interaction.wav', volume: 0.5);
+    Sounds.interaction();
     TalkDialog.show(gameRef.context, [
       Say(
         getString('talk_wizard_1'),
@@ -118,9 +119,9 @@ class WizardNPC extends GameDecoration {
         personDirection: PersonDirection.RIGHT,
       ),
     ], onChangeTalk: (index) {
-      Flame.audio.play('sound_interaction.wav', volume: 0.4);
+      Sounds.interaction();
     }, finish: () {
-      Flame.audio.play('sound_interaction.wav', volume: 0.4);
+      Sounds.interaction();
     });
   }
 }

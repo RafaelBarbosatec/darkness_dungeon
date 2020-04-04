@@ -19,6 +19,10 @@ class Sounds {
     Flame.audio.play('explosion.wav');
   }
 
+  static void interaction() {
+    Flame.audio.play('sound_interaction.wav', volume: 0.4);
+  }
+
   static void stopBackgroundSound() {
     if (audioBackground != null) {
       audioBackground.stop().then((resp) {

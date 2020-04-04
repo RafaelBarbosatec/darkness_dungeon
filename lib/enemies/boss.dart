@@ -269,7 +269,7 @@ class Boss extends Enemy {
   }
 
   void _showConversation() {
-    Flame.audio.play('sound_interaction.wav', volume: 0.4);
+    Sounds.interaction();
     TalkDialog.show(gameRef.context, [
       Say(
         getString('talk_kid_1'),
@@ -324,14 +324,14 @@ class Boss extends Enemy {
         personDirection: PersonDirection.RIGHT,
       ),
     ], finish: () {
-      Flame.audio.play('sound_interaction.wav', volume: 0.4);
+      Sounds.interaction();
       addInitChild();
       Future.delayed(Duration(milliseconds: 500), () {
         gameRef.gameCamera.moveToPlayerAnimated();
         Sounds.playBackgroundBoosSound();
       });
     }, onChangeTalk: (index) {
-      Flame.audio.play('sound_interaction.wav', volume: 0.4);
+      Sounds.interaction();
     });
   }
 
