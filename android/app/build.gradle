@@ -36,16 +36,6 @@ android {
         disable 'InvalidPackage'
     }
 
-    signingConfigs {
-        Rafael {
-            keyAlias 'rafael'
-            keyPassword 'Rafa2020'
-            storeFile file('rafael_v2.jks')
-            storePassword 'Rafa2020'
-            v2SigningEnabled false
-        }
-    }
-
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.rafaelbarbosatec.darkness_dungeon"
@@ -58,7 +48,10 @@ android {
 
     buildTypes {
         release {
-            signingConfig signingConfigs.Rafael
+            signingConfig signingConfigs.debug
+        }
+        debug {
+            signingConfig signingConfigs.debug
         }
     }
 }
