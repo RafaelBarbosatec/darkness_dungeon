@@ -12,6 +12,7 @@ void main() async {
   MyLocalizationsDelegate myLocation = const MyLocalizationsDelegate();
   runApp(
     MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         textTheme: TextTheme(
           body1: TextStyle(fontFamily: 'Normal'),

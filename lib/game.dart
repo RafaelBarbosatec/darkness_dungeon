@@ -41,16 +41,14 @@ class _GameState extends State<Game> {
             pathSprite: 'joystick_atack.png',
             pathSpritePressed: 'joystick_atack_selected.png',
             size: 80,
-            marginBottom: 50,
-            marginRight: 50,
+            margin: EdgeInsets.only(bottom: 50, right: 50),
           ),
           JoystickAction(
             actionId: 1,
             pathSprite: 'joystick_atack_range.png',
             pathSpritePressed: 'joystick_atack_range_selected.png',
             size: 50,
-            marginBottom: 50,
-            marginRight: 160,
+            margin: EdgeInsets.only(bottom: 50, right: 160),
           )
         ],
       ),
