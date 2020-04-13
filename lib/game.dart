@@ -13,11 +13,14 @@ class Game extends StatefulWidget {
   _GameState createState() => _GameState();
 }
 
-class _GameState extends State<Game> {
+class _GameState extends State<Game> implements GameListener {
   bool showGameOver = false;
+
+  GameController _controller;
 
   @override
   void initState() {
+    _controller = GameController()..setListener(this);
     Sounds.playBackgroundSound();
     super.initState();
   }
@@ -31,6 +34,7 @@ class _GameState extends State<Game> {
   @override
   Widget build(BuildContext context) {
     return BonfireWidget(
+      gameController: _controller,
       joystick: Joystick(
         pathSpriteBackgroundDirectional: 'joystick_background.png',
         pathSpriteKnobDirectional: 'joystick_knob.png',
@@ -59,14 +63,6 @@ class _GameState extends State<Game> {
       map: DungeonMap.map(),
       decorations: DungeonMap.decorations(),
       enemies: DungeonMap.enemies(),
-      listener: (context, game) {
-        if (game.player.isDead) {
-          if (!showGameOver) {
-            showGameOver = true;
-            _showDialogGameOver();
-          }
-        }
-      },
     );
   }
 
@@ -83,5 +79,18 @@ class _GameState extends State<Game> {
         );
       },
     );
+  }
+
+  @override
+  void changeCountLiveEnemies(int count) {}
+
+  @override
+  void updateGame() {
+    if (_controller.player != null && _controller.player.isDead) {
+      if (!showGameOver) {
+        showGameOver = true;
+        _showDialogGameOver();
+      }
+    }
   }
 }

@@ -42,6 +42,10 @@ class MiniBoss extends Enemy {
           height: 30,
           speed: 1.5,
           life: 150,
+          collision: Collision(
+            width: 15,
+            height: 20,
+          ),
         );
 
   @override

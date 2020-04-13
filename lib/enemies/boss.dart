@@ -52,6 +52,10 @@ class Boss extends Enemy {
           height: 40,
           speed: 1.3,
           life: 200,
+          collision: Collision(
+            width: 25,
+            height: 30,
+          ),
         );
 
   @override

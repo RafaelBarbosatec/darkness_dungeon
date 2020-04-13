@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:bonfire/bonfire.dart';
+import 'package:darkness_dungeon/decoration/barrel.dart';
 import 'package:darkness_dungeon/decoration/door.dart';
 import 'package:darkness_dungeon/decoration/key.dart';
 import 'package:darkness_dungeon/decoration/potion_life.dart';
@@ -585,27 +586,9 @@ class DungeonMap {
         width: 32,
         height: 32,
       ),
-      GameDecoration(
-        spriteImg: 'itens/barrel.png',
-        initPosition: getRelativeTilePosition(18, 7),
-        width: 32,
-        height: 32,
-        withCollision: true,
-      ),
-      GameDecoration(
-        spriteImg: 'itens/barrel.png',
-        initPosition: getRelativeTilePosition(12, 8),
-        width: 32,
-        height: 32,
-        withCollision: true,
-      ),
-      GameDecoration(
-        spriteImg: 'itens/barrel.png',
-        initPosition: getRelativeTilePosition(16, 12),
-        width: 32,
-        height: 32,
-        withCollision: true,
-      ),
+      Barrel(getRelativeTilePosition(18, 7)),
+      Barrel(getRelativeTilePosition(12, 8)),
+      Barrel(getRelativeTilePosition(16, 12)),
       GameDecoration(
         spriteImg: 'itens/flag_green.png',
         initPosition: getRelativeTilePosition(20, 13),
@@ -682,20 +665,8 @@ class DungeonMap {
         width: 32,
         height: 32,
       ),
-      GameDecoration(
-        spriteImg: 'itens/barrel.png',
-        initPosition: getRelativeTilePosition(24, 16),
-        width: 32,
-        height: 32,
-        withCollision: true,
-      ),
-      GameDecoration(
-        spriteImg: 'itens/barrel.png',
-        initPosition: getRelativeTilePosition(35, 14),
-        width: 32,
-        height: 32,
-        withCollision: true,
-      ),
+      Barrel(getRelativeTilePosition(24, 16)),
+      Barrel(getRelativeTilePosition(35, 14)),
       GameDecoration(
         spriteImg: 'itens/flag_green.png',
         initPosition: getRelativeTilePosition(14, 13),
@@ -749,13 +720,7 @@ class DungeonMap {
         height: 32,
         withCollision: true,
       ),
-      GameDecoration(
-        spriteImg: 'itens/barrel.png',
-        initPosition: getRelativeTilePosition(6, 14),
-        width: 32,
-        height: 32,
-        withCollision: true,
-      ),
+      Barrel(getRelativeTilePosition(6, 14)),
       GameDecoration(
         spriteImg: 'tile/wall_grid.png',
         initPosition: getRelativeTilePosition(10, 19),
@@ -872,20 +837,8 @@ class DungeonMap {
         height: 32,
         withCollision: true,
       ),
-      GameDecoration(
-        spriteImg: 'itens/barrel.png',
-        initPosition: getRelativeTilePosition(25, 20),
-        width: 32,
-        height: 32,
-        withCollision: true,
-      ),
-      GameDecoration(
-        spriteImg: 'itens/barrel.png',
-        initPosition: getRelativeTilePosition(6, 26),
-        width: 32,
-        height: 32,
-        withCollision: true,
-      ),
+      Barrel(getRelativeTilePosition(25, 20)),
+      Barrel(getRelativeTilePosition(6, 26)),
       GameDecoration(
         spriteImg: 'itens/table_2.png',
         initPosition: getRelativeTilePosition(10, 31),

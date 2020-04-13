@@ -42,6 +42,11 @@ class Goblin extends Enemy {
           height: 25,
           speed: 1.5,
           life: 120,
+          collision: Collision(
+            width: 16,
+            height: 20,
+            align: CollisionAlign.CENTER,
+          ),
         );
 
   @override

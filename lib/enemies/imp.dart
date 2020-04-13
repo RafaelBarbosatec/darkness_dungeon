@@ -40,6 +40,10 @@ class Imp extends Enemy {
           height: 25,
           speed: 2,
           life: 80,
+          collision: Collision(
+            width: 15,
+            height: 16,
+          ),
         );
 
   @override
