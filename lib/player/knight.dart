@@ -12,6 +12,7 @@ class Knight extends Player {
   final Position initPosition;
   double attack = 25;
   double stamina = 100;
+  double initSpeed = 2.5;
   Timer _timerStamina;
   bool containKey = false;
   bool showObserveEnemy = false;
@@ -51,6 +52,16 @@ class Knight extends Player {
             collision: Collision(width: 20, height: 16));
 
   @override
+  void joystickChangeDirectional(
+    JoystickMoveDirectional directional,
+    double intensity,
+    double radAngle,
+  ) {
+    this.speed = initSpeed * intensity;
+    super.joystickChangeDirectional(directional, intensity, radAngle);
+  }
+
+  @override
   void joystickAction(int action) {
     super.joystickAction(action);
     if (action == 0) {
@@ -66,14 +77,14 @@ class Knight extends Player {
   void die() {
     remove();
     gameRef.addDecoration(
-      GameDecoration(
+      GameDecoration.sprite(
+        Sprite('player/crypt.png'),
         initPosition: Position(
           positionInWorld.left,
           positionInWorld.top,
         ),
         height: 30,
         width: 30,
-        spriteImg: 'player/crypt.png',
       ),
     );
     super.die();
@@ -157,7 +168,7 @@ class Knight extends Player {
       width: 25,
       height: 25,
       damage: 10,
-      speed: speed * 1.5,
+      speed: initSpeed * 1.5,
       destroy: () {
         Sounds.explosion();
       },

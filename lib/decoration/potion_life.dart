@@ -9,8 +9,8 @@ class PotionLife extends GameDecoration {
   double _lifeDistributed = 0;
 
   PotionLife(this.initPosition, this.life)
-      : super(
-          spriteImg: 'itens/potion_red.png',
+      : super.sprite(
+          Sprite('itens/potion_red.png'),
           initPosition: initPosition,
           width: 32,
           height: 32,

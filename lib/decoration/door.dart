@@ -8,12 +8,11 @@ class Door extends GameDecoration {
   bool showDialog = false;
 
   Door(Position position)
-      : super(
-          spriteImg: 'itens/door_closed.png',
+      : super.sprite(
+          Sprite('itens/door_closed.png'),
           initPosition: position,
           width: 64,
           height: 64,
-          withCollision: true,
           frontFromPlayer: true,
           collision: Collision(
             width: 64,

@@ -1,7 +1,7 @@
 import 'package:bonfire/bonfire.dart';
+import 'package:darkness_dungeon/interface/knight_interface.dart';
 import 'package:darkness_dungeon/map/dungeon_map.dart';
 import 'package:darkness_dungeon/player/knight.dart';
-import 'package:darkness_dungeon/player/knight_interface.dart';
 import 'package:darkness_dungeon/util/dialogs.dart';
 import 'package:darkness_dungeon/util/sounds.dart';
 import 'package:flutter/material.dart';

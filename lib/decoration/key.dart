@@ -3,12 +3,11 @@ import 'package:darkness_dungeon/player/knight.dart';
 
 class DoorKey extends GameDecoration {
   DoorKey(Position position)
-      : super(
-          spriteImg: 'itens/key_silver.png',
+      : super.sprite(
+          Sprite('itens/key_silver.png'),
           initPosition: position,
           width: 32,
           height: 32,
-          withCollision: false,
         );
 
   @override

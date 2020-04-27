@@ -23,27 +23,33 @@ class Sounds {
     Flame.audio.play('sound_interaction.wav', volume: 0.4);
   }
 
-  static void stopBackgroundSound() {
+  static Future<int> stopBackgroundSound() async {
     if (audioBackground != null) {
-      audioBackground.stop().then((resp) {
-        audioBackground = null;
-      });
+      int result = await audioBackground.stop();
+      audioBackground = null;
+      return result;
+    } else {
+      return 0;
     }
   }
 
   static void playBackgroundSound() {
-    stopBackgroundSound();
-    Flame.audio.loopLongAudio('sound_bg.mp3', volume: 0.6).then((audioPlayer) {
-      audioBackground = audioPlayer;
+    stopBackgroundSound().then((resp) {
+      Flame.audio
+          .loopLongAudio('sound_bg.mp3', volume: 0.6)
+          .then((audioPlayer) {
+        audioBackground = audioPlayer;
+      });
     });
   }
 
   static void playBackgroundBoosSound() {
-    stopBackgroundSound();
-    Flame.audio
-        .loopLongAudio('battle_boss.mp3', volume: 0.6)
-        .then((audioPlayer) {
-      audioBackground = audioPlayer;
+    stopBackgroundSound().then((resp) {
+      Flame.audio
+          .loopLongAudio('battle_boss.mp3', volume: 0.6)
+          .then((audioPlayer) {
+        audioBackground = audioPlayer;
+      });
     });
   }
 }

@@ -2,12 +2,10 @@ import 'package:bonfire/bonfire.dart';
 
 class Barrel extends GameDecoration {
   Barrel(Position position)
-      : super(
-            spriteImg: 'itens/barrel.png',
+      : super.sprite(Sprite('itens/barrel.png'),
             initPosition: position,
             width: 32,
             height: 32,
-            withCollision: true,
             collision: Collision(
               width: 24,
               height: 28,
