@@ -693,7 +693,7 @@ class DungeonMap {
       torch(9, 29),
       torch(14, 29),
       wallGrid(13, 29),
-      prisoner(11, 22),
+      prisoner(11, 29),
       table(12, 21),
       table(19, 21),
       Barrel(getRelativeTilePosition(25, 20)),
