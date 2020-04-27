@@ -1,4 +1,5 @@
 import 'package:bonfire/bonfire.dart';
+import 'package:darkness_dungeon/main.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 
 class Spikes extends GameDecoration {
@@ -13,8 +14,8 @@ class Spikes extends GameDecoration {
             textureHeight: 16,
           ),
           initPosition: position,
-          width: 32,
-          height: 32,
+          width: tileSize,
+          height: tileSize,
         );
 
   @override

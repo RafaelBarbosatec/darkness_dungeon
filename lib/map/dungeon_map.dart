@@ -10,14 +10,13 @@ import 'package:darkness_dungeon/enemies/boss.dart';
 import 'package:darkness_dungeon/enemies/goblin.dart';
 import 'package:darkness_dungeon/enemies/imp.dart';
 import 'package:darkness_dungeon/enemies/mini_boss.dart';
+import 'package:darkness_dungeon/main.dart';
 import 'package:darkness_dungeon/npc/kid.dart';
 import 'package:darkness_dungeon/npc/wizard_npc.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/position.dart';
 
 class DungeonMap {
-  static const int tileSize = 32;
-
   static MapWorld map() {
     List<Tile> tileList = List();
     List.generate(40, (y) {
@@ -28,6 +27,7 @@ class DungeonMap {
             'tile/wall_left.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -36,6 +36,7 @@ class DungeonMap {
             'tile/wall_top.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -44,6 +45,7 @@ class DungeonMap {
             'tile/wall.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -52,6 +54,7 @@ class DungeonMap {
             'tile/wall_bottom.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -60,6 +63,7 @@ class DungeonMap {
             'tile/wall_right_and_bottom.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -68,6 +72,7 @@ class DungeonMap {
             'tile/wall_left_and_top.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -76,6 +81,7 @@ class DungeonMap {
             'tile/wall_bottom_right.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -83,6 +89,7 @@ class DungeonMap {
           tileList.add(Tile(
             randomFloor(),
             Position(x.toDouble(), y.toDouble()),
+            size: tileSize,
           ));
         }
 
@@ -93,6 +100,7 @@ class DungeonMap {
             'tile/wall_top.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -101,6 +109,7 @@ class DungeonMap {
             'tile/wall.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -109,6 +118,7 @@ class DungeonMap {
             'tile/wall_right.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -117,6 +127,7 @@ class DungeonMap {
             'tile/wall_bottom.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -125,6 +136,7 @@ class DungeonMap {
             'tile/wall_turn_left_top.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -133,6 +145,7 @@ class DungeonMap {
             'tile/wall_left.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -141,6 +154,7 @@ class DungeonMap {
             'tile/wall_left_and_bottom.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -148,6 +162,7 @@ class DungeonMap {
           tileList.add(Tile(
             randomFloor(),
             Position(x.toDouble(), y.toDouble()),
+            size: tileSize,
           ));
         }
 
@@ -155,6 +170,7 @@ class DungeonMap {
           tileList.add(Tile(
             randomFloor(),
             Position(x.toDouble(), y.toDouble()),
+            size: tileSize,
           ));
         }
 
@@ -165,6 +181,7 @@ class DungeonMap {
             'tile/wall_top.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -173,6 +190,7 @@ class DungeonMap {
             'tile/wall.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -181,6 +199,7 @@ class DungeonMap {
             'tile/wall_right.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -189,6 +208,7 @@ class DungeonMap {
             'tile/wall_bottom.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -197,6 +217,7 @@ class DungeonMap {
             'tile/wall_left.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -205,6 +226,7 @@ class DungeonMap {
             'tile/wall_turn_left_top.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -213,6 +235,7 @@ class DungeonMap {
             'tile/wall_bottom.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -221,6 +244,7 @@ class DungeonMap {
             'tile/wall_left_and_top.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -229,6 +253,7 @@ class DungeonMap {
             'tile/wall_top.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -237,6 +262,7 @@ class DungeonMap {
             'tile/wall.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -245,6 +271,7 @@ class DungeonMap {
             'tile/wall_left.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -253,6 +280,7 @@ class DungeonMap {
             'tile/wall_left.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -260,6 +288,7 @@ class DungeonMap {
           tileList.add(Tile(
             randomFloor(),
             Position(x.toDouble(), y.toDouble()),
+            size: tileSize,
           ));
         }
 
@@ -267,12 +296,14 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/floor_9.png',
             Position(x.toDouble(), y.toDouble()),
+            size: tileSize,
           ));
         }
         if (x >= 33 && x <= 35 && y >= 19 && y <= 20) {
           tileList.add(Tile(
             'tile/floor_10.png',
             Position(x.toDouble(), y.toDouble()),
+            size: tileSize,
           ));
         }
 //        if (y >= 17 && y <= 20 && x >= 33 && x <= 35) {
@@ -289,6 +320,7 @@ class DungeonMap {
             'tile/wall_right_and_bottom.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -297,6 +329,7 @@ class DungeonMap {
             'tile/wall_top.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -305,6 +338,7 @@ class DungeonMap {
             'tile/wall.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -313,6 +347,7 @@ class DungeonMap {
             'tile/wall_right.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -321,6 +356,7 @@ class DungeonMap {
             'tile/wall_bottom.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -329,6 +365,7 @@ class DungeonMap {
             'tile/wall_left.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -337,6 +374,7 @@ class DungeonMap {
             'tile/wall_bottom.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -345,6 +383,7 @@ class DungeonMap {
             'tile/wall_turn_left_top.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -353,6 +392,7 @@ class DungeonMap {
             'tile/wall_left_and_top.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -360,6 +400,7 @@ class DungeonMap {
           tileList.add(Tile(
             randomFloor(),
             Position(x.toDouble(), y.toDouble()),
+            size: tileSize,
           ));
         }
 
@@ -367,6 +408,7 @@ class DungeonMap {
           tileList.add(Tile(
             randomFloor(),
             Position(x.toDouble(), y.toDouble()),
+            size: tileSize,
           ));
         }
 
@@ -374,6 +416,7 @@ class DungeonMap {
           tileList.add(Tile(
             randomFloor(),
             Position(x.toDouble(), y.toDouble()),
+            size: tileSize,
           ));
         }
 
@@ -381,6 +424,7 @@ class DungeonMap {
           tileList.add(Tile(
             randomFloor(),
             Position(x.toDouble(), y.toDouble()),
+            size: tileSize,
           ));
         }
 
@@ -388,6 +432,7 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/floor_9.png',
             Position(x.toDouble(), y.toDouble()),
+            size: tileSize,
           ));
         }
 
@@ -395,6 +440,7 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/floor_10.png',
             Position(x.toDouble(), y.toDouble()),
+            size: tileSize,
           ));
         }
 
@@ -403,6 +449,7 @@ class DungeonMap {
             'tile/wall_turn_left_top.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
         if (x == 6 && y == 18) {
@@ -410,6 +457,7 @@ class DungeonMap {
             'tile/wall_left.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
         if (x == 6 && y == 19) {
@@ -417,6 +465,7 @@ class DungeonMap {
             'tile/wall_left_and_bottom.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -427,6 +476,7 @@ class DungeonMap {
             'tile/wall_right.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -435,6 +485,7 @@ class DungeonMap {
             'tile/wall_right_and_bottom.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -443,6 +494,7 @@ class DungeonMap {
             'tile/wall_top.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -451,6 +503,7 @@ class DungeonMap {
             'tile/wall.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -459,6 +512,7 @@ class DungeonMap {
             'tile/wall_top.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
         if (y == 29 && x >= 4 && x <= 5) {
@@ -466,6 +520,7 @@ class DungeonMap {
             'tile/wall.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -474,6 +529,7 @@ class DungeonMap {
             'tile/wall_left.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -482,6 +538,7 @@ class DungeonMap {
             'tile/wall_bottom.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -490,6 +547,7 @@ class DungeonMap {
             'tile/wall_right.png',
             Position(x.toDouble(), y.toDouble()),
             collision: true,
+            size: tileSize,
           ));
         }
 
@@ -497,6 +555,7 @@ class DungeonMap {
           tileList.add(Tile(
             randomFloor(),
             Position(x.toDouble(), y.toDouble()),
+            size: tileSize,
           ));
         }
 
@@ -504,6 +563,7 @@ class DungeonMap {
           tileList.add(Tile(
             '',
             Position(x.toDouble(), y.toDouble()),
+            size: tileSize,
           ));
         }
 
@@ -511,6 +571,7 @@ class DungeonMap {
           tileList.add(Tile(
             '',
             Position(x.toDouble(), y.toDouble()),
+            size: tileSize,
           ));
         }
       });
@@ -522,56 +583,56 @@ class DungeonMap {
   static GameDecoration table(int x, int y) => GameDecoration.sprite(
         Sprite('itens/table.png'),
         initPosition: getRelativeTilePosition(x, y),
-        width: 32,
-        height: 32,
+        width: tileSize,
+        height: tileSize,
         collision: Collision(
-          width: 32,
-          height: 32,
+          width: tileSize,
+          height: tileSize,
         ),
       );
   static GameDecoration table2(int x, int y) => GameDecoration.sprite(
         Sprite('itens/table_2.png'),
         initPosition: getRelativeTilePosition(x, y),
-        width: 64,
-        height: 32,
+        width: tileSize * 2,
+        height: tileSize,
         collision: Collision(
-          width: 64,
-          height: 32,
+          width: tileSize * 2,
+          height: tileSize,
         ),
       );
 
   static GameDecoration flagRed(int x, int y) => GameDecoration.sprite(
         Sprite('itens/flag_red.png'),
         initPosition: getRelativeTilePosition(x, y),
-        width: 32,
-        height: 32,
+        width: tileSize,
+        height: tileSize,
       );
   static GameDecoration flagGreen(int x, int y) => GameDecoration.sprite(
         Sprite('itens/flag_green.png'),
         initPosition: getRelativeTilePosition(x, y),
-        width: 32,
-        height: 32,
+        width: tileSize,
+        height: tileSize,
       );
 
   static GameDecoration bookshelf(int x, int y) => GameDecoration.sprite(
         Sprite('itens/bookshelf.png'),
         initPosition: getRelativeTilePosition(x, y),
-        width: 32,
-        height: 32,
+        width: tileSize,
+        height: tileSize,
       );
 
   static GameDecoration prisoner(int x, int y) => GameDecoration.sprite(
         Sprite('itens/prisoner.png'),
         initPosition: getRelativeTilePosition(x, y),
-        width: 32,
-        height: 32,
+        width: tileSize,
+        height: tileSize,
       );
 
   static GameDecoration wallGrid(int x, int y) => GameDecoration.sprite(
         Sprite('tile/wall_grid.png'),
         initPosition: getRelativeTilePosition(x, y),
-        width: 32,
-        height: 32,
+        width: tileSize,
+        height: tileSize,
       );
 
   static GameDecoration torch(int x, int y) => GameDecoration.animation(
@@ -582,8 +643,8 @@ class DungeonMap {
           textureHeight: 16,
         ),
         initPosition: getRelativeTilePosition(x, y),
-        width: 32,
-        height: 32,
+        width: tileSize,
+        height: tileSize,
       );
 
   static List<GameDecoration> decorations() {
@@ -593,7 +654,7 @@ class DungeonMap {
       torch(6, 4),
       flagRed(7, 4),
       bookshelf(10, 5),
-      flagRed(12, 4),
+      flagRed(12, 5),
       torch(13, 5),
       flagRed(14, 5),
       bookshelf(17, 5),
@@ -641,17 +702,17 @@ class DungeonMap {
       table2(10, 35),
       prisoner(16, 29),
       WizardNPC(getRelativeTilePosition(10, 6)),
-      Spikes(getRelativeTilePosition(33, 18), damage: 30),
-      Spikes(getRelativeTilePosition(34, 18), damage: 30),
-      Spikes(getRelativeTilePosition(35, 18), damage: 30),
+      Spikes(getRelativeTilePosition(33, 18), damage: 80),
+      Spikes(getRelativeTilePosition(34, 18), damage: 80),
+      Spikes(getRelativeTilePosition(35, 18), damage: 80),
       Door(getRelativeTilePosition(7, 17)),
       DoorKey(getRelativeTilePosition(34, 20)),
       PotionLife(getRelativeTilePosition(23, 28), 50),
       PotionLife(getRelativeTilePosition(24, 29), 50),
       PotionLife(getRelativeTilePosition(35, 20), 50),
-      Spikes(getRelativeTilePosition(23, 26), damage: 30),
-      Spikes(getRelativeTilePosition(24, 26), damage: 30),
-      Spikes(getRelativeTilePosition(25, 26), damage: 30),
+      Spikes(getRelativeTilePosition(23, 26), damage: 80),
+      Spikes(getRelativeTilePosition(24, 26), damage: 80),
+      Spikes(getRelativeTilePosition(25, 26), damage: 80),
       Kid(getRelativeTilePosition(17, 33)),
     ];
   }

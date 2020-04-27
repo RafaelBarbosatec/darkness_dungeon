@@ -1,4 +1,5 @@
 import 'package:bonfire/bonfire.dart';
+import 'package:darkness_dungeon/main.dart';
 import 'package:darkness_dungeon/util/sounds.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/text_config.dart';
@@ -38,9 +39,9 @@ class MiniBoss extends Enemy {
             textureHeight: 24,
           ),
           initPosition: initPosition,
-          width: 22,
-          height: 30,
-          speed: 1.5,
+          width: tileSize * 0.68,
+          height: tileSize * 0.93,
+          speed: 1.5 * (tileSize / 32),
           life: 150,
           collision: Collision(
             width: 15,
@@ -129,10 +130,10 @@ class MiniBoss extends Enemy {
         textureWidth: 32,
         textureHeight: 32,
       ),
-      width: 25,
-      height: 25,
+      width: tileSize * 0.8,
+      height: tileSize * 0.8,
       damage: attack,
-      speed: speed * 1.5,
+      speed: speed * 1.5 * (tileSize / 32),
       execute: () {
         Sounds.attackRange();
       },
@@ -144,8 +145,8 @@ class MiniBoss extends Enemy {
 
   void execAttack() {
     this.simpleAttackMelee(
-        heightArea: 20,
-        widthArea: 20,
+        heightArea: tileSize * 0.62,
+        widthArea: tileSize * 0.62,
         damage: attack / 3,
         interval: 300,
         attackEffectBottomAnim: FlameAnimation.Animation.sequenced(

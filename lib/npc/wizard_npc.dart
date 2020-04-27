@@ -1,4 +1,5 @@
 import 'package:bonfire/bonfire.dart';
+import 'package:darkness_dungeon/main.dart';
 import 'package:darkness_dungeon/util/localization/strings_location.dart';
 import 'package:darkness_dungeon/util/sounds.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
@@ -15,8 +16,8 @@ class WizardNPC extends GameDecoration {
             textureHeight: 22,
           ),
           initPosition: position,
-          width: 26,
-          height: 32,
+          width: tileSize * 0.8,
+          height: tileSize,
         );
 
   @override

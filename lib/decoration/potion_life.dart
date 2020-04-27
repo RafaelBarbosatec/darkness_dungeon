@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bonfire/bonfire.dart';
+import 'package:darkness_dungeon/main.dart';
 import 'package:flame/position.dart';
 
 class PotionLife extends GameDecoration {
@@ -12,8 +13,8 @@ class PotionLife extends GameDecoration {
       : super.sprite(
           Sprite('itens/potion_red.png'),
           initPosition: initPosition,
-          width: 32,
-          height: 32,
+          width: tileSize,
+          height: tileSize,
         );
 
   @override

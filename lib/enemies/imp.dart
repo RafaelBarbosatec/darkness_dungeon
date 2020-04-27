@@ -1,4 +1,5 @@
 import 'package:bonfire/bonfire.dart';
+import 'package:darkness_dungeon/main.dart';
 import 'package:darkness_dungeon/util/sounds.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/position.dart';
@@ -36,9 +37,9 @@ class Imp extends Enemy {
             textureHeight: 16,
           ),
           initPosition: initPosition,
-          width: 25,
-          height: 25,
-          speed: 2,
+          width: tileSize * 0.8,
+          height: tileSize * 0.8,
+          speed: 2 * (tileSize / 32),
           life: 80,
           collision: Collision(
             width: 15,
@@ -65,8 +66,8 @@ class Imp extends Enemy {
 
   void execAttack() {
     this.simpleAttackMelee(
-        heightArea: 20,
-        widthArea: 20,
+        heightArea: tileSize * 0.62,
+        widthArea: tileSize * 0.62,
         damage: attack,
         interval: 300,
         attackEffectBottomAnim: FlameAnimation.Animation.sequenced(

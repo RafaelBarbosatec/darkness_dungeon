@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bonfire/bonfire.dart';
 import 'package:bonfire/util/collision/collision.dart';
+import 'package:darkness_dungeon/main.dart';
 import 'package:darkness_dungeon/util/sounds.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/position.dart';
@@ -44,11 +45,11 @@ class Knight extends Player {
               textureWidth: 16,
               textureHeight: 16,
             ),
-            width: 32,
-            height: 32,
+            width: tileSize,
+            height: tileSize,
             initPosition: initPosition,
             life: 200,
-            speed: 2.5,
+            speed: 2.5 * (tileSize / 32),
             collision: Collision(width: 20, height: 16));
 
   @override
@@ -123,6 +124,8 @@ class Knight extends Player {
         textureWidth: 16,
         textureHeight: 16,
       ),
+      heightArea: tileSize,
+      widthArea: tileSize,
     );
   }
 
@@ -165,10 +168,10 @@ class Knight extends Player {
         textureWidth: 32,
         textureHeight: 32,
       ),
-      width: 25,
-      height: 25,
+      width: tileSize * 0.8,
+      height: tileSize * 0.8,
       damage: 10,
-      speed: initSpeed * 1.5,
+      speed: initSpeed * 1.5 * (tileSize / 32),
       destroy: () {
         Sounds.explosion();
       },
@@ -244,8 +247,8 @@ class Knight extends Player {
           textureHeight: 32,
         ),
         target: this,
-        width: 16,
-        height: 16,
+        width: tileSize / 2,
+        height: tileSize / 2,
         positionFromTarget: Position(18, -6),
       ),
     );

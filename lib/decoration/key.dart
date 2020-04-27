@@ -1,4 +1,5 @@
 import 'package:bonfire/bonfire.dart';
+import 'package:darkness_dungeon/main.dart';
 import 'package:darkness_dungeon/player/knight.dart';
 
 class DoorKey extends GameDecoration {
@@ -6,8 +7,8 @@ class DoorKey extends GameDecoration {
       : super.sprite(
           Sprite('itens/key_silver.png'),
           initPosition: position,
-          width: 32,
-          height: 32,
+          width: tileSize,
+          height: tileSize,
         );
 
   @override

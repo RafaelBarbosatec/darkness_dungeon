@@ -1,4 +1,5 @@
 import 'package:bonfire/bonfire.dart';
+import 'package:darkness_dungeon/main.dart';
 import 'package:darkness_dungeon/util/sounds.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/position.dart';
@@ -38,9 +39,9 @@ class Goblin extends Enemy {
             textureHeight: 16,
           ),
           initPosition: initPosition,
-          width: 25,
-          height: 25,
-          speed: 1.5,
+          width: tileSize * 0.8,
+          height: tileSize * 0.8,
+          speed: 1.5 * (tileSize / 32),
           life: 120,
           collision: Collision(
             width: 16,
@@ -86,8 +87,8 @@ class Goblin extends Enemy {
 
   void execAttack() {
     this.simpleAttackMelee(
-        heightArea: 20,
-        widthArea: 20,
+        heightArea: tileSize * 0.62,
+        widthArea: tileSize * 0.62,
         damage: attack,
         interval: 800,
         attackEffectBottomAnim: FlameAnimation.Animation.sequenced(

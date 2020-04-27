@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/enemies/imp.dart';
 import 'package:darkness_dungeon/enemies/mini_boss.dart';
-import 'package:darkness_dungeon/map/dungeon_map.dart';
+import 'package:darkness_dungeon/main.dart';
 import 'package:darkness_dungeon/util/localization/strings_location.dart';
 import 'package:darkness_dungeon/util/sounds.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
@@ -48,9 +48,9 @@ class Boss extends Enemy {
             textureHeight: 36,
           ),
           initPosition: initPosition,
-          width: 36,
-          height: 40,
-          speed: 1.3,
+          width: tileSize,
+          height: tileSize * 1.1,
+          speed: 1.3 * (tileSize / 32),
           life: 200,
           collision: Collision(
             width: 25,
@@ -193,8 +193,8 @@ class Boss extends Enemy {
 
   void execAttack() {
     this.simpleAttackMelee(
-        heightArea: 20,
-        widthArea: 20,
+        heightArea: tileSize * 0.62,
+        widthArea: tileSize * 0.62,
         damage: attack,
         interval: 1500,
         attackEffectBottomAnim: FlameAnimation.Animation.sequenced(
@@ -340,8 +340,8 @@ class Boss extends Enemy {
   }
 
   void addInitChild() {
-    addImp(14.0 * DungeonMap.tileSize, 32.0 * DungeonMap.tileSize);
-    addImp(14.0 * DungeonMap.tileSize, 34.0 * DungeonMap.tileSize);
+    addImp(14.0 * tileSize, 32.0 * tileSize);
+    addImp(14.0 * tileSize, 34.0 * tileSize);
   }
 
   void addImp(double x, double y) {

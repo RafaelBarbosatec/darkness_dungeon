@@ -1,5 +1,6 @@
 import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/interface/knight_interface.dart';
+import 'package:darkness_dungeon/main.dart';
 import 'package:darkness_dungeon/map/dungeon_map.dart';
 import 'package:darkness_dungeon/player/knight.dart';
 import 'package:darkness_dungeon/util/dialogs.dart';
@@ -33,6 +34,13 @@ class _GameState extends State<Game> implements GameListener {
 
   @override
   Widget build(BuildContext context) {
+    Size sizeScreen = MediaQuery.of(context).size;
+    tileSize = ((sizeScreen.height < sizeScreen.width)
+            ? sizeScreen.height
+            : sizeScreen.width) /
+        11;
+    tileSize = tileSize.round().toDouble();
+
     return BonfireWidget(
       gameController: _controller,
       joystick: Joystick(
@@ -57,7 +65,7 @@ class _GameState extends State<Game> implements GameListener {
         ],
       ),
       player: Knight(
-        initPosition: Position(5 * 32.0, 6 * 32.0),
+        initPosition: Position(5 * tileSize, 6 * tileSize),
       ),
       interface: KnightInterface(),
       map: DungeonMap.map(),
