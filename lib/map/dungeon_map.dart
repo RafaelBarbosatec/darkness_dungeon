@@ -6,6 +6,7 @@ import 'package:darkness_dungeon/decoration/door.dart';
 import 'package:darkness_dungeon/decoration/key.dart';
 import 'package:darkness_dungeon/decoration/potion_life.dart';
 import 'package:darkness_dungeon/decoration/spikes.dart';
+import 'package:darkness_dungeon/decoration/torch.dart';
 import 'package:darkness_dungeon/enemies/boss.dart';
 import 'package:darkness_dungeon/enemies/goblin.dart';
 import 'package:darkness_dungeon/enemies/imp.dart';
@@ -13,7 +14,6 @@ import 'package:darkness_dungeon/enemies/mini_boss.dart';
 import 'package:darkness_dungeon/main.dart';
 import 'package:darkness_dungeon/npc/kid.dart';
 import 'package:darkness_dungeon/npc/wizard_npc.dart';
-import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/position.dart';
 
 class DungeonMap {
@@ -635,17 +635,8 @@ class DungeonMap {
         height: tileSize,
       );
 
-  static GameDecoration torch(int x, int y) => GameDecoration.animation(
-        FlameAnimation.Animation.sequenced(
-          "itens/torch_spritesheet.png",
-          6,
-          textureWidth: 16,
-          textureHeight: 16,
-        ),
-        initPosition: getRelativeTilePosition(x, y),
-        width: tileSize,
-        height: tileSize,
-      );
+  static GameDecoration torch(int x, int y, {bool empty = false}) =>
+      Torch(getRelativeTilePosition(x, y), empty: empty);
 
   static List<GameDecoration> decorations() {
     return [
@@ -667,7 +658,9 @@ class DungeonMap {
       wallGrid(23, 13),
       torch(25, 13),
       prisoner(27, 13),
-      torch(29, 13),
+      torch(19, 13),
+      torch(30, 13),
+      torch(25, 19),
       wallGrid(31, 13),
       flagGreen(32, 13),
       prisoner(33, 13),
@@ -686,12 +679,17 @@ class DungeonMap {
       wallGrid(14, 19),
       wallGrid(18, 19),
       wallGrid(22, 19),
-      torch(12, 19),
-      torch(16, 19),
+      torch(9, 19),
+      torch(15, 19),
       torch(20, 19),
       torch(5, 29),
-      torch(9, 29),
-      torch(14, 29),
+      torch(10, 29),
+      torch(15, 29),
+      torch(15, 37, empty: true),
+      torch(10, 37, empty: true),
+      torch(5, 37, empty: true),
+      torch(24, 31, empty: true),
+      torch(34, 21, empty: true),
       wallGrid(13, 29),
       prisoner(11, 29),
       table(12, 21),
