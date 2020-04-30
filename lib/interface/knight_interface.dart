@@ -4,6 +4,7 @@ import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/decoration/torch.dart';
 import 'package:darkness_dungeon/interface/bar_life_component.dart';
 import 'package:darkness_dungeon/player/knight.dart';
+import 'package:darkness_dungeon/util/pulse_value.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/material.dart';
 
@@ -12,11 +13,13 @@ class KnightInterface extends GameInterface {
   Paint _paintFocus;
   Color colorShadow = Colors.black;
   double maxOpacity = 0.3;
+  PulseValue pulseAnimation;
   KnightInterface() {
     key = Sprite('itens/key_silver.png');
     _paintFocus = Paint()
       ..color = Colors.transparent
       ..blendMode = BlendMode.clear;
+    pulseAnimation = PulseValue();
   }
 
   @override
@@ -58,8 +61,8 @@ class KnightInterface extends GameInterface {
         ],
         stops: [
           0.0,
-          0.8,
-          0.9,
+          0.8 * (1 - pulseAnimation.value * 0.1),
+          0.9 * (1 - pulseAnimation.value * 0.1),
           1.0,
         ],
       );
@@ -75,5 +78,10 @@ class KnightInterface extends GameInterface {
       // and draw an arc
     });
     canvas.restore();
+  }
+
+  void update(double dt) {
+    pulseAnimation.update(dt);
+    super.update(dt);
   }
 }
