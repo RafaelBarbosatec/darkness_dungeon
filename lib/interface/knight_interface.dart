@@ -27,6 +27,20 @@ class KnightInterface extends GameInterface {
 
   @override
   void render(Canvas canvas) {
+    _drawLight(canvas);
+    try {
+      _drawKey(canvas);
+    } catch (e) {}
+    super.render(canvas);
+  }
+
+  void _drawKey(Canvas c) {
+    if (gameRef.player != null && (gameRef.player as Knight).containKey) {
+      key.renderRect(c, Rect.fromLTWH(150, 20, 35, 30));
+    }
+  }
+
+  void _drawLight(Canvas canvas) {
     Size size = gameRef.size;
     canvas.saveLayer(Offset.zero & size, Paint());
     canvas.drawColor(colorShadow.withOpacity(maxOpacity), BlendMode.dstATop);
@@ -60,18 +74,6 @@ class KnightInterface extends GameInterface {
           d.width * 2.5, paint);
       // and draw an arc
     });
-
     canvas.restore();
-
-    try {
-      _drawKey(canvas);
-    } catch (e) {}
-    super.render(canvas);
-  }
-
-  void _drawKey(Canvas c) {
-    if (gameRef.player != null && (gameRef.player as Knight).containKey) {
-      key.renderRect(c, Rect.fromLTWH(150, 20, 35, 30));
-    }
   }
 }
