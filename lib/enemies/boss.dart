@@ -53,8 +53,8 @@ class Boss extends Enemy {
           speed: tileSize / 0.35,
           life: 200,
           collision: Collision(
-            width: 25,
-            height: 30,
+            width: tileSize * 0.6,
+            height: tileSize * 0.6,
           ),
         );
 
