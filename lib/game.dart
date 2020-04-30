@@ -39,7 +39,7 @@ class _GameState extends State<Game> implements GameListener {
             ? sizeScreen.height
             : sizeScreen.width) /
         11;
-    tileSize = tileSize.round().toDouble();
+    tileSize = tileSize.roundToDouble();
 
     return BonfireWidget(
       gameController: _controller,

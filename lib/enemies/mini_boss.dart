@@ -41,7 +41,7 @@ class MiniBoss extends Enemy {
           initPosition: initPosition,
           width: tileSize * 0.68,
           height: tileSize * 0.93,
-          speed: 1.5 * (tileSize / 32),
+          speed: tileSize / 0.35,
           life: 150,
           collision: Collision(
             width: 15,

@@ -41,7 +41,7 @@ class Goblin extends Enemy {
           initPosition: initPosition,
           width: tileSize * 0.8,
           height: tileSize * 0.8,
-          speed: 1.5 * (tileSize / 32),
+          speed: tileSize / 0.35,
           life: 120,
           collision: Collision(
             width: 16,

@@ -13,7 +13,7 @@ class Knight extends Player {
   final Position initPosition;
   double attack = 25;
   double stamina = 100;
-  double initSpeed = 2.5;
+  double initSpeed = tileSize / 0.25;
   Timer _timerStamina;
   bool containKey = false;
   bool showObserveEnemy = false;
@@ -49,7 +49,7 @@ class Knight extends Player {
             height: tileSize,
             initPosition: initPosition,
             life: 200,
-            speed: 2.5 * (tileSize / 32),
+            speed: tileSize / 0.25,
             collision: Collision(width: 20, height: 16));
 
   @override

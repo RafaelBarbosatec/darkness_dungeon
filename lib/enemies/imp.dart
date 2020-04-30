@@ -39,7 +39,7 @@ class Imp extends Enemy {
           initPosition: initPosition,
           width: tileSize * 0.8,
           height: tileSize * 0.8,
-          speed: 2 * (tileSize / 32),
+          speed: tileSize / 0.28,
           life: 80,
           collision: Collision(
             width: 15,
