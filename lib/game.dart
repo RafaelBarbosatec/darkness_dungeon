@@ -2,7 +2,6 @@ import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/interface/knight_interface.dart';
 import 'package:darkness_dungeon/main.dart';
 import 'package:darkness_dungeon/map/dungeon_map.dart';
-import 'package:darkness_dungeon/player/knight.dart';
 import 'package:darkness_dungeon/util/dialogs.dart';
 import 'package:darkness_dungeon/util/sounds.dart';
 import 'package:flutter/material.dart';
@@ -64,9 +63,9 @@ class _GameState extends State<Game> implements GameListener {
           )
         ],
       ),
-      player: Knight(
-        initPosition: Position(5 * tileSize, 6 * tileSize),
-      ),
+//      player: Knight(
+//        initPosition: Position(5 * tileSize, 6 * tileSize),
+//      ),
       interface: KnightInterface(),
       map: DungeonMap.map(),
       decorations: DungeonMap.decorations(),

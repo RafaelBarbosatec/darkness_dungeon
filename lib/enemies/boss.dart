@@ -48,8 +48,8 @@ class Boss extends Enemy {
             textureHeight: 36,
           ),
           initPosition: initPosition,
-          width: tileSize,
-          height: tileSize * 1.1,
+          width: tileSize * 1.5,
+          height: tileSize * 1.7,
           speed: tileSize / 0.35,
           life: 200,
           collision: Collision(
