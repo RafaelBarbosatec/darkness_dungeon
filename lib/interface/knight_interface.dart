@@ -12,7 +12,7 @@ class KnightInterface extends GameInterface {
   Sprite key;
   Paint _paintFocus;
   Color colorShadow = Colors.black;
-  double maxOpacity = 0.3;
+  double maxOpacity = 0.5;
   PulseValue pulseAnimation;
   KnightInterface() {
     key = Sprite('itens/key_silver.png');
@@ -49,35 +49,40 @@ class KnightInterface extends GameInterface {
     canvas.drawColor(colorShadow.withOpacity(maxOpacity), BlendMode.dstATop);
 
     gameRef.decorations.where((i) => i is Torch).forEach((d) {
-      canvas.drawCircle(Offset(d.position.center.dx, d.position.center.dy),
-          d.width * 2.5, _paintFocus);
-
-      Gradient gradient = new RadialGradient(
-        colors: <Color>[
-          Colors.black.withOpacity(0.0),
-          Colors.black.withOpacity(0.1),
-          Colors.black.withOpacity(0.2),
-          Colors.black.withOpacity(maxOpacity),
-        ],
-        stops: [
-          0.0,
-          0.8 * (1 - pulseAnimation.value * 0.1),
-          0.9 * (1 - pulseAnimation.value * 0.1),
-          1.0,
-        ],
-      );
-
-      Rect rect = new Rect.fromCircle(
-        center: new Offset(d.position.center.dx, d.position.center.dy),
-        radius: d.width * 2.5,
-      );
-      // create the Shader from the gradient and the bounding square
-      final Paint paint = new Paint()..shader = gradient.createShader(rect);
-      canvas.drawCircle(Offset(d.position.center.dx, d.position.center.dy),
-          d.width * 2.5, paint);
+      _drawLightInWorld(canvas, d.position, d.position.width * 2.5, true);
       // and draw an arc
     });
+
+    gameRef.components.where((i) => i is FlyingAttackObject).forEach((d) {
+      _drawLightInWorld(canvas, (d as FlyingAttackObject).position,
+          (d as FlyingAttackObject).position.width, false);
+      // and draw an arc
+    });
+    Player player = gameRef.player;
+    if (player != null)
+      _drawLightInWorld(canvas, player.position, player.width * 2, false);
     canvas.restore();
+  }
+
+  void _drawLightInWorld(
+      Canvas canvas, Rect position, double radius, bool pulsar) {
+    canvas.drawCircle(
+        Offset(position.center.dx, position.center.dy),
+        radius * (pulsar ? (1 - pulseAnimation.value * 0.1) : 1),
+        _paintFocus
+          ..maskFilter =
+              MaskFilter.blur(BlurStyle.normal, convertRadiusToSigma(20)));
+
+    final Paint paint = new Paint()
+      ..color = Colors.orangeAccent[200].withOpacity(0.2)
+      ..maskFilter =
+          MaskFilter.blur(BlurStyle.normal, convertRadiusToSigma(20));
+    canvas.drawCircle(Offset(position.center.dx, position.center.dy),
+        radius * (pulsar ? (1 - pulseAnimation.value * 0.1) : 1), paint);
+  }
+
+  static double convertRadiusToSigma(double radius) {
+    return radius * 0.57735 + 0.5;
   }
 
   void update(double dt) {
