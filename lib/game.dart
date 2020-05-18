@@ -47,6 +47,7 @@ class _GameState extends State<Game> implements GameListener {
         pathSpriteBackgroundDirectional: 'joystick_background.png',
         pathSpriteKnobDirectional: 'joystick_knob.png',
         sizeDirectional: 100,
+        isFixedDirectional: false,
         actions: [
           JoystickAction(
             actionId: 0,
