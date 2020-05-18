@@ -48,12 +48,16 @@ class KnightInterface extends GameInterface {
     canvas.saveLayer(Offset.zero & size, Paint());
     canvas.drawColor(colorShadow.withOpacity(maxOpacity), BlendMode.dstATop);
 
-    gameRef.decorations.where((i) => i is Torch).forEach((d) {
+    gameRef.decorations
+        .where((i) => i is Torch && i.isVisibleInMap())
+        .forEach((d) {
       _drawLightInWorld(canvas, d.position, d.position.width * 2.5, true);
       // and draw an arc
     });
 
-    gameRef.components.where((i) => i is FlyingAttackObject).forEach((d) {
+    gameRef.components
+        .where((i) => i is FlyingAttackObject && i.isVisibleInMap())
+        .forEach((d) {
       _drawLightInWorld(canvas, (d as FlyingAttackObject).position,
           (d as FlyingAttackObject).position.width, false);
       // and draw an arc
