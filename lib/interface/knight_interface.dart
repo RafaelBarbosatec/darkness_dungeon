@@ -56,6 +56,14 @@ class KnightInterface extends GameInterface {
     });
 
     gameRef.components
+        .where((i) => i is AnimatedObjectOnce && i.isVisibleInMap())
+        .forEach((d) {
+      _drawLightInWorld(canvas, (d as AnimatedObjectOnce).position,
+          (d as AnimatedObjectOnce).position.width, false);
+      // and draw an arc
+    });
+
+    gameRef.components
         .where((i) => i is FlyingAttackObject && i.isVisibleInMap())
         .forEach((d) {
       _drawLightInWorld(canvas, (d as FlyingAttackObject).position,
@@ -64,7 +72,7 @@ class KnightInterface extends GameInterface {
     });
     Player player = gameRef.player;
     if (player != null)
-      _drawLightInWorld(canvas, player.position, player.width * 2, false);
+      _drawLightInWorld(canvas, player.position, player.width * 1.5, false);
     canvas.restore();
   }
 
