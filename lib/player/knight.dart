@@ -9,7 +9,7 @@ import 'package:flame/position.dart';
 import 'package:flame/text_config.dart';
 import 'package:flutter/material.dart';
 
-class Knight extends Player {
+class Knight extends SimplePlayer {
   final Position initPosition;
   double attack = 25;
   double stamina = 100;
@@ -53,25 +53,21 @@ class Knight extends Player {
             collision: Collision(width: 20, height: 16));
 
   @override
-  void joystickChangeDirectional(
-    JoystickMoveDirectional directional,
-    double intensity,
-    double radAngle,
-  ) {
-    this.speed = initSpeed * intensity;
-    super.joystickChangeDirectional(directional, intensity, radAngle);
+  void joystickChangeDirectional(JoystickDirectionalEvent event) {
+    this.speed = initSpeed * event.intensity;
+    super.joystickChangeDirectional(event);
   }
 
   @override
-  void joystickAction(int action) {
-    super.joystickAction(action);
-    if (action == 0) {
+  void joystickAction(JoystickActionEvent event) {
+    if (event.id == 0 && event.event == ActionEvent.DOWN) {
       actionAttack();
     }
 
-    if (action == 1) {
+    if (event.id == 1 && event.event == ActionEvent.DOWN) {
       actionAttackRange();
     }
+    super.joystickAction(event);
   }
 
   @override
@@ -100,25 +96,25 @@ class Knight extends Player {
     decrementStamina(15);
     this.simpleAttackMelee(
       damage: attack,
-      attackEffectBottomAnim: FlameAnimation.Animation.sequenced(
+      animationBottom: FlameAnimation.Animation.sequenced(
         'player/atack_effect_bottom.png',
         6,
         textureWidth: 16,
         textureHeight: 16,
       ),
-      attackEffectLeftAnim: FlameAnimation.Animation.sequenced(
+      animationLeft: FlameAnimation.Animation.sequenced(
         'player/atack_effect_left.png',
         6,
         textureWidth: 16,
         textureHeight: 16,
       ),
-      attackEffectRightAnim: FlameAnimation.Animation.sequenced(
+      animationRight: FlameAnimation.Animation.sequenced(
         'player/atack_effect_right.png',
         6,
         textureWidth: 16,
         textureHeight: 16,
       ),
-      attackEffectTopAnim: FlameAnimation.Animation.sequenced(
+      animationTop: FlameAnimation.Animation.sequenced(
         'player/atack_effect_top.png',
         6,
         textureWidth: 16,
@@ -224,7 +220,7 @@ class Knight extends Player {
   }
 
   @override
-  void receiveDamage(double damage) {
+  void receiveDamage(double damage, int id) {
     if (isDead) return;
     this.showDamage(
       damage,
@@ -234,7 +230,7 @@ class Knight extends Player {
         fontFamily: 'Normal',
       ),
     );
-    super.receiveDamage(damage);
+    super.receiveDamage(damage, id);
   }
 
   void _showEmote({String emote = 'emote/emote_exclamacao.png'}) {

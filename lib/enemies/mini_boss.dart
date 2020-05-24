@@ -6,7 +6,7 @@ import 'package:flame/text_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class MiniBoss extends Enemy {
+class MiniBoss extends SimpleEnemy {
   final Position initPosition;
   double attack = 50;
   bool _seePlayerClose = false;
@@ -179,7 +179,7 @@ class MiniBoss extends Enemy {
   }
 
   @override
-  void receiveDamage(double damage) {
+  void receiveDamage(double damage, int id) {
     this.showDamage(
       damage,
       config: TextConfig(
@@ -188,6 +188,6 @@ class MiniBoss extends Enemy {
         fontFamily: 'Normal',
       ),
     );
-    super.receiveDamage(damage);
+    super.receiveDamage(damage, id);
   }
 }

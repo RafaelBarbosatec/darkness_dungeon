@@ -6,7 +6,7 @@ import 'package:flame/position.dart';
 import 'package:flame/text_config.dart';
 import 'package:flutter/material.dart';
 
-class Imp extends Enemy {
+class Imp extends SimpleEnemy {
   final Position initPosition;
   double attack = 10;
 
@@ -117,7 +117,7 @@ class Imp extends Enemy {
   }
 
   @override
-  void receiveDamage(double damage) {
+  void receiveDamage(double damage, int id) {
     this.showDamage(
       damage,
       config: TextConfig(
@@ -126,6 +126,6 @@ class Imp extends Enemy {
         fontFamily: 'Normal',
       ),
     );
-    super.receiveDamage(damage);
+    super.receiveDamage(damage, id);
   }
 }

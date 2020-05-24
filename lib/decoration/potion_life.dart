@@ -19,7 +19,9 @@ class PotionLife extends GameDecoration {
 
   @override
   void update(double dt) {
-    if (gameRef.player != null && position.overlaps(gameRef.player.position)) {
+    if (gameRef.player != null &&
+        position != null &&
+        position.overlaps(gameRef.player.position)) {
       Timer.periodic(Duration(milliseconds: 100), (timer) {
         if (_lifeDistributed >= life) {
           timer.cancel();

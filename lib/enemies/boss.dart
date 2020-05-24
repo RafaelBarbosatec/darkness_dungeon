@@ -12,7 +12,7 @@ import 'package:flame/text_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class Boss extends Enemy {
+class Boss extends SimpleEnemy {
   final Position initPosition;
   double attack = 40;
 
@@ -227,7 +227,7 @@ class Boss extends Enemy {
   }
 
   @override
-  void receiveDamage(double damage) {
+  void receiveDamage(double damage, int id) {
     this.showDamage(
       damage,
       config: TextConfig(
@@ -236,7 +236,7 @@ class Boss extends Enemy {
         fontFamily: 'Normal',
       ),
     );
-    super.receiveDamage(damage);
+    super.receiveDamage(damage, id);
   }
 
   void drawBarSummonEnemy(Canvas canvas) {

@@ -7,7 +7,7 @@ import 'package:flame/text_config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Goblin extends Enemy {
+class Goblin extends SimpleEnemy {
   final Position initPosition;
   double attack = 25;
 
@@ -121,7 +121,7 @@ class Goblin extends Enemy {
   }
 
   @override
-  void receiveDamage(double damage) {
+  void receiveDamage(double damage, int id) {
     this.showDamage(
       damage,
       config: TextConfig(
@@ -130,6 +130,6 @@ class Goblin extends Enemy {
         fontFamily: 'Normal',
       ),
     );
-    super.receiveDamage(damage);
+    super.receiveDamage(damage, id);
   }
 }

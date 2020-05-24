@@ -44,22 +44,24 @@ class _GameState extends State<Game> implements GameListener {
     return BonfireWidget(
       gameController: _controller,
       joystick: Joystick(
-        pathSpriteBackgroundDirectional: 'joystick_background.png',
-        pathSpriteKnobDirectional: 'joystick_knob.png',
-        sizeDirectional: 100,
-        isFixedDirectional: false,
+        directional: JoystickDirectional(
+          spriteBackgroundDirectional: Sprite('joystick_background.png'),
+          spriteKnobDirectional: Sprite('joystick_knob.png'),
+          size: 100,
+          isFixed: false,
+        ),
         actions: [
           JoystickAction(
             actionId: 0,
-            pathSprite: 'joystick_atack.png',
-            pathSpritePressed: 'joystick_atack_selected.png',
+            sprite: Sprite('joystick_atack.png'),
+            spritePressed: Sprite('joystick_atack_selected.png'),
             size: 80,
             margin: EdgeInsets.only(bottom: 50, right: 50),
           ),
           JoystickAction(
             actionId: 1,
-            pathSprite: 'joystick_atack_range.png',
-            pathSpritePressed: 'joystick_atack_range_selected.png',
+            sprite: Sprite('joystick_atack_range.png'),
+            spritePressed: Sprite('joystick_atack_range_selected.png'),
             size: 50,
             margin: EdgeInsets.only(bottom: 50, right: 160),
           )

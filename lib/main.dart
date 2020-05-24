@@ -16,7 +16,7 @@ void main() async {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         textTheme: TextTheme(
-          body1: TextStyle(fontFamily: 'Normal'),
+          bodyText1: TextStyle(fontFamily: 'Normal'),
         ),
       ),
       home: Menu(),
