@@ -141,44 +141,49 @@ class Knight extends SimplePlayer with WithLighting {
 
     decrementStamina(10);
     this.simpleAttackRange(
-      animationRight: FlameAnimation.Animation.sequenced(
-        'player/fireball_right.png',
-        3,
-        textureWidth: 23,
-        textureHeight: 23,
-      ),
-      animationLeft: FlameAnimation.Animation.sequenced(
-        'player/fireball_left.png',
-        3,
-        textureWidth: 23,
-        textureHeight: 23,
-      ),
-      animationTop: FlameAnimation.Animation.sequenced(
-        'player/fireball_top.png',
-        3,
-        textureWidth: 23,
-        textureHeight: 23,
-      ),
-      animationBottom: FlameAnimation.Animation.sequenced(
-        'player/fireball_bottom.png',
-        3,
-        textureWidth: 23,
-        textureHeight: 23,
-      ),
-      animationDestroy: FlameAnimation.Animation.sequenced(
-        'player/explosion_fire.png',
-        6,
-        textureWidth: 32,
-        textureHeight: 32,
-      ),
-      width: tileSize * 0.8,
-      height: tileSize * 0.8,
-      damage: 10,
-      speed: initSpeed * 1.5 * (tileSize / 32),
-      destroy: () {
-        Sounds.explosion();
-      },
-    );
+        animationRight: FlameAnimation.Animation.sequenced(
+          'player/fireball_right.png',
+          3,
+          textureWidth: 23,
+          textureHeight: 23,
+        ),
+        animationLeft: FlameAnimation.Animation.sequenced(
+          'player/fireball_left.png',
+          3,
+          textureWidth: 23,
+          textureHeight: 23,
+        ),
+        animationTop: FlameAnimation.Animation.sequenced(
+          'player/fireball_top.png',
+          3,
+          textureWidth: 23,
+          textureHeight: 23,
+        ),
+        animationBottom: FlameAnimation.Animation.sequenced(
+          'player/fireball_bottom.png',
+          3,
+          textureWidth: 23,
+          textureHeight: 23,
+        ),
+        animationDestroy: FlameAnimation.Animation.sequenced(
+          'player/explosion_fire.png',
+          6,
+          textureWidth: 32,
+          textureHeight: 32,
+        ),
+        width: tileSize * 0.8,
+        height: tileSize * 0.8,
+        damage: 10,
+        speed: initSpeed * 1.5 * (tileSize / 32),
+        destroy: () {
+          Sounds.explosion();
+        },
+        lightingConfig: LightingConfig(
+          gameComponent: this,
+          color: Colors.yellow.withOpacity(0.1),
+          radius: tileSize * 0.9,
+          blurBorder: tileSize / 2,
+        ));
   }
 
   @override
