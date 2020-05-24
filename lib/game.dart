@@ -74,7 +74,7 @@ class _GameState extends State<Game> implements GameListener {
       map: DungeonMap.map(),
       decorations: DungeonMap.decorations(),
       enemies: DungeonMap.enemies(),
-      lightingColorGame: Colors.black.withOpacity(0.5),
+      lightingColorGame: Colors.black.withOpacity(0.7),
     );
   }
 
