@@ -55,7 +55,7 @@ class Knight extends SimplePlayer with WithLighting {
       gameComponent: this,
       color: Colors.white.withOpacity(0.1),
       radius: width * 1.5,
-      blurBorder: width / 2,
+      blurBorder: width,
     );
   }
 
