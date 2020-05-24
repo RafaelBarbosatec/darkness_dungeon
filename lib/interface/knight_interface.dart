@@ -30,7 +30,7 @@ class KnightInterface extends GameInterface {
 
   @override
   void render(Canvas canvas) {
-    _drawLight(canvas);
+    //_drawLight(canvas);
     try {
       _drawKey(canvas);
     } catch (e) {}

@@ -15,9 +15,7 @@ void main() async {
     MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        textTheme: TextTheme(
-          bodyText1: TextStyle(fontFamily: 'Normal'),
-        ),
+        fontFamily: 'Normal',
       ),
       home: Menu(),
       supportedLocales: MyLocalizationsDelegate.supportedLocales(),

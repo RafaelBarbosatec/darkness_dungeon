@@ -140,42 +140,49 @@ class MiniBoss extends SimpleEnemy {
       destroy: () {
         Sounds.explosion();
       },
+      lightingConfig: LightingConfig(
+        gameComponent: this,
+        color: Colors.yellow.withOpacity(0.1),
+        radius: tileSize,
+        blurBorder: tileSize / 2,
+      ),
     );
   }
 
   void execAttack() {
     this.simpleAttackMelee(
-        heightArea: tileSize * 0.62,
-        widthArea: tileSize * 0.62,
-        damage: attack / 3,
-        interval: 300,
-        attackEffectBottomAnim: FlameAnimation.Animation.sequenced(
-          'enemy/atack_effect_bottom.png',
-          6,
-          textureWidth: 16,
-          textureHeight: 16,
-        ),
-        attackEffectLeftAnim: FlameAnimation.Animation.sequenced(
-          'enemy/atack_effect_left.png',
-          6,
-          textureWidth: 16,
-          textureHeight: 16,
-        ),
-        attackEffectRightAnim: FlameAnimation.Animation.sequenced(
-          'enemy/atack_effect_right.png',
-          6,
-          textureWidth: 16,
-          textureHeight: 16,
-        ),
-        attackEffectTopAnim: FlameAnimation.Animation.sequenced(
-          'enemy/atack_effect_top.png',
-          6,
-          textureWidth: 16,
-          textureHeight: 16,
-        ),
-        execute: () {
-          Sounds.attackEnemyMelee();
-        });
+      heightArea: tileSize * 0.62,
+      widthArea: tileSize * 0.62,
+      damage: attack / 3,
+      interval: 300,
+      attackEffectBottomAnim: FlameAnimation.Animation.sequenced(
+        'enemy/atack_effect_bottom.png',
+        6,
+        textureWidth: 16,
+        textureHeight: 16,
+      ),
+      attackEffectLeftAnim: FlameAnimation.Animation.sequenced(
+        'enemy/atack_effect_left.png',
+        6,
+        textureWidth: 16,
+        textureHeight: 16,
+      ),
+      attackEffectRightAnim: FlameAnimation.Animation.sequenced(
+        'enemy/atack_effect_right.png',
+        6,
+        textureWidth: 16,
+        textureHeight: 16,
+      ),
+      attackEffectTopAnim: FlameAnimation.Animation.sequenced(
+        'enemy/atack_effect_top.png',
+        6,
+        textureWidth: 16,
+        textureHeight: 16,
+      ),
+      execute: () {
+        Sounds.attackEnemyMelee();
+      },
+    );
   }
 
   @override

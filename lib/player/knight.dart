@@ -9,7 +9,7 @@ import 'package:flame/position.dart';
 import 'package:flame/text_config.dart';
 import 'package:flutter/material.dart';
 
-class Knight extends SimplePlayer {
+class Knight extends SimplePlayer with WithLighting {
   final Position initPosition;
   double attack = 25;
   double stamina = 100;
@@ -50,7 +50,14 @@ class Knight extends SimplePlayer {
             initPosition: initPosition,
             life: 200,
             speed: tileSize / 0.25,
-            collision: Collision(width: 20, height: 16));
+            collision: Collision(width: 20, height: 16)) {
+    lightingConfig = LightingConfig(
+      gameComponent: this,
+      color: Colors.white.withOpacity(0.1),
+      radius: width * 1.5,
+      blurBorder: width / 2,
+    );
+  }
 
   @override
   void joystickChangeDirectional(JoystickDirectionalEvent event) {
