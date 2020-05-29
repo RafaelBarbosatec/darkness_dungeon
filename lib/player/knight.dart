@@ -50,7 +50,7 @@ class Knight extends SimplePlayer with WithLighting {
             initPosition: initPosition,
             life: 200,
             speed: tileSize / 0.25,
-            collision: Collision(width: 20, height: 16)) {
+            collision: Collision(width: 20, height: tileSize * 0.7)) {
     lightingConfig = LightingConfig(
       gameComponent: this,
       color: Colors.white.withOpacity(0.1),
@@ -178,6 +178,11 @@ class Knight extends SimplePlayer with WithLighting {
         destroy: () {
           Sounds.explosion();
         },
+        collision: Collision(
+          width: tileSize * 0.5,
+          height: tileSize * 0.5,
+          align: CollisionAlign.CENTER,
+        ),
         lightingConfig: LightingConfig(
           gameComponent: this,
           color: Colors.yellow.withOpacity(0.1),

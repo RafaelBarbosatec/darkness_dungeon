@@ -240,6 +240,7 @@ class Boss extends SimpleEnemy {
   }
 
   void drawBarSummonEnemy(Canvas canvas) {
+    if (position == null) return;
     double yPosition = position.top;
     double widthBar = (width - 10) / 3;
     if (children.length < 1)

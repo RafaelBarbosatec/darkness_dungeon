@@ -44,8 +44,8 @@ class MiniBoss extends SimpleEnemy {
           speed: tileSize / 0.35,
           life: 150,
           collision: Collision(
-            width: 15,
-            height: 20,
+            width: tileSize * 0.4,
+            height: tileSize * 0.55,
           ),
         );
 
@@ -140,6 +140,11 @@ class MiniBoss extends SimpleEnemy {
       destroy: () {
         Sounds.explosion();
       },
+      collision: Collision(
+        width: tileSize * 0.5,
+        height: tileSize * 0.5,
+        align: CollisionAlign.CENTER,
+      ),
       lightingConfig: LightingConfig(
         gameComponent: this,
         color: Colors.yellow.withOpacity(0.1),
