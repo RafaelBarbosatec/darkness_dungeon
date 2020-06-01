@@ -22,7 +22,7 @@ class Torch extends GameDecoration with WithLighting {
       gameComponent: this,
       color: Colors.yellow.withOpacity(0.1),
       radius: width * 2.5,
-      blurBorder: width / 2,
+      blurBorder: width * 0.8,
       withPulse: true,
       pulseVariation: 0.1,
     );
