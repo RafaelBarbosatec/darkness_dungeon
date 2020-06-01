@@ -78,7 +78,7 @@ class Boss extends SimpleEnemy {
             _showConversation();
           });
         },
-        visionCells: 5,
+        visionCells: 3,
       );
     }
     this.seePlayer(
