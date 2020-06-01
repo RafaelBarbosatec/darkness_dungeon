@@ -710,7 +710,7 @@ class DungeonMap {
       Spikes(getRelativeTilePosition(23, 26), damage: 80),
       Spikes(getRelativeTilePosition(24, 26), damage: 80),
       Spikes(getRelativeTilePosition(25, 26), damage: 80),
-      Kid(getRelativeTilePosition(17, 33)),
+      Kid(getRelativeTilePosition(18, 34)),
     ];
   }
 
@@ -724,12 +724,12 @@ class DungeonMap {
       Imp(initPosition: getRelativeTilePosition(28, 16)),
       Imp(initPosition: getRelativeTilePosition(35, 17)),
       Imp(initPosition: getRelativeTilePosition(32, 15)),
-      MiniBoss(initPosition: getRelativeTilePosition(7, 28)),
+      MiniBoss(initPosition: getRelativeTilePosition(7, 26)),
       MiniBoss(initPosition: getRelativeTilePosition(25, 24)),
       Imp(initPosition: getRelativeTilePosition(18, 22)),
       Imp(initPosition: getRelativeTilePosition(6, 20)),
       Imp(initPosition: getRelativeTilePosition(11, 21)),
-      Boss(initPosition: getRelativeTilePosition(15, 33)),
+      Boss(initPosition: getRelativeTilePosition(16, 33)),
     ];
   }
 
