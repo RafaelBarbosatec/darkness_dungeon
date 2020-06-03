@@ -7,6 +7,8 @@ import 'package:flame/animation.dart' as FlameAnimation;
 
 class Kid extends GameDecoration {
   bool conversationWithHero = false;
+
+  final IntervalTick _timer = IntervalTick(1000);
   Kid(
     Position position,
   ) : super(
@@ -24,15 +26,15 @@ class Kid extends GameDecoration {
   @override
   void update(double dt) {
     super.update(dt);
-    if (!conversationWithHero) {
+    if (!conversationWithHero && _timer.update(dt)) {
       try {
-        gameRef.livingEnemies().firstWhere((e) => e is Boss);
+        gameRef.enemies().firstWhere((e) => e is Boss);
       } catch (e) {
         conversationWithHero = true;
         gameRef.gameCamera.moveToPositionAnimated(
           Position(
             this.position.center.dx,
-            this.position.center.dx,
+            this.position.center.dy,
           ),
           finish: () {
             _startConversation();
