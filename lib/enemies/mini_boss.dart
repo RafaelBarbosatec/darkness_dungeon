@@ -133,7 +133,7 @@ class MiniBoss extends SimpleEnemy {
       width: tileSize * 0.8,
       height: tileSize * 0.8,
       damage: attack,
-      speed: speed * 1.5 * (tileSize / 32),
+      speed: speed * 1.2 * (tileSize / 32),
       execute: () {
         Sounds.attackRange();
       },

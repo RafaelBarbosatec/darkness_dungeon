@@ -54,7 +54,7 @@ class Boss extends SimpleEnemy {
           life: 200,
           collision: Collision(
             width: tileSize * 0.6,
-            height: tileSize * 0.6,
+            height: tileSize * 0.8,
           ),
         );
 

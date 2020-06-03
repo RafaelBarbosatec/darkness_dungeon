@@ -50,7 +50,11 @@ class Knight extends SimplePlayer with WithLighting {
             initPosition: initPosition,
             life: 200,
             speed: tileSize / 0.25,
-            collision: Collision(width: 20, height: tileSize * 0.7)) {
+            collision: Collision(
+              width: 20,
+              height: tileSize * 0.6,
+              align: CollisionAlign.CENTER,
+            )) {
     lightingConfig = LightingConfig(
       gameComponent: this,
       radius: width * 1.5,

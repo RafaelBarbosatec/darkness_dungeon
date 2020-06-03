@@ -8,8 +8,8 @@ class Barrel extends GameDecoration {
             width: tileSize,
             height: tileSize,
             collision: Collision(
-              width: 24,
-              height: 28,
+              width: tileSize * 0.6,
+              height: tileSize * 0.8,
               align: CollisionAlign.TOP_CENTER,
             ));
 }
