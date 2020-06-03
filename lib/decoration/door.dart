@@ -37,7 +37,7 @@ class Door extends GameDecoration {
                   textureWidth: 32,
                   textureHeight: 32,
                 ),
-                position: positionInWorld,
+                position: this.position,
                 onFinish: () {
                   (player as Knight).containKey = false;
                 },

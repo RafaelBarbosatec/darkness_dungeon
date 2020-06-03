@@ -68,13 +68,16 @@ class Boss extends SimpleEnemy {
 
   @override
   void update(double dt) {
-    super.update(dt);
+    this.timers['addChild']?.update(dt);
     if (!firstSeePlayer) {
       this.seePlayer(
         observed: (p) {
           firstSeePlayer = true;
           gameRef.gameCamera.moveToPositionAnimated(
-              Position(positionInWorld.left, positionInWorld.top), finish: () {
+              Position(
+                this.position.center.dx,
+                this.position.center.dy,
+              ), finish: () {
             _showConversation();
           });
         },
@@ -110,6 +113,8 @@ class Boss extends SimpleEnemy {
       },
       visionCells: 3,
     );
+
+    super.update(dt);
   }
 
   @override
@@ -122,7 +127,7 @@ class Boss extends SimpleEnemy {
           textureWidth: 32,
           textureHeight: 32,
         ),
-        position: positionInWorld,
+        position: this.position,
       ),
     );
     children.forEach((e) {
@@ -134,30 +139,25 @@ class Boss extends SimpleEnemy {
 
   void addChildInMap() {
     if (this.timers['addChild'] == null) {
-      this.timers['addChild'] = Timer(
-        Duration(milliseconds: 6000),
-        () {
-          this.timers['addChild'] = null;
-        },
-      );
-    } else {
-      return;
+      this.timers['addChild'] = IntervalTick(6000);
     }
+
+    if (!this.timers['addChild'].update(dtUpdate)) return;
 
     Rect positionExplosion;
 
     switch (this.directionThatPlayerIs()) {
       case Direction.left:
-        positionExplosion = positionInWorld.translate(width * -2, 0);
+        positionExplosion = this.position.translate(width * -2, 0);
         break;
       case Direction.right:
-        positionExplosion = positionInWorld.translate(width * 2, 0);
+        positionExplosion = this.position.translate(width * 2, 0);
         break;
       case Direction.top:
-        positionExplosion = positionInWorld.translate(0, height * -2);
+        positionExplosion = this.position.translate(0, height * -2);
         break;
       case Direction.bottom:
-        positionExplosion = positionInWorld.translate(0, height * 2);
+        positionExplosion = this.position.translate(0, height * 2);
         break;
     }
 

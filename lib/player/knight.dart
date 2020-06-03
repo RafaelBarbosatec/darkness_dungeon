@@ -53,7 +53,6 @@ class Knight extends SimplePlayer with WithLighting {
             collision: Collision(width: 20, height: tileSize * 0.7)) {
     lightingConfig = LightingConfig(
       gameComponent: this,
-      color: Colors.white.withOpacity(0.1),
       radius: width * 1.5,
       blurBorder: width,
     );
@@ -84,8 +83,8 @@ class Knight extends SimplePlayer with WithLighting {
       GameDecoration.sprite(
         Sprite('player/crypt.png'),
         initPosition: Position(
-          positionInWorld.left,
-          positionInWorld.top,
+          this.position.center.dx,
+          this.position.center.dy,
         ),
         height: 30,
         width: 30,
@@ -174,7 +173,7 @@ class Knight extends SimplePlayer with WithLighting {
         width: tileSize * 0.8,
         height: tileSize * 0.8,
         damage: 10,
-        speed: initSpeed * 1.5 * (tileSize / 32),
+        speed: initSpeed * 1.2 * (tileSize / 32),
         destroy: () {
           Sounds.explosion();
         },
@@ -185,7 +184,6 @@ class Knight extends SimplePlayer with WithLighting {
         ),
         lightingConfig: LightingConfig(
           gameComponent: this,
-          color: Colors.yellow.withOpacity(0.1),
           radius: tileSize * 0.9,
           blurBorder: tileSize / 2,
         ));

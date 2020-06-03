@@ -78,7 +78,7 @@ class Goblin extends SimpleEnemy {
           textureWidth: 16,
           textureHeight: 16,
         ),
-        position: positionInWorld,
+        position: this.position,
       ),
     );
     remove();

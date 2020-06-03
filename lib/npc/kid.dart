@@ -33,8 +33,8 @@ class Kid extends GameDecoration {
         conversationWithHero = true;
         gameRef.gameCamera.moveToPositionAnimated(
           Position(
-            positionInWorld.left,
-            positionInWorld.top,
+            this.position.center.dx,
+            this.position.center.dx,
           ),
           finish: () {
             _startConversation();
