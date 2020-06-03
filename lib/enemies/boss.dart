@@ -139,7 +139,7 @@ class Boss extends SimpleEnemy {
 
   void addChildInMap() {
     if (this.timers['addChild'] == null) {
-      this.timers['addChild'] = IntervalTick(6000);
+      this.timers['addChild'] = IntervalTick(5000);
     }
 
     if (!this.timers['addChild'].update(dtUpdate)) return;

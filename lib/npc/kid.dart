@@ -25,11 +25,9 @@ class Kid extends GameDecoration {
   void update(double dt) {
     super.update(dt);
     if (!conversationWithHero) {
-      Boss boss;
       try {
-        boss = gameRef.livingEnemies().firstWhere((e) => e is Boss);
-      } catch (e) {}
-      if (boss != null && boss.isDead) {
+        gameRef.livingEnemies().firstWhere((e) => e is Boss);
+      } catch (e) {
         conversationWithHero = true;
         gameRef.gameCamera.moveToPositionAnimated(
           Position(
