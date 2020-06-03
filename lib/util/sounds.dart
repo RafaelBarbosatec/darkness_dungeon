@@ -27,29 +27,33 @@ class Sounds {
     if (audioBackground != null) {
       int result = await audioBackground.stop();
       audioBackground = null;
-      return result;
+      return Future.value(result);
     } else {
-      return 0;
+      return Future.value(0);
     }
   }
 
   static void playBackgroundSound() {
     stopBackgroundSound().then((resp) {
-      Flame.audio
-          .loopLongAudio('sound_bg.mp3', volume: 0.6)
-          .then((audioPlayer) {
-        audioBackground = audioPlayer;
-      });
+      if (resp == 1) {
+        Flame.audio
+            .loopLongAudio('sound_bg.mp3', volume: 0.6)
+            .then((audioPlayer) {
+          audioBackground = audioPlayer;
+        });
+      }
     });
   }
 
   static void playBackgroundBoosSound() {
     stopBackgroundSound().then((resp) {
-      Flame.audio
-          .loopLongAudio('battle_boss.mp3', volume: 0.6)
-          .then((audioPlayer) {
-        audioBackground = audioPlayer;
-      });
+      if (resp == 1) {
+        Flame.audio
+            .loopLongAudio('battle_boss.mp3', volume: 0.6)
+            .then((audioPlayer) {
+          audioBackground = audioPlayer;
+        });
+      }
     });
   }
 }
