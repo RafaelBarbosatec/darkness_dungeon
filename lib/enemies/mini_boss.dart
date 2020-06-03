@@ -130,8 +130,8 @@ class MiniBoss extends SimpleEnemy {
         textureWidth: 32,
         textureHeight: 32,
       ),
-      width: tileSize * 0.8,
-      height: tileSize * 0.8,
+      width: tileSize * 0.65,
+      height: tileSize * 0.65,
       damage: attack,
       speed: speed * 1.2 * (tileSize / 32),
       execute: () {

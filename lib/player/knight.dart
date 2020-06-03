@@ -174,8 +174,8 @@ class Knight extends SimplePlayer with WithLighting {
           textureWidth: 32,
           textureHeight: 32,
         ),
-        width: tileSize * 0.8,
-        height: tileSize * 0.8,
+        width: tileSize * 0.65,
+        height: tileSize * 0.65,
         damage: 10,
         speed: initSpeed * 1.2 * (tileSize / 32),
         destroy: () {
