@@ -35,25 +35,21 @@ class Sounds {
 
   static void playBackgroundSound() {
     stopBackgroundSound().then((resp) {
-      if (resp == 1) {
-        Flame.audio
-            .loopLongAudio('sound_bg.mp3', volume: 0.6)
-            .then((audioPlayer) {
-          audioBackground = audioPlayer;
-        });
-      }
+      Flame.audio
+          .loopLongAudio('sound_bg.mp3', volume: 0.6)
+          .then((audioPlayer) {
+        audioBackground = audioPlayer;
+      });
     });
   }
 
   static void playBackgroundBoosSound() {
     stopBackgroundSound().then((resp) {
-      if (resp == 1) {
-        Flame.audio
-            .loopLongAudio('battle_boss.mp3', volume: 0.6)
-            .then((audioPlayer) {
-          audioBackground = audioPlayer;
-        });
-      }
+      Flame.audio
+          .loopLongAudio('battle_boss.mp3', volume: 0.6)
+          .then((audioPlayer) {
+        audioBackground = audioPlayer;
+      });
     });
   }
 }
