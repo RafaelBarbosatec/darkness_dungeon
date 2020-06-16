@@ -53,7 +53,7 @@ class Knight extends SimplePlayer with WithLighting {
             collision: Collision(
               width: 20,
               height: tileSize * 0.4,
-              align: CollisionAlign.BOTTOM_CENTER,
+              align: Offset.zero,
             )) {
     lightingConfig = LightingConfig(
       gameComponent: this,
@@ -83,7 +83,7 @@ class Knight extends SimplePlayer with WithLighting {
   @override
   void die() {
     remove();
-    gameRef.addDecoration(
+    gameRef.addGameComponent(
       GameDecoration.sprite(
         Sprite('player/crypt.png'),
         initPosition: Position(
@@ -184,7 +184,7 @@ class Knight extends SimplePlayer with WithLighting {
         collision: Collision(
           width: tileSize * 0.5,
           height: tileSize * 0.5,
-          align: CollisionAlign.CENTER,
+          align: Offset.zero,
         ),
         lightingConfig: LightingConfig(
           gameComponent: this,

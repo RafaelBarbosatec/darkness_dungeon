@@ -26,8 +26,9 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall_left.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -35,8 +36,9 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall_top.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -44,8 +46,9 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -53,8 +56,9 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall_bottom.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -62,8 +66,9 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall_right_and_bottom.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -71,8 +76,9 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall_left_and_top.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -80,8 +86,9 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall_bottom_right.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -89,7 +96,8 @@ class DungeonMap {
           tileList.add(Tile(
             randomFloor(),
             Position(x.toDouble(), y.toDouble()),
-            size: tileSize,
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -99,8 +107,9 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall_top.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -108,8 +117,9 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -117,8 +127,9 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall_right.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -126,8 +137,9 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall_bottom.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -135,8 +147,9 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall_turn_left_top.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -144,8 +157,9 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall_left.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -153,8 +167,9 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall_left_and_bottom.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -162,7 +177,8 @@ class DungeonMap {
           tileList.add(Tile(
             randomFloor(),
             Position(x.toDouble(), y.toDouble()),
-            size: tileSize,
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -170,7 +186,8 @@ class DungeonMap {
           tileList.add(Tile(
             randomFloor(),
             Position(x.toDouble(), y.toDouble()),
-            size: tileSize,
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -180,8 +197,9 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall_top.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -189,8 +207,9 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -198,8 +217,9 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall_right.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -207,8 +227,9 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall_bottom.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -216,8 +237,9 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall_left.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -225,8 +247,9 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall_turn_left_top.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -234,8 +257,9 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall_bottom.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -243,8 +267,9 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall_left_and_top.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -252,8 +277,9 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall_top.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -261,8 +287,9 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -270,8 +297,9 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall_left.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -279,8 +307,9 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall_left.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -288,7 +317,8 @@ class DungeonMap {
           tileList.add(Tile(
             randomFloor(),
             Position(x.toDouble(), y.toDouble()),
-            size: tileSize,
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -296,14 +326,16 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/floor_9.png',
             Position(x.toDouble(), y.toDouble()),
-            size: tileSize,
+            width: tileSize,
+            height: tileSize,
           ));
         }
         if (x >= 33 && x <= 35 && y >= 19 && y <= 20) {
           tileList.add(Tile(
             'tile/floor_10.png',
             Position(x.toDouble(), y.toDouble()),
-            size: tileSize,
+            width: tileSize,
+            height: tileSize,
           ));
         }
 //        if (y >= 17 && y <= 20 && x >= 33 && x <= 35) {
@@ -319,8 +351,9 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall_right_and_bottom.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -328,8 +361,9 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall_top.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -337,8 +371,9 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -346,8 +381,9 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall_right.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -355,8 +391,9 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall_bottom.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -364,8 +401,9 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall_left.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -373,8 +411,9 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall_bottom.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -382,8 +421,9 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall_turn_left_top.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -391,8 +431,9 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall_left_and_top.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -400,7 +441,8 @@ class DungeonMap {
           tileList.add(Tile(
             randomFloor(),
             Position(x.toDouble(), y.toDouble()),
-            size: tileSize,
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -408,7 +450,8 @@ class DungeonMap {
           tileList.add(Tile(
             randomFloor(),
             Position(x.toDouble(), y.toDouble()),
-            size: tileSize,
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -416,7 +459,8 @@ class DungeonMap {
           tileList.add(Tile(
             randomFloor(),
             Position(x.toDouble(), y.toDouble()),
-            size: tileSize,
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -424,7 +468,8 @@ class DungeonMap {
           tileList.add(Tile(
             randomFloor(),
             Position(x.toDouble(), y.toDouble()),
-            size: tileSize,
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -432,7 +477,8 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/floor_9.png',
             Position(x.toDouble(), y.toDouble()),
-            size: tileSize,
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -440,7 +486,8 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/floor_10.png',
             Position(x.toDouble(), y.toDouble()),
-            size: tileSize,
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -448,24 +495,27 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall_turn_left_top.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
         if (x == 6 && y == 18) {
           tileList.add(Tile(
             'tile/wall_left.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
         if (x == 6 && y == 19) {
           tileList.add(Tile(
             'tile/wall_left_and_bottom.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -475,8 +525,9 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall_right.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -484,8 +535,9 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall_right_and_bottom.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -493,8 +545,9 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall_top.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -502,8 +555,9 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -511,16 +565,18 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall_top.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
         if (y == 29 && x >= 4 && x <= 5) {
           tileList.add(Tile(
             'tile/wall.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -528,8 +584,9 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall_left.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -537,8 +594,9 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall_bottom.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -546,8 +604,9 @@ class DungeonMap {
           tileList.add(Tile(
             'tile/wall_right.png',
             Position(x.toDouble(), y.toDouble()),
-            collision: true,
-            size: tileSize,
+            collision: Collision(width: tileSize, height: tileSize),
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -555,7 +614,8 @@ class DungeonMap {
           tileList.add(Tile(
             randomFloor(),
             Position(x.toDouble(), y.toDouble()),
-            size: tileSize,
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -563,7 +623,8 @@ class DungeonMap {
           tileList.add(Tile(
             '',
             Position(x.toDouble(), y.toDouble()),
-            size: tileSize,
+            width: tileSize,
+            height: tileSize,
           ));
         }
 
@@ -571,7 +632,8 @@ class DungeonMap {
           tileList.add(Tile(
             '',
             Position(x.toDouble(), y.toDouble()),
-            size: tileSize,
+            width: tileSize,
+            height: tileSize,
           ));
         }
       });

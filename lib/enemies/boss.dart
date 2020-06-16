@@ -188,7 +188,7 @@ class Boss extends SimpleEnemy {
     );
 
     children.add(e);
-    gameRef.addEnemy(e);
+    gameRef.addGameComponent(e);
   }
 
   void execAttack() {
@@ -357,7 +357,7 @@ class Boss extends SimpleEnemy {
         position: Rect.fromLTWH(x, y, 32, 32),
       ),
     );
-    gameRef.addEnemy(Imp(
+    gameRef.addGameComponent(Imp(
       initPosition: Position(
         x,
         y,

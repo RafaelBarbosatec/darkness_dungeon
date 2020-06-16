@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/main.dart';
 
@@ -10,6 +12,6 @@ class Barrel extends GameDecoration {
             collision: Collision(
               width: tileSize * 0.6,
               height: tileSize * 0.8,
-              align: CollisionAlign.TOP_CENTER,
+              align: Offset(tileSize * 0.2, 0),
             ));
 }

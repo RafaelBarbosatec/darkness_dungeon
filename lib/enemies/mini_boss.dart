@@ -143,7 +143,7 @@ class MiniBoss extends SimpleEnemy {
       collision: Collision(
         width: tileSize * 0.5,
         height: tileSize * 0.5,
-        align: CollisionAlign.CENTER,
+        align: Offset.zero,
       ),
       lightingConfig: LightingConfig(
         gameComponent: this,
