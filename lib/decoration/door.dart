@@ -1,5 +1,4 @@
 import 'package:bonfire/bonfire.dart';
-import 'package:darkness_dungeon/main.dart';
 import 'package:darkness_dungeon/player/knight.dart';
 import 'package:darkness_dungeon/util/localization/strings_location.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
@@ -8,16 +7,16 @@ class Door extends GameDecoration {
   bool open = false;
   bool showDialog = false;
 
-  Door(Position position)
+  Door(Position position, double width, double height)
       : super.sprite(
           Sprite('itens/door_closed.png'),
           initPosition: position,
-          width: tileSize * 2,
-          height: tileSize * 2,
+          width: width,
+          height: height,
           frontFromPlayer: true,
           collision: Collision(
-            width: tileSize * 2,
-            height: tileSize,
+            width: width,
+            height: height / 2,
           ),
         );
 

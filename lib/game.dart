@@ -1,7 +1,9 @@
 import 'package:bonfire/bonfire.dart';
+import 'package:darkness_dungeon/decoration/door.dart';
+import 'package:darkness_dungeon/decoration/torch.dart';
 import 'package:darkness_dungeon/interface/knight_interface.dart';
 import 'package:darkness_dungeon/main.dart';
-import 'package:darkness_dungeon/map/dungeon_map.dart';
+import 'package:darkness_dungeon/player/knight.dart';
 import 'package:darkness_dungeon/util/dialogs.dart';
 import 'package:darkness_dungeon/util/sounds.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +42,7 @@ class _GameState extends State<Game> implements GameListener {
         9;
     tileSize = tileSize.roundToDouble();
 
-    return BonfireWidget(
+    return BonfireTiledWidget(
       gameController: _controller,
       joystick: Joystick(
         directional: JoystickDirectional(
@@ -66,13 +68,20 @@ class _GameState extends State<Game> implements GameListener {
           )
         ],
       ),
-//      player: Knight(
-//        initPosition: Position(5 * tileSize, 6 * tileSize),
-//      ),
+      player: Knight(
+        initPosition: Position(2 * tileSize, 3 * tileSize),
+      ),
+      tiledMap: TiledWorldMap(
+        'tiled/map.json',
+        forceTileSize: tileSize,
+      )
+        ..registerObject('door',
+            (x, y, width, height) => Door(Position(x, y), width, height))
+        ..registerObject(
+            'torch', (x, y, width, height) => Torch(Position(x, y)))
+        ..registerObject('torch_empty',
+            (x, y, width, height) => Torch(Position(x, y), empty: true)),
       interface: KnightInterface(),
-      map: DungeonMap.map(),
-      decorations: DungeonMap.decorations(),
-      enemies: DungeonMap.enemies(),
       lightingColorGame: Colors.black.withOpacity(0.7),
     );
   }

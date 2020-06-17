@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/decoration/barrel.dart';
-import 'package:darkness_dungeon/decoration/door.dart';
 import 'package:darkness_dungeon/decoration/key.dart';
 import 'package:darkness_dungeon/decoration/potion_life.dart';
 import 'package:darkness_dungeon/decoration/spikes.dart';
@@ -764,7 +763,7 @@ class DungeonMap {
       Spikes(getRelativeTilePosition(33, 18), damage: 80),
       Spikes(getRelativeTilePosition(34, 18), damage: 80),
       Spikes(getRelativeTilePosition(35, 18), damage: 80),
-      Door(getRelativeTilePosition(7, 17)),
+      //Door(getRelativeTilePosition(7, 17)),
       DoorKey(getRelativeTilePosition(34, 20)),
       PotionLife(getRelativeTilePosition(23, 28), 50),
       PotionLife(getRelativeTilePosition(24, 29), 50),

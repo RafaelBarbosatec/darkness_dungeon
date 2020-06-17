@@ -60,6 +60,7 @@ flutter:
     - assets/images/enemy/boss/
     - assets/images/player/
     - assets/images/itens/
+    - assets/images/tiled/
     - assets/audio/
     - resources/lang/en.json
     - resources/lang/pt.json

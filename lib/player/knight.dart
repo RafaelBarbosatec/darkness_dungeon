@@ -53,7 +53,7 @@ class Knight extends SimplePlayer with WithLighting {
             collision: Collision(
               width: 20,
               height: tileSize * 0.4,
-              align: Offset.zero,
+              align: Offset((tileSize - 20) / 2, tileSize * 0.6),
             )) {
     lightingConfig = LightingConfig(
       gameComponent: this,
@@ -184,7 +184,7 @@ class Knight extends SimplePlayer with WithLighting {
         collision: Collision(
           width: tileSize * 0.5,
           height: tileSize * 0.5,
-          align: Offset.zero,
+          align: Offset(tileSize * 0.1, tileSize * 0.1),
         ),
         lightingConfig: LightingConfig(
           gameComponent: this,
