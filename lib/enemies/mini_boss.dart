@@ -45,6 +45,7 @@ class MiniBoss extends SimpleEnemy {
           collision: Collision(
             width: tileSize * 0.4,
             height: tileSize * 0.55,
+            align: Offset(tileSize * 0.2, tileSize * 0.4),
           ),
         );
 

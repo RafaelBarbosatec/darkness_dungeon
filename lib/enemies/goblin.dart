@@ -45,7 +45,7 @@ class Goblin extends SimpleEnemy {
           collision: Collision(
             width: 16,
             height: 20,
-            align: Offset.zero,
+            align: Offset((tileSize * 0.8 - 15) / 2, tileSize * 0.8 - 25),
           ),
         );
 

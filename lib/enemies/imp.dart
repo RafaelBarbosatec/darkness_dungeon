@@ -43,7 +43,8 @@ class Imp extends SimpleEnemy {
           life: 80,
           collision: Collision(
             width: 15,
-            height: 16,
+            height: 18,
+            align: Offset((tileSize * 0.8 - 15) / 2, tileSize * 0.8 - 18),
           ),
         );
 

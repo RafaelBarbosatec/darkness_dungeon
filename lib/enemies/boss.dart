@@ -53,9 +53,9 @@ class Boss extends SimpleEnemy {
           speed: tileSize / 0.35,
           life: 200,
           collision: Collision(
-            width: tileSize * 0.6,
-            height: tileSize * 0.8,
-          ),
+              width: tileSize * 0.9,
+              height: tileSize * 0.9,
+              align: Offset(tileSize * 0.3, tileSize * 0.8)),
         );
 
   @override
