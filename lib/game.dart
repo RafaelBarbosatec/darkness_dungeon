@@ -92,6 +92,7 @@ class _GameState extends State<Game> implements GameListener {
             (x, y, width, height) => Torch(Position(x, y), empty: true)),
       interface: KnightInterface(),
       lightingColorGame: Colors.black.withOpacity(0.6),
+      background: BackgroundColorGame(Colors.grey[900]),
     );
   }
 
