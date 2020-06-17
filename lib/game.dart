@@ -1,5 +1,8 @@
 import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/decoration/door.dart';
+import 'package:darkness_dungeon/decoration/key.dart';
+import 'package:darkness_dungeon/decoration/potion_life.dart';
+import 'package:darkness_dungeon/decoration/spikes.dart';
 import 'package:darkness_dungeon/decoration/torch.dart';
 import 'package:darkness_dungeon/enemies/boss.dart';
 import 'package:darkness_dungeon/enemies/goblin.dart';
@@ -7,6 +10,8 @@ import 'package:darkness_dungeon/enemies/imp.dart';
 import 'package:darkness_dungeon/enemies/mini_boss.dart';
 import 'package:darkness_dungeon/interface/knight_interface.dart';
 import 'package:darkness_dungeon/main.dart';
+import 'package:darkness_dungeon/npc/kid.dart';
+import 'package:darkness_dungeon/npc/wizard_npc.dart';
 import 'package:darkness_dungeon/player/knight.dart';
 import 'package:darkness_dungeon/util/dialogs.dart';
 import 'package:darkness_dungeon/util/sounds.dart';
@@ -83,6 +88,15 @@ class _GameState extends State<Game> implements GameListener {
             (x, y, width, height) => Door(Position(x, y), width, height))
         ..registerObject(
             'torch', (x, y, width, height) => Torch(Position(x, y)))
+        ..registerObject(
+            'potion', (x, y, width, height) => PotionLife(Position(x, y), 30))
+        ..registerObject(
+            'wizard', (x, y, width, height) => WizardNPC(Position(x, y)))
+        ..registerObject(
+            'spikes', (x, y, width, height) => Spikes(Position(x, y)))
+        ..registerObject(
+            'key', (x, y, width, height) => DoorKey(Position(x, y)))
+        ..registerObject('kid', (x, y, width, height) => Kid(Position(x, y)))
         ..registerObject('boss', (x, y, width, height) => Boss(Position(x, y)))
         ..registerObject(
             'goblin', (x, y, width, height) => Goblin(Position(x, y)))
