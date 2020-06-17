@@ -10,7 +10,7 @@ class Imp extends SimpleEnemy {
   final Position initPosition;
   double attack = 10;
 
-  Imp({this.initPosition})
+  Imp(this.initPosition)
       : super(
           animationIdleRight: FlameAnimation.Animation.sequenced(
             "enemy/imp/imp_idle.png",

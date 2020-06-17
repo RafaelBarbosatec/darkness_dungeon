@@ -11,9 +11,8 @@ class MiniBoss extends SimpleEnemy {
   double attack = 50;
   bool _seePlayerClose = false;
 
-  MiniBoss({
-    @required this.initPosition,
-  }) : super(
+  MiniBoss(this.initPosition)
+      : super(
           animationIdleRight: FlameAnimation.Animation.sequenced(
             "enemy/mini_boss/mini_boss_idle.png",
             4,

@@ -1,9 +1,12 @@
 import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/decoration/door.dart';
 import 'package:darkness_dungeon/decoration/torch.dart';
+import 'package:darkness_dungeon/enemies/boss.dart';
+import 'package:darkness_dungeon/enemies/goblin.dart';
+import 'package:darkness_dungeon/enemies/imp.dart';
+import 'package:darkness_dungeon/enemies/mini_boss.dart';
 import 'package:darkness_dungeon/interface/knight_interface.dart';
 import 'package:darkness_dungeon/main.dart';
-import 'package:darkness_dungeon/player/knight.dart';
 import 'package:darkness_dungeon/util/dialogs.dart';
 import 'package:darkness_dungeon/util/sounds.dart';
 import 'package:flutter/material.dart';
@@ -68,9 +71,9 @@ class _GameState extends State<Game> implements GameListener {
           )
         ],
       ),
-      player: Knight(
-        initPosition: Position(2 * tileSize, 3 * tileSize),
-      ),
+//      player: Knight(
+//        initPosition: Position(2 * tileSize, 3 * tileSize),
+//      ),
       tiledMap: TiledWorldMap(
         'tiled/map.json',
         forceTileSize: tileSize,
@@ -79,10 +82,16 @@ class _GameState extends State<Game> implements GameListener {
             (x, y, width, height) => Door(Position(x, y), width, height))
         ..registerObject(
             'torch', (x, y, width, height) => Torch(Position(x, y)))
+        ..registerObject('boss', (x, y, width, height) => Boss(Position(x, y)))
+        ..registerObject(
+            'goblin', (x, y, width, height) => Goblin(Position(x, y)))
+        ..registerObject('imp', (x, y, width, height) => Imp(Position(x, y)))
+        ..registerObject(
+            'mini_boss', (x, y, width, height) => MiniBoss(Position(x, y)))
         ..registerObject('torch_empty',
             (x, y, width, height) => Torch(Position(x, y), empty: true)),
       interface: KnightInterface(),
-      lightingColorGame: Colors.black.withOpacity(0.7),
+      lightingColorGame: Colors.black.withOpacity(0.6),
     );
   }
 

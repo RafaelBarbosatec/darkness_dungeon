@@ -11,9 +11,8 @@ class Goblin extends SimpleEnemy {
   final Position initPosition;
   double attack = 25;
 
-  Goblin({
-    @required this.initPosition,
-  }) : super(
+  Goblin(this.initPosition)
+      : super(
           animationIdleRight: FlameAnimation.Animation.sequenced(
             "enemy/goblin/goblin_idle.png",
             6,

@@ -2,6 +2,7 @@ import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/player/knight.dart';
 import 'package:darkness_dungeon/util/localization/strings_location.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
+import 'package:flutter/cupertino.dart';
 
 class Door extends GameDecoration {
   bool open = false;
@@ -16,7 +17,8 @@ class Door extends GameDecoration {
           frontFromPlayer: true,
           collision: Collision(
             width: width,
-            height: height / 2,
+            height: height / 4,
+            align: Offset(0, height * 0.75),
           ),
         );
 

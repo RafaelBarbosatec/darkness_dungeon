@@ -21,7 +21,7 @@ class Boss extends SimpleEnemy {
 
   List<Enemy> children = List();
 
-  Boss({this.initPosition})
+  Boss(this.initPosition)
       : super(
           animationIdleRight: FlameAnimation.Animation.sequenced(
             "enemy/boss/boss_idle.png",
@@ -163,13 +163,13 @@ class Boss extends SimpleEnemy {
 
     Enemy e = children.length == 2
         ? MiniBoss(
-            initPosition: Position(
+            Position(
               positionExplosion.left,
               positionExplosion.top,
             ),
           )
         : Imp(
-            initPosition: Position(
+            Position(
               positionExplosion.left,
               positionExplosion.top,
             ),
@@ -358,7 +358,7 @@ class Boss extends SimpleEnemy {
       ),
     );
     gameRef.addGameComponent(Imp(
-      initPosition: Position(
+      Position(
         x,
         y,
       ),
