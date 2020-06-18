@@ -36,8 +36,17 @@ android {
         disable 'InvalidPackage'
     }
 
+    signingConfigs {
+        Rafael {
+            keyAlias ''
+            keyPassword ''
+            storeFile file('.jks')
+            storePassword ''
+            v2SigningEnabled false
+        }
+    }
+
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.rafaelbarbosatec.darkness_dungeon"
         minSdkVersion 16
         targetSdkVersion 28
