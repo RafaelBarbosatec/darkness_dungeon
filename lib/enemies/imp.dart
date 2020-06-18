@@ -39,7 +39,7 @@ class Imp extends SimpleEnemy {
           initPosition: initPosition,
           width: tileSize * 0.8,
           height: tileSize * 0.8,
-          speed: tileSize / 0.28,
+          speed: tileSize / 0.30,
           life: 80,
           collision: Collision(
             width: 15,

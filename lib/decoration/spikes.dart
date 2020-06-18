@@ -5,7 +5,7 @@ import 'package:flame/animation.dart' as FlameAnimation;
 class Spikes extends GameDecoration {
   final double damage;
   bool _infligeDamage = false;
-  Spikes(Position position, {this.damage = 10})
+  Spikes(Position position, {this.damage = 60})
       : super(
           animation: FlameAnimation.Animation.sequenced(
             "itens/spikes.png",
