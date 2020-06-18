@@ -92,7 +92,7 @@ class Boss extends SimpleEnemy {
           addChildInMap();
         }
       },
-      visionCells: 4,
+      visionCells: 3,
     );
 
     if (life < 150 && children.length == 0) {
