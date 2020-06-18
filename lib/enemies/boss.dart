@@ -341,8 +341,8 @@ class Boss extends SimpleEnemy {
   }
 
   void addInitChild() {
-    addImp(14.0 * tileSize, 32.0 * tileSize);
-    addImp(14.0 * tileSize, 34.0 * tileSize);
+    addImp(position.left - tileSize, position.top - tileSize);
+    addImp(position.left - tileSize, position.bottom + tileSize);
   }
 
   void addImp(double x, double y) {
