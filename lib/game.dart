@@ -24,20 +24,42 @@ class Game extends StatefulWidget {
   _GameState createState() => _GameState();
 }
 
-class _GameState extends State<Game> implements GameListener {
+class _GameState extends State<Game>
+    with WidgetsBindingObserver
+    implements GameListener {
   bool showGameOver = false;
 
   GameController _controller;
 
   @override
   void initState() {
+    WidgetsBinding.instance.addObserver(this);
     _controller = GameController()..setListener(this);
     Sounds.playBackgroundSound();
     super.initState();
   }
 
   @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    switch (state) {
+      case AppLifecycleState.resumed:
+        Sounds.resumeBackgroundSound();
+        break;
+      case AppLifecycleState.inactive:
+        Sounds.pauseBackgroundSound();
+        break;
+      case AppLifecycleState.paused:
+        Sounds.pauseBackgroundSound();
+        break;
+      case AppLifecycleState.detached:
+        Sounds.stopBackgroundSound();
+        break;
+    }
+  }
+
+  @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     Sounds.stopBackgroundSound();
     super.dispose();
   }

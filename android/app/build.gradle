@@ -42,7 +42,6 @@ android {
             keyPassword ''
             storeFile file('.jks')
             storePassword ''
-            v2SigningEnabled false
         }
     }
 

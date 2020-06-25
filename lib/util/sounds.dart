@@ -52,4 +52,12 @@ class Sounds {
       });
     });
   }
+
+  static void pauseBackgroundSound() {
+    audioBackground?.pause();
+  }
+
+  static void resumeBackgroundSound() {
+    audioBackground?.resume();
+  }
 }
