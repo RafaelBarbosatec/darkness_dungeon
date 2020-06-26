@@ -1,7 +1,7 @@
 name: darkness_dungeon
 description: RPG Game.
 
-version: 1.3.3+7
+version: 1.3.4+8
 
 environment:
   sdk: ">=2.6.0 <3.0.0"
@@ -42,7 +42,6 @@ flutter:
     - assets/images/
     - assets/images/emote/
     - assets/images/npc/
-    - assets/images/tile/
     - assets/images/enemy/
     - assets/images/enemy/goblin/
     - assets/images/enemy/imp/
