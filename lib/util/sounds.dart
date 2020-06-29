@@ -1,15 +1,19 @@
 import 'package:bonfire/bonfire.dart';
 
 class Sounds {
+  static bool isLoadAudio = false;
   static void initialize() {
     Flame.bgm.initialize();
-    Flame.audio.loadAll([
-      'attack_player.mp3',
-      'attack_fire_ball.wav',
-      'attack_enemy.mp3',
-      'explosion.wav',
-      'sound_interaction.wav',
-    ]);
+    if (!isLoadAudio) {
+      isLoadAudio = true;
+      Flame.audio.loadAll([
+        'attack_player.mp3',
+        'attack_fire_ball.wav',
+        'attack_enemy.mp3',
+        'explosion.wav',
+        'sound_interaction.wav',
+      ]);
+    }
   }
 
   static void attackPlayerMelee() {
