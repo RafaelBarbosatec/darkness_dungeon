@@ -35,18 +35,19 @@ class _GameState extends State<Game>
   void initState() {
     WidgetsBinding.instance.addObserver(this);
     _controller = GameController()..setListener(this);
+    Sounds.initialize();
     Sounds.playBackgroundSound();
     super.initState();
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
+    print(state);
     switch (state) {
       case AppLifecycleState.resumed:
         Sounds.resumeBackgroundSound();
         break;
       case AppLifecycleState.inactive:
-        Sounds.pauseBackgroundSound();
         break;
       case AppLifecycleState.paused:
         Sounds.pauseBackgroundSound();
@@ -60,7 +61,6 @@ class _GameState extends State<Game>
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    Sounds.stopBackgroundSound();
     super.dispose();
   }
 

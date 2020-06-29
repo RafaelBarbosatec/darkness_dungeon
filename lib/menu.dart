@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:darkness_dungeon/game.dart';
 import 'package:darkness_dungeon/util/localization/strings_location.dart';
+import 'package:darkness_dungeon/util/sounds.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flame/flame.dart';
 import 'package:flame/position.dart';
@@ -85,6 +86,7 @@ class _MenuState extends State<Menu> {
 
   @override
   void dispose() {
+    Sounds.stopBackgroundSound();
     _timer.cancel();
     super.dispose();
   }

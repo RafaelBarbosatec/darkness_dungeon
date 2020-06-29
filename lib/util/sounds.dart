@@ -1,8 +1,17 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:bonfire/bonfire.dart';
 
 class Sounds {
-  static AudioPlayer audioBackground;
+  static void initialize() {
+    Flame.bgm.initialize();
+    Flame.audio.loadAll([
+      'attack_player.mp3',
+      'attack_fire_ball.wav',
+      'attack_enemy.mp3',
+      'explosion.wav',
+      'sound_interaction.wav',
+    ]);
+  }
+
   static void attackPlayerMelee() {
     Flame.audio.play('attack_player.mp3', volume: 0.4);
   }
@@ -23,41 +32,28 @@ class Sounds {
     Flame.audio.play('sound_interaction.wav', volume: 0.4);
   }
 
-  static Future<int> stopBackgroundSound() async {
-    if (audioBackground != null) {
-      int result = await audioBackground.stop();
-      audioBackground = null;
-      return Future.value(result);
-    } else {
-      return Future.value(0);
-    }
+  static stopBackgroundSound() {
+    return Flame.bgm.stop();
   }
 
-  static void playBackgroundSound() {
-    stopBackgroundSound().then((resp) {
-      Flame.audio
-          .loopLongAudio('sound_bg.mp3', volume: 0.6)
-          .then((audioPlayer) {
-        audioBackground = audioPlayer;
-      });
-    });
+  static void playBackgroundSound() async {
+    Flame.bgm.stop();
+    Flame.bgm.play('sound_bg.mp3');
   }
 
   static void playBackgroundBoosSound() {
-    stopBackgroundSound().then((resp) {
-      Flame.audio
-          .loopLongAudio('battle_boss.mp3', volume: 0.6)
-          .then((audioPlayer) {
-        audioBackground = audioPlayer;
-      });
-    });
+    Flame.bgm.play('battle_boss.mp3');
   }
 
   static void pauseBackgroundSound() {
-    audioBackground?.pause();
+    Flame.bgm.pause();
   }
 
   static void resumeBackgroundSound() {
-    audioBackground?.resume();
+    Flame.bgm.resume();
+  }
+
+  static void dispose() {
+    Flame.bgm.dispose();
   }
 }
