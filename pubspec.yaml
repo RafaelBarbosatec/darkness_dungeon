@@ -12,22 +12,21 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
-  bonfire: ^0.6.7
+  bonfire: ^0.6.8
   flame_splash_screen: ^0.0.1
   url_launcher: ^5.4.11
 
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
+  test: any
 
-  flutter_launcher_icons: "^0.7.3"
-
-flutter_icons:
-  android: true
-  ios: true
-  image_path_android: "icone/icone_android.png"
-  image_path_ios: "icone/icone_ios.png"
+#  flutter_launcher_icons: "^0.7.3"
+#
+#flutter_icons:
+#  android: true
+#  ios: true
+#  image_path_android: "icone/icone_android.png"
+#  image_path_ios: "icone/icone_ios.png"
 
 flutter:
 
