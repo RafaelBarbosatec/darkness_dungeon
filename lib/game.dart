@@ -130,6 +130,16 @@ class _GameState extends State<Game>
       interface: KnightInterface(),
       lightingColorGame: Colors.black.withOpacity(0.6),
       background: BackgroundColorGame(Colors.grey[900]),
+      progress: Center(
+        child: Text(
+          "Loading...",
+          style: TextStyle(
+            color: Colors.white,
+            fontFamily: 'Normal',
+            fontSize: 20.0,
+          ),
+        ),
+      ),
     );
   }
 
