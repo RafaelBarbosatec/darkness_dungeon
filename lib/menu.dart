@@ -106,12 +106,11 @@ class _MenuState extends State<Menu> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Text("Darkness Dungeon",
-                style: TextStyle(
-                    color: Colors.white, fontFamily: 'Normal', fontSize: 30.0)),
-//            Text("demo",
-//                style: TextStyle(
-//                    color: Colors.red, fontFamily: 'Normal', fontSize: 20.0)),
+            Text(
+              "Darkness Dungeon",
+              style: TextStyle(
+                  color: Colors.white, fontFamily: 'Normal', fontSize: 30.0),
+            ),
             SizedBox(
               height: 20.0,
             ),

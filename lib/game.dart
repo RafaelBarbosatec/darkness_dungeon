@@ -73,70 +73,74 @@ class _GameState extends State<Game>
         9;
     tileSize = tileSize.roundToDouble();
 
-    return BonfireTiledWidget(
-      gameController: _controller,
-      joystick: Joystick(
-        directional: JoystickDirectional(
-          spriteBackgroundDirectional: Sprite('joystick_background.png'),
-          spriteKnobDirectional: Sprite('joystick_knob.png'),
-          size: 100,
-          isFixed: false,
-        ),
-        actions: [
-          JoystickAction(
-            actionId: 0,
-            sprite: Sprite('joystick_atack.png'),
-            spritePressed: Sprite('joystick_atack_selected.png'),
-            size: 80,
-            margin: EdgeInsets.only(bottom: 50, right: 50),
+    return Material(
+      color: Colors.transparent,
+      child: BonfireTiledWidget(
+        gameController: _controller,
+        joystick: Joystick(
+          directional: JoystickDirectional(
+            spriteBackgroundDirectional: Sprite('joystick_background.png'),
+            spriteKnobDirectional: Sprite('joystick_knob.png'),
+            size: 100,
+            isFixed: false,
           ),
-          JoystickAction(
-            actionId: 1,
-            sprite: Sprite('joystick_atack_range.png'),
-            spritePressed: Sprite('joystick_atack_range_selected.png'),
-            size: 50,
-            margin: EdgeInsets.only(bottom: 50, right: 160),
-          )
-        ],
-      ),
-      player: Knight(
-        initPosition: Position(2 * tileSize, 3 * tileSize),
-      ),
-      map: TiledWorldMap(
-        'tiled/map.json',
-        forceTileSize: tileSize,
-      )
-        ..registerObject('door',
-            (x, y, width, height) => Door(Position(x, y), width, height))
-        ..registerObject(
-            'torch', (x, y, width, height) => Torch(Position(x, y)))
-        ..registerObject(
-            'potion', (x, y, width, height) => PotionLife(Position(x, y), 30))
-        ..registerObject(
-            'wizard', (x, y, width, height) => WizardNPC(Position(x, y)))
-        ..registerObject(
-            'spikes', (x, y, width, height) => Spikes(Position(x, y)))
-        ..registerObject(
-            'key', (x, y, width, height) => DoorKey(Position(x, y)))
-        ..registerObject('kid', (x, y, width, height) => Kid(Position(x, y)))
-        ..registerObject('boss', (x, y, width, height) => Boss(Position(x, y)))
-        ..registerObject(
-            'goblin', (x, y, width, height) => Goblin(Position(x, y)))
-        ..registerObject('imp', (x, y, width, height) => Imp(Position(x, y)))
-        ..registerObject(
-            'mini_boss', (x, y, width, height) => MiniBoss(Position(x, y)))
-        ..registerObject('torch_empty',
-            (x, y, width, height) => Torch(Position(x, y), empty: true)),
-      interface: KnightInterface(),
-      lightingColorGame: Colors.black.withOpacity(0.6),
-      background: BackgroundColorGame(Colors.grey[900]),
-      progress: Center(
-        child: Text(
-          "Loading...",
-          style: TextStyle(
-            color: Colors.white,
-            fontFamily: 'Normal',
-            fontSize: 20.0,
+          actions: [
+            JoystickAction(
+              actionId: 0,
+              sprite: Sprite('joystick_atack.png'),
+              spritePressed: Sprite('joystick_atack_selected.png'),
+              size: 80,
+              margin: EdgeInsets.only(bottom: 50, right: 50),
+            ),
+            JoystickAction(
+              actionId: 1,
+              sprite: Sprite('joystick_atack_range.png'),
+              spritePressed: Sprite('joystick_atack_range_selected.png'),
+              size: 50,
+              margin: EdgeInsets.only(bottom: 50, right: 160),
+            )
+          ],
+        ),
+        player: Knight(
+          initPosition: Position(2 * tileSize, 3 * tileSize),
+        ),
+        map: TiledWorldMap(
+          'tiled/map.json',
+          forceTileSize: tileSize,
+        )
+          ..registerObject('door',
+              (x, y, width, height) => Door(Position(x, y), width, height))
+          ..registerObject(
+              'torch', (x, y, width, height) => Torch(Position(x, y)))
+          ..registerObject(
+              'potion', (x, y, width, height) => PotionLife(Position(x, y), 30))
+          ..registerObject(
+              'wizard', (x, y, width, height) => WizardNPC(Position(x, y)))
+          ..registerObject(
+              'spikes', (x, y, width, height) => Spikes(Position(x, y)))
+          ..registerObject(
+              'key', (x, y, width, height) => DoorKey(Position(x, y)))
+          ..registerObject('kid', (x, y, width, height) => Kid(Position(x, y)))
+          ..registerObject(
+              'boss', (x, y, width, height) => Boss(Position(x, y)))
+          ..registerObject(
+              'goblin', (x, y, width, height) => Goblin(Position(x, y)))
+          ..registerObject('imp', (x, y, width, height) => Imp(Position(x, y)))
+          ..registerObject(
+              'mini_boss', (x, y, width, height) => MiniBoss(Position(x, y)))
+          ..registerObject('torch_empty',
+              (x, y, width, height) => Torch(Position(x, y), empty: true)),
+        interface: KnightInterface(),
+        lightingColorGame: Colors.black.withOpacity(0.6),
+        background: BackgroundColorGame(Colors.grey[900]),
+        progress: Center(
+          child: Text(
+            "Loading...",
+            style: TextStyle(
+              color: Colors.white,
+              fontFamily: 'Normal',
+              fontSize: 20.0,
+            ),
           ),
         ),
       ),
