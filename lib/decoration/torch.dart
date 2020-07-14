@@ -2,7 +2,7 @@ import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/main.dart';
 import 'package:flame/animation.dart' as FlameAnimation;
 
-class Torch extends GameDecoration with WithLighting {
+class Torch extends GameDecoration with Lighting {
   Torch(Position position, {bool empty = false})
       : super.animation(
           empty

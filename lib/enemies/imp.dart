@@ -12,25 +12,25 @@ class Imp extends SimpleEnemy {
 
   Imp(this.initPosition)
       : super(
-          animationIdleRight: FlameAnimation.Animation.sequenced(
+          animIdleRight: FlameAnimation.Animation.sequenced(
             "enemy/imp/imp_idle.png",
             4,
             textureWidth: 16,
             textureHeight: 16,
           ),
-          animationIdleLeft: FlameAnimation.Animation.sequenced(
+          animIdleLeft: FlameAnimation.Animation.sequenced(
             "enemy/imp/imp_idle_left.png",
             4,
             textureWidth: 16,
             textureHeight: 16,
           ),
-          animationRunRight: FlameAnimation.Animation.sequenced(
+          animRunRight: FlameAnimation.Animation.sequenced(
             "enemy/imp/imp_run_right.png",
             4,
             textureWidth: 16,
             textureHeight: 16,
           ),
-          animationRunLeft: FlameAnimation.Animation.sequenced(
+          animRunLeft: FlameAnimation.Animation.sequenced(
             "enemy/imp/imp_run_left.png",
             4,
             textureWidth: 16,
@@ -58,7 +58,7 @@ class Imp extends SimpleEnemy {
   void update(double dt) {
     super.update(dt);
     this.seeAndMoveToPlayer(
-      visionCells: 5,
+      radiusVision: tileSize * 5,
       closePlayer: (player) {
         execAttack();
       },

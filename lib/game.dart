@@ -102,7 +102,7 @@ class _GameState extends State<Game>
       player: Knight(
         initPosition: Position(2 * tileSize, 3 * tileSize),
       ),
-      tiledMap: TiledWorldMap(
+      map: TiledWorldMap(
         'tiled/map.json',
         forceTileSize: tileSize,
       )

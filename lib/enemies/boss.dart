@@ -23,25 +23,25 @@ class Boss extends SimpleEnemy {
 
   Boss(this.initPosition)
       : super(
-          animationIdleRight: FlameAnimation.Animation.sequenced(
+          animIdleRight: FlameAnimation.Animation.sequenced(
             "enemy/boss/boss_idle.png",
             4,
             textureWidth: 32,
             textureHeight: 36,
           ),
-          animationIdleLeft: FlameAnimation.Animation.sequenced(
+          animIdleLeft: FlameAnimation.Animation.sequenced(
             "enemy/boss/boss_idle_left.png",
             4,
             textureWidth: 32,
             textureHeight: 36,
           ),
-          animationRunRight: FlameAnimation.Animation.sequenced(
+          animRunRight: FlameAnimation.Animation.sequenced(
             "enemy/boss/boss_run_right.png",
             4,
             textureWidth: 32,
             textureHeight: 36,
           ),
-          animationRunLeft: FlameAnimation.Animation.sequenced(
+          animRunLeft: FlameAnimation.Animation.sequenced(
             "enemy/boss/boss_run_left.png",
             4,
             textureWidth: 32,
@@ -81,7 +81,7 @@ class Boss extends SimpleEnemy {
             _showConversation();
           });
         },
-        visionCells: 5,
+        radiusVision: tileSize * 5,
       );
     }
     this.seePlayer(
@@ -92,7 +92,7 @@ class Boss extends SimpleEnemy {
           addChildInMap();
         }
       },
-      visionCells: 3,
+      radiusVision: tileSize * 3,
     );
 
     if (life < 150 && children.length == 0) {
@@ -111,7 +111,7 @@ class Boss extends SimpleEnemy {
       closePlayer: (player) {
         execAttack();
       },
-      visionCells: 3,
+      radiusVision: tileSize * 3,
     );
 
     super.update(dt);

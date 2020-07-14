@@ -9,7 +9,7 @@ import 'package:flame/position.dart';
 import 'package:flame/text_config.dart';
 import 'package:flutter/material.dart';
 
-class Knight extends SimplePlayer with WithLighting {
+class Knight extends SimplePlayer with Lighting {
   final Position initPosition;
   double attack = 25;
   double stamina = 100;
@@ -198,7 +198,7 @@ class Knight extends SimplePlayer with WithLighting {
     if (isDead) return;
     _verifyStamina();
     this.seeEnemy(
-      visionCells: 6,
+      radiusVision: tileSize * 6,
       notObserved: () {
         showObserveEnemy = false;
       },

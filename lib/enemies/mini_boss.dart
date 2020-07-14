@@ -13,25 +13,25 @@ class MiniBoss extends SimpleEnemy {
 
   MiniBoss(this.initPosition)
       : super(
-          animationIdleRight: FlameAnimation.Animation.sequenced(
+          animIdleRight: FlameAnimation.Animation.sequenced(
             "enemy/mini_boss/mini_boss_idle.png",
             4,
             textureWidth: 16,
             textureHeight: 24,
           ),
-          animationIdleLeft: FlameAnimation.Animation.sequenced(
+          animIdleLeft: FlameAnimation.Animation.sequenced(
             "enemy/mini_boss/mini_boss_idle_left.png",
             4,
             textureWidth: 16,
             textureHeight: 24,
           ),
-          animationRunRight: FlameAnimation.Animation.sequenced(
+          animRunRight: FlameAnimation.Animation.sequenced(
             "enemy/mini_boss/mini_boss_run_right.png",
             4,
             textureWidth: 16,
             textureHeight: 24,
           ),
-          animationRunLeft: FlameAnimation.Animation.sequenced(
+          animRunLeft: FlameAnimation.Animation.sequenced(
             "enemy/mini_boss/mini_boss_run_left.png",
             4,
             textureWidth: 16,
@@ -66,17 +66,17 @@ class MiniBoss extends SimpleEnemy {
           closePlayer: (player) {
             execAttack();
           },
-          visionCells: 3,
+          radiusVision: tileSize * 3,
         );
       },
-      visionCells: 3,
+      radiusVision: tileSize * 3,
     );
     if (!_seePlayerClose) {
       this.seeAndMoveToAttackRange(
         positioned: (p) {
           execAttackRange();
         },
-        visionCells: 7,
+        radiusVision: tileSize * 7,
       );
     }
   }

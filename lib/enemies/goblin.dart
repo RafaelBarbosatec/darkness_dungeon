@@ -13,25 +13,25 @@ class Goblin extends SimpleEnemy {
 
   Goblin(this.initPosition)
       : super(
-          animationIdleRight: FlameAnimation.Animation.sequenced(
+          animIdleRight: FlameAnimation.Animation.sequenced(
             "enemy/goblin/goblin_idle.png",
             6,
             textureWidth: 16,
             textureHeight: 16,
           ),
-          animationIdleLeft: FlameAnimation.Animation.sequenced(
+          animIdleLeft: FlameAnimation.Animation.sequenced(
             "enemy/goblin/goblin_idle_left.png",
             6,
             textureWidth: 16,
             textureHeight: 16,
           ),
-          animationRunRight: FlameAnimation.Animation.sequenced(
+          animRunRight: FlameAnimation.Animation.sequenced(
             "enemy/goblin/goblin_run_right.png",
             6,
             textureWidth: 16,
             textureHeight: 16,
           ),
-          animationRunLeft: FlameAnimation.Animation.sequenced(
+          animRunLeft: FlameAnimation.Animation.sequenced(
             "enemy/goblin/goblin_run_left.png",
             6,
             textureWidth: 16,
@@ -63,7 +63,7 @@ class Goblin extends SimpleEnemy {
       closePlayer: (player) {
         execAttack();
       },
-      visionCells: 4,
+      radiusVision: tileSize * 4,
     );
   }
 
