@@ -74,12 +74,15 @@ class Boss extends SimpleEnemy {
         observed: (p) {
           firstSeePlayer = true;
           gameRef.gameCamera.moveToPositionAnimated(
-              Position(
-                this.position.center.dx,
-                this.position.center.dy,
-              ), finish: () {
-            _showConversation();
-          });
+            Position(
+              this.position.center.dx,
+              this.position.center.dy,
+            ),
+            zoom: 2,
+            finish: () {
+              _showConversation();
+            },
+          );
         },
         radiusVision: tileSize * 5,
       );
