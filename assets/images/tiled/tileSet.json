@@ -8,8 +8,8 @@
         }
     },
  "image":"tile_set.png",
- "imageheight":120,
- "imagewidth":120,
+ "imageheight":112,
+ "imagewidth":112,
  "margin":0,
  "name":"tile_set",
  "spacing":0,
@@ -194,7 +194,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -217,31 +216,6 @@
                      "visible":true,
                      "width":4.25,
                      "x":11.75,
-                     "y":0
-                    }],
-             "opacity":1,
-             "type":"objectgroup",
-             "visible":true,
-             "x":0,
-             "y":0
-            }
-        }, 
-        {
-         "id":7,
-         "objectgroup":
-            {
-             "draworder":"index",
-             "name":"",
-             "objects":[
-                    {
-                     "height":16,
-                     "id":1,
-                     "name":"",
-                     "rotation":0,
-                     "type":"",
-                     "visible":true,
-                     "width":4.06664903464692,
-                     "x":11.9333509653531,
                      "y":0
                     }],
              "opacity":1,
@@ -467,6 +441,32 @@
                      "visible":true,
                      "width":11.0066120074054,
                      "x":1.97478621176056,
+                     "y":0
+                    }],
+             "opacity":1,
+             "type":"objectgroup",
+             "visible":true,
+             "x":0,
+             "y":0
+            }
+        }, 
+        {
+         "id":48,
+         "objectgroup":
+            {
+             "draworder":"index",
+             "id":2,
+             "name":"",
+             "objects":[
+                    {
+                     "height":16,
+                     "id":1,
+                     "name":"",
+                     "rotation":0,
+                     "type":"",
+                     "visible":true,
+                     "width":4.25,
+                     "x":11.75,
                      "y":0
                     }],
              "opacity":1,
