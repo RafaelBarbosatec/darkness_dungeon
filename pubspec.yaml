@@ -1,7 +1,7 @@
 name: darkness_dungeon
 description: RPG Game.
 
-version: 1.3.4+8
+version: 1.3.5+9
 
 environment:
   sdk: ">=2.6.0 <3.0.0"
@@ -12,7 +12,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
-  bonfire: ^0.6.16
+  bonfire: ^0.6.17
   flame_splash_screen: ^0.0.1
   url_launcher: ^5.4.11
 

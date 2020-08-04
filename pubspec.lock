@@ -49,7 +49,7 @@ packages:
       name: bonfire
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.16"
+    version: "0.6.17"
   boolean_selector:
     dependency: transitive
     description:
