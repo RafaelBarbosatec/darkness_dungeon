@@ -56,7 +56,6 @@ class Knight extends SimplePlayer with Lighting {
               align: Offset((tileSize - 20) / 2, tileSize * 0.6),
             )) {
     lightingConfig = LightingConfig(
-      gameComponent: this,
       radius: width * 1.5,
       blurBorder: width,
     );
@@ -187,7 +186,6 @@ class Knight extends SimplePlayer with Lighting {
           align: Offset(tileSize * 0.1, tileSize * 0.1),
         ),
         lightingConfig: LightingConfig(
-          gameComponent: this,
           radius: tileSize * 0.9,
           blurBorder: tileSize / 2,
         ));

@@ -18,7 +18,6 @@ class Torch extends GameDecoration with Lighting {
           height: tileSize,
         ) {
     lightingConfig = LightingConfig(
-      gameComponent: this,
       radius: width * 2.5,
       blurBorder: width,
       pulseVariation: 0.1,

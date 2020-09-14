@@ -146,7 +146,6 @@ class MiniBoss extends SimpleEnemy {
         align: Offset.zero,
       ),
       lightingConfig: LightingConfig(
-        gameComponent: this,
         radius: tileSize * 0.9,
         blurBorder: tileSize / 2,
       ),
