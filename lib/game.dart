@@ -106,7 +106,7 @@ class _GameState extends State<Game>
         ),
         map: TiledWorldMap(
           'tiled/map.json',
-          forceTileSize: tileSize,
+          forceTileSize: Size(tileSize, tileSize),
         )
           ..registerObject('door',
               (x, y, width, height) => Door(Position(x, y), width, height))

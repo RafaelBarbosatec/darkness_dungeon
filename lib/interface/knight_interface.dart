@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:bonfire/bonfire.dart';
-import 'package:bonfire/util/game_interface/game_interface.dart';
 import 'package:darkness_dungeon/interface/bar_life_component.dart';
 import 'package:darkness_dungeon/player/knight.dart';
 import 'package:flame/sprite.dart';
