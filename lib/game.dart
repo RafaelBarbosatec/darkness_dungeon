@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/decoration/door.dart';
 import 'package:darkness_dungeon/decoration/key.dart';
@@ -67,11 +69,7 @@ class _GameState extends State<Game>
   @override
   Widget build(BuildContext context) {
     Size sizeScreen = MediaQuery.of(context).size;
-    tileSize = ((sizeScreen.height < sizeScreen.width)
-            ? sizeScreen.height
-            : sizeScreen.width) /
-        9;
-    tileSize = tileSize.roundToDouble();
+    tileSize = max(sizeScreen.height, sizeScreen.width) / 15;
 
     return Material(
       color: Colors.transparent,
