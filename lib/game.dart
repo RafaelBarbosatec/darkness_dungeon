@@ -60,6 +60,7 @@ class _GameState extends State<Game>
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    Sounds.stopBackgroundSound();
     super.dispose();
   }
 
