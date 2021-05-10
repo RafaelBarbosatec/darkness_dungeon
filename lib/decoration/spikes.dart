@@ -22,4 +22,7 @@ class Spikes extends GameDecoration with Sensor {
       }
     }
   }
+
+  @override
+  int get priority => LayerPriority.getComponentPriority(1);
 }

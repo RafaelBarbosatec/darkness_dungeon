@@ -14,7 +14,6 @@ import 'package:darkness_dungeon/interface/knight_interface.dart';
 import 'package:darkness_dungeon/main.dart';
 import 'package:darkness_dungeon/npc/kid.dart';
 import 'package:darkness_dungeon/npc/wizard_npc.dart';
-import 'package:darkness_dungeon/player/knight.dart';
 import 'package:darkness_dungeon/util/dialogs.dart';
 import 'package:darkness_dungeon/util/sounds.dart';
 import 'package:flutter/material.dart';
@@ -99,9 +98,9 @@ class _GameState extends State<Game>
             )
           ],
         ),
-        player: Knight(
-          initPosition: Vector2(2 * tileSize, 3 * tileSize),
-        ),
+        // player: Knight(
+        //   initPosition: Vector2(2 * tileSize, 3 * tileSize),
+        // ),
         map: TiledWorldMap(
           'tiled/map.json',
           forceTileSize: Size(tileSize, tileSize),
