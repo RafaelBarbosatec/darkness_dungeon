@@ -1,26 +1,26 @@
+import 'dart:ui';
+
 import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/enemies/boss.dart';
+import 'package:darkness_dungeon/util/custom_sprite_animation_widget.dart';
 import 'package:darkness_dungeon/util/dialogs.dart';
+import 'package:darkness_dungeon/util/functions.dart';
 import 'package:darkness_dungeon/util/localization/strings_location.dart';
+import 'package:darkness_dungeon/util/npc_sprite_sheet.dart';
+import 'package:darkness_dungeon/util/player_sprite_sheet.dart';
 import 'package:darkness_dungeon/util/sounds.dart';
-import 'package:flame/animation.dart' as FlameAnimation;
 
 class Kid extends GameDecoration {
   bool conversationWithHero = false;
 
   final IntervalTick _timer = IntervalTick(1000);
   Kid(
-    Position position,
-  ) : super(
-          animation: FlameAnimation.Animation.sequenced(
-            "npc/kid_idle_left.png",
-            4,
-            textureWidth: 16,
-            textureHeight: 22,
-          ),
-          initPosition: position,
-          width: 20,
-          height: 26,
+    Vector2 position,
+  ) : super.withAnimation(
+          NpcSpriteSheet.kidIdleLeft(),
+          position: position,
+          width: valueByTileSize(8),
+          height: valueByTileSize(11),
         );
 
   @override
@@ -32,7 +32,7 @@ class Kid extends GameDecoration {
       } catch (e) {
         conversationWithHero = true;
         gameRef.gameCamera.moveToPositionAnimated(
-          Position(
+          Offset(
             this.position.center.dx,
             this.position.center.dy,
           ),
@@ -49,27 +49,15 @@ class Kid extends GameDecoration {
     TalkDialog.show(gameRef.context, [
       Say(
         getString('talk_kid_2'),
-        Flame.util.animationAsWidget(
-          Position(80, 100),
-          FlameAnimation.Animation.sequenced(
-            "npc/kid_idle_left.png",
-            4,
-            textureWidth: 16,
-            textureHeight: 22,
-          ),
+        CustomSpriteAnimationWidget(
+          animation: NpcSpriteSheet.kidIdleLeft(),
         ),
         personDirection: PersonDirection.RIGHT,
       ),
       Say(
         getString('talk_player_4'),
-        Flame.util.animationAsWidget(
-          Position(80, 100),
-          FlameAnimation.Animation.sequenced(
-            "player/knight_idle.png",
-            4,
-            textureWidth: 16,
-            textureHeight: 22,
-          ),
+        CustomSpriteAnimationWidget(
+          animation: PlayerSpriteSheet.idleRight(),
         ),
         personDirection: PersonDirection.LEFT,
       ),

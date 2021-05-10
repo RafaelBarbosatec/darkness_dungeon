@@ -1,63 +1,52 @@
-import 'dart:async';
+import 'dart:async' as async;
 
 import 'package:bonfire/bonfire.dart';
-import 'package:bonfire/util/collision/collision.dart';
 import 'package:darkness_dungeon/main.dart';
+import 'package:darkness_dungeon/util/functions.dart';
+import 'package:darkness_dungeon/util/game_sprite_sheet.dart';
+import 'package:darkness_dungeon/util/player_sprite_sheet.dart';
 import 'package:darkness_dungeon/util/sounds.dart';
-import 'package:flame/animation.dart' as FlameAnimation;
-import 'package:flame/position.dart';
-import 'package:flame/text_config.dart';
 import 'package:flutter/material.dart';
 
-class Knight extends SimplePlayer with Lighting {
-  final Position initPosition;
+class Knight extends SimplePlayer with Lighting, ObjectCollision {
+  final Vector2 initPosition;
   double attack = 25;
   double stamina = 100;
   double initSpeed = tileSize / 0.25;
-  Timer _timerStamina;
+  async.Timer _timerStamina;
   bool containKey = false;
   bool showObserveEnemy = false;
 
   Knight({
     this.initPosition,
   }) : super(
-            animIdleLeft: FlameAnimation.Animation.sequenced(
-              "player/knight_idle_left.png",
-              6,
-              textureWidth: 16,
-              textureHeight: 16,
+          animation: PlayerSpriteSheet.playerAnimations(),
+          width: tileSize,
+          height: tileSize,
+          position: initPosition,
+          life: 200,
+          speed: tileSize / 0.25,
+        ) {
+    setupCollision(
+      CollisionConfig(
+        collisions: [
+          CollisionArea.rectangle(
+            size: Size(valueByTileSize(8), valueByTileSize(8)),
+            align: Vector2(
+              valueByTileSize(4),
+              valueByTileSize(8),
             ),
-            animIdleRight: FlameAnimation.Animation.sequenced(
-              "player/knight_idle.png",
-              6,
-              textureWidth: 16,
-              textureHeight: 16,
-            ),
-            animRunRight: FlameAnimation.Animation.sequenced(
-              "player/knight_run.png",
-              6,
-              textureWidth: 16,
-              textureHeight: 16,
-            ),
-            animRunLeft: FlameAnimation.Animation.sequenced(
-              "player/knight_run_left.png",
-              6,
-              textureWidth: 16,
-              textureHeight: 16,
-            ),
-            width: tileSize,
-            height: tileSize,
-            initPosition: initPosition,
-            life: 200,
-            speed: tileSize / 0.25,
-            collision: Collision(
-              width: 20,
-              height: tileSize * 0.4,
-              align: Offset((tileSize - 20) / 2, tileSize * 0.6),
-            )) {
-    lightingConfig = LightingConfig(
-      radius: width * 1.5,
-      blurBorder: width,
+          ),
+        ],
+      ),
+    );
+
+    setupLighting(
+      LightingConfig(
+        radius: width * 1.5,
+        blurBorder: width,
+        color: Colors.deepOrangeAccent.withOpacity(0.2),
+      ),
     );
   }
 
@@ -83,9 +72,9 @@ class Knight extends SimplePlayer with Lighting {
   void die() {
     remove();
     gameRef.addGameComponent(
-      GameDecoration.sprite(
-        Sprite('player/crypt.png'),
-        initPosition: Position(
+      GameDecoration.withSprite(
+        Sprite.load('player/crypt.png'),
+        position: Vector2(
           this.position.center.dx,
           this.position.center.dy,
         ),
@@ -105,32 +94,12 @@ class Knight extends SimplePlayer with Lighting {
     decrementStamina(15);
     this.simpleAttackMelee(
       damage: attack,
-      animationBottom: FlameAnimation.Animation.sequenced(
-        'player/atack_effect_bottom.png',
-        6,
-        textureWidth: 16,
-        textureHeight: 16,
-      ),
-      animationLeft: FlameAnimation.Animation.sequenced(
-        'player/atack_effect_left.png',
-        6,
-        textureWidth: 16,
-        textureHeight: 16,
-      ),
-      animationRight: FlameAnimation.Animation.sequenced(
-        'player/atack_effect_right.png',
-        6,
-        textureWidth: 16,
-        textureHeight: 16,
-      ),
-      animationTop: FlameAnimation.Animation.sequenced(
-        'player/atack_effect_top.png',
-        6,
-        textureWidth: 16,
-        textureHeight: 16,
-      ),
-      heightArea: tileSize,
-      widthArea: tileSize,
+      animationBottom: PlayerSpriteSheet.attackEffectBottom(),
+      animationLeft: PlayerSpriteSheet.attackEffectLeft(),
+      animationRight: PlayerSpriteSheet.attackEffectRight(),
+      animationTop: PlayerSpriteSheet.attackEffectTop(),
+      height: tileSize,
+      width: tileSize,
     );
   }
 
@@ -143,52 +112,29 @@ class Knight extends SimplePlayer with Lighting {
 
     decrementStamina(10);
     this.simpleAttackRange(
-        animationRight: FlameAnimation.Animation.sequenced(
-          'player/fireball_right.png',
-          3,
-          textureWidth: 23,
-          textureHeight: 23,
-        ),
-        animationLeft: FlameAnimation.Animation.sequenced(
-          'player/fireball_left.png',
-          3,
-          textureWidth: 23,
-          textureHeight: 23,
-        ),
-        animationTop: FlameAnimation.Animation.sequenced(
-          'player/fireball_top.png',
-          3,
-          textureWidth: 23,
-          textureHeight: 23,
-        ),
-        animationBottom: FlameAnimation.Animation.sequenced(
-          'player/fireball_bottom.png',
-          3,
-          textureWidth: 23,
-          textureHeight: 23,
-        ),
-        animationDestroy: FlameAnimation.Animation.sequenced(
-          'player/explosion_fire.png',
-          6,
-          textureWidth: 32,
-          textureHeight: 32,
-        ),
-        width: tileSize * 0.65,
-        height: tileSize * 0.65,
-        damage: 10,
-        speed: initSpeed * (tileSize / 32),
-        destroy: () {
-          Sounds.explosion();
-        },
-        collision: Collision(
-          width: tileSize * 0.5,
-          height: tileSize * 0.5,
-          align: Offset(tileSize * 0.1, tileSize * 0.1),
-        ),
-        lightingConfig: LightingConfig(
-          radius: tileSize * 0.9,
-          blurBorder: tileSize / 2,
-        ));
+      animationRight: GameSpriteSheet.fireBallAttackRight(),
+      animationLeft: GameSpriteSheet.fireBallAttackLeft(),
+      animationTop: GameSpriteSheet.fireBallAttackTop(),
+      animationBottom: GameSpriteSheet.fireBallAttackBottom(),
+      animationDestroy: GameSpriteSheet.fireBallExplosion(),
+      width: tileSize * 0.65,
+      height: tileSize * 0.65,
+      damage: 10,
+      speed: initSpeed * (tileSize / 32),
+      destroy: () {
+        Sounds.explosion();
+      },
+      collision: CollisionConfig(
+        collisions: [
+          CollisionArea.rectangle(size: Size(tileSize / 2, tileSize / 2)),
+        ],
+      ),
+      lightingConfig: LightingConfig(
+        radius: tileSize * 0.9,
+        blurBorder: tileSize / 2,
+        color: Colors.deepOrangeAccent.withOpacity(0.4),
+      ),
+    );
   }
 
   @override
@@ -216,7 +162,7 @@ class Knight extends SimplePlayer with Lighting {
 
   void _verifyStamina() {
     if (_timerStamina == null) {
-      _timerStamina = Timer(Duration(milliseconds: 150), () {
+      _timerStamina = async.Timer(Duration(milliseconds: 150), () {
         _timerStamina = null;
       });
     } else {
@@ -237,12 +183,12 @@ class Knight extends SimplePlayer with Lighting {
   }
 
   @override
-  void receiveDamage(double damage, int id) {
+  void receiveDamage(double damage, dynamic id) {
     if (isDead) return;
     this.showDamage(
       damage,
       config: TextConfig(
-        fontSize: 10,
+        fontSize: valueByTileSize(5),
         color: Colors.orange,
         fontFamily: 'Normal',
       ),
@@ -253,16 +199,21 @@ class Knight extends SimplePlayer with Lighting {
   void _showEmote({String emote = 'emote/emote_exclamacao.png'}) {
     gameRef.add(
       AnimatedFollowerObject(
-        animation: FlameAnimation.Animation.sequenced(
+        animation: SpriteAnimation.load(
           emote,
-          8,
-          textureWidth: 32,
-          textureHeight: 32,
+          SpriteAnimationData.sequenced(
+            amount: 8,
+            stepTime: 0.1,
+            textureSize: Vector2(32, 32),
+          ),
         ),
         target: this,
-        width: tileSize / 2,
-        height: tileSize / 2,
-        positionFromTarget: Position(18, -6),
+        positionFromTarget: Rect.fromLTWH(
+          18,
+          -6,
+          tileSize / 2,
+          tileSize / 2,
+        ).toVector2Rect(),
       ),
     );
   }

@@ -1,21 +1,20 @@
+import 'dart:ui';
+
 import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/main.dart';
+import 'package:darkness_dungeon/util/custom_sprite_animation_widget.dart';
 import 'package:darkness_dungeon/util/localization/strings_location.dart';
+import 'package:darkness_dungeon/util/npc_sprite_sheet.dart';
+import 'package:darkness_dungeon/util/player_sprite_sheet.dart';
 import 'package:darkness_dungeon/util/sounds.dart';
-import 'package:flame/animation.dart' as FlameAnimation;
 
 class WizardNPC extends GameDecoration {
   bool _showConversation = false;
   WizardNPC(
-    Position position,
-  ) : super(
-          animation: FlameAnimation.Animation.sequenced(
-            "npc/wizard_idle_left.png",
-            4,
-            textureWidth: 16,
-            textureHeight: 22,
-          ),
-          initPosition: position,
+    Vector2 position,
+  ) : super.withAnimation(
+          NpcSpriteSheet.wizardIdleLeft(),
+          position: position,
           width: tileSize * 0.8,
           height: tileSize,
         );
@@ -24,29 +23,35 @@ class WizardNPC extends GameDecoration {
   void update(double dt) {
     super.update(dt);
     this.seePlayer(
-        observed: (player) {
-          if (!_showConversation) {
-            _showConversation = true;
-            _showEmote(emote: 'emote/emote_interregacao.png');
-            _showIntroduction();
-          }
-        },
-        visionCells: 2);
+      observed: (player) {
+        if (!_showConversation) {
+          _showConversation = true;
+          _showEmote(emote: 'emote/emote_interregacao.png');
+          _showIntroduction();
+        }
+      },
+      radiusVision: (2 * tileSize).toInt(),
+    );
   }
 
   void _showEmote({String emote = 'emote/emote_exclamacao.png'}) {
     gameRef.add(
       AnimatedFollowerObject(
-        animation: FlameAnimation.Animation.sequenced(
+        animation: SpriteAnimation.load(
           emote,
-          8,
-          textureWidth: 32,
-          textureHeight: 32,
+          SpriteAnimationData.sequenced(
+            amount: 8,
+            stepTime: 0.1,
+            textureSize: Vector2(32, 32),
+          ),
         ),
         target: this,
-        width: 16,
-        height: 16,
-        positionFromTarget: Position(18, -6),
+        positionFromTarget: Rect.fromLTWH(
+          18,
+          -6,
+          tileSize / 2,
+          tileSize / 2,
+        ).toVector2Rect(),
       ),
     );
   }
@@ -56,66 +61,36 @@ class WizardNPC extends GameDecoration {
     TalkDialog.show(gameRef.context, [
       Say(
         getString('talk_wizard_1'),
-        Flame.util.animationAsWidget(
-          Position(80, 100),
-          FlameAnimation.Animation.sequenced(
-            "npc/wizard_idle_left.png",
-            4,
-            textureWidth: 16,
-            textureHeight: 22,
-          ),
+        CustomSpriteAnimationWidget(
+          animation: NpcSpriteSheet.wizardIdleLeft(),
         ),
         personDirection: PersonDirection.RIGHT,
       ),
       Say(
         getString('talk_player_1'),
-        Flame.util.animationAsWidget(
-          Position(80, 100),
-          FlameAnimation.Animation.sequenced(
-            "player/knight_idle.png",
-            4,
-            textureWidth: 16,
-            textureHeight: 22,
-          ),
+        CustomSpriteAnimationWidget(
+          animation: PlayerSpriteSheet.idleRight(),
         ),
         personDirection: PersonDirection.LEFT,
       ),
       Say(
         getString('talk_wizard_2'),
-        Flame.util.animationAsWidget(
-          Position(80, 100),
-          FlameAnimation.Animation.sequenced(
-            "npc/wizard_idle_left.png",
-            4,
-            textureWidth: 16,
-            textureHeight: 22,
-          ),
+        CustomSpriteAnimationWidget(
+          animation: NpcSpriteSheet.wizardIdleLeft(),
         ),
         personDirection: PersonDirection.RIGHT,
       ),
       Say(
         getString('talk_player_2'),
-        Flame.util.animationAsWidget(
-          Position(80, 100),
-          FlameAnimation.Animation.sequenced(
-            "player/knight_idle.png",
-            4,
-            textureWidth: 16,
-            textureHeight: 22,
-          ),
+        CustomSpriteAnimationWidget(
+          animation: PlayerSpriteSheet.idleRight(),
         ),
         personDirection: PersonDirection.LEFT,
       ),
       Say(
         getString('talk_wizard_3'),
-        Flame.util.animationAsWidget(
-          Position(80, 100),
-          FlameAnimation.Animation.sequenced(
-            "npc/wizard_idle_left.png",
-            4,
-            textureWidth: 16,
-            textureHeight: 22,
-          ),
+        CustomSpriteAnimationWidget(
+          animation: NpcSpriteSheet.wizardIdleLeft(),
         ),
         personDirection: PersonDirection.RIGHT,
       ),

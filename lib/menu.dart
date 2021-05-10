@@ -1,11 +1,12 @@
-import 'dart:async';
+import 'dart:async' as async;
 
+import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/game.dart';
+import 'package:darkness_dungeon/util/custom_sprite_animation_widget.dart';
+import 'package:darkness_dungeon/util/enemy_sprite_sheet.dart';
 import 'package:darkness_dungeon/util/localization/strings_location.dart';
+import 'package:darkness_dungeon/util/player_sprite_sheet.dart';
 import 'package:darkness_dungeon/util/sounds.dart';
-import 'package:flame/animation.dart' as FlameAnimation;
-import 'package:flame/flame.dart';
-import 'package:flame/position.dart';
 import 'package:flame_splash_screen/flame_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -18,70 +19,13 @@ class Menu extends StatefulWidget {
 class _MenuState extends State<Menu> {
   bool showSplash = true;
   int currentPosition = 0;
-  Timer _timer;
-  List<Widget> sprites = [
-    Flame.util.animationAsWidget(
-      Position(80, 80),
-      FlameAnimation.Animation.sequenced("player/knight_run.png", 6,
-          textureWidth: 16, textureHeight: 16),
-    ),
-    Flame.util.animationAsWidget(
-      Position(80, 80),
-      FlameAnimation.Animation.sequenced("player/knight_idle.png", 6,
-          textureWidth: 16, textureHeight: 16),
-    ),
-    Flame.util.animationAsWidget(
-      Position(80, 80),
-      FlameAnimation.Animation.sequenced(
-        "enemy/goblin/goblin_run_right.png",
-        6,
-        textureWidth: 16,
-        textureHeight: 16,
-      ),
-    ),
-    Flame.util.animationAsWidget(
-      Position(80, 80),
-      FlameAnimation.Animation.sequenced(
-        "enemy/goblin/goblin_idle.png",
-        6,
-        textureWidth: 16,
-        textureHeight: 16,
-      ),
-    ),
-    Flame.util.animationAsWidget(
-        Position(80, 80),
-        FlameAnimation.Animation.sequenced(
-          "enemy/imp/imp_run_right.png",
-          4,
-          textureWidth: 16,
-          textureHeight: 16,
-        )),
-    Flame.util.animationAsWidget(
-        Position(80, 80),
-        FlameAnimation.Animation.sequenced(
-          "enemy/imp/imp_idle.png",
-          4,
-          textureWidth: 16,
-          textureHeight: 16,
-        )),
-    Flame.util.animationAsWidget(
-      Position(70, 80),
-      FlameAnimation.Animation.sequenced(
-        "enemy/boss/boss_run_right.png",
-        4,
-        textureWidth: 32,
-        textureHeight: 36,
-      ),
-    ),
-    Flame.util.animationAsWidget(
-      Position(70, 80),
-      FlameAnimation.Animation.sequenced(
-        "enemy/boss/boss_idle.png",
-        4,
-        textureWidth: 32,
-        textureHeight: 36,
-      ),
-    ),
+  async.Timer _timer;
+  List<Future<SpriteAnimation>> sprites = [
+    PlayerSpriteSheet.idleRight(),
+    EnemySpriteSheet.goblinIdleRight(),
+    EnemySpriteSheet.impIdleRight(),
+    EnemySpriteSheet.miniBossIdleRight(),
+    EnemySpriteSheet.bossIdleRight(),
   ];
 
   @override
@@ -114,9 +58,16 @@ class _MenuState extends State<Menu> {
             SizedBox(
               height: 20.0,
             ),
-            sprites[currentPosition],
+            if (sprites.isNotEmpty)
+              SizedBox(
+                height: 100,
+                width: 100,
+                child: CustomSpriteAnimationWidget(
+                  animation: sprites[currentPosition],
+                ),
+              ),
             SizedBox(
-              height: 15.0,
+              height: 30.0,
             ),
             SizedBox(
               width: 150,
@@ -229,13 +180,14 @@ class _MenuState extends State<Menu> {
   }
 
   void startTimer() {
-    _timer = Timer.periodic(Duration(seconds: 2), (timer) {
+    _timer = async.Timer.periodic(Duration(seconds: 2), (timer) {
       setState(() {
         currentPosition++;
         if (currentPosition > sprites.length - 1) {
           currentPosition = 0;
         }
       });
+      print(currentPosition);
     });
   }
 

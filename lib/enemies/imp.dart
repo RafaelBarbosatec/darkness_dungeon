@@ -1,52 +1,41 @@
 import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/main.dart';
+import 'package:darkness_dungeon/util/enemy_sprite_sheet.dart';
+import 'package:darkness_dungeon/util/functions.dart';
+import 'package:darkness_dungeon/util/game_sprite_sheet.dart';
 import 'package:darkness_dungeon/util/sounds.dart';
-import 'package:flame/animation.dart' as FlameAnimation;
-import 'package:flame/position.dart';
-import 'package:flame/text_config.dart';
 import 'package:flutter/material.dart';
 
-class Imp extends SimpleEnemy {
-  final Position initPosition;
+class Imp extends SimpleEnemy with ObjectCollision {
+  final Vector2 initPosition;
   double attack = 10;
 
   Imp(this.initPosition)
       : super(
-          animIdleRight: FlameAnimation.Animation.sequenced(
-            "enemy/imp/imp_idle.png",
-            4,
-            textureWidth: 16,
-            textureHeight: 16,
-          ),
-          animIdleLeft: FlameAnimation.Animation.sequenced(
-            "enemy/imp/imp_idle_left.png",
-            4,
-            textureWidth: 16,
-            textureHeight: 16,
-          ),
-          animRunRight: FlameAnimation.Animation.sequenced(
-            "enemy/imp/imp_run_right.png",
-            4,
-            textureWidth: 16,
-            textureHeight: 16,
-          ),
-          animRunLeft: FlameAnimation.Animation.sequenced(
-            "enemy/imp/imp_run_left.png",
-            4,
-            textureWidth: 16,
-            textureHeight: 16,
-          ),
-          initPosition: initPosition,
+          animation: EnemySpriteSheet.impAnimations(),
+          position: initPosition,
           width: tileSize * 0.8,
           height: tileSize * 0.8,
           speed: tileSize / 0.30,
           life: 80,
-          collision: Collision(
-            width: 15,
-            height: 18,
-            align: Offset((tileSize * 0.8 - 15) / 2, tileSize * 0.8 - 18),
+        ) {
+    setupCollision(
+      CollisionConfig(
+        collisions: [
+          CollisionArea.rectangle(
+            size: Size(
+              valueByTileSize(6),
+              valueByTileSize(6),
+            ),
+            align: Vector2(
+              valueByTileSize(3),
+              valueByTileSize(5),
+            ),
           ),
-        );
+        ],
+      ),
+    );
+  }
 
   @override
   void render(Canvas canvas) {
@@ -67,49 +56,25 @@ class Imp extends SimpleEnemy {
 
   void execAttack() {
     this.simpleAttackMelee(
-        heightArea: tileSize * 0.62,
-        widthArea: tileSize * 0.62,
-        damage: attack,
-        interval: 300,
-        attackEffectBottomAnim: FlameAnimation.Animation.sequenced(
-          'enemy/atack_effect_bottom.png',
-          6,
-          textureWidth: 16,
-          textureHeight: 16,
-        ),
-        attackEffectLeftAnim: FlameAnimation.Animation.sequenced(
-          'enemy/atack_effect_left.png',
-          6,
-          textureWidth: 16,
-          textureHeight: 16,
-        ),
-        attackEffectRightAnim: FlameAnimation.Animation.sequenced(
-          'enemy/atack_effect_right.png',
-          6,
-          textureWidth: 16,
-          textureHeight: 16,
-        ),
-        attackEffectTopAnim: FlameAnimation.Animation.sequenced(
-          'enemy/atack_effect_top.png',
-          6,
-          textureWidth: 16,
-          textureHeight: 16,
-        ),
-        execute: () {
-          Sounds.attackEnemyMelee();
-        });
+      height: tileSize * 0.62,
+      width: tileSize * 0.62,
+      damage: attack,
+      interval: 300,
+      attackEffectBottomAnim: EnemySpriteSheet.enemyAttackEffectBottom(),
+      attackEffectLeftAnim: EnemySpriteSheet.enemyAttackEffectLeft(),
+      attackEffectRightAnim: EnemySpriteSheet.enemyAttackEffectRight(),
+      attackEffectTopAnim: EnemySpriteSheet.enemyAttackEffectTop(),
+      execute: () {
+        Sounds.attackEnemyMelee();
+      },
+    );
   }
 
   @override
   void die() {
     gameRef.add(
       AnimatedObjectOnce(
-        animation: FlameAnimation.Animation.sequenced(
-          "smoke_explosin.png",
-          6,
-          textureWidth: 16,
-          textureHeight: 16,
-        ),
+        animation: GameSpriteSheet.smokeExplosion(),
         position: this.position,
       ),
     );
@@ -118,11 +83,11 @@ class Imp extends SimpleEnemy {
   }
 
   @override
-  void receiveDamage(double damage, int id) {
+  void receiveDamage(double damage, dynamic id) {
     this.showDamage(
       damage,
       config: TextConfig(
-        fontSize: 10,
+        fontSize: valueByTileSize(5),
         color: Colors.white,
         fontFamily: 'Normal',
       ),

@@ -4,59 +4,46 @@ import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/enemies/imp.dart';
 import 'package:darkness_dungeon/enemies/mini_boss.dart';
 import 'package:darkness_dungeon/main.dart';
+import 'package:darkness_dungeon/util/custom_sprite_animation_widget.dart';
+import 'package:darkness_dungeon/util/enemy_sprite_sheet.dart';
+import 'package:darkness_dungeon/util/functions.dart';
+import 'package:darkness_dungeon/util/game_sprite_sheet.dart';
 import 'package:darkness_dungeon/util/localization/strings_location.dart';
+import 'package:darkness_dungeon/util/npc_sprite_sheet.dart';
+import 'package:darkness_dungeon/util/player_sprite_sheet.dart';
 import 'package:darkness_dungeon/util/sounds.dart';
-import 'package:flame/animation.dart' as FlameAnimation;
-import 'package:flame/position.dart';
-import 'package:flame/text_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class Boss extends SimpleEnemy {
-  final Position initPosition;
+class Boss extends SimpleEnemy with ObjectCollision {
+  final Vector2 initPosition;
   double attack = 40;
 
   bool addChild = false;
   bool firstSeePlayer = false;
 
-  List<Enemy> children = List();
+  List<Enemy> children = [];
 
   Boss(this.initPosition)
       : super(
-          animIdleRight: FlameAnimation.Animation.sequenced(
-            "enemy/boss/boss_idle.png",
-            4,
-            textureWidth: 32,
-            textureHeight: 36,
-          ),
-          animIdleLeft: FlameAnimation.Animation.sequenced(
-            "enemy/boss/boss_idle_left.png",
-            4,
-            textureWidth: 32,
-            textureHeight: 36,
-          ),
-          animRunRight: FlameAnimation.Animation.sequenced(
-            "enemy/boss/boss_run_right.png",
-            4,
-            textureWidth: 32,
-            textureHeight: 36,
-          ),
-          animRunLeft: FlameAnimation.Animation.sequenced(
-            "enemy/boss/boss_run_left.png",
-            4,
-            textureWidth: 32,
-            textureHeight: 36,
-          ),
-          initPosition: initPosition,
+          animation: EnemySpriteSheet.bossAnimations(),
+          position: initPosition,
           width: tileSize * 1.5,
           height: tileSize * 1.7,
           speed: tileSize / 0.35,
           life: 200,
-          collision: Collision(
-              width: tileSize * 0.9,
-              height: tileSize * 0.9,
-              align: Offset(tileSize * 0.3, tileSize * 0.8)),
-        );
+        ) {
+    setupCollision(
+      CollisionConfig(
+        collisions: [
+          CollisionArea.rectangle(
+            size: Size(valueByTileSize(14), valueByTileSize(16)),
+            align: Vector2(valueByTileSize(5), valueByTileSize(11)),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   void render(Canvas canvas) {
@@ -74,7 +61,7 @@ class Boss extends SimpleEnemy {
         observed: (p) {
           firstSeePlayer = true;
           gameRef.gameCamera.moveToPositionAnimated(
-            Position(
+            Offset(
               this.position.center.dx,
               this.position.center.dy,
             ),
@@ -124,12 +111,7 @@ class Boss extends SimpleEnemy {
   void die() {
     gameRef.add(
       AnimatedObjectOnce(
-        animation: FlameAnimation.Animation.sequenced(
-          "explosion.png",
-          7,
-          textureWidth: 32,
-          textureHeight: 32,
-        ),
+        animation: GameSpriteSheet.explosion(),
         position: this.position,
       ),
     );
@@ -147,32 +129,44 @@ class Boss extends SimpleEnemy {
 
     if (!this.timers['addChild'].update(dtUpdate)) return;
 
-    Rect positionExplosion;
+    Vector2Rect positionExplosion;
 
-    switch (this.directionThatPlayerIs()) {
+    switch (this.directionThePlayerIsIn()) {
       case Direction.left:
         positionExplosion = this.position.translate(width * -2, 0);
         break;
       case Direction.right:
         positionExplosion = this.position.translate(width * 2, 0);
         break;
-      case Direction.top:
+      case Direction.up:
         positionExplosion = this.position.translate(0, height * -2);
         break;
-      case Direction.bottom:
+      case Direction.down:
         positionExplosion = this.position.translate(0, height * 2);
+        break;
+      case Direction.upLeft:
+        // TODO: Handle this case.
+        break;
+      case Direction.upRight:
+        // TODO: Handle this case.
+        break;
+      case Direction.downLeft:
+        // TODO: Handle this case.
+        break;
+      case Direction.downRight:
+        // TODO: Handle this case.
         break;
     }
 
     Enemy e = children.length == 2
         ? MiniBoss(
-            Position(
+            Vector2(
               positionExplosion.left,
               positionExplosion.top,
             ),
           )
         : Imp(
-            Position(
+            Vector2(
               positionExplosion.left,
               positionExplosion.top,
             ),
@@ -180,12 +174,7 @@ class Boss extends SimpleEnemy {
 
     gameRef.add(
       AnimatedObjectOnce(
-        animation: FlameAnimation.Animation.sequenced(
-          "smoke_explosin.png",
-          6,
-          textureWidth: 16,
-          textureHeight: 16,
-        ),
+        animation: GameSpriteSheet.smokeExplosion(),
         position: positionExplosion,
       ),
     );
@@ -196,45 +185,26 @@ class Boss extends SimpleEnemy {
 
   void execAttack() {
     this.simpleAttackMelee(
-        heightArea: tileSize * 0.62,
-        widthArea: tileSize * 0.62,
-        damage: attack,
-        interval: 1500,
-        attackEffectBottomAnim: FlameAnimation.Animation.sequenced(
-          'enemy/atack_effect_bottom.png',
-          6,
-          textureWidth: 16,
-          textureHeight: 16,
-        ),
-        attackEffectLeftAnim: FlameAnimation.Animation.sequenced(
-          'enemy/atack_effect_left.png',
-          6,
-          textureWidth: 16,
-          textureHeight: 16,
-        ),
-        attackEffectRightAnim: FlameAnimation.Animation.sequenced(
-          'enemy/atack_effect_right.png',
-          6,
-          textureWidth: 16,
-          textureHeight: 16,
-        ),
-        attackEffectTopAnim: FlameAnimation.Animation.sequenced(
-          'enemy/atack_effect_top.png',
-          6,
-          textureWidth: 16,
-          textureHeight: 16,
-        ),
-        execute: () {
-          Sounds.attackEnemyMelee();
-        });
+      height: tileSize * 0.62,
+      width: tileSize * 0.62,
+      damage: attack,
+      interval: 1500,
+      attackEffectBottomAnim: EnemySpriteSheet.enemyAttackEffectBottom(),
+      attackEffectLeftAnim: EnemySpriteSheet.enemyAttackEffectLeft(),
+      attackEffectRightAnim: EnemySpriteSheet.enemyAttackEffectRight(),
+      attackEffectTopAnim: EnemySpriteSheet.enemyAttackEffectTop(),
+      execute: () {
+        Sounds.attackEnemyMelee();
+      },
+    );
   }
 
   @override
-  void receiveDamage(double damage, int id) {
+  void receiveDamage(double damage, dynamic id) {
     this.showDamage(
       damage,
       config: TextConfig(
-        fontSize: 10,
+        fontSize: valueByTileSize(5),
         color: Colors.white,
         fontFamily: 'Normal',
       ),
@@ -281,53 +251,29 @@ class Boss extends SimpleEnemy {
     TalkDialog.show(gameRef.context, [
       Say(
         getString('talk_kid_1'),
-        Flame.util.animationAsWidget(
-          Position(80, 100),
-          FlameAnimation.Animation.sequenced(
-            "npc/kid_idle_left.png",
-            4,
-            textureWidth: 16,
-            textureHeight: 22,
-          ),
+        CustomSpriteAnimationWidget(
+          animation: NpcSpriteSheet.kidIdleLeft(),
         ),
         personDirection: PersonDirection.RIGHT,
       ),
       Say(
         getString('talk_boss_1'),
-        Flame.util.animationAsWidget(
-          Position(80, 100),
-          FlameAnimation.Animation.sequenced(
-            "enemy/boss/boss_idle.png",
-            4,
-            textureWidth: 32,
-            textureHeight: 36,
-          ),
+        CustomSpriteAnimationWidget(
+          animation: EnemySpriteSheet.bossIdleRight(),
         ),
         personDirection: PersonDirection.LEFT,
       ),
       Say(
         getString('talk_player_3'),
-        Flame.util.animationAsWidget(
-          Position(80, 100),
-          FlameAnimation.Animation.sequenced(
-            "player/knight_idle.png",
-            4,
-            textureWidth: 16,
-            textureHeight: 22,
-          ),
+        CustomSpriteAnimationWidget(
+          animation: PlayerSpriteSheet.idleRight(),
         ),
         personDirection: PersonDirection.LEFT,
       ),
       Say(
         getString('talk_boss_2'),
-        Flame.util.animationAsWidget(
-          Position(80, 100),
-          FlameAnimation.Animation.sequenced(
-            "enemy/boss/boss_idle.png",
-            4,
-            textureWidth: 32,
-            textureHeight: 36,
-          ),
+        CustomSpriteAnimationWidget(
+          animation: EnemySpriteSheet.bossIdleRight(),
         ),
         personDirection: PersonDirection.RIGHT,
       ),
@@ -351,20 +297,12 @@ class Boss extends SimpleEnemy {
   void addImp(double x, double y) {
     gameRef.add(
       AnimatedObjectOnce(
-        animation: FlameAnimation.Animation.sequenced(
-          "smoke_explosin.png",
-          6,
-          textureWidth: 16,
-          textureHeight: 16,
-        ),
-        position: Rect.fromLTWH(x, y, 32, 32),
+        animation: GameSpriteSheet.smokeExplosion(),
+        position: Rect.fromLTWH(x, y, 32, 32).toVector2Rect(),
       ),
     );
     gameRef.addGameComponent(Imp(
-      Position(
-        x,
-        y,
-      ),
+      Vector2(x, y),
     ));
   }
 }

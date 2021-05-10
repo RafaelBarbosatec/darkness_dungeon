@@ -8,19 +8,17 @@ import 'package:flutter/material.dart';
 
 class KnightInterface extends GameInterface {
   Sprite key;
-  KnightInterface() {
-    key = Sprite('itens/key_silver.png');
-  }
+  KnightInterface();
 
   @override
-  void resize(Size size) {
+  Future<void> onLoad() async {
+    key = await Sprite.load('itens/key_silver.png');
     add(BarLifeComponent());
-    super.resize(size);
+    return super.onLoad();
   }
 
   @override
   void render(Canvas canvas) {
-    //_drawLight(canvas);
     try {
       _drawKey(canvas);
     } catch (e) {}
@@ -29,7 +27,8 @@ class KnightInterface extends GameInterface {
 
   void _drawKey(Canvas c) {
     if (gameRef.player != null && (gameRef.player as Knight).containKey) {
-      key.renderRect(c, Rect.fromLTWH(150, 20, 35, 30));
+      key.renderFromVector2Rect(
+          c, Rect.fromLTWH(150, 20, 35, 30).toVector2Rect());
     }
   }
 }

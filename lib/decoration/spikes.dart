@@ -1,37 +1,41 @@
+import 'dart:ui';
+
 import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/main.dart';
-import 'package:flame/animation.dart' as FlameAnimation;
+import 'package:darkness_dungeon/util/functions.dart';
+import 'package:darkness_dungeon/util/game_sprite_sheet.dart';
 
-class Spikes extends GameDecoration {
+class Spikes extends GameDecoration with Sensor {
   final double damage;
-  bool _infligeDamage = false;
-  Spikes(Position position, {this.damage = 60})
-      : super(
-          animation: FlameAnimation.Animation.sequenced(
-            "itens/spikes.png",
-            10,
-            textureWidth: 16,
-            textureHeight: 16,
-          ),
-          initPosition: position,
+
+  Spikes(Vector2 position, {this.damage = 60})
+      : super.withAnimation(
+          GameSpriteSheet.spikes(),
+          position: position,
           width: tileSize,
           height: tileSize,
-        );
+        ) {
+    setupSensorArea(
+      Rect.fromLTWH(
+        valueByTileSize(2),
+        valueByTileSize(4),
+        valueByTileSize(14),
+        valueByTileSize(12),
+      ).toVector2Rect(),
+      intervalCheck: 100,
+    );
+  }
 
   @override
-  void update(double dt) {
-    if (this.animation.currentIndex == this.animation.frames.length - 1 ||
-        this.animation.currentIndex == this.animation.frames.length - 2) {
-      if (gameRef.player != null) {
-        if (gameRef.player.rectCollision.overlaps(position) &&
-            !_infligeDamage) {
-          _infligeDamage = true;
-          gameRef.player.receiveDamage(damage, 0);
-        }
+  void onContact(GameComponent collision) {
+    if (collision is Player) {
+      if (this.animation.currentIndex == this.animation.frames.length - 1 ||
+          this.animation.currentIndex == this.animation.frames.length - 2) {
+        gameRef.player.receiveDamage(damage, 0);
       }
-    } else {
-      _infligeDamage = false;
     }
-    super.update(dt);
   }
+
+  @override
+  int get priority => LayerPriority.getComponentPriority(1);
 }

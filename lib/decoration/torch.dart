@@ -1,26 +1,23 @@
 import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/main.dart';
-import 'package:flame/animation.dart' as FlameAnimation;
+import 'package:darkness_dungeon/util/game_sprite_sheet.dart';
+import 'package:flutter/material.dart';
 
 class Torch extends GameDecoration with Lighting {
-  Torch(Position position, {bool empty = false})
-      : super.animation(
-          empty
-              ? null
-              : FlameAnimation.Animation.sequenced(
-                  "itens/torch_spritesheet.png",
-                  6,
-                  textureWidth: 16,
-                  textureHeight: 16,
-                ),
-          initPosition: position,
+  Torch(Vector2 position, {bool empty = false})
+      : super.withAnimation(
+          empty ? null : GameSpriteSheet.torch(),
+          position: position,
           width: tileSize,
           height: tileSize,
         ) {
-    lightingConfig = LightingConfig(
-      radius: width * 2.5,
-      blurBorder: width,
-      pulseVariation: 0.1,
+    setupLighting(
+      LightingConfig(
+        radius: width * 2.5,
+        blurBorder: width,
+        pulseVariation: 0.1,
+        color: Colors.deepOrangeAccent.withOpacity(0.2),
+      ),
     );
   }
 }
