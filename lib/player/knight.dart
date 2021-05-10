@@ -45,7 +45,7 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision {
       LightingConfig(
         radius: width * 1.5,
         blurBorder: width,
-        color: Colors.transparent,
+        color: Colors.deepOrangeAccent.withOpacity(0.2),
       ),
     );
   }
