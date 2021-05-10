@@ -29,6 +29,7 @@ class MiniBoss extends SimpleEnemy with ObjectCollision {
             align: Vector2(valueByTileSize(2.5), valueByTileSize(8)),
           ),
         ],
+        collisionOnlyVisibleScreen: false,
       ),
     );
   }
