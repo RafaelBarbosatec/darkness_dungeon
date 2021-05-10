@@ -35,7 +35,6 @@ class _GameState extends State<Game>
   void initState() {
     WidgetsBinding.instance.addObserver(this);
     _controller = GameController()..setListener(this);
-    Sounds.initialize();
     Sounds.playBackgroundSound();
     super.initState();
   }
@@ -79,57 +78,56 @@ class _GameState extends State<Game>
         gameController: _controller,
         joystick: Joystick(
           directional: JoystickDirectional(
-            spriteBackgroundDirectional: Sprite('joystick_background.png'),
-            spriteKnobDirectional: Sprite('joystick_knob.png'),
+            spriteBackgroundDirectional: Sprite.load('joystick_background.png'),
+            spriteKnobDirectional: Sprite.load('joystick_knob.png'),
             size: 100,
             isFixed: false,
           ),
           actions: [
             JoystickAction(
               actionId: 0,
-              sprite: Sprite('joystick_atack.png'),
-              spritePressed: Sprite('joystick_atack_selected.png'),
+              sprite: Sprite.load('joystick_atack.png'),
+              spritePressed: Sprite.load('joystick_atack_selected.png'),
               size: 80,
               margin: EdgeInsets.only(bottom: 50, right: 50),
             ),
             JoystickAction(
               actionId: 1,
-              sprite: Sprite('joystick_atack_range.png'),
-              spritePressed: Sprite('joystick_atack_range_selected.png'),
+              sprite: Sprite.load('joystick_atack_range.png'),
+              spritePressed: Sprite.load('joystick_atack_range_selected.png'),
               size: 50,
               margin: EdgeInsets.only(bottom: 50, right: 160),
             )
           ],
         ),
         player: Knight(
-          initPosition: Position(2 * tileSize, 3 * tileSize),
+          initPosition: Vector2(2 * tileSize, 3 * tileSize),
         ),
         map: TiledWorldMap(
           'tiled/map.json',
           forceTileSize: Size(tileSize, tileSize),
         )
           ..registerObject('door',
-              (x, y, width, height) => Door(Position(x, y), width, height))
+              (x, y, width, height) => Door(Vector2(x, y), width, height))
           ..registerObject(
-              'torch', (x, y, width, height) => Torch(Position(x, y)))
+              'torch', (x, y, width, height) => Torch(Vector2(x, y)))
           ..registerObject(
-              'potion', (x, y, width, height) => PotionLife(Position(x, y), 30))
+              'potion', (x, y, width, height) => PotionLife(Vector2(x, y), 30))
           ..registerObject(
-              'wizard', (x, y, width, height) => WizardNPC(Position(x, y)))
+              'wizard', (x, y, width, height) => WizardNPC(Vector2(x, y)))
           ..registerObject(
-              'spikes', (x, y, width, height) => Spikes(Position(x, y)))
+              'spikes', (x, y, width, height) => Spikes(Vector2(x, y)))
           ..registerObject(
-              'key', (x, y, width, height) => DoorKey(Position(x, y)))
-          ..registerObject('kid', (x, y, width, height) => Kid(Position(x, y)))
+              'key', (x, y, width, height) => DoorKey(Vector2(x, y)))
+          ..registerObject('kid', (x, y, width, height) => Kid(Vector2(x, y)))
+          ..registerObject('boss', (x, y, width, height) => Boss(Vector2(x, y)))
           ..registerObject(
-              'boss', (x, y, width, height) => Boss(Position(x, y)))
+              'goblin', (x, y, width, height) => Goblin(Vector2(x, y)))
+          ..registerObject('imp', (x, y, width, height) => Imp(Vector2(x, y)))
           ..registerObject(
-              'goblin', (x, y, width, height) => Goblin(Position(x, y)))
-          ..registerObject('imp', (x, y, width, height) => Imp(Position(x, y)))
-          ..registerObject(
-              'mini_boss', (x, y, width, height) => MiniBoss(Position(x, y)))
+              'mini_boss', (x, y, width, height) => MiniBoss(Vector2(x, y)))
           ..registerObject('torch_empty',
-              (x, y, width, height) => Torch(Position(x, y), empty: true)),
+              (x, y, width, height) => Torch(Vector2(x, y), empty: true)),
         interface: KnightInterface(),
         lightingColorGame: Colors.black.withOpacity(0.6),
         background: BackgroundColorGame(Colors.grey[900]),

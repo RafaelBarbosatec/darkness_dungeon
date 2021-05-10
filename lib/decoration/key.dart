@@ -2,21 +2,19 @@ import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/main.dart';
 import 'package:darkness_dungeon/player/knight.dart';
 
-class DoorKey extends GameDecoration {
-  DoorKey(Position position)
-      : super.sprite(
-          Sprite('itens/key_silver.png'),
-          initPosition: position,
+class DoorKey extends GameDecoration with Sensor {
+  DoorKey(Vector2 position)
+      : super.withSprite(
+          Sprite.load('itens/key_silver.png'),
+          position: position,
           width: tileSize,
           height: tileSize,
         );
 
   @override
-  void update(double dt) {
-    super.update(dt);
-    if (gameRef.player != null) if (position
-        .overlaps(gameRef.player.position)) {
-      (gameRef.player as Knight).containKey = true;
+  void onContact(GameComponent collision) {
+    if (collision is Knight) {
+      collision.containKey = true;
       remove();
     }
   }

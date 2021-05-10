@@ -1,53 +1,37 @@
 import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/main.dart';
+import 'package:darkness_dungeon/util/enemy_sprite_sheet.dart';
+import 'package:darkness_dungeon/util/functions.dart';
+import 'package:darkness_dungeon/util/game_sprite_sheet.dart';
 import 'package:darkness_dungeon/util/sounds.dart';
-import 'package:flame/animation.dart' as FlameAnimation;
-import 'package:flame/text_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class MiniBoss extends SimpleEnemy {
-  final Position initPosition;
+class MiniBoss extends SimpleEnemy with ObjectCollision {
+  final Vector2 initPosition;
   double attack = 50;
   bool _seePlayerClose = false;
 
   MiniBoss(this.initPosition)
       : super(
-          animIdleRight: FlameAnimation.Animation.sequenced(
-            "enemy/mini_boss/mini_boss_idle.png",
-            4,
-            textureWidth: 16,
-            textureHeight: 24,
-          ),
-          animIdleLeft: FlameAnimation.Animation.sequenced(
-            "enemy/mini_boss/mini_boss_idle_left.png",
-            4,
-            textureWidth: 16,
-            textureHeight: 24,
-          ),
-          animRunRight: FlameAnimation.Animation.sequenced(
-            "enemy/mini_boss/mini_boss_run_right.png",
-            4,
-            textureWidth: 16,
-            textureHeight: 24,
-          ),
-          animRunLeft: FlameAnimation.Animation.sequenced(
-            "enemy/mini_boss/mini_boss_run_left.png",
-            4,
-            textureWidth: 16,
-            textureHeight: 24,
-          ),
-          initPosition: initPosition,
+          animation: EnemySpriteSheet.miniBossAnimations(),
+          position: initPosition,
           width: tileSize * 0.68,
           height: tileSize * 0.93,
           speed: tileSize / 0.35,
           life: 150,
-          collision: Collision(
-            width: tileSize * 0.4,
-            height: tileSize * 0.55,
-            align: Offset(tileSize * 0.2, tileSize * 0.4),
+        ) {
+    setupCollision(
+      CollisionConfig(
+        collisions: [
+          CollisionArea.rectangle(
+            size: Size(valueByTileSize(6), valueByTileSize(7)),
+            align: Vector2(valueByTileSize(2.5), valueByTileSize(8)),
           ),
-        );
+        ],
+      ),
+    );
+  }
 
   @override
   void render(Canvas canvas) {
@@ -85,12 +69,7 @@ class MiniBoss extends SimpleEnemy {
   void die() {
     gameRef.add(
       AnimatedObjectOnce(
-        animation: FlameAnimation.Animation.sequenced(
-          "smoke_explosin.png",
-          6,
-          textureWidth: 16,
-          textureHeight: 16,
-        ),
+        animation: GameSpriteSheet.smokeExplosion(),
         position: this.position,
       ),
     );
@@ -100,36 +79,11 @@ class MiniBoss extends SimpleEnemy {
 
   void execAttackRange() {
     this.simpleAttackRange(
-      animationRight: FlameAnimation.Animation.sequenced(
-        'player/fireball_right.png',
-        3,
-        textureWidth: 23,
-        textureHeight: 23,
-      ),
-      animationLeft: FlameAnimation.Animation.sequenced(
-        'player/fireball_left.png',
-        3,
-        textureWidth: 23,
-        textureHeight: 23,
-      ),
-      animationTop: FlameAnimation.Animation.sequenced(
-        'player/fireball_top.png',
-        3,
-        textureWidth: 23,
-        textureHeight: 23,
-      ),
-      animationBottom: FlameAnimation.Animation.sequenced(
-        'player/fireball_bottom.png',
-        3,
-        textureWidth: 23,
-        textureHeight: 23,
-      ),
-      animationDestroy: FlameAnimation.Animation.sequenced(
-        'player/explosion_fire.png',
-        6,
-        textureWidth: 32,
-        textureHeight: 32,
-      ),
+      animationRight: GameSpriteSheet.fireBallAttackRight(),
+      animationLeft: GameSpriteSheet.fireBallAttackLeft(),
+      animationUp: GameSpriteSheet.fireBallAttackTop(),
+      animationDown: GameSpriteSheet.fireBallAttackBottom(),
+      animationDestroy: GameSpriteSheet.fireBallExplosion(),
       width: tileSize * 0.65,
       height: tileSize * 0.65,
       damage: attack,
@@ -140,48 +94,31 @@ class MiniBoss extends SimpleEnemy {
       destroy: () {
         Sounds.explosion();
       },
-      collision: Collision(
-        width: tileSize * 0.5,
-        height: tileSize * 0.5,
-        align: Offset.zero,
+      collision: CollisionConfig(
+        collisions: [
+          CollisionArea.rectangle(
+            size: Size(tileSize / 2, tileSize / 2),
+          ),
+        ],
       ),
       lightingConfig: LightingConfig(
         radius: tileSize * 0.9,
         blurBorder: tileSize / 2,
+        color: Colors.deepOrangeAccent.withOpacity(0.4),
       ),
     );
   }
 
   void execAttack() {
     this.simpleAttackMelee(
-      heightArea: tileSize * 0.62,
-      widthArea: tileSize * 0.62,
+      height: tileSize * 0.62,
+      width: tileSize * 0.62,
       damage: attack / 3,
       interval: 300,
-      attackEffectBottomAnim: FlameAnimation.Animation.sequenced(
-        'enemy/atack_effect_bottom.png',
-        6,
-        textureWidth: 16,
-        textureHeight: 16,
-      ),
-      attackEffectLeftAnim: FlameAnimation.Animation.sequenced(
-        'enemy/atack_effect_left.png',
-        6,
-        textureWidth: 16,
-        textureHeight: 16,
-      ),
-      attackEffectRightAnim: FlameAnimation.Animation.sequenced(
-        'enemy/atack_effect_right.png',
-        6,
-        textureWidth: 16,
-        textureHeight: 16,
-      ),
-      attackEffectTopAnim: FlameAnimation.Animation.sequenced(
-        'enemy/atack_effect_top.png',
-        6,
-        textureWidth: 16,
-        textureHeight: 16,
-      ),
+      attackEffectBottomAnim: EnemySpriteSheet.enemyAttackEffectBottom(),
+      attackEffectLeftAnim: EnemySpriteSheet.enemyAttackEffectLeft(),
+      attackEffectRightAnim: EnemySpriteSheet.enemyAttackEffectRight(),
+      attackEffectTopAnim: EnemySpriteSheet.enemyAttackEffectTop(),
       execute: () {
         Sounds.attackEnemyMelee();
       },
@@ -189,7 +126,7 @@ class MiniBoss extends SimpleEnemy {
   }
 
   @override
-  void receiveDamage(double damage, int id) {
+  void receiveDamage(double damage, dynamic id) {
     this.showDamage(
       damage,
       config: TextConfig(

@@ -1,12 +1,14 @@
-import 'package:bonfire/bonfire.dart';
+import 'package:flame_audio/bgm.dart';
+import 'package:flame_audio/flame_audio.dart';
+import 'package:flutter/foundation.dart';
 
 class Sounds {
-  static bool isLoadAudio = false;
-  static void initialize() {
-    Flame.bgm.initialize();
-    if (!isLoadAudio) {
-      isLoadAudio = true;
-      Flame.audio.loadAll([
+  static Bgm bgm;
+  static Future initialize() async {
+    if (!kIsWeb) {
+      bgm = FlameAudio.bgm;
+      bgm.initialize();
+      await FlameAudio.audioCache.loadAll([
         'attack_player.mp3',
         'attack_fire_ball.wav',
         'attack_enemy.mp3',
@@ -17,47 +19,47 @@ class Sounds {
   }
 
   static void attackPlayerMelee() {
-    Flame.audio.play('attack_player.mp3', volume: 0.4);
+    FlameAudio.play('attack_player.mp3', volume: 0.4);
   }
 
   static void attackRange() {
-    Flame.audio.play('attack_fire_ball.wav', volume: 0.3);
+    FlameAudio.play('attack_fire_ball.wav', volume: 0.3);
   }
 
   static void attackEnemyMelee() {
-    Flame.audio.play('attack_enemy.mp3', volume: 0.4);
+    FlameAudio.play('attack_enemy.mp3', volume: 0.4);
   }
 
   static void explosion() {
-    Flame.audio.play('explosion.wav');
+    FlameAudio.play('explosion.wav');
   }
 
   static void interaction() {
-    Flame.audio.play('sound_interaction.wav', volume: 0.4);
+    FlameAudio.play('sound_interaction.wav', volume: 0.4);
   }
 
   static stopBackgroundSound() {
-    return Flame.bgm.stop();
+    return bgm.stop();
   }
 
   static void playBackgroundSound() async {
-    Flame.bgm.stop();
-    Flame.bgm.play('sound_bg.mp3');
+    await bgm.stop();
+    bgm.play('sound_bg.mp3');
   }
 
   static void playBackgroundBoosSound() {
-    Flame.bgm.play('battle_boss.mp3');
+    bgm.play('battle_boss.mp3');
   }
 
   static void pauseBackgroundSound() {
-    Flame.bgm.pause();
+    bgm.pause();
   }
 
   static void resumeBackgroundSound() {
-    Flame.bgm.resume();
+    bgm.resume();
   }
 
   static void dispose() {
-    Flame.bgm.dispose();
+    bgm.dispose();
   }
 }

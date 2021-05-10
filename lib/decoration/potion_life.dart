@@ -1,37 +1,37 @@
-import 'dart:async';
+import 'dart:async' as async;
 
 import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/main.dart';
-import 'package:flame/position.dart';
 
-class PotionLife extends GameDecoration {
-  final Position initPosition;
+class PotionLife extends GameDecoration with Sensor {
+  final Vector2 initPosition;
   final double life;
   double _lifeDistributed = 0;
 
   PotionLife(this.initPosition, this.life)
-      : super.sprite(
-          Sprite('itens/potion_red.png'),
-          initPosition: initPosition,
+      : super.withSprite(
+          Sprite.load('itens/potion_red.png'),
+          position: initPosition,
           width: tileSize,
           height: tileSize,
         );
 
+  void _starTimeAddLife() {
+    async.Timer.periodic(Duration(milliseconds: 100), (timer) {
+      if (_lifeDistributed >= life) {
+        timer.cancel();
+      } else {
+        _lifeDistributed += 2;
+        gameRef.player.addLife(5);
+      }
+    });
+  }
+
   @override
-  void update(double dt) {
-    if (gameRef.player != null &&
-        position != null &&
-        position.overlaps(gameRef.player.position)) {
-      Timer.periodic(Duration(milliseconds: 100), (timer) {
-        if (_lifeDistributed >= life) {
-          timer.cancel();
-        } else {
-          _lifeDistributed += 2;
-          gameRef.player.addLife(5);
-        }
-      });
+  void onContact(GameComponent collision) {
+    if (collision is Player) {
+      _starTimeAddLife();
       remove();
     }
-    super.update(dt);
   }
 }

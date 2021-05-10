@@ -1,26 +1,31 @@
 import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/player/knight.dart';
+import 'package:darkness_dungeon/util/game_sprite_sheet.dart';
 import 'package:darkness_dungeon/util/localization/strings_location.dart';
-import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flutter/cupertino.dart';
 
-class Door extends GameDecoration {
+class Door extends GameDecoration with ObjectCollision {
   bool open = false;
   bool showDialog = false;
 
-  Door(Position position, double width, double height)
-      : super.sprite(
-          Sprite('itens/door_closed.png'),
-          initPosition: position,
+  Door(Vector2 position, double width, double height)
+      : super.withSprite(
+          Sprite.load('itens/door_closed.png'),
+          position: position,
           width: width,
           height: height,
-          frontFromPlayer: true,
-          collision: Collision(
-            width: width,
-            height: height / 4,
-            align: Offset(0, height * 0.75),
+        ) {
+    setupCollision(
+      CollisionConfig(
+        collisions: [
+          CollisionArea.rectangle(
+            size: Size(width, height / 4),
+            align: Vector2(0, height * 0.75),
           ),
-        );
+        ],
+      ),
+    );
+  }
 
   @override
   void update(double dt) {
@@ -32,12 +37,7 @@ class Door extends GameDecoration {
             open = true;
             gameRef.add(
               AnimatedObjectOnce(
-                animation: FlameAnimation.Animation.sequenced(
-                  'itens/door_open.png',
-                  14,
-                  textureWidth: 32,
-                  textureHeight: 32,
-                ),
+                animation: GameSpriteSheet.openTheDoor(),
                 position: this.position,
                 onFinish: () {
                   (player as Knight).containKey = false;
@@ -58,7 +58,7 @@ class Door extends GameDecoration {
       notObserved: () {
         showDialog = false;
       },
-      visionCells: 1,
+      radiusVision: 1,
     );
   }
 
@@ -68,14 +68,8 @@ class Door extends GameDecoration {
       [
         Say(
           getString('door_without_key'),
-          Flame.util.animationAsWidget(
-            Position(80, 100),
-            FlameAnimation.Animation.sequenced(
-              "player/knight_idle.png",
-              4,
-              textureWidth: 16,
-              textureHeight: 22,
-            ),
+          SpriteAnimationWidget(
+            animation: (gameRef.player as SimplePlayer).animation.idleRight,
           ),
           personDirection: PersonDirection.LEFT,
         )
