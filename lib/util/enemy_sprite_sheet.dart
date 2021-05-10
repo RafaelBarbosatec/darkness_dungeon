@@ -75,6 +75,15 @@ class EnemySpriteSheet {
         ),
       );
 
+  static Future<SpriteAnimation> goblinIdleRight() => SpriteAnimation.load(
+        'enemy/goblin/goblin_idle.png',
+        SpriteAnimationData.sequenced(
+          amount: 6,
+          stepTime: 0.1,
+          textureSize: Vector2(16, 16),
+        ),
+      );
+
   static SimpleDirectionAnimation goblinAnimations() =>
       SimpleDirectionAnimation(
         idleLeft: SpriteAnimation.load(
@@ -111,6 +120,15 @@ class EnemySpriteSheet {
         ),
       );
 
+  static Future<SpriteAnimation> impIdleRight() => SpriteAnimation.load(
+        'enemy/imp/imp_idle.png',
+        SpriteAnimationData.sequenced(
+          amount: 4,
+          stepTime: 0.1,
+          textureSize: Vector2(16, 16),
+        ),
+      );
+
   static SimpleDirectionAnimation impAnimations() => SimpleDirectionAnimation(
         idleLeft: SpriteAnimation.load(
           'enemy/imp/imp_idle_left.png',
@@ -143,6 +161,15 @@ class EnemySpriteSheet {
             stepTime: 0.1,
             textureSize: Vector2(16, 16),
           ),
+        ),
+      );
+
+  static Future<SpriteAnimation> miniBossIdleRight() => SpriteAnimation.load(
+        'enemy/mini_boss/mini_boss_idle.png',
+        SpriteAnimationData.sequenced(
+          amount: 4,
+          stepTime: 0.1,
+          textureSize: Vector2(16, 24),
         ),
       );
 
