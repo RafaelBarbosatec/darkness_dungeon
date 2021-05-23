@@ -60,7 +60,7 @@ class Boss extends SimpleEnemy with ObjectCollision {
       this.seePlayer(
         observed: (p) {
           firstSeePlayer = true;
-          gameRef.gameCamera.moveToPositionAnimated(
+          gameRef.camera.moveToPositionAnimated(
             Offset(
               this.position.center.dx,
               this.position.center.dy,
@@ -281,7 +281,7 @@ class Boss extends SimpleEnemy with ObjectCollision {
       Sounds.interaction();
       addInitChild();
       Future.delayed(Duration(milliseconds: 500), () {
-        gameRef.gameCamera.moveToPlayerAnimated();
+        gameRef.camera.moveToPlayerAnimated();
         Sounds.playBackgroundBoosSound();
       });
     }, onChangeTalk: (index) {
