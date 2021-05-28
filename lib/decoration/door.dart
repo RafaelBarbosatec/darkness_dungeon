@@ -9,12 +9,12 @@ class Door extends GameDecoration with ObjectCollision {
   bool open = false;
   bool showDialog = false;
 
-  Door(Vector2 position, double width, double height)
+  Door(Vector2 position, Size size)
       : super.withSprite(
           Sprite.load('itens/door_closed.png'),
           position: position,
-          width: width,
-          height: height,
+          width: size.width,
+          height: size.height,
         ) {
     setupCollision(
       CollisionConfig(
@@ -69,10 +69,10 @@ class Door extends GameDecoration with ObjectCollision {
       [
         Say(
           getString('door_without_key'),
-          SpriteAnimationWidget(
+          person: SpriteAnimationWidget(
             animation: (gameRef.player as SimplePlayer).animation.idleRight,
           ),
-          personDirection: PersonDirection.LEFT,
+          personSayDirection: PersonSayDirection.LEFT,
         )
       ],
     );

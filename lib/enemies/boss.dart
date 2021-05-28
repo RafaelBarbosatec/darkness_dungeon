@@ -203,7 +203,7 @@ class Boss extends SimpleEnemy with ObjectCollision {
   void receiveDamage(double damage, dynamic id) {
     this.showDamage(
       damage,
-      config: TextConfig(
+      config: TextPaintConfig(
         fontSize: valueByTileSize(5),
         color: Colors.white,
         fontFamily: 'Normal',
@@ -251,31 +251,31 @@ class Boss extends SimpleEnemy with ObjectCollision {
     TalkDialog.show(gameRef.context, [
       Say(
         getString('talk_kid_1'),
-        CustomSpriteAnimationWidget(
+        person: CustomSpriteAnimationWidget(
           animation: NpcSpriteSheet.kidIdleLeft(),
         ),
-        personDirection: PersonDirection.RIGHT,
+        personSayDirection: PersonSayDirection.RIGHT,
       ),
       Say(
         getString('talk_boss_1'),
-        CustomSpriteAnimationWidget(
+        person: CustomSpriteAnimationWidget(
           animation: EnemySpriteSheet.bossIdleRight(),
         ),
-        personDirection: PersonDirection.LEFT,
+        personSayDirection: PersonSayDirection.LEFT,
       ),
       Say(
         getString('talk_player_3'),
-        CustomSpriteAnimationWidget(
+        person: CustomSpriteAnimationWidget(
           animation: PlayerSpriteSheet.idleRight(),
         ),
-        personDirection: PersonDirection.LEFT,
+        personSayDirection: PersonSayDirection.LEFT,
       ),
       Say(
         getString('talk_boss_2'),
-        CustomSpriteAnimationWidget(
+        person: CustomSpriteAnimationWidget(
           animation: EnemySpriteSheet.bossIdleRight(),
         ),
-        personDirection: PersonDirection.RIGHT,
+        personSayDirection: PersonSayDirection.RIGHT,
       ),
     ], finish: () {
       Sounds.interaction();

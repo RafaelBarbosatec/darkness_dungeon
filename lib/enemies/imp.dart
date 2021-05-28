@@ -86,7 +86,7 @@ class Imp extends SimpleEnemy with ObjectCollision {
   void receiveDamage(double damage, dynamic id) {
     this.showDamage(
       damage,
-      config: TextConfig(
+      config: TextPaintConfig(
         fontSize: valueByTileSize(5),
         color: Colors.white,
         fontFamily: 'Normal',

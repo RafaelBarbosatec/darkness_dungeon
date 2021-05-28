@@ -61,38 +61,38 @@ class WizardNPC extends GameDecoration {
     TalkDialog.show(gameRef.context, [
       Say(
         getString('talk_wizard_1'),
-        CustomSpriteAnimationWidget(
+        person: CustomSpriteAnimationWidget(
           animation: NpcSpriteSheet.wizardIdleLeft(),
         ),
-        personDirection: PersonDirection.RIGHT,
+        personSayDirection: PersonSayDirection.RIGHT,
       ),
       Say(
         getString('talk_player_1'),
-        CustomSpriteAnimationWidget(
+        person: CustomSpriteAnimationWidget(
           animation: PlayerSpriteSheet.idleRight(),
         ),
-        personDirection: PersonDirection.LEFT,
+        personSayDirection: PersonSayDirection.LEFT,
       ),
       Say(
         getString('talk_wizard_2'),
-        CustomSpriteAnimationWidget(
+        person: CustomSpriteAnimationWidget(
           animation: NpcSpriteSheet.wizardIdleLeft(),
         ),
-        personDirection: PersonDirection.RIGHT,
+        personSayDirection: PersonSayDirection.RIGHT,
       ),
       Say(
         getString('talk_player_2'),
-        CustomSpriteAnimationWidget(
+        person: CustomSpriteAnimationWidget(
           animation: PlayerSpriteSheet.idleRight(),
         ),
-        personDirection: PersonDirection.LEFT,
+        personSayDirection: PersonSayDirection.LEFT,
       ),
       Say(
         getString('talk_wizard_3'),
-        CustomSpriteAnimationWidget(
+        person: CustomSpriteAnimationWidget(
           animation: NpcSpriteSheet.wizardIdleLeft(),
         ),
-        personDirection: PersonDirection.RIGHT,
+        personSayDirection: PersonSayDirection.RIGHT,
       ),
     ], onChangeTalk: (index) {
       Sounds.interaction();

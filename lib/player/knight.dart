@@ -187,7 +187,7 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision {
     if (isDead) return;
     this.showDamage(
       damage,
-      config: TextConfig(
+      config: TextPaintConfig(
         fontSize: valueByTileSize(5),
         color: Colors.orange,
         fontFamily: 'Normal',

@@ -49,17 +49,17 @@ class Kid extends GameDecoration {
     TalkDialog.show(gameRef.context, [
       Say(
         getString('talk_kid_2'),
-        CustomSpriteAnimationWidget(
+        person: CustomSpriteAnimationWidget(
           animation: NpcSpriteSheet.kidIdleLeft(),
         ),
-        personDirection: PersonDirection.RIGHT,
+        personSayDirection: PersonSayDirection.RIGHT,
       ),
       Say(
         getString('talk_player_4'),
-        CustomSpriteAnimationWidget(
+        person: CustomSpriteAnimationWidget(
           animation: PlayerSpriteSheet.idleRight(),
         ),
-        personDirection: PersonDirection.LEFT,
+        personSayDirection: PersonSayDirection.LEFT,
       ),
     ], finish: () {
       Sounds.interaction();
