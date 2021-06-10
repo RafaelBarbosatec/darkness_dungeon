@@ -1,13 +1,10 @@
-import 'package:flame_audio/bgm.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/foundation.dart';
 
 class Sounds {
-  static Bgm bgm;
   static Future initialize() async {
     if (!kIsWeb) {
-      bgm = FlameAudio.bgm;
-      bgm.initialize();
+      FlameAudio.bgm.initialize();
       await FlameAudio.audioCache.loadAll([
         'attack_player.mp3',
         'attack_fire_ball.wav',
@@ -45,33 +42,32 @@ class Sounds {
 
   static stopBackgroundSound() {
     if (kIsWeb) return;
-    print('STOP');
-    return bgm.stop();
+    return FlameAudio.bgm.stop();
   }
 
   static void playBackgroundSound() async {
     if (kIsWeb) return;
-    await bgm.stop();
-    bgm.play('sound_bg.mp3');
+    await FlameAudio.bgm.stop();
+    FlameAudio.bgm.play('sound_bg.mp3');
   }
 
   static void playBackgroundBoosSound() {
     if (kIsWeb) return;
-    bgm.play('battle_boss.mp3');
+    FlameAudio.bgm.play('battle_boss.mp3');
   }
 
   static void pauseBackgroundSound() {
     if (kIsWeb) return;
-    bgm.pause();
+    FlameAudio.bgm.pause();
   }
 
   static void resumeBackgroundSound() {
     if (kIsWeb) return;
-    bgm.resume();
+    FlameAudio.bgm.resume();
   }
 
   static void dispose() {
     if (kIsWeb) return;
-    bgm.dispose();
+    FlameAudio.bgm.dispose();
   }
 }
