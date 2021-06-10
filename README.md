@@ -15,9 +15,6 @@ Game developed for the purpose of testing the use of the Bonfire package!
 
 ![](https://github.com/RafaelBarbosatec/darkness_dungeon/blob/master/media/print3.jpg)
 
-[![](http://boleiroapp.com.br/dist/img/google-play-badge.png)](https://play.google.com/store/apps/details?id=com.rafaelbarbosatec.darkness_dungeon)
-[![](http://boleiroapp.com.br/dist/img/app-store-badge.png)](https://apps.apple.com/us/app/darkness-dungeon/id1506675248)
-
 
 [Download APK](https://github.com/RafaelBarbosatec/darkness_dungeon/raw/master/demo/demo.apk)
 
