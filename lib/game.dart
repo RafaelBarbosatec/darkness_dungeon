@@ -43,7 +43,6 @@ class _GameState extends State<Game>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    print(state);
     switch (state) {
       case AppLifecycleState.resumed:
         Sounds.resumeBackgroundSound();
