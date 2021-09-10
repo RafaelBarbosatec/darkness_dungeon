@@ -31,7 +31,7 @@ class Door extends GameDecoration with ObjectCollision {
   @override
   void update(double dt) {
     super.update(dt);
-    this.seePlayer(
+    this.seeComponentType<Player>(
       observed: (player) {
         if (!open) {
           if ((player as Knight).containKey) {
@@ -59,7 +59,7 @@ class Door extends GameDecoration with ObjectCollision {
       notObserved: () {
         showDialog = false;
       },
-      radiusVision: (1 * tileSize).toInt(),
+      radiusVision: (1 * tileSize),
     );
   }
 
@@ -68,7 +68,11 @@ class Door extends GameDecoration with ObjectCollision {
       gameRef.context,
       [
         Say(
-          getString('door_without_key'),
+          text: [
+            TextSpan(
+              text: getString('door_without_key'),
+            )
+          ],
           person: SpriteAnimationWidget(
             animation: (gameRef.player as SimplePlayer).animation.idleRight,
           ),

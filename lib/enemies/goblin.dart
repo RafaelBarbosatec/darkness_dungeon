@@ -37,7 +37,10 @@ class Goblin extends SimpleEnemy with ObjectCollision {
 
   @override
   void render(Canvas canvas) {
-    this.drawDefaultLifeBar(canvas);
+    this.drawDefaultLifeBar(
+      canvas,
+      borderRadius: BorderRadius.circular(2),
+    );
     super.render(canvas);
   }
 

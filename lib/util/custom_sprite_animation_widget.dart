@@ -8,14 +8,18 @@ class CustomSpriteAnimationWidget extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: animation,
-      builder: (context, data) {
-        if (!data.hasData) return SizedBox.shrink();
-        return SpriteAnimationWidget(
-          animation: data.data,
-        );
-      },
+    return SizedBox(
+      width: 100,
+      height: 100,
+      child: FutureBuilder(
+        future: animation,
+        builder: (context, data) {
+          if (!data.hasData) return SizedBox.shrink();
+          return SpriteAnimationWidget(
+            animation: data.data,
+          );
+        },
+      ),
     );
   }
 }

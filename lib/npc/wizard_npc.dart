@@ -7,6 +7,7 @@ import 'package:darkness_dungeon/util/localization/strings_location.dart';
 import 'package:darkness_dungeon/util/npc_sprite_sheet.dart';
 import 'package:darkness_dungeon/util/player_sprite_sheet.dart';
 import 'package:darkness_dungeon/util/sounds.dart';
+import 'package:flutter/material.dart';
 
 class WizardNPC extends GameDecoration {
   bool _showConversation = false;
@@ -22,7 +23,7 @@ class WizardNPC extends GameDecoration {
   @override
   void update(double dt) {
     super.update(dt);
-    this.seePlayer(
+    this.seeComponentType<Player>(
       observed: (player) {
         if (!_showConversation) {
           _showConversation = true;
@@ -30,7 +31,7 @@ class WizardNPC extends GameDecoration {
           _showIntroduction();
         }
       },
-      radiusVision: (2 * tileSize).toInt(),
+      radiusVision: (2 * tileSize),
     );
   }
 
@@ -60,35 +61,37 @@ class WizardNPC extends GameDecoration {
     Sounds.interaction();
     TalkDialog.show(gameRef.context, [
       Say(
-        getString('talk_wizard_1'),
+        text: [
+          TextSpan(text: getString('talk_wizard_1')),
+        ],
         person: CustomSpriteAnimationWidget(
           animation: NpcSpriteSheet.wizardIdleLeft(),
         ),
         personSayDirection: PersonSayDirection.RIGHT,
       ),
       Say(
-        getString('talk_player_1'),
+        text: [TextSpan(text: getString('talk_player_1'))],
         person: CustomSpriteAnimationWidget(
           animation: PlayerSpriteSheet.idleRight(),
         ),
         personSayDirection: PersonSayDirection.LEFT,
       ),
       Say(
-        getString('talk_wizard_2'),
+        text: [TextSpan(text: getString('talk_wizard_2'))],
         person: CustomSpriteAnimationWidget(
           animation: NpcSpriteSheet.wizardIdleLeft(),
         ),
         personSayDirection: PersonSayDirection.RIGHT,
       ),
       Say(
-        getString('talk_player_2'),
+        text: [TextSpan(text: getString('talk_player_2'))],
         person: CustomSpriteAnimationWidget(
           animation: PlayerSpriteSheet.idleRight(),
         ),
         personSayDirection: PersonSayDirection.LEFT,
       ),
       Say(
-        getString('talk_wizard_3'),
+        text: [TextSpan(text: getString('talk_wizard_3'))],
         person: CustomSpriteAnimationWidget(
           animation: NpcSpriteSheet.wizardIdleLeft(),
         ),

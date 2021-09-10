@@ -114,13 +114,14 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision {
     this.simpleAttackRange(
       animationRight: GameSpriteSheet.fireBallAttackRight(),
       animationLeft: GameSpriteSheet.fireBallAttackLeft(),
-      animationTop: GameSpriteSheet.fireBallAttackTop(),
-      animationBottom: GameSpriteSheet.fireBallAttackBottom(),
+      animationUp: GameSpriteSheet.fireBallAttackTop(),
+      animationDown: GameSpriteSheet.fireBallAttackBottom(),
       animationDestroy: GameSpriteSheet.fireBallExplosion(),
       width: tileSize * 0.65,
       height: tileSize * 0.65,
       damage: 10,
       speed: initSpeed * (tileSize / 32),
+      enableDiagonal: false,
       destroy: () {
         Sounds.explosion();
       },

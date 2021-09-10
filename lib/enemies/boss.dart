@@ -55,7 +55,6 @@ class Boss extends SimpleEnemy with ObjectCollision {
 
   @override
   void update(double dt) {
-    this.timers['addChild']?.update(dt);
     if (!firstSeePlayer) {
       this.seePlayer(
         observed: (p) {
@@ -79,22 +78,22 @@ class Boss extends SimpleEnemy with ObjectCollision {
         if (children.isEmpty ||
             children.where((e) => !e.isDead).length == 0 &&
                 children.length < 3) {
-          addChildInMap();
+          addChildInMap(dt);
         }
       },
       radiusVision: tileSize * 3,
     );
 
     if (life < 150 && children.length == 0) {
-      addChildInMap();
+      addChildInMap(dt);
     }
 
     if (life < 100 && children.length == 1) {
-      addChildInMap();
+      addChildInMap(dt);
     }
 
     if (life < 50 && children.length == 2) {
-      addChildInMap();
+      addChildInMap(dt);
     }
 
     this.seeAndMoveToPlayer(
@@ -122,65 +121,61 @@ class Boss extends SimpleEnemy with ObjectCollision {
     super.die();
   }
 
-  void addChildInMap() {
-    if (this.timers['addChild'] == null) {
-      this.timers['addChild'] = IntervalTick(5000);
+  void addChildInMap(double dt) {
+    if (checkInterval('addChild', 5000, dt)) {
+      Vector2Rect positionExplosion;
+
+      switch (this.directionThePlayerIsIn()) {
+        case Direction.left:
+          positionExplosion = this.position.translate(width * -2, 0);
+          break;
+        case Direction.right:
+          positionExplosion = this.position.translate(width * 2, 0);
+          break;
+        case Direction.up:
+          positionExplosion = this.position.translate(0, height * -2);
+          break;
+        case Direction.down:
+          positionExplosion = this.position.translate(0, height * 2);
+          break;
+        case Direction.upLeft:
+          // TODO: Handle this case.
+          break;
+        case Direction.upRight:
+          // TODO: Handle this case.
+          break;
+        case Direction.downLeft:
+          // TODO: Handle this case.
+          break;
+        case Direction.downRight:
+          // TODO: Handle this case.
+          break;
+      }
+
+      Enemy e = children.length == 2
+          ? MiniBoss(
+              Vector2(
+                positionExplosion.left,
+                positionExplosion.top,
+              ),
+            )
+          : Imp(
+              Vector2(
+                positionExplosion.left,
+                positionExplosion.top,
+              ),
+            );
+
+      gameRef.add(
+        AnimatedObjectOnce(
+          animation: GameSpriteSheet.smokeExplosion(),
+          position: positionExplosion,
+        ),
+      );
+
+      children.add(e);
+      gameRef.addGameComponent(e);
     }
-
-    if (!this.timers['addChild'].update(dtUpdate)) return;
-
-    Vector2Rect positionExplosion;
-
-    switch (this.directionThePlayerIsIn()) {
-      case Direction.left:
-        positionExplosion = this.position.translate(width * -2, 0);
-        break;
-      case Direction.right:
-        positionExplosion = this.position.translate(width * 2, 0);
-        break;
-      case Direction.up:
-        positionExplosion = this.position.translate(0, height * -2);
-        break;
-      case Direction.down:
-        positionExplosion = this.position.translate(0, height * 2);
-        break;
-      case Direction.upLeft:
-        // TODO: Handle this case.
-        break;
-      case Direction.upRight:
-        // TODO: Handle this case.
-        break;
-      case Direction.downLeft:
-        // TODO: Handle this case.
-        break;
-      case Direction.downRight:
-        // TODO: Handle this case.
-        break;
-    }
-
-    Enemy e = children.length == 2
-        ? MiniBoss(
-            Vector2(
-              positionExplosion.left,
-              positionExplosion.top,
-            ),
-          )
-        : Imp(
-            Vector2(
-              positionExplosion.left,
-              positionExplosion.top,
-            ),
-          );
-
-    gameRef.add(
-      AnimatedObjectOnce(
-        animation: GameSpriteSheet.smokeExplosion(),
-        position: positionExplosion,
-      ),
-    );
-
-    children.add(e);
-    gameRef.addGameComponent(e);
   }
 
   void execAttack() {
@@ -250,28 +245,28 @@ class Boss extends SimpleEnemy with ObjectCollision {
     Sounds.interaction();
     TalkDialog.show(gameRef.context, [
       Say(
-        getString('talk_kid_1'),
+        text: [TextSpan(text: getString('talk_kid_1'))],
         person: CustomSpriteAnimationWidget(
           animation: NpcSpriteSheet.kidIdleLeft(),
         ),
         personSayDirection: PersonSayDirection.RIGHT,
       ),
       Say(
-        getString('talk_boss_1'),
+        text: [TextSpan(text: getString('talk_boss_1'))],
         person: CustomSpriteAnimationWidget(
           animation: EnemySpriteSheet.bossIdleRight(),
         ),
         personSayDirection: PersonSayDirection.LEFT,
       ),
       Say(
-        getString('talk_player_3'),
+        text: [TextSpan(text: getString('talk_player_3'))],
         person: CustomSpriteAnimationWidget(
           animation: PlayerSpriteSheet.idleRight(),
         ),
         personSayDirection: PersonSayDirection.LEFT,
       ),
       Say(
-        getString('talk_boss_2'),
+        text: [TextSpan(text: getString('talk_boss_2'))],
         person: CustomSpriteAnimationWidget(
           animation: EnemySpriteSheet.bossIdleRight(),
         ),

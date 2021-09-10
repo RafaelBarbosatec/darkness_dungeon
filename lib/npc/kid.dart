@@ -9,6 +9,7 @@ import 'package:darkness_dungeon/util/localization/strings_location.dart';
 import 'package:darkness_dungeon/util/npc_sprite_sheet.dart';
 import 'package:darkness_dungeon/util/player_sprite_sheet.dart';
 import 'package:darkness_dungeon/util/sounds.dart';
+import 'package:flutter/material.dart';
 
 class Kid extends GameDecoration {
   bool conversationWithHero = false;
@@ -48,14 +49,14 @@ class Kid extends GameDecoration {
     Sounds.interaction();
     TalkDialog.show(gameRef.context, [
       Say(
-        getString('talk_kid_2'),
+        text: [TextSpan(text: getString('talk_kid_2'))],
         person: CustomSpriteAnimationWidget(
           animation: NpcSpriteSheet.kidIdleLeft(),
         ),
         personSayDirection: PersonSayDirection.RIGHT,
       ),
       Say(
-        getString('talk_player_4'),
+        text: [TextSpan(text: getString('talk_player_4'))],
         person: CustomSpriteAnimationWidget(
           animation: PlayerSpriteSheet.idleRight(),
         ),
