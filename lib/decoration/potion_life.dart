@@ -31,7 +31,7 @@ class PotionLife extends GameDecoration with Sensor {
   void onContact(GameComponent collision) {
     if (collision is Player) {
       _starTimeAddLife();
-      remove();
+      removeFromParent();
     }
   }
 }

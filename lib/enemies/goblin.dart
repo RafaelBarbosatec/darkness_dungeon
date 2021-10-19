@@ -64,7 +64,7 @@ class Goblin extends SimpleEnemy with ObjectCollision {
         position: this.position,
       ),
     );
-    remove();
+    removeFromParent();
     super.die();
   }
 

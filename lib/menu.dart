@@ -187,7 +187,6 @@ class _MenuState extends State<Menu> {
           currentPosition = 0;
         }
       });
-      print(currentPosition);
     });
   }
 

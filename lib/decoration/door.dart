@@ -46,7 +46,7 @@ class Door extends GameDecoration with ObjectCollision {
               ),
             );
             Future.delayed(Duration(milliseconds: 200), () {
-              remove();
+              removeFromParent();
             });
           } else {
             if (!showDialog) {

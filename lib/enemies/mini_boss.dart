@@ -73,7 +73,7 @@ class MiniBoss extends SimpleEnemy with ObjectCollision {
         position: this.position,
       ),
     );
-    remove();
+    removeFromParent();
     super.die();
   }
 

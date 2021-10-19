@@ -39,7 +39,10 @@ class Imp extends SimpleEnemy with ObjectCollision {
 
   @override
   void render(Canvas canvas) {
-    this.drawDefaultLifeBar(canvas, borderRadius: BorderRadius.circular(2),);
+    this.drawDefaultLifeBar(
+      canvas,
+      borderRadius: BorderRadius.circular(2),
+    );
     super.render(canvas);
   }
 
@@ -78,7 +81,7 @@ class Imp extends SimpleEnemy with ObjectCollision {
         position: this.position,
       ),
     );
-    remove();
+    removeFromParent();
     super.die();
   }
 

@@ -22,8 +22,6 @@ class Boss extends SimpleEnemy with ObjectCollision {
   bool addChild = false;
   bool firstSeePlayer = false;
 
-  List<Enemy> children = [];
-
   Boss(this.initPosition)
       : super(
           animation: EnemySpriteSheet.bossAnimations(),
@@ -76,7 +74,7 @@ class Boss extends SimpleEnemy with ObjectCollision {
     this.seePlayer(
       observed: (player) {
         if (children.isEmpty ||
-            children.where((e) => !e.isDead).length == 0 &&
+            children.where((e) => !(e as Enemy).isDead).length == 0 &&
                 children.length < 3) {
           addChildInMap(dt);
         }
@@ -115,9 +113,9 @@ class Boss extends SimpleEnemy with ObjectCollision {
       ),
     );
     children.forEach((e) {
-      if (!e.isDead) e.die();
+      if (!(e as Enemy).isDead) (e as Enemy).die();
     });
-    remove();
+    removeFromParent();
     super.die();
   }
 
@@ -174,7 +172,6 @@ class Boss extends SimpleEnemy with ObjectCollision {
       );
 
       children.add(e);
-      gameRef.addGameComponent(e);
     }
   }
 
