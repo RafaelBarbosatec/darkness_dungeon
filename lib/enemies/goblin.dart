@@ -74,10 +74,10 @@ class Goblin extends SimpleEnemy with ObjectCollision {
       width: tileSize * 0.62,
       damage: attack,
       interval: 800,
-      attackEffectBottomAnim: EnemySpriteSheet.enemyAttackEffectBottom(),
-      attackEffectLeftAnim: EnemySpriteSheet.enemyAttackEffectLeft(),
-      attackEffectRightAnim: EnemySpriteSheet.enemyAttackEffectRight(),
-      attackEffectTopAnim: EnemySpriteSheet.enemyAttackEffectTop(),
+      animationBottom: EnemySpriteSheet.enemyAttackEffectBottom(),
+      animationLeft: EnemySpriteSheet.enemyAttackEffectLeft(),
+      animationRight: EnemySpriteSheet.enemyAttackEffectRight(),
+      animationTop: EnemySpriteSheet.enemyAttackEffectTop(),
       execute: () {
         Sounds.attackEnemyMelee();
       },

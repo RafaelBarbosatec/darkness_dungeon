@@ -181,10 +181,10 @@ class Boss extends SimpleEnemy with ObjectCollision {
       width: tileSize * 0.62,
       damage: attack,
       interval: 1500,
-      attackEffectBottomAnim: EnemySpriteSheet.enemyAttackEffectBottom(),
-      attackEffectLeftAnim: EnemySpriteSheet.enemyAttackEffectLeft(),
-      attackEffectRightAnim: EnemySpriteSheet.enemyAttackEffectRight(),
-      attackEffectTopAnim: EnemySpriteSheet.enemyAttackEffectTop(),
+      animationBottom: EnemySpriteSheet.enemyAttackEffectBottom(),
+      animationLeft: EnemySpriteSheet.enemyAttackEffectLeft(),
+      animationRight: EnemySpriteSheet.enemyAttackEffectRight(),
+      animationTop: EnemySpriteSheet.enemyAttackEffectTop(),
       execute: () {
         Sounds.attackEnemyMelee();
       },
@@ -269,7 +269,7 @@ class Boss extends SimpleEnemy with ObjectCollision {
         ),
         personSayDirection: PersonSayDirection.RIGHT,
       ),
-    ], finish: () {
+    ], onFinish: () {
       Sounds.interaction();
       addInitChild();
       Future.delayed(Duration(milliseconds: 500), () {

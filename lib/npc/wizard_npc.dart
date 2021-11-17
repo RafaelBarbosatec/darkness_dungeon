@@ -99,7 +99,7 @@ class WizardNPC extends GameDecoration {
       ),
     ], onChangeTalk: (index) {
       Sounds.interaction();
-    }, finish: () {
+    }, onFinish: () {
       Sounds.interaction();
     });
   }

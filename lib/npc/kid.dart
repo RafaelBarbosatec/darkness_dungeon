@@ -62,7 +62,7 @@ class Kid extends GameDecoration {
         ),
         personSayDirection: PersonSayDirection.LEFT,
       ),
-    ], finish: () {
+    ], onFinish: () {
       Sounds.interaction();
       gameRef.camera.moveToPlayerAnimated(finish: () {
         Dialogs.showCongratulations(gameRef.context);

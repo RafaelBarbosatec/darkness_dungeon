@@ -36,7 +36,7 @@ class _GameState extends State<Game>
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
-    _controller = GameController()..setListener(this);
+    _controller = GameController()..addListener(this);
     Sounds.playBackgroundSound();
     super.initState();
   }
