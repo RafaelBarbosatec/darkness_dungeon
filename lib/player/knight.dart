@@ -7,6 +7,7 @@ import 'package:darkness_dungeon/util/game_sprite_sheet.dart';
 import 'package:darkness_dungeon/util/player_sprite_sheet.dart';
 import 'package:darkness_dungeon/util/sounds.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class Knight extends SimplePlayer with Lighting, ObjectCollision {
   final Vector2 initPosition;
@@ -62,6 +63,11 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision {
       actionAttack();
     }
 
+    if (event.id == LogicalKeyboardKey.space.keyId &&
+        event.event == ActionEvent.DOWN) {
+      actionAttack();
+    }
+
     if (event.id == 1 && event.event == ActionEvent.DOWN) {
       actionAttackRange();
     }
@@ -71,7 +77,7 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision {
   @override
   void die() {
     removeFromParent();
-    gameRef.addGameComponent(
+    gameRef.add(
       GameDecoration.withSprite(
         Sprite.load('player/crypt.png'),
         position: Vector2(
@@ -188,7 +194,7 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision {
     if (isDead) return;
     this.showDamage(
       damage,
-      config: TextPaintConfig(
+      config: TextStyle(
         fontSize: valueByTileSize(5),
         color: Colors.orange,
         fontFamily: 'Normal',

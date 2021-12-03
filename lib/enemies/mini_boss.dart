@@ -60,7 +60,7 @@ class MiniBoss extends SimpleEnemy with ObjectCollision {
         positioned: (p) {
           execAttackRange();
         },
-        radiusVision: tileSize * 7,
+        radiusVision: tileSize * 5,
       );
     }
   }
@@ -129,7 +129,7 @@ class MiniBoss extends SimpleEnemy with ObjectCollision {
   void receiveDamage(double damage, dynamic id) {
     this.showDamage(
       damage,
-      config: TextPaintConfig(
+      config: TextStyle(
         fontSize: valueByTileSize(5),
         color: Colors.white,
         fontFamily: 'Normal',

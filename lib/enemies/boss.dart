@@ -21,6 +21,7 @@ class Boss extends SimpleEnemy with ObjectCollision {
 
   bool addChild = false;
   bool firstSeePlayer = false;
+  List<Enemy> childrenEnemy = [];
 
   Boss(this.initPosition)
       : super(
@@ -53,6 +54,7 @@ class Boss extends SimpleEnemy with ObjectCollision {
 
   @override
   void update(double dt) {
+    childrenEnemy.removeWhere((element) => element.isDead);
     if (!firstSeePlayer) {
       this.seePlayer(
         observed: (p) {
@@ -68,29 +70,29 @@ class Boss extends SimpleEnemy with ObjectCollision {
             },
           );
         },
-        radiusVision: tileSize * 7,
+        radiusVision: tileSize * 5,
       );
     }
     this.seePlayer(
       observed: (player) {
-        if (children.isEmpty ||
-            children.where((e) => !(e as Enemy).isDead).length == 0 &&
-                children.length < 3) {
+        if (childrenEnemy.isEmpty ||
+            childrenEnemy.where((e) => !(e as Enemy).isDead).length == 0 &&
+                childrenEnemy.length < 3) {
           addChildInMap(dt);
         }
       },
       radiusVision: tileSize * 3,
     );
 
-    if (life < 150 && children.length == 0) {
+    if (life < 150 && childrenEnemy.length == 0) {
       addChildInMap(dt);
     }
 
-    if (life < 100 && children.length == 1) {
+    if (life < 100 && childrenEnemy.length == 1) {
       addChildInMap(dt);
     }
 
-    if (life < 50 && children.length == 2) {
+    if (life < 50 && childrenEnemy.length == 2) {
       addChildInMap(dt);
     }
 
@@ -112,8 +114,8 @@ class Boss extends SimpleEnemy with ObjectCollision {
         position: this.position,
       ),
     );
-    children.forEach((e) {
-      if (!(e as Enemy).isDead) (e as Enemy).die();
+    childrenEnemy.forEach((e) {
+      if (!e.isDead) e.die();
     });
     removeFromParent();
     super.die();
@@ -150,7 +152,7 @@ class Boss extends SimpleEnemy with ObjectCollision {
           break;
       }
 
-      Enemy e = children.length == 2
+      Enemy e = childrenEnemy.length == 2
           ? MiniBoss(
               Vector2(
                 positionExplosion.left,
@@ -171,7 +173,8 @@ class Boss extends SimpleEnemy with ObjectCollision {
         ),
       );
 
-      children.add(e);
+      childrenEnemy.add(e);
+      gameRef.add(e);
     }
   }
 
@@ -195,7 +198,7 @@ class Boss extends SimpleEnemy with ObjectCollision {
   void receiveDamage(double damage, dynamic id) {
     this.showDamage(
       damage,
-      config: TextPaintConfig(
+      config: TextStyle(
         fontSize: valueByTileSize(5),
         color: Colors.white,
         fontFamily: 'Normal',
@@ -208,7 +211,7 @@ class Boss extends SimpleEnemy with ObjectCollision {
     if (position == null) return;
     double yPosition = position.top;
     double widthBar = (width - 10) / 3;
-    if (children.length < 1)
+    if (childrenEnemy.length < 1)
       canvas.drawLine(
           Offset(position.left, yPosition),
           Offset(position.left + widthBar, yPosition),
@@ -218,7 +221,7 @@ class Boss extends SimpleEnemy with ObjectCollision {
             ..style = PaintingStyle.fill);
 
     double lastX = position.left + widthBar + 5;
-    if (children.length < 2)
+    if (childrenEnemy.length < 2)
       canvas.drawLine(
           Offset(lastX, yPosition),
           Offset(lastX + widthBar, yPosition),
@@ -228,7 +231,7 @@ class Boss extends SimpleEnemy with ObjectCollision {
             ..style = PaintingStyle.fill);
 
     lastX = lastX + widthBar + 5;
-    if (children.length < 3)
+    if (childrenEnemy.length < 3)
       canvas.drawLine(
           Offset(lastX, yPosition),
           Offset(lastX + widthBar, yPosition),
@@ -293,7 +296,7 @@ class Boss extends SimpleEnemy with ObjectCollision {
         position: Rect.fromLTWH(x, y, 32, 32).toVector2Rect(),
       ),
     );
-    gameRef.addGameComponent(Imp(
+    gameRef.add(Imp(
       Vector2(x, y),
     ));
   }

@@ -31,36 +31,40 @@ class Door extends GameDecoration with ObjectCollision {
   @override
   void update(double dt) {
     super.update(dt);
-    this.seeComponentType<Player>(
-      observed: (player) {
-        if (!open) {
-          if ((player as Knight).containKey) {
-            open = true;
-            gameRef.add(
-              AnimatedObjectOnce(
-                animation: GameSpriteSheet.openTheDoor(),
-                position: this.position,
-                onFinish: () {
-                  (player as Knight).containKey = false;
-                },
-              ),
-            );
-            Future.delayed(Duration(milliseconds: 200), () {
-              removeFromParent();
-            });
-          } else {
-            if (!showDialog) {
-              showDialog = true;
-              _showIntroduction();
+    if (gameRef.player != null) {
+      this.seeComponent(
+        gameRef.player,
+        observed: (player) {
+          if (!open) {
+            Knight p = player;
+            if (p?.containKey == true) {
+              open = true;
+              gameRef.add(
+                AnimatedObjectOnce(
+                  animation: GameSpriteSheet.openTheDoor(),
+                  position: this.position,
+                  onFinish: () {
+                    p.containKey = false;
+                  },
+                ),
+              );
+              Future.delayed(Duration(milliseconds: 200), () {
+                removeFromParent();
+              });
+            } else {
+              if (!showDialog) {
+                showDialog = true;
+                _showIntroduction();
+              }
             }
           }
-        }
-      },
-      notObserved: () {
-        showDialog = false;
-      },
-      radiusVision: (1 * tileSize),
-    );
+        },
+        notObserved: () {
+          showDialog = false;
+        },
+        radiusVision: (1 * tileSize),
+      );
+    }
   }
 
   void _showIntroduction() {
