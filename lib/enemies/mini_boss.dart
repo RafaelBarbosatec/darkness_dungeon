@@ -115,10 +115,10 @@ class MiniBoss extends SimpleEnemy with ObjectCollision {
       width: tileSize * 0.62,
       damage: attack / 3,
       interval: 300,
-      animationBottom: EnemySpriteSheet.enemyAttackEffectBottom(),
+      animationDown: EnemySpriteSheet.enemyAttackEffectBottom(),
       animationLeft: EnemySpriteSheet.enemyAttackEffectLeft(),
       animationRight: EnemySpriteSheet.enemyAttackEffectRight(),
-      animationTop: EnemySpriteSheet.enemyAttackEffectTop(),
+      animationUp: EnemySpriteSheet.enemyAttackEffectTop(),
       execute: () {
         Sounds.attackEnemyMelee();
       },
