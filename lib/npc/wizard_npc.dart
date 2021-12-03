@@ -23,16 +23,20 @@ class WizardNPC extends GameDecoration {
   @override
   void update(double dt) {
     super.update(dt);
-    this.seeComponentType<Player>(
-      observed: (player) {
-        if (!_showConversation) {
-          _showConversation = true;
-          _showEmote(emote: 'emote/emote_interregacao.png');
-          _showIntroduction();
-        }
-      },
-      radiusVision: (2 * tileSize),
-    );
+    if (gameRef.player != null) {
+      this.seeComponent(
+        gameRef.player,
+        observed: (player) {
+          if (!_showConversation) {
+            gameRef.player.idle();
+            _showConversation = true;
+            _showEmote(emote: 'emote/emote_interregacao.png');
+            _showIntroduction();
+          }
+        },
+        radiusVision: (2 * tileSize),
+      );
+    }
   }
 
   void _showEmote({String emote = 'emote/emote_exclamacao.png'}) {

@@ -54,7 +54,6 @@ class Boss extends SimpleEnemy with ObjectCollision {
 
   @override
   void update(double dt) {
-    childrenEnemy.removeWhere((element) => element.isDead);
     if (!firstSeePlayer) {
       this.seePlayer(
         observed: (p) {
@@ -73,16 +72,6 @@ class Boss extends SimpleEnemy with ObjectCollision {
         radiusVision: tileSize * 5,
       );
     }
-    this.seePlayer(
-      observed: (player) {
-        if (childrenEnemy.isEmpty ||
-            childrenEnemy.where((e) => !(e as Enemy).isDead).length == 0 &&
-                childrenEnemy.length < 3) {
-          addChildInMap(dt);
-        }
-      },
-      radiusVision: tileSize * 3,
-    );
 
     if (life < 150 && childrenEnemy.length == 0) {
       addChildInMap(dt);

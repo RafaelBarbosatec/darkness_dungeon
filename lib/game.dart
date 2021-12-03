@@ -75,6 +75,7 @@ class _GameState extends State<Game>
       child: BonfireTiledWidget(
         gameController: _controller,
         joystick: Joystick(
+          keyboardConfig: KeyboardConfig(),
           directional: JoystickDirectional(
             spriteBackgroundDirectional: Sprite.load('joystick_background.png'),
             spriteKnobDirectional: Sprite.load('joystick_knob.png'),
