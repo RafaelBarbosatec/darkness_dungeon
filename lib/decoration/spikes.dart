@@ -1,6 +1,5 @@
 import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/main.dart';
-import 'package:darkness_dungeon/util/functions.dart';
 import 'package:darkness_dungeon/util/game_sprite_sheet.dart';
 
 class Spikes extends GameDecoration with Sensor {
@@ -8,14 +7,13 @@ class Spikes extends GameDecoration with Sensor {
 
   Spikes(Vector2 position, {this.damage = 60})
       : super.withAnimation(
-          GameSpriteSheet.spikes(),
+          animation: GameSpriteSheet.spikes(),
           position: position,
-          width: tileSize,
-          height: tileSize,
+          size: Vector2(tileSize, tileSize),
         ) {
     setupSensorArea(
-      align: Vector2(valueByTileSize(2), valueByTileSize(4)),
-      size: Vector2(valueByTileSize(14), valueByTileSize(12)),
+      // align: Vector2(valueByTileSize(2), valueByTileSize(4)),
+      // size: Vector2(valueByTileSize(14), valueByTileSize(12)),
       intervalCheck: 100,
     );
   }

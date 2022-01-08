@@ -22,8 +22,7 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision {
     this.initPosition,
   }) : super(
           animation: PlayerSpriteSheet.playerAnimations(),
-          width: tileSize,
-          height: tileSize,
+          size: Vector2.all(tileSize),
           position: initPosition,
           life: 200,
           speed: tileSize / 0.25,
@@ -32,7 +31,7 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision {
       CollisionConfig(
         collisions: [
           CollisionArea.rectangle(
-            size: Size(valueByTileSize(8), valueByTileSize(8)),
+            size: Vector2(valueByTileSize(8), valueByTileSize(8)),
             align: Vector2(
               valueByTileSize(4),
               valueByTileSize(8),
@@ -79,13 +78,12 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision {
     removeFromParent();
     gameRef.add(
       GameDecoration.withSprite(
-        Sprite.load('player/crypt.png'),
+        sprite: Sprite.load('player/crypt.png'),
         position: Vector2(
-          this.position.center.dx,
-          this.position.center.dy,
+          this.position.x,
+          this.position.y,
         ),
-        height: 30,
-        width: 30,
+        size: Vector2.all(30),
       ),
     );
     super.die();
@@ -104,8 +102,7 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision {
       animationLeft: PlayerSpriteSheet.attackEffectLeft(),
       animationRight: PlayerSpriteSheet.attackEffectRight(),
       animationUp: PlayerSpriteSheet.attackEffectTop(),
-      height: tileSize,
-      width: tileSize,
+      size: Vector2.all(tileSize),
     );
   }
 
@@ -123,8 +120,7 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision {
       animationUp: GameSpriteSheet.fireBallAttackTop(),
       animationDown: GameSpriteSheet.fireBallAttackBottom(),
       animationDestroy: GameSpriteSheet.fireBallExplosion(),
-      width: tileSize * 0.65,
-      height: tileSize * 0.65,
+      size: Vector2(tileSize * 0.65, tileSize * 0.65),
       damage: 10,
       speed: initSpeed * (tileSize / 32),
       enableDiagonal: false,
@@ -133,7 +129,7 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision {
       },
       collision: CollisionConfig(
         collisions: [
-          CollisionArea.rectangle(size: Size(tileSize / 2, tileSize / 2)),
+          CollisionArea.rectangle(size: Vector2(tileSize / 2, tileSize / 2)),
         ],
       ),
       lightingConfig: LightingConfig(
@@ -215,12 +211,8 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision {
           ),
         ),
         target: this,
-        positionFromTarget: Rect.fromLTWH(
-          18,
-          -6,
-          tileSize / 2,
-          tileSize / 2,
-        ).toVector2Rect(),
+        size: Vector2(32, 32),
+        positionFromTarget: Vector2(18, -6),
       ),
     );
   }

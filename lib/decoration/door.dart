@@ -9,18 +9,17 @@ class Door extends GameDecoration with ObjectCollision {
   bool open = false;
   bool showDialog = false;
 
-  Door(Vector2 position, Size size)
+  Door(Vector2 position, Vector2 size)
       : super.withSprite(
-          Sprite.load('itens/door_closed.png'),
+          sprite: Sprite.load('itens/door_closed.png'),
           position: position,
-          width: size.width,
-          height: size.height,
+          size: size,
         ) {
     setupCollision(
       CollisionConfig(
         collisions: [
           CollisionArea.rectangle(
-            size: Size(width, height / 4),
+            size: Vector2(width, height / 4),
             align: Vector2(0, height * 0.75),
           ),
         ],
@@ -46,6 +45,7 @@ class Door extends GameDecoration with ObjectCollision {
                   onFinish: () {
                     p.containKey = false;
                   },
+                  size: Vector2(32, 32),
                 ),
               );
               Future.delayed(Duration(milliseconds: 200), () {

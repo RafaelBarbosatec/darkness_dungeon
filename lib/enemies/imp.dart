@@ -14,8 +14,7 @@ class Imp extends SimpleEnemy with ObjectCollision {
       : super(
           animation: EnemySpriteSheet.impAnimations(),
           position: initPosition,
-          width: tileSize * 0.8,
-          height: tileSize * 0.8,
+          size: Vector2.all(tileSize * 0.8),
           speed: tileSize / 0.30,
           life: 80,
         ) {
@@ -23,7 +22,7 @@ class Imp extends SimpleEnemy with ObjectCollision {
       CollisionConfig(
         collisions: [
           CollisionArea.rectangle(
-            size: Size(
+            size: Vector2(
               valueByTileSize(6),
               valueByTileSize(6),
             ),
@@ -59,8 +58,7 @@ class Imp extends SimpleEnemy with ObjectCollision {
 
   void execAttack() {
     this.simpleAttackMelee(
-      height: tileSize * 0.62,
-      width: tileSize * 0.62,
+      size: Vector2.all(tileSize * 0.62),
       damage: attack,
       interval: 300,
       animationDown: EnemySpriteSheet.enemyAttackEffectBottom(),
@@ -79,6 +77,7 @@ class Imp extends SimpleEnemy with ObjectCollision {
       AnimatedObjectOnce(
         animation: GameSpriteSheet.smokeExplosion(),
         position: this.position,
+        size: Vector2(32, 32),
       ),
     );
     removeFromParent();

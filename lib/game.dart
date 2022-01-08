@@ -18,6 +18,7 @@ import 'package:darkness_dungeon/player/knight.dart';
 import 'package:darkness_dungeon/util/dialogs.dart';
 import 'package:darkness_dungeon/util/sounds.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class Game extends StatefulWidget {
   const Game({Key key}) : super(key: key);
@@ -75,7 +76,12 @@ class _GameState extends State<Game>
       child: BonfireTiledWidget(
         gameController: _controller,
         joystick: Joystick(
-          keyboardConfig: KeyboardConfig(),
+          keyboardConfig: KeyboardConfig(
+            keyboardDirectionalType: KeyboardDirectionalType.wasdAndArrows,
+            acceptedKeys: [
+              LogicalKeyboardKey.space,
+            ],
+          ),
           directional: JoystickDirectional(
             spriteBackgroundDirectional: Sprite.load('joystick_background.png'),
             spriteKnobDirectional: Sprite.load('joystick_knob.png'),

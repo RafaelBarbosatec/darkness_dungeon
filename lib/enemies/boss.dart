@@ -13,7 +13,6 @@ import 'package:darkness_dungeon/util/npc_sprite_sheet.dart';
 import 'package:darkness_dungeon/util/player_sprite_sheet.dart';
 import 'package:darkness_dungeon/util/sounds.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class Boss extends SimpleEnemy with ObjectCollision {
   final Vector2 initPosition;
@@ -27,8 +26,7 @@ class Boss extends SimpleEnemy with ObjectCollision {
       : super(
           animation: EnemySpriteSheet.bossAnimations(),
           position: initPosition,
-          width: tileSize * 1.5,
-          height: tileSize * 1.7,
+          size: Vector2(tileSize * 1.5, tileSize * 1.7),
           speed: tileSize / 0.35,
           life: 200,
         ) {
@@ -36,7 +34,7 @@ class Boss extends SimpleEnemy with ObjectCollision {
       CollisionConfig(
         collisions: [
           CollisionArea.rectangle(
-            size: Size(valueByTileSize(14), valueByTileSize(16)),
+            size: Vector2(valueByTileSize(14), valueByTileSize(16)),
             align: Vector2(valueByTileSize(5), valueByTileSize(11)),
           ),
         ],
@@ -58,11 +56,8 @@ class Boss extends SimpleEnemy with ObjectCollision {
       this.seePlayer(
         observed: (p) {
           firstSeePlayer = true;
-          gameRef.camera.moveToPositionAnimated(
-            Offset(
-              this.position.center.dx,
-              this.position.center.dy,
-            ),
+          gameRef.camera.moveToTargetAnimated(
+            this,
             zoom: 2,
             finish: () {
               _showConversation();
@@ -101,6 +96,7 @@ class Boss extends SimpleEnemy with ObjectCollision {
       AnimatedObjectOnce(
         animation: GameSpriteSheet.explosion(),
         position: this.position,
+        size: Vector2(32, 32),
       ),
     );
     childrenEnemy.forEach((e) {
@@ -112,7 +108,7 @@ class Boss extends SimpleEnemy with ObjectCollision {
 
   void addChildInMap(double dt) {
     if (checkInterval('addChild', 5000, dt)) {
-      Vector2Rect positionExplosion;
+      Vector2 positionExplosion;
 
       switch (this.directionThePlayerIsIn()) {
         case Direction.left:
@@ -144,14 +140,14 @@ class Boss extends SimpleEnemy with ObjectCollision {
       Enemy e = childrenEnemy.length == 2
           ? MiniBoss(
               Vector2(
-                positionExplosion.left,
-                positionExplosion.top,
+                positionExplosion.x,
+                positionExplosion.y,
               ),
             )
           : Imp(
               Vector2(
-                positionExplosion.left,
-                positionExplosion.top,
+                positionExplosion.x,
+                positionExplosion.y,
               ),
             );
 
@@ -159,6 +155,7 @@ class Boss extends SimpleEnemy with ObjectCollision {
         AnimatedObjectOnce(
           animation: GameSpriteSheet.smokeExplosion(),
           position: positionExplosion,
+          size: Vector2(32, 32),
         ),
       );
 
@@ -169,8 +166,7 @@ class Boss extends SimpleEnemy with ObjectCollision {
 
   void execAttack() {
     this.simpleAttackMelee(
-      height: tileSize * 0.62,
-      width: tileSize * 0.62,
+      size: Vector2.all(tileSize * 0.62),
       damage: attack,
       interval: 1500,
       animationDown: EnemySpriteSheet.enemyAttackEffectBottom(),
@@ -198,18 +194,18 @@ class Boss extends SimpleEnemy with ObjectCollision {
 
   void drawBarSummonEnemy(Canvas canvas) {
     if (position == null) return;
-    double yPosition = position.top;
+    double yPosition = position.y;
     double widthBar = (width - 10) / 3;
     if (childrenEnemy.length < 1)
       canvas.drawLine(
-          Offset(position.left, yPosition),
-          Offset(position.left + widthBar, yPosition),
+          Offset(position.x, yPosition),
+          Offset(position.x + widthBar, yPosition),
           Paint()
             ..color = Colors.orange
             ..strokeWidth = 1
             ..style = PaintingStyle.fill);
 
-    double lastX = position.left + widthBar + 5;
+    double lastX = position.x + widthBar + 5;
     if (childrenEnemy.length < 2)
       canvas.drawLine(
           Offset(lastX, yPosition),
@@ -274,15 +270,16 @@ class Boss extends SimpleEnemy with ObjectCollision {
   }
 
   void addInitChild() {
-    addImp(position.left - tileSize, position.top - tileSize);
-    addImp(position.left - tileSize, position.bottom + tileSize);
+    addImp(position.x - tileSize, position.x - tileSize);
+    addImp(position.x - tileSize, position.x); //position.bottom + tileSize);
   }
 
   void addImp(double x, double y) {
     gameRef.add(
       AnimatedObjectOnce(
         animation: GameSpriteSheet.smokeExplosion(),
-        position: Rect.fromLTWH(x, y, 32, 32).toVector2Rect(),
+        position: Vector2(x, y),
+        size: Vector2(32, 32),
       ),
     );
     gameRef.add(Imp(
