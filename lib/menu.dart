@@ -19,7 +19,7 @@ class Menu extends StatefulWidget {
 class _MenuState extends State<Menu> {
   bool showSplash = true;
   int currentPosition = 0;
-  async.Timer _timer;
+  late async.Timer _timer;
   List<Future<SpriteAnimation>> sprites = [
     PlayerSpriteSheet.idleRight(),
     EnemySpriteSheet.goblinIdleRight(),

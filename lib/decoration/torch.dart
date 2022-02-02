@@ -4,9 +4,10 @@ import 'package:darkness_dungeon/util/game_sprite_sheet.dart';
 import 'package:flutter/material.dart';
 
 class Torch extends GameDecoration with Lighting {
-  Torch(Vector2 position, {bool empty = false})
+  bool empty = false;
+  Torch(Vector2 position, {this.empty = false})
       : super.withAnimation(
-          animation: empty ? null : GameSpriteSheet.torch(),
+          animation: GameSpriteSheet.torch(),
           position: position,
           size: Vector2.all(tileSize),
         ) {
@@ -18,5 +19,12 @@ class Torch extends GameDecoration with Lighting {
         color: Colors.deepOrangeAccent.withOpacity(0.2),
       ),
     );
+  }
+
+  @override
+  void render(Canvas canvas) {
+    if (!empty) {
+      super.render(canvas);
+    }
   }
 }

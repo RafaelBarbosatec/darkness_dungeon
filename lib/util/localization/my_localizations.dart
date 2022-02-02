@@ -12,11 +12,11 @@ class MyLocalizations {
 
   final Locale locale;
 
-  static MyLocalizations of(BuildContext context) {
+  static MyLocalizations? of(BuildContext context) {
     return Localizations.of<MyLocalizations>(context, MyLocalizations);
   }
 
-  Map<String, String> _sentences;
+  Map<String, String> _sentences = {};
 
   Future<bool> load() async {
     String data = await rootBundle

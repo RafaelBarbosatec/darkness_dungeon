@@ -108,7 +108,7 @@ class Boss extends SimpleEnemy with ObjectCollision {
 
   void addChildInMap(double dt) {
     if (checkInterval('addChild', 5000, dt)) {
-      Vector2 positionExplosion;
+      Vector2 positionExplosion = Vector2.zero();
 
       switch (this.directionThePlayerIsIn()) {
         case Direction.left:
@@ -135,6 +135,7 @@ class Boss extends SimpleEnemy with ObjectCollision {
         case Direction.downRight:
           // TODO: Handle this case.
           break;
+        default:
       }
 
       Enemy e = childrenEnemy.length == 2
@@ -193,7 +194,6 @@ class Boss extends SimpleEnemy with ObjectCollision {
   }
 
   void drawBarSummonEnemy(Canvas canvas) {
-    if (position == null) return;
     double yPosition = position.y;
     double widthBar = (width - 10) / 3;
     if (childrenEnemy.length < 1)

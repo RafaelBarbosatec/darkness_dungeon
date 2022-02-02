@@ -8,7 +8,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'util/sounds.dart';
 
-double tileSize;
+double tileSize = 32;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   if (!kIsWeb) {

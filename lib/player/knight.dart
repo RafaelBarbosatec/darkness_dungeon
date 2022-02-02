@@ -10,20 +10,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class Knight extends SimplePlayer with Lighting, ObjectCollision {
-  final Vector2 initPosition;
   double attack = 25;
   double stamina = 100;
   double initSpeed = tileSize / 0.25;
-  async.Timer _timerStamina;
+  async.Timer? _timerStamina;
   bool containKey = false;
   bool showObserveEnemy = false;
 
-  Knight({
-    this.initPosition,
-  }) : super(
+  Knight(Vector2 position)
+      : super(
           animation: PlayerSpriteSheet.playerAnimations(),
           size: Vector2.all(tileSize),
-          position: initPosition,
+          position: position,
           life: 200,
           speed: tileSize / 0.25,
         ) {

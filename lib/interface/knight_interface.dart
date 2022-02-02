@@ -6,8 +6,7 @@ import 'package:darkness_dungeon/player/knight.dart';
 import 'package:flutter/material.dart';
 
 class KnightInterface extends GameInterface {
-  Sprite key;
-  KnightInterface();
+  late Sprite key;
 
   @override
   Future<void> onLoad() async {

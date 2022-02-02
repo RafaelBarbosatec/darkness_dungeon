@@ -32,11 +32,11 @@ class Door extends GameDecoration with ObjectCollision {
     super.update(dt);
     if (gameRef.player != null) {
       this.seeComponent(
-        gameRef.player,
+        gameRef.player!,
         observed: (player) {
           if (!open) {
-            Knight p = player;
-            if (p?.containKey == true) {
+            Knight p = player as Knight;
+            if (p.containKey == true) {
               open = true;
               gameRef.add(
                 AnimatedObjectOnce(
@@ -77,9 +77,11 @@ class Door extends GameDecoration with ObjectCollision {
               text: getString('door_without_key'),
             )
           ],
-          person: SpriteAnimationWidget(
-            animation: (gameRef.player as SimplePlayer).animation.idleRight,
-          ),
+          person: (gameRef.player as SimplePlayer?)
+                  ?.animation
+                  ?.idleRight
+                  ?.asWidget() ??
+              SizedBox.shrink(),
           personSayDirection: PersonSayDirection.LEFT,
         )
       ],

@@ -20,7 +20,7 @@ class MyLocalizationsDelegate extends LocalizationsDelegate<MyLocalizations> {
   @override
   bool shouldReload(MyLocalizationsDelegate old) => false;
 
-  Locale resolution(Locale locale, Iterable<Locale> supportedLocales) {
+  Locale resolution(Locale? locale, Iterable<Locale> supportedLocales) {
     for (Locale supportedLocale in supportedLocales) {
       if (locale != null) {
         if (supportedLocale.languageCode == locale.languageCode ||

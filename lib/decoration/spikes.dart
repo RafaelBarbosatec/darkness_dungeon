@@ -21,9 +21,11 @@ class Spikes extends GameDecoration with Sensor {
   @override
   void onContact(GameComponent collision) {
     if (collision is Player) {
-      if (this.animation.currentIndex == this.animation.frames.length - 1 ||
-          this.animation.currentIndex == this.animation.frames.length - 2) {
-        gameRef.player.receiveDamage(damage, 0);
+      if (this.animation?.currentIndex ==
+              (this.animation?.frames.length ?? 0) - 1 ||
+          this.animation?.currentIndex ==
+              (this.animation?.frames.length ?? 0) - 2) {
+        gameRef.player?.receiveDamage(damage, 0);
       }
     }
   }

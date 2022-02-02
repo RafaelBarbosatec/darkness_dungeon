@@ -16,14 +16,17 @@ class PotionLife extends GameDecoration with Sensor {
         );
 
   void _starTimeAddLife() {
-    async.Timer.periodic(Duration(milliseconds: 100), (timer) {
-      if (_lifeDistributed >= life) {
-        timer.cancel();
-      } else {
-        _lifeDistributed += 2;
-        gameRef.player.addLife(5);
-      }
-    });
+    async.Timer.periodic(
+      Duration(milliseconds: 100),
+      (timer) {
+        if (_lifeDistributed >= life) {
+          timer.cancel();
+        } else {
+          _lifeDistributed += 2;
+          gameRef.player?.addLife(5);
+        }
+      },
+    );
   }
 
   @override

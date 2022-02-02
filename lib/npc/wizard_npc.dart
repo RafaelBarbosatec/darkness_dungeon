@@ -22,10 +22,10 @@ class WizardNPC extends GameDecoration {
     super.update(dt);
     if (gameRef.player != null) {
       this.seeComponent(
-        gameRef.player,
+        gameRef.player!,
         observed: (player) {
           if (!_showConversation) {
-            gameRef.player.idle();
+            gameRef.player!.idle();
             _showConversation = true;
             _showEmote(emote: 'emote/emote_interregacao.png');
             _showIntroduction();

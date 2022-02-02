@@ -21,7 +21,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class Game extends StatefulWidget {
-  const Game({Key key}) : super(key: key);
+  const Game({Key? key}) : super(key: key);
 
   @override
   _GameState createState() => _GameState();
@@ -32,11 +32,11 @@ class _GameState extends State<Game>
     implements GameListener {
   bool showGameOver = false;
 
-  GameController _controller;
+  late GameController _controller;
 
   @override
   void initState() {
-    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance?.addObserver(this);
     _controller = GameController()..addListener(this);
     Sounds.playBackgroundSound();
     super.initState();
@@ -61,7 +61,7 @@ class _GameState extends State<Game>
 
   @override
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
+    WidgetsBinding.instance?.removeObserver(this);
     Sounds.stopBackgroundSound();
     super.dispose();
   }
@@ -106,7 +106,7 @@ class _GameState extends State<Game>
           ],
         ),
         player: Knight(
-          initPosition: Vector2(2 * tileSize, 3 * tileSize),
+          Vector2(2 * tileSize, 3 * tileSize),
         ),
         map: TiledWorldMap(
           'tiled/map.json',
@@ -128,14 +128,17 @@ class _GameState extends State<Game>
         ),
         interface: KnightInterface(),
         lightingColorGame: Colors.black.withOpacity(0.6),
-        background: BackgroundColorGame(Colors.grey[900]),
-        progress: Center(
-          child: Text(
-            "Loading...",
-            style: TextStyle(
-              color: Colors.white,
-              fontFamily: 'Normal',
-              fontSize: 20.0,
+        background: BackgroundColorGame(Colors.grey[900]!),
+        progress: Container(
+          color: Colors.black,
+          child: Center(
+            child: Text(
+              "Loading...",
+              style: TextStyle(
+                color: Colors.white,
+                fontFamily: 'Normal',
+                fontSize: 20.0,
+              ),
             ),
           ),
         ),
@@ -163,7 +166,7 @@ class _GameState extends State<Game>
 
   @override
   void updateGame() {
-    if (_controller.player != null && _controller.player.isDead) {
+    if (_controller.player != null && _controller.player?.isDead == true) {
       if (!showGameOver) {
         showGameOver = true;
         _showDialogGameOver();
