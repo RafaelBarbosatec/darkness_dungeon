@@ -23,8 +23,9 @@ Game developed for the purpose of testing the use of the Bonfire package!
 
 ## Used packages:
 Bonfire - [![pub package](https://img.shields.io/pub/v/bonfire.svg)](https://pub.dev/packages/bonfire)
-
-Flame - [![pub package](https://img.shields.io/pub/v/flame.svg)](https://pub.dev/packages/flame)
+flame_audio - [![pub package](https://img.shields.io/pub/v/flame_audio.svg)](https://pub.dev/packages/flame_audio)
+flame_splash_screen - [![pub package](https://img.shields.io/pub/v/flame_splash_screen.svg)](https://pub.dev/packages/flame_splash_screen)
+url_launcher - [![pub package](https://img.shields.io/pub/v/url_launcher.svg)](https://pub.dev/packages/url_launcher)
 
 ## Used sprites:
 
