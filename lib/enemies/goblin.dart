@@ -4,7 +4,6 @@ import 'package:darkness_dungeon/util/enemy_sprite_sheet.dart';
 import 'package:darkness_dungeon/util/functions.dart';
 import 'package:darkness_dungeon/util/game_sprite_sheet.dart';
 import 'package:darkness_dungeon/util/sounds.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Goblin extends SimpleEnemy with ObjectCollision {
@@ -15,8 +14,7 @@ class Goblin extends SimpleEnemy with ObjectCollision {
       : super(
           animation: EnemySpriteSheet.goblinAnimations(),
           position: initPosition,
-          width: tileSize * 0.8,
-          height: tileSize * 0.8,
+          size: Vector2.all(tileSize * 0.8),
           speed: tileSize / 0.35,
           life: 120,
         ) {
@@ -24,7 +22,7 @@ class Goblin extends SimpleEnemy with ObjectCollision {
       CollisionConfig(
         collisions: [
           CollisionArea.rectangle(
-            size: Size(
+            size: Vector2(
               valueByTileSize(7),
               valueByTileSize(7),
             ),
@@ -62,6 +60,7 @@ class Goblin extends SimpleEnemy with ObjectCollision {
       AnimatedObjectOnce(
         animation: GameSpriteSheet.smokeExplosion(),
         position: this.position,
+        size: Vector2(32, 32),
       ),
     );
     removeFromParent();
@@ -70,8 +69,7 @@ class Goblin extends SimpleEnemy with ObjectCollision {
 
   void execAttack() {
     this.simpleAttackMelee(
-      height: tileSize * 0.62,
-      width: tileSize * 0.62,
+      size: Vector2.all(tileSize * 0.62),
       damage: attack,
       interval: 800,
       animationDown: EnemySpriteSheet.enemyAttackEffectBottom(),

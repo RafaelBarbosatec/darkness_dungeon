@@ -71,11 +71,14 @@ class _MenuState extends State<Menu> {
             ),
             SizedBox(
               width: 150,
-              child: RaisedButton(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5.0),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  elevation: 3,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                  minimumSize: Size(100, 40), //////// HERE
                 ),
-                color: Color.fromARGB(255, 118, 82, 78),
                 child: Text(
                   getString('play_cap'),
                   style: TextStyle(

@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/enemies/boss.dart';
 import 'package:darkness_dungeon/util/custom_sprite_animation_widget.dart';
@@ -18,10 +16,9 @@ class Kid extends GameDecoration {
   Kid(
     Vector2 position,
   ) : super.withAnimation(
-          NpcSpriteSheet.kidIdleLeft(),
+          animation: NpcSpriteSheet.kidIdleLeft(),
           position: position,
-          width: valueByTileSize(8),
-          height: valueByTileSize(11),
+          size: Vector2(valueByTileSize(8), valueByTileSize(11)),
         );
 
   @override
@@ -32,11 +29,8 @@ class Kid extends GameDecoration {
         gameRef.enemies().firstWhere((e) => e is Boss);
       } catch (e) {
         conversationWithHero = true;
-        gameRef.camera.moveToPositionAnimated(
-          Offset(
-            this.position.center.dx,
-            this.position.center.dy,
-          ),
+        gameRef.camera.moveToTargetAnimated(
+          this,
           finish: () {
             _startConversation();
           },

@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/main.dart';
 import 'package:darkness_dungeon/util/custom_sprite_animation_widget.dart';
@@ -14,10 +12,9 @@ class WizardNPC extends GameDecoration {
   WizardNPC(
     Vector2 position,
   ) : super.withAnimation(
-          NpcSpriteSheet.wizardIdleLeft(),
+          animation: NpcSpriteSheet.wizardIdleLeft(),
           position: position,
-          width: tileSize * 0.8,
-          height: tileSize,
+          size: Vector2(tileSize * 0.8, tileSize),
         );
 
   @override
@@ -51,12 +48,8 @@ class WizardNPC extends GameDecoration {
           ),
         ),
         target: this,
-        positionFromTarget: Rect.fromLTWH(
-          18,
-          -6,
-          tileSize / 2,
-          tileSize / 2,
-        ).toVector2Rect(),
+        positionFromTarget: Vector2(18, -6),
+        size: Vector2(32, 32),
       ),
     );
   }

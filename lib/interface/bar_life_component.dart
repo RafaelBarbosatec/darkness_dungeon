@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/player/knight.dart';
 import 'package:flutter/material.dart';
@@ -19,8 +17,7 @@ class BarLifeComponent extends InterfaceComponent {
           id: 1,
           position: Vector2(20, 20),
           sprite: Sprite.load('health_ui.png'),
-          width: 120,
-          height: 40,
+          size: Vector2(120, 40),
         );
 
   @override

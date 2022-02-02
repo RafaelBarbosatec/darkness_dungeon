@@ -42,14 +42,14 @@ packages:
       name: audioplayers
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.19.1"
+    version: "0.20.1"
   bonfire:
     dependency: "direct main"
     description:
       name: bonfire
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.12.1"
+    version: "2.0.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -63,7 +63,7 @@ packages:
       name: characters
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.0"
+    version: "1.2.0"
   charcode:
     dependency: transitive
     description:
@@ -133,14 +133,14 @@ packages:
       name: flame
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0-releasecandidate.17"
+    version: "1.0.0"
   flame_audio:
     dependency: "direct main"
     description:
       name: flame_audio
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0-rc.1"
+    version: "1.0.0"
   flame_splash_screen:
     dependency: "direct main"
     description:
@@ -323,7 +323,7 @@ packages:
       name: plugin_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.2"
+    version: "2.1.2"
   pool:
     dependency: transitive
     description:
@@ -461,7 +461,7 @@ packages:
       name: tiledjsonreader
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.8"
+    version: "1.0.9"
   typed_data:
     dependency: transitive
     description:
@@ -475,28 +475,56 @@ packages:
       name: url_launcher
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.4.11"
+    version: "6.0.17"
+  url_launcher_android:
+    dependency: transitive
+    description:
+      name: url_launcher_android
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "6.0.13"
+  url_launcher_ios:
+    dependency: transitive
+    description:
+      name: url_launcher_ios
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "6.0.13"
+  url_launcher_linux:
+    dependency: transitive
+    description:
+      name: url_launcher_linux
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.2"
   url_launcher_macos:
     dependency: transitive
     description:
       name: url_launcher_macos
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.1+4"
+    version: "2.0.2"
   url_launcher_platform_interface:
     dependency: transitive
     description:
       name: url_launcher_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.6"
+    version: "2.0.5"
   url_launcher_web:
     dependency: transitive
     description:
       name: url_launcher_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.1+1"
+    version: "2.0.5"
+  url_launcher_windows:
+    dependency: transitive
+    description:
+      name: url_launcher_windows
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.2"
   uuid:
     dependency: transitive
     description:
@@ -510,7 +538,7 @@ packages:
       name: vector_math
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.0"
+    version: "2.1.1"
   vm_service:
     dependency: transitive
     description:

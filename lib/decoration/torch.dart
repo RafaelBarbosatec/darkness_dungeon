@@ -6,10 +6,9 @@ import 'package:flutter/material.dart';
 class Torch extends GameDecoration with Lighting {
   Torch(Vector2 position, {bool empty = false})
       : super.withAnimation(
-          empty ? null : GameSpriteSheet.torch(),
+          animation: empty ? null : GameSpriteSheet.torch(),
           position: position,
-          width: tileSize,
-          height: tileSize,
+          size: Vector2.all(tileSize),
         ) {
     setupLighting(
       LightingConfig(

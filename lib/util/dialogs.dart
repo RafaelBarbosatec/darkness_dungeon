@@ -1,6 +1,5 @@
 import 'package:darkness_dungeon/menu.dart';
 import 'package:darkness_dungeon/util/localization/strings_location.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Dialogs {
@@ -20,8 +19,11 @@ class Dialogs {
               SizedBox(
                 height: 10.0,
               ),
-              RaisedButton(
-                color: Colors.transparent,
+              ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all(Colors.transparent),
+                ),
                 onPressed: playAgain,
                 child: Text(
                   getString('play_again_cap'),
@@ -73,10 +75,15 @@ class Dialogs {
                 SizedBox(
                   height: 30.0,
                 ),
-                RaisedButton(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5.0)),
-                  color: Color.fromARGB(255, 118, 82, 78),
+                ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(
+                        Color.fromARGB(255, 118, 82, 78)),
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0)),
+                    ),
+                  ),
                   child: Text("OK",
                       style: TextStyle(
                           color: Colors.white,
