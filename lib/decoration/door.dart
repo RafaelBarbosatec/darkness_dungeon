@@ -11,7 +11,7 @@ class Door extends GameDecoration with ObjectCollision {
 
   Door(Vector2 position, Vector2 size)
       : super.withSprite(
-          sprite: Sprite.load('itens/door_closed.png'),
+          sprite: Sprite.load('items/door_closed.png'),
           position: position,
           size: size,
         ) {

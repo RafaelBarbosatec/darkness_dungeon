@@ -12,10 +12,10 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
-  bonfire: ^2.1.0
-  flame_audio: ^1.0.0
+  bonfire: ^2.4.2
+  flame_audio: ^1.0.2
   flame_splash_screen: ^0.1.0
-  url_launcher: ^6.0.17
+  url_launcher: ^6.1.0
 
 
 dev_dependencies:
@@ -48,7 +48,7 @@ flutter:
     - assets/images/enemy/mini_boss/
     - assets/images/enemy/boss/
     - assets/images/player/
-    - assets/images/itens/
+    - assets/images/items/
     - assets/images/tiled/
     - assets/audio/
     - resources/lang/en.json

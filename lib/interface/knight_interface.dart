@@ -10,7 +10,7 @@ class KnightInterface extends GameInterface {
 
   @override
   Future<void> onLoad() async {
-    key = await Sprite.load('itens/key_silver.png');
+    key = await Sprite.load('items/key_silver.png');
     add(BarLifeComponent());
     return super.onLoad();
   }
