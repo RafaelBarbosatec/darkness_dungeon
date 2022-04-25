@@ -85,7 +85,7 @@ class Imp extends SimpleEnemy with ObjectCollision {
   }
 
   @override
-  void receiveDamage(double damage, dynamic id) {
+  void receiveDamage(AttackFromEnum attacker, double damage, dynamic id) {
     this.showDamage(
       damage,
       config: TextStyle(
@@ -94,6 +94,6 @@ class Imp extends SimpleEnemy with ObjectCollision {
         fontFamily: 'Normal',
       ),
     );
-    super.receiveDamage(damage, id);
+    super.receiveDamage(attacker, damage, id);
   }
 }

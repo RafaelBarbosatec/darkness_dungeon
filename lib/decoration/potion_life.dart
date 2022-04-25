@@ -10,7 +10,7 @@ class PotionLife extends GameDecoration with Sensor {
 
   PotionLife(this.initPosition, this.life)
       : super.withSprite(
-          sprite: Sprite.load('itens/potion_red.png'),
+          sprite: Sprite.load('items/potion_red.png'),
           position: initPosition,
           size: Vector2(tileSize, tileSize),
         );

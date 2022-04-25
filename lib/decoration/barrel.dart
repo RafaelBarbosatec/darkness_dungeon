@@ -4,7 +4,7 @@ import 'package:darkness_dungeon/main.dart';
 class Barrel extends GameDecoration with ObjectCollision {
   Barrel(Vector2 position)
       : super.withSprite(
-          sprite: Sprite.load('itens/barrel.png'),
+          sprite: Sprite.load('items/barrel.png'),
           position: position,
           size: Vector2(tileSize, tileSize),
         ) {

@@ -122,7 +122,7 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision {
       damage: 10,
       speed: initSpeed * (tileSize / 32),
       enableDiagonal: false,
-      destroy: () {
+      onDestroy: () {
         Sounds.explosion();
       },
       collision: CollisionConfig(
@@ -184,7 +184,7 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision {
   }
 
   @override
-  void receiveDamage(double damage, dynamic id) {
+  void receiveDamage(AttackFromEnum attacker, double damage, dynamic id) {
     if (isDead) return;
     this.showDamage(
       damage,
@@ -194,7 +194,7 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision {
         fontFamily: 'Normal',
       ),
     );
-    super.receiveDamage(damage, id);
+    super.receiveDamage(attacker, damage, id);
   }
 
   void _showEmote({String emote = 'emote/emote_exclamacao.png'}) {

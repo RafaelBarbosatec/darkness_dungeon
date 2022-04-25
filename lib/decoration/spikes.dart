@@ -25,7 +25,7 @@ class Spikes extends GameDecoration with Sensor {
               (this.animation?.frames.length ?? 0) - 1 ||
           this.animation?.currentIndex ==
               (this.animation?.frames.length ?? 0) - 2) {
-        gameRef.player?.receiveDamage(damage, 0);
+        gameRef.player?.receiveDamage(AttackFromEnum.ENEMY, damage, 0);
       }
     }
   }

@@ -5,7 +5,7 @@ import 'package:darkness_dungeon/player/knight.dart';
 class DoorKey extends GameDecoration with Sensor {
   DoorKey(Vector2 position)
       : super.withSprite(
-          sprite: Sprite.load('itens/key_silver.png'),
+          sprite: Sprite.load('items/key_silver.png'),
           position: position,
           size: Vector2(tileSize, tileSize),
         );

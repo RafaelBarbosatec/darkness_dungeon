@@ -2,7 +2,7 @@ import 'package:bonfire/bonfire.dart';
 
 class GameSpriteSheet {
   static Future<SpriteAnimation> openTheDoor() => SpriteAnimation.load(
-        'itens/door_open.png',
+        'items/door_open.png',
         SpriteAnimationData.sequenced(
           amount: 14,
           stepTime: 0.1,
@@ -10,7 +10,7 @@ class GameSpriteSheet {
         ),
       );
   static Future<SpriteAnimation> spikes() => SpriteAnimation.load(
-        'itens/spikes.png',
+        'items/spikes.png',
         SpriteAnimationData.sequenced(
           amount: 10,
           stepTime: 0.1,
@@ -18,7 +18,7 @@ class GameSpriteSheet {
         ),
       );
   static Future<SpriteAnimation> torch() => SpriteAnimation.load(
-        'itens/torch_spritesheet.png',
+        'items/torch_spritesheet.png',
         SpriteAnimationData.sequenced(
           amount: 6,
           stepTime: 0.1,
