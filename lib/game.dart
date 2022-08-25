@@ -21,47 +21,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class Game extends StatefulWidget {
+  static bool useJoystick = true;
   const Game({Key? key}) : super(key: key);
 
   @override
   _GameState createState() => _GameState();
 }
 
-class _GameState extends State<Game>
-    with WidgetsBindingObserver
-    implements GameListener {
+class _GameState extends State<Game> implements GameListener {
   bool showGameOver = false;
 
   late GameController _controller;
 
   @override
   void initState() {
-    WidgetsBinding.instance?.addObserver(this);
     _controller = GameController()..addListener(this);
     Sounds.playBackgroundSound();
     super.initState();
   }
 
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    switch (state) {
-      case AppLifecycleState.resumed:
-        Sounds.resumeBackgroundSound();
-        break;
-      case AppLifecycleState.inactive:
-        break;
-      case AppLifecycleState.paused:
-        Sounds.pauseBackgroundSound();
-        break;
-      case AppLifecycleState.detached:
-        Sounds.stopBackgroundSound();
-        break;
-    }
-  }
-
-  @override
   void dispose() {
-    WidgetsBinding.instance?.removeObserver(this);
     Sounds.stopBackgroundSound();
     super.dispose();
   }
@@ -71,46 +51,53 @@ class _GameState extends State<Game>
     Size sizeScreen = MediaQuery.of(context).size;
     tileSize = max(sizeScreen.height, sizeScreen.width) / 15;
 
-    return Material(
-      color: Colors.transparent,
-      child: BonfireTiledWidget(
-        gameController: _controller,
-        joystick: Joystick(
-          keyboardConfig: KeyboardConfig(
-            keyboardDirectionalType: KeyboardDirectionalType.wasdAndArrows,
-            acceptedKeys: [
-              LogicalKeyboardKey.space,
-            ],
-          ),
-          directional: JoystickDirectional(
-            spriteBackgroundDirectional: Sprite.load('joystick_background.png'),
-            spriteKnobDirectional: Sprite.load('joystick_knob.png'),
-            size: 100,
-            isFixed: false,
-          ),
-          actions: [
-            JoystickAction(
-              actionId: 0,
-              sprite: Sprite.load('joystick_atack.png'),
-              spritePressed: Sprite.load('joystick_atack_selected.png'),
-              size: 80,
-              margin: EdgeInsets.only(bottom: 50, right: 50),
-            ),
-            JoystickAction(
-              actionId: 1,
-              sprite: Sprite.load('joystick_atack_range.png'),
-              spritePressed: Sprite.load('joystick_atack_range_selected.png'),
-              size: 50,
-              margin: EdgeInsets.only(bottom: 50, right: 160),
-            )
+    var joystick = Joystick(
+      directional: JoystickDirectional(
+        spriteBackgroundDirectional: Sprite.load('joystick_background.png'),
+        spriteKnobDirectional: Sprite.load('joystick_knob.png'),
+        size: 100,
+        isFixed: false,
+      ),
+      actions: [
+        JoystickAction(
+          actionId: 0,
+          sprite: Sprite.load('joystick_atack.png'),
+          spritePressed: Sprite.load('joystick_atack_selected.png'),
+          size: 80,
+          margin: EdgeInsets.only(bottom: 50, right: 50),
+        ),
+        JoystickAction(
+          actionId: 1,
+          sprite: Sprite.load('joystick_atack_range.png'),
+          spritePressed: Sprite.load('joystick_atack_range_selected.png'),
+          size: 50,
+          margin: EdgeInsets.only(bottom: 50, right: 160),
+        )
+      ],
+    );
+    if (!Game.useJoystick) {
+      joystick = Joystick(
+        keyboardConfig: KeyboardConfig(
+          keyboardDirectionalType: KeyboardDirectionalType.wasdAndArrows,
+          acceptedKeys: [
+            LogicalKeyboardKey.space,
+            LogicalKeyboardKey.keyZ,
           ],
         ),
+      );
+    }
+
+    return Material(
+      color: Colors.transparent,
+      child: BonfireWidget(
+        gameController: _controller,
+        joystick: joystick,
         player: Knight(
           Vector2(2 * tileSize, 3 * tileSize),
         ),
-        map: TiledWorldMap(
+        map: WorldMapByTiled(
           'tiled/map.json',
-          forceTileSize: Size(tileSize, tileSize),
+          forceTileSize: Vector2(tileSize, tileSize),
           objectsBuilder: {
             'door': (p) => Door(p.position, p.size),
             'torch': (p) => Torch(p.position),

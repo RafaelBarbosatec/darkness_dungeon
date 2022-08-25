@@ -79,9 +79,6 @@ class MiniBoss extends SimpleEnemy with ObjectCollision {
   void execAttackRange() {
     this.simpleAttackRange(
       animationRight: GameSpriteSheet.fireBallAttackRight(),
-      animationLeft: GameSpriteSheet.fireBallAttackLeft(),
-      animationUp: GameSpriteSheet.fireBallAttackTop(),
-      animationDown: GameSpriteSheet.fireBallAttackBottom(),
       animationDestroy: GameSpriteSheet.fireBallExplosion(),
       size: Vector2.all(tileSize * 0.65),
       damage: attack,
@@ -112,10 +109,7 @@ class MiniBoss extends SimpleEnemy with ObjectCollision {
       size: Vector2.all(tileSize * 0.62),
       damage: attack / 3,
       interval: 300,
-      animationDown: EnemySpriteSheet.enemyAttackEffectBottom(),
-      animationLeft: EnemySpriteSheet.enemyAttackEffectLeft(),
       animationRight: EnemySpriteSheet.enemyAttackEffectRight(),
-      animationUp: EnemySpriteSheet.enemyAttackEffectTop(),
       execute: () {
         Sounds.attackEnemyMelee();
       },

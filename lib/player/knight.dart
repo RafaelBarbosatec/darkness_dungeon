@@ -65,6 +65,11 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision {
       actionAttack();
     }
 
+    if (event.id == LogicalKeyboardKey.keyZ.keyId &&
+        event.event == ActionEvent.DOWN) {
+      actionAttackRange();
+    }
+
     if (event.id == 1 && event.event == ActionEvent.DOWN) {
       actionAttackRange();
     }
@@ -96,10 +101,7 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision {
     decrementStamina(15);
     this.simpleAttackMelee(
       damage: attack,
-      animationDown: PlayerSpriteSheet.attackEffectBottom(),
-      animationLeft: PlayerSpriteSheet.attackEffectLeft(),
       animationRight: PlayerSpriteSheet.attackEffectRight(),
-      animationUp: PlayerSpriteSheet.attackEffectTop(),
       size: Vector2.all(tileSize),
     );
   }

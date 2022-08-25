@@ -13,6 +13,7 @@ import 'package:darkness_dungeon/util/npc_sprite_sheet.dart';
 import 'package:darkness_dungeon/util/player_sprite_sheet.dart';
 import 'package:darkness_dungeon/util/sounds.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class Boss extends SimpleEnemy with ObjectCollision {
   final Vector2 initPosition;
@@ -170,10 +171,7 @@ class Boss extends SimpleEnemy with ObjectCollision {
       size: Vector2.all(tileSize * 0.62),
       damage: attack,
       interval: 1500,
-      animationDown: EnemySpriteSheet.enemyAttackEffectBottom(),
-      animationLeft: EnemySpriteSheet.enemyAttackEffectLeft(),
       animationRight: EnemySpriteSheet.enemyAttackEffectRight(),
-      animationUp: EnemySpriteSheet.enemyAttackEffectTop(),
       execute: () {
         Sounds.attackEnemyMelee();
       },
@@ -228,45 +226,53 @@ class Boss extends SimpleEnemy with ObjectCollision {
 
   void _showConversation() {
     Sounds.interaction();
-    TalkDialog.show(gameRef.context, [
-      Say(
-        text: [TextSpan(text: getString('talk_kid_1'))],
-        person: CustomSpriteAnimationWidget(
-          animation: NpcSpriteSheet.kidIdleLeft(),
+    TalkDialog.show(
+      gameRef.context,
+      [
+        Say(
+          text: [TextSpan(text: getString('talk_kid_1'))],
+          person: CustomSpriteAnimationWidget(
+            animation: NpcSpriteSheet.kidIdleLeft(),
+          ),
+          personSayDirection: PersonSayDirection.RIGHT,
         ),
-        personSayDirection: PersonSayDirection.RIGHT,
-      ),
-      Say(
-        text: [TextSpan(text: getString('talk_boss_1'))],
-        person: CustomSpriteAnimationWidget(
-          animation: EnemySpriteSheet.bossIdleRight(),
+        Say(
+          text: [TextSpan(text: getString('talk_boss_1'))],
+          person: CustomSpriteAnimationWidget(
+            animation: EnemySpriteSheet.bossIdleRight(),
+          ),
+          personSayDirection: PersonSayDirection.LEFT,
         ),
-        personSayDirection: PersonSayDirection.LEFT,
-      ),
-      Say(
-        text: [TextSpan(text: getString('talk_player_3'))],
-        person: CustomSpriteAnimationWidget(
-          animation: PlayerSpriteSheet.idleRight(),
+        Say(
+          text: [TextSpan(text: getString('talk_player_3'))],
+          person: CustomSpriteAnimationWidget(
+            animation: PlayerSpriteSheet.idleRight(),
+          ),
+          personSayDirection: PersonSayDirection.LEFT,
         ),
-        personSayDirection: PersonSayDirection.LEFT,
-      ),
-      Say(
-        text: [TextSpan(text: getString('talk_boss_2'))],
-        person: CustomSpriteAnimationWidget(
-          animation: EnemySpriteSheet.bossIdleRight(),
+        Say(
+          text: [TextSpan(text: getString('talk_boss_2'))],
+          person: CustomSpriteAnimationWidget(
+            animation: EnemySpriteSheet.bossIdleRight(),
+          ),
+          personSayDirection: PersonSayDirection.RIGHT,
         ),
-        personSayDirection: PersonSayDirection.RIGHT,
-      ),
-    ], onFinish: () {
-      Sounds.interaction();
-      addInitChild();
-      Future.delayed(Duration(milliseconds: 500), () {
-        gameRef.camera.moveToPlayerAnimated();
-        Sounds.playBackgroundBoosSound();
-      });
-    }, onChangeTalk: (index) {
-      Sounds.interaction();
-    });
+      ],
+      onFinish: () {
+        Sounds.interaction();
+        addInitChild();
+        Future.delayed(Duration(milliseconds: 500), () {
+          gameRef.camera.moveToPlayerAnimated();
+          Sounds.playBackgroundBoosSound();
+        });
+      },
+      onChangeTalk: (index) {
+        Sounds.interaction();
+      },
+      logicalKeyboardKeysToNext: [
+        LogicalKeyboardKey.space,
+      ],
+    );
   }
 
   void addInitChild() {
@@ -282,8 +288,10 @@ class Boss extends SimpleEnemy with ObjectCollision {
         size: Vector2(32, 32),
       ),
     );
-    gameRef.add(Imp(
-      Vector2(x, y),
-    ));
+    gameRef.add(
+      Imp(
+        Vector2(x, y),
+      ),
+    );
   }
 }

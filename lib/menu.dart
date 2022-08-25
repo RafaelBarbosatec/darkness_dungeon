@@ -7,6 +7,7 @@ import 'package:darkness_dungeon/util/enemy_sprite_sheet.dart';
 import 'package:darkness_dungeon/util/localization/strings_location.dart';
 import 'package:darkness_dungeon/util/player_sprite_sheet.dart';
 import 'package:darkness_dungeon/util/sounds.dart';
+import 'package:darkness_dungeon/widgets/custom_radio.dart';
 import 'package:flame_splash_screen/flame_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -47,65 +48,102 @@ class _MenuState extends State<Menu> {
     return Scaffold(
       backgroundColor: Colors.black,
       body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Text(
-              "Darkness Dungeon",
-              style: TextStyle(
-                  color: Colors.white, fontFamily: 'Normal', fontSize: 30.0),
-            ),
-            SizedBox(
-              height: 20.0,
-            ),
-            if (sprites.isNotEmpty)
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text(
+                "Darkness Dungeon",
+                style: TextStyle(
+                    color: Colors.white, fontFamily: 'Normal', fontSize: 30.0),
+              ),
               SizedBox(
-                height: 100,
-                width: 100,
-                child: CustomSpriteAnimationWidget(
-                  animation: sprites[currentPosition],
+                height: 20.0,
+              ),
+              if (sprites.isNotEmpty)
+                SizedBox(
+                  height: 100,
+                  width: 100,
+                  child: CustomSpriteAnimationWidget(
+                    animation: sprites[currentPosition],
+                  ),
+                ),
+              SizedBox(
+                height: 30.0,
+              ),
+              SizedBox(
+                width: 150,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    elevation: 3,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    minimumSize: Size(100, 40), //////// HERE
+                  ),
+                  child: Text(
+                    getString('play_cap'),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Normal',
+                      fontSize: 17.0,
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Game()),
+                    );
+                  },
                 ),
               ),
-            SizedBox(
-              height: 30.0,
-            ),
-            SizedBox(
-              width: 150,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  elevation: 3,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  minimumSize: Size(100, 40), //////// HERE
-                ),
-                child: Text(
-                  getString('play_cap'),
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'Normal',
-                    fontSize: 17.0,
-                  ),
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Game()),
-                  );
+              SizedBox(
+                height: 20,
+              ),
+              DefectorRadio<bool>(
+                value: false,
+                label: 'Keyboard',
+                group: Game.useJoystick,
+                onChange: (value) {
+                  setState(() {
+                    Game.useJoystick = value;
+                  });
                 },
               ),
-            ),
-          ],
+              SizedBox(
+                height: 10,
+              ),
+              DefectorRadio<bool>(
+                value: true,
+                group: Game.useJoystick,
+                label: 'Joystick',
+                onChange: (value) {
+                  setState(() {
+                    Game.useJoystick = value;
+                  });
+                },
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              if (!Game.useJoystick)
+                SizedBox(
+                  height: 80,
+                  width: 200,
+                  child: Sprite.load('keyboard_tip.png').asWidget(),
+                ),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: SafeArea(
         child: Container(
           height: 20,
           margin: EdgeInsets.all(20.0),
-          child: Stack(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Align(
-                alignment: Alignment.centerLeft,
+              Flexible(
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
@@ -133,8 +171,7 @@ class _MenuState extends State<Menu> {
                   ],
                 ),
               ),
-              Align(
-                alignment: Alignment.bottomRight,
+              Flexible(
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[

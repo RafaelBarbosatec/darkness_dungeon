@@ -1,5 +1,5 @@
 PODS:
-  - audioplayers (0.0.1):
+  - audioplayers_darwin (0.0.1):
     - FlutterMacOS
   - FlutterMacOS (1.0.0)
   - path_provider_macos (0.0.1):
@@ -8,14 +8,14 @@ PODS:
     - FlutterMacOS
 
 DEPENDENCIES:
-  - audioplayers (from `Flutter/ephemeral/.symlinks/plugins/audioplayers/macos`)
+  - audioplayers_darwin (from `Flutter/ephemeral/.symlinks/plugins/audioplayers_darwin/macos`)
   - FlutterMacOS (from `Flutter/ephemeral`)
   - path_provider_macos (from `Flutter/ephemeral/.symlinks/plugins/path_provider_macos/macos`)
   - url_launcher_macos (from `Flutter/ephemeral/.symlinks/plugins/url_launcher_macos/macos`)
 
 EXTERNAL SOURCES:
-  audioplayers:
-    :path: Flutter/ephemeral/.symlinks/plugins/audioplayers/macos
+  audioplayers_darwin:
+    :path: Flutter/ephemeral/.symlinks/plugins/audioplayers_darwin/macos
   FlutterMacOS:
     :path: Flutter/ephemeral
   path_provider_macos:
@@ -24,11 +24,11 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/url_launcher_macos/macos
 
 SPEC CHECKSUMS:
-  audioplayers: 8b48e22684b6e0d9df143b2d1bbd61dca9dab6b4
+  audioplayers_darwin: dcad41de4fbd0099cb3749f7ab3b0cb8f70b810c
   FlutterMacOS: 57701585bf7de1b3fc2bb61f6378d73bbdea8424
-  path_provider_macos: a0a3fd666cb7cd0448e936fb4abad4052961002b
-  url_launcher_macos: 76867a28e24e0b6b98bfd65f157b64108e6d477a
+  path_provider_macos: 160cab0d5461f0c0e02995469a98f24bdb9a3f1f
+  url_launcher_macos: 597e05b8e514239626bcf4a850fcf9ef5c856ec3
 
 PODFILE CHECKSUM: 6eac6b3292e5142cfc23bdeb71848a40ec51c14c
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.11.3

@@ -6,6 +6,7 @@ import 'package:darkness_dungeon/util/npc_sprite_sheet.dart';
 import 'package:darkness_dungeon/util/player_sprite_sheet.dart';
 import 'package:darkness_dungeon/util/sounds.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class WizardNPC extends GameDecoration {
   bool _showConversation = false;
@@ -56,48 +57,56 @@ class WizardNPC extends GameDecoration {
 
   void _showIntroduction() {
     Sounds.interaction();
-    TalkDialog.show(gameRef.context, [
-      Say(
-        text: [
-          TextSpan(text: getString('talk_wizard_1')),
-        ],
-        person: CustomSpriteAnimationWidget(
-          animation: NpcSpriteSheet.wizardIdleLeft(),
+    TalkDialog.show(
+      gameRef.context,
+      [
+        Say(
+          text: [
+            TextSpan(text: getString('talk_wizard_1')),
+          ],
+          person: CustomSpriteAnimationWidget(
+            animation: NpcSpriteSheet.wizardIdleLeft(),
+          ),
+          personSayDirection: PersonSayDirection.RIGHT,
         ),
-        personSayDirection: PersonSayDirection.RIGHT,
-      ),
-      Say(
-        text: [TextSpan(text: getString('talk_player_1'))],
-        person: CustomSpriteAnimationWidget(
-          animation: PlayerSpriteSheet.idleRight(),
+        Say(
+          text: [TextSpan(text: getString('talk_player_1'))],
+          person: CustomSpriteAnimationWidget(
+            animation: PlayerSpriteSheet.idleRight(),
+          ),
+          personSayDirection: PersonSayDirection.LEFT,
         ),
-        personSayDirection: PersonSayDirection.LEFT,
-      ),
-      Say(
-        text: [TextSpan(text: getString('talk_wizard_2'))],
-        person: CustomSpriteAnimationWidget(
-          animation: NpcSpriteSheet.wizardIdleLeft(),
+        Say(
+          text: [TextSpan(text: getString('talk_wizard_2'))],
+          person: CustomSpriteAnimationWidget(
+            animation: NpcSpriteSheet.wizardIdleLeft(),
+          ),
+          personSayDirection: PersonSayDirection.RIGHT,
         ),
-        personSayDirection: PersonSayDirection.RIGHT,
-      ),
-      Say(
-        text: [TextSpan(text: getString('talk_player_2'))],
-        person: CustomSpriteAnimationWidget(
-          animation: PlayerSpriteSheet.idleRight(),
+        Say(
+          text: [TextSpan(text: getString('talk_player_2'))],
+          person: CustomSpriteAnimationWidget(
+            animation: PlayerSpriteSheet.idleRight(),
+          ),
+          personSayDirection: PersonSayDirection.LEFT,
         ),
-        personSayDirection: PersonSayDirection.LEFT,
-      ),
-      Say(
-        text: [TextSpan(text: getString('talk_wizard_3'))],
-        person: CustomSpriteAnimationWidget(
-          animation: NpcSpriteSheet.wizardIdleLeft(),
+        Say(
+          text: [TextSpan(text: getString('talk_wizard_3'))],
+          person: CustomSpriteAnimationWidget(
+            animation: NpcSpriteSheet.wizardIdleLeft(),
+          ),
+          personSayDirection: PersonSayDirection.RIGHT,
         ),
-        personSayDirection: PersonSayDirection.RIGHT,
-      ),
-    ], onChangeTalk: (index) {
-      Sounds.interaction();
-    }, onFinish: () {
-      Sounds.interaction();
-    });
+      ],
+      onChangeTalk: (index) {
+        Sounds.interaction();
+      },
+      onFinish: () {
+        Sounds.interaction();
+      },
+      logicalKeyboardKeysToNext: [
+        LogicalKeyboardKey.space,
+      ],
+    );
   }
 }

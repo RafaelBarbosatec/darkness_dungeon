@@ -8,6 +8,7 @@ import 'package:darkness_dungeon/util/npc_sprite_sheet.dart';
 import 'package:darkness_dungeon/util/player_sprite_sheet.dart';
 import 'package:darkness_dungeon/util/sounds.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class Kid extends GameDecoration {
   bool conversationWithHero = false;
@@ -41,28 +42,36 @@ class Kid extends GameDecoration {
 
   void _startConversation() {
     Sounds.interaction();
-    TalkDialog.show(gameRef.context, [
-      Say(
-        text: [TextSpan(text: getString('talk_kid_2'))],
-        person: CustomSpriteAnimationWidget(
-          animation: NpcSpriteSheet.kidIdleLeft(),
+    TalkDialog.show(
+      gameRef.context,
+      [
+        Say(
+          text: [TextSpan(text: getString('talk_kid_2'))],
+          person: CustomSpriteAnimationWidget(
+            animation: NpcSpriteSheet.kidIdleLeft(),
+          ),
+          personSayDirection: PersonSayDirection.RIGHT,
         ),
-        personSayDirection: PersonSayDirection.RIGHT,
-      ),
-      Say(
-        text: [TextSpan(text: getString('talk_player_4'))],
-        person: CustomSpriteAnimationWidget(
-          animation: PlayerSpriteSheet.idleRight(),
+        Say(
+          text: [TextSpan(text: getString('talk_player_4'))],
+          person: CustomSpriteAnimationWidget(
+            animation: PlayerSpriteSheet.idleRight(),
+          ),
+          personSayDirection: PersonSayDirection.LEFT,
         ),
-        personSayDirection: PersonSayDirection.LEFT,
-      ),
-    ], onFinish: () {
-      Sounds.interaction();
-      gameRef.camera.moveToPlayerAnimated(finish: () {
-        Dialogs.showCongratulations(gameRef.context);
-      });
-    }, onChangeTalk: (index) {
-      Sounds.interaction();
-    });
+      ],
+      onFinish: () {
+        Sounds.interaction();
+        gameRef.camera.moveToPlayerAnimated(finish: () {
+          Dialogs.showCongratulations(gameRef.context);
+        });
+      },
+      onChangeTalk: (index) {
+        Sounds.interaction();
+      },
+      logicalKeyboardKeysToNext: [
+        LogicalKeyboardKey.space,
+      ],
+    );
   }
 }
