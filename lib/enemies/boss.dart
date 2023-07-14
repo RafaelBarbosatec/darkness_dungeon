@@ -15,7 +15,7 @@ import 'package:darkness_dungeon/util/sounds.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class Boss extends SimpleEnemy with ObjectCollision {
+class Boss extends SimpleEnemy with ObjectCollision, UseBarLife {
   final Vector2 initPosition;
   double attack = 40;
 
@@ -45,9 +45,7 @@ class Boss extends SimpleEnemy with ObjectCollision {
 
   @override
   void render(Canvas canvas) {
-    this.drawDefaultLifeBar(canvas);
     drawBarSummonEnemy(canvas);
-
     super.render(canvas);
   }
 
@@ -125,16 +123,9 @@ class Boss extends SimpleEnemy with ObjectCollision {
           positionExplosion = this.position.translate(0, height * 2);
           break;
         case Direction.upLeft:
-          // TODO: Handle this case.
-          break;
         case Direction.upRight:
-          // TODO: Handle this case.
-          break;
         case Direction.downLeft:
-          // TODO: Handle this case.
-          break;
         case Direction.downRight:
-          // TODO: Handle this case.
           break;
         default:
       }

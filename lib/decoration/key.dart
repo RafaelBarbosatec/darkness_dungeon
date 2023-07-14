@@ -17,9 +17,4 @@ class DoorKey extends GameDecoration with Sensor {
       removeFromParent();
     }
   }
-  
-  @override
-  void onContactExit(GameComponent component) {
-    // TODO: implement onContactExit
-  }
 }

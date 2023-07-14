@@ -6,7 +6,7 @@ import 'package:darkness_dungeon/util/game_sprite_sheet.dart';
 import 'package:darkness_dungeon/util/sounds.dart';
 import 'package:flutter/material.dart';
 
-class MiniBoss extends SimpleEnemy with ObjectCollision {
+class MiniBoss extends SimpleEnemy with ObjectCollision,UseBarLife {
   final Vector2 initPosition;
   double attack = 50;
   bool _seePlayerClose = false;
@@ -29,12 +29,6 @@ class MiniBoss extends SimpleEnemy with ObjectCollision {
         ],
       ),
     );
-  }
-
-  @override
-  void render(Canvas canvas) {
-    this.drawDefaultLifeBar(canvas);
-    super.render(canvas);
   }
 
   @override

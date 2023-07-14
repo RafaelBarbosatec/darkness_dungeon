@@ -6,7 +6,7 @@ import 'package:darkness_dungeon/util/game_sprite_sheet.dart';
 import 'package:darkness_dungeon/util/sounds.dart';
 import 'package:flutter/material.dart';
 
-class Goblin extends SimpleEnemy with ObjectCollision {
+class Goblin extends SimpleEnemy with ObjectCollision, UseBarLife {
   final Vector2 initPosition;
   double attack = 25;
 
@@ -31,15 +31,6 @@ class Goblin extends SimpleEnemy with ObjectCollision {
         ],
       ),
     );
-  }
-
-  @override
-  void render(Canvas canvas) {
-    this.drawDefaultLifeBar(
-      canvas,
-      borderRadius: BorderRadius.circular(2),
-    );
-    super.render(canvas);
   }
 
   @override
