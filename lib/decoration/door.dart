@@ -24,47 +24,6 @@ class Door extends GameDecoration {
     return super.onLoad();
   }
 
-  // @override
-  // void update(double dt) {
-  //   super.update(dt);
-  //   if (gameRef.player != null) {
-  //     this.seeComponent(
-  //       gameRef.player!,
-  //       observed: (player) {
-  //         if (!open) {
-  //           Knight p = player as Knight;
-  //           if (p.containKey == true) {
-  //             open = true;
-
-  //             gameRef.add(
-  //               AnimatedObjectOnce(
-  //                 animation: GameSpriteSheet.openTheDoor(),
-  //                 position: this.position,
-  //                 onFinish: () {
-  //                   p.containKey = false;
-  //                 },
-  //                 size: Vector2(32, 32),
-  //               ),
-  //             );
-  //             Future.delayed(Duration(milliseconds: 200), () {
-  //               removeFromParent();
-  //             });
-  //           } else {
-  //             if (!showDialog) {
-  //               showDialog = true;
-  //               _showIntroduction();
-  //             }
-  //           }
-  //         }
-  //       },
-  //       notObserved: () {
-  //         showDialog = false;
-  //       },
-  //       radiusVision: (1 * tileSize),
-  //     );
-  //   }
-  // }
-
   @override
   void onCollisionStart(
       Set<Vector2> intersectionPoints, PositionComponent other) {
@@ -77,6 +36,9 @@ class Door extends GameDecoration {
           playSpriteAnimationOnce(
             GameSpriteSheet.openTheDoor(),
             onFinish: removeFromParent,
+            onStart: () {
+              sprite = null;
+            },
           );
         } else {
           if (!showDialog) {
@@ -94,11 +56,7 @@ class Door extends GameDecoration {
       gameRef.context,
       [
         Say(
-          text: [
-            TextSpan(
-              text: getString('door_without_key'),
-            )
-          ],
+          text: [TextSpan(text: getString('door_without_key'))],
           person: (gameRef.player as SimplePlayer?)
                   ?.animation
                   ?.idleRight
