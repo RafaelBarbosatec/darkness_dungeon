@@ -57,7 +57,7 @@ class WizardNPC extends SimpleNpc {
         loop: false,
         target: this,
         offset: Vector2(18, -6),
-        size: Vector2(32, 32),
+        size: Vector2.all(tileSize / 2),
       ),
     );
   }
