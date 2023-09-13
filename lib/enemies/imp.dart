@@ -15,7 +15,7 @@ class Imp extends SimpleEnemy with BlockMovementCollision, UseBarLife {
           animation: EnemySpriteSheet.impAnimations(),
           position: initPosition,
           size: Vector2.all(tileSize * 0.8),
-          speed: tileSize * 1.8,
+          speed: tileSize * 2,
           life: 80,
         );
 

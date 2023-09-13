@@ -100,10 +100,11 @@ packages:
   bonfire:
     dependency: "direct main"
     description:
-      name: bonfire
-      sha256: ca5a4962b4e924fb27928d5171adda22773f8d21e2d7282ae2e0164c18cda32c
-      url: "https://pub.dev"
-    source: hosted
+      path: "."
+      ref: "6a16d48712bf0ca121498c146e8ffa82cbcdb73b"
+      resolved-ref: "6a16d48712bf0ca121498c146e8ffa82cbcdb73b"
+      url: "https://github.com/RafaelBarbosatec/bonfire.git"
+    source: git
     version: "3.0.0-beta.13"
   boolean_selector:
     dependency: transitive

@@ -12,7 +12,6 @@ import 'package:flutter/services.dart';
 class Knight extends SimplePlayer with Lighting, BlockMovementCollision {
   double attack = 25;
   double stamina = 100;
-  double initSpeed = tileSize / 0.25;
   async.Timer? _timerStamina;
   bool containKey = false;
   bool showObserveEnemy = false;
@@ -23,7 +22,7 @@ class Knight extends SimplePlayer with Lighting, BlockMovementCollision {
           size: Vector2.all(tileSize),
           position: position,
           life: 200,
-          speed: tileSize * 2,
+          speed: tileSize * 2.5,
         ) {
     setupLighting(
       LightingConfig(
@@ -119,8 +118,7 @@ class Knight extends SimplePlayer with Lighting, BlockMovementCollision {
       animationDestroy: GameSpriteSheet.fireBallExplosion(),
       size: Vector2(tileSize * 0.65, tileSize * 0.65),
       damage: 10,
-      speed: initSpeed * (tileSize / 32),
-      enableDiagonal: false,
+      speed: speed * 2.5,
       onDestroy: () {
         Sounds.explosion();
       },
@@ -205,7 +203,7 @@ class Knight extends SimplePlayer with Lighting, BlockMovementCollision {
         ),
         target: this,
         loop: false,
-        size: Vector2.all(tileSize/2),
+        size: Vector2.all(tileSize / 2),
         offset: Vector2(18, -6),
       ),
     );

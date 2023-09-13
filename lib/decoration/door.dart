@@ -36,9 +36,6 @@ class Door extends GameDecoration {
           playSpriteAnimationOnce(
             GameSpriteSheet.openTheDoor(),
             onFinish: removeFromParent,
-            onStart: () {
-              sprite = null;
-            },
           );
         } else {
           if (!showDialog) {
