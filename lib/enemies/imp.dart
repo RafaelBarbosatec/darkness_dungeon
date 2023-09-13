@@ -6,7 +6,7 @@ import 'package:darkness_dungeon/util/game_sprite_sheet.dart';
 import 'package:darkness_dungeon/util/sounds.dart';
 import 'package:flutter/material.dart';
 
-class Imp extends SimpleEnemy with ObjectCollision,UseBarLife {
+class Imp extends SimpleEnemy with BlockMovementCollision, UseBarLife {
   final Vector2 initPosition;
   double attack = 10;
 
@@ -15,27 +15,24 @@ class Imp extends SimpleEnemy with ObjectCollision,UseBarLife {
           animation: EnemySpriteSheet.impAnimations(),
           position: initPosition,
           size: Vector2.all(tileSize * 0.8),
-          speed: tileSize / 0.30,
+          speed: tileSize * 1.8,
           life: 80,
-        ) {
-    setupCollision(
-      CollisionConfig(
-        collisions: [
-          CollisionArea.rectangle(
-            size: Vector2(
-              valueByTileSize(6),
-              valueByTileSize(6),
-            ),
-            align: Vector2(
-              valueByTileSize(3),
-              valueByTileSize(5),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+        );
 
+  @override
+  Future<void> onLoad() {
+    add(RectangleHitbox(
+      size: Vector2(
+        valueByTileSize(6),
+        valueByTileSize(6),
+      ),
+      position: Vector2(
+        valueByTileSize(3),
+        valueByTileSize(5),
+      ),
+    ));
+    return super.onLoad();
+  }
 
   @override
   void update(double dt) {
@@ -63,10 +60,11 @@ class Imp extends SimpleEnemy with ObjectCollision,UseBarLife {
   @override
   void die() {
     gameRef.add(
-      AnimatedObjectOnce(
+      AnimatedGameObject(
         animation: GameSpriteSheet.smokeExplosion(),
         position: this.position,
         size: Vector2(32, 32),
+        loop: false,
       ),
     );
     removeFromParent();

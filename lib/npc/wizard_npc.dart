@@ -8,14 +8,20 @@ import 'package:darkness_dungeon/util/sounds.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class WizardNPC extends GameDecoration {
+class WizardNPC extends SimpleNpc {
   bool _showConversation = false;
   WizardNPC(
     Vector2 position,
-  ) : super.withAnimation(
-          animation: NpcSpriteSheet.wizardIdleLeft(),
+  ) : super(
+          animation: SimpleDirectionAnimation(
+            idleRight: NpcSpriteSheet.wizardIdleLeft(),
+            runRight: NpcSpriteSheet.wizardIdleLeft(),
+          ),
           position: position,
-          size: Vector2(tileSize * 0.8, tileSize),
+          size: Vector2(
+            tileSize * 0.8,
+            tileSize,
+          ),
         );
 
   @override
@@ -39,7 +45,7 @@ class WizardNPC extends GameDecoration {
 
   void _showEmote({String emote = 'emote/emote_exclamacao.png'}) {
     gameRef.add(
-      AnimatedFollowerObject(
+      AnimatedFollowerGameObject(
         animation: SpriteAnimation.load(
           emote,
           SpriteAnimationData.sequenced(
@@ -48,8 +54,9 @@ class WizardNPC extends GameDecoration {
             textureSize: Vector2(32, 32),
           ),
         ),
+        loop: false,
         target: this,
-        positionFromTarget: Vector2(18, -6),
+        offset: Vector2(18, -6),
         size: Vector2(32, 32),
       ),
     );

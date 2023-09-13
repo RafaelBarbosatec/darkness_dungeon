@@ -2,7 +2,7 @@ import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/player/knight.dart';
 import 'package:flutter/material.dart';
 
-class BarLifeComponent extends InterfaceComponent {
+class MyBarLifeComponent extends InterfaceComponent {
   double padding = 20;
   double widthBar = 90;
   double strokeWidth = 12;
@@ -12,7 +12,7 @@ class BarLifeComponent extends InterfaceComponent {
   double maxStamina = 100;
   double stamina = 0;
 
-  BarLifeComponent()
+  MyBarLifeComponent()
       : super(
           id: 1,
           position: Vector2(20, 20),
@@ -42,8 +42,8 @@ class BarLifeComponent extends InterfaceComponent {
   }
 
   void _drawLife(Canvas canvas) {
-    double xBar = 48;
-    double yBar = 31.5;
+    double xBar = 29;
+    double yBar = 10;
     canvas.drawLine(
         Offset(xBar, yBar),
         Offset(xBar + widthBar, yBar),
@@ -64,8 +64,8 @@ class BarLifeComponent extends InterfaceComponent {
   }
 
   void _drawStamina(Canvas canvas) {
-    double xBar = 48;
-    double yBar = 47;
+    double xBar = 29;
+    double yBar = 27;
 
     double currentBarStamina = (stamina * widthBar) / maxStamina;
 

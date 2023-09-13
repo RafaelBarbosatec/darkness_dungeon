@@ -1,8 +1,6 @@
-import 'dart:ui';
-
 import 'package:bonfire/bonfire.dart';
+import 'package:darkness_dungeon/interface/bar_life_component.dart';
 import 'package:darkness_dungeon/player/knight.dart';
-import 'package:flutter/material.dart';
 
 class KnightInterface extends GameInterface {
   late Sprite key;
@@ -10,7 +8,7 @@ class KnightInterface extends GameInterface {
   @override
   Future<void> onLoad() async {
     key = await Sprite.load('items/key_silver.png');
-    add(BarLifeComponent(size: Vector2(100, 20)));
+    add(MyBarLifeComponent());
     return super.onLoad();
   }
 
