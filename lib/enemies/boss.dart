@@ -61,7 +61,7 @@ class Boss extends SimpleEnemy with BlockMovementCollision, UseBarLife {
             onComplete: _showConversation,
           );
         },
-        radiusVision: tileSize * 5,
+        radiusVision: tileSize * 6,
       );
     }
 
@@ -81,7 +81,7 @@ class Boss extends SimpleEnemy with BlockMovementCollision, UseBarLife {
       closePlayer: (player) {
         execAttack();
       },
-      radiusVision: tileSize * 3,
+      radiusVision: tileSize * 4,
     );
 
     super.update(dt);
@@ -268,7 +268,7 @@ class Boss extends SimpleEnemy with BlockMovementCollision, UseBarLife {
 
   void addInitChild() {
     addImp(position.x - tileSize, position.x - tileSize);
-    addImp(position.x - tileSize, position.x); //position.bottom + tileSize);
+    addImp(position.x - tileSize, position.x);
   }
 
   void addImp(double x, double y) {
@@ -277,7 +277,7 @@ class Boss extends SimpleEnemy with BlockMovementCollision, UseBarLife {
       AnimatedGameObject(
         animation: GameSpriteSheet.smokeExplosion(),
         position: p,
-        size: Vector2(32, 32),
+        size: Vector2.all(tileSize / 2),
         loop: false,
       ),
     );
