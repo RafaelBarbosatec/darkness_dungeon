@@ -122,7 +122,10 @@ class Knight extends SimplePlayer with Lighting, BlockMovementCollision {
       onDestroy: () {
         Sounds.explosion();
       },
-      collision: RectangleHitbox(size: Vector2(tileSize / 2, tileSize / 2)),
+      collision: RectangleHitbox(
+        size: Vector2(tileSize / 3, tileSize / 3),
+        position: Vector2(10, 5),
+      ),
       lightingConfig: LightingConfig(
         radius: tileSize * 0.9,
         blurBorder: tileSize / 2,

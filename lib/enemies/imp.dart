@@ -21,16 +21,18 @@ class Imp extends SimpleEnemy with BlockMovementCollision, UseBarLife {
 
   @override
   Future<void> onLoad() {
-    add(RectangleHitbox(
-      size: Vector2(
-        valueByTileSize(6),
-        valueByTileSize(6),
+    add(
+      RectangleHitbox(
+        size: Vector2(
+          valueByTileSize(6),
+          valueByTileSize(6),
+        ),
+        position: Vector2(
+          valueByTileSize(3),
+          valueByTileSize(5),
+        ),
       ),
-      position: Vector2(
-        valueByTileSize(3),
-        valueByTileSize(5),
-      ),
-    ));
+    );
     return super.onLoad();
   }
 

@@ -110,6 +110,7 @@ class _GameState extends State<Game> {
           speed: 3,
           zoom: getZoomFromMaxVisibleTile(context, tileSize, 18),
         ),
+        showCollisionArea: true,
         progress: Container(
           color: Colors.black,
           child: Center(

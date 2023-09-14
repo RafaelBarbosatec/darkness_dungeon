@@ -77,7 +77,7 @@ class MiniBoss extends SimpleEnemy with BlockMovementCollision, UseBarLife {
       animationDestroy: GameSpriteSheet.fireBallExplosion(),
       size: Vector2.all(tileSize * 0.65),
       damage: attack,
-      speed: this.speed * (tileSize / 32),
+      speed: speed * 2.5,
       execute: () {
         Sounds.attackRange();
       },
@@ -85,7 +85,8 @@ class MiniBoss extends SimpleEnemy with BlockMovementCollision, UseBarLife {
         Sounds.explosion();
       },
       collision: RectangleHitbox(
-        size: Vector2(tileSize / 2, tileSize / 2),
+        size: Vector2(tileSize / 3, tileSize / 3),
+        position: Vector2(10, 5),
       ),
       lightingConfig: LightingConfig(
         radius: tileSize * 0.9,
