@@ -1,39 +1,37 @@
 import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/main.dart';
+import 'package:darkness_dungeon/player/knight.dart';
 import 'package:darkness_dungeon/util/game_sprite_sheet.dart';
 
-class Spikes extends GameDecoration with Sensor {
+class Spikes extends GameDecoration with Sensor<Knight> {
   final double damage;
+  Knight? player;
 
   Spikes(Vector2 position, {this.damage = 60})
       : super.withAnimation(
           animation: GameSpriteSheet.spikes(),
           position: position,
           size: Vector2(tileSize, tileSize),
-        ) {
-    setupSensorArea(
-      // align: Vector2(valueByTileSize(2), valueByTileSize(4)),
-      // size: Vector2(valueByTileSize(14), valueByTileSize(12)),
-      intervalCheck: 100,
-    );
+        );
+
+  @override
+  void onContact(Knight collision) {
+    player = collision;
   }
 
   @override
-  void onContact(GameComponent collision) {
-    if (collision is Player) {
-      if (this.animation?.currentIndex ==
-              (this.animation?.frames.length ?? 0) - 1 ||
-          this.animation?.currentIndex ==
-              (this.animation?.frames.length ?? 0) - 2) {
-        gameRef.player?.receiveDamage(AttackFromEnum.ENEMY, damage, 0);
-      }
+  void update(double dt) {
+    if (isAnimationLastFrame) {
+      player?.receiveDamage(AttackFromEnum.ENEMY, damage, 0);
     }
+    super.update(dt);
   }
 
   @override
   int get priority => LayerPriority.getComponentPriority(1);
-  
+
   @override
-  void onContactExit(GameComponent component) {
+  void onContactExit(Knight component) {
+    player = null;
   }
 }

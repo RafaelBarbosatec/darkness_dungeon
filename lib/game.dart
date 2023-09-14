@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/decoration/door.dart';
 import 'package:darkness_dungeon/decoration/key.dart';
@@ -15,8 +13,8 @@ import 'package:darkness_dungeon/main.dart';
 import 'package:darkness_dungeon/npc/kid.dart';
 import 'package:darkness_dungeon/npc/wizard_npc.dart';
 import 'package:darkness_dungeon/player/knight.dart';
-import 'package:darkness_dungeon/util/dialogs.dart';
 import 'package:darkness_dungeon/util/sounds.dart';
+import 'package:darkness_dungeon/widgets/game_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -28,14 +26,9 @@ class Game extends StatefulWidget {
   _GameState createState() => _GameState();
 }
 
-class _GameState extends State<Game> implements GameListener {
-  bool showGameOver = false;
-
-  late GameController _controller;
-
+class _GameState extends State<Game> {
   @override
   void initState() {
-    _controller = GameController()..addListener(this);
     Sounds.playBackgroundSound();
     super.initState();
   }
@@ -48,9 +41,6 @@ class _GameState extends State<Game> implements GameListener {
 
   @override
   Widget build(BuildContext context) {
-    Size sizeScreen = MediaQuery.of(context).size;
-    tileSize = max(sizeScreen.height, sizeScreen.width) / 15;
-
     var joystick = Joystick(
       directional: JoystickDirectional(
         spriteBackgroundDirectional: Sprite.load('joystick_background.png'),
@@ -90,7 +80,6 @@ class _GameState extends State<Game> implements GameListener {
     return Material(
       color: Colors.transparent,
       child: BonfireWidget(
-        gameController: _controller,
         joystick: joystick,
         player: Knight(
           Vector2(2 * tileSize, 3 * tileSize),
@@ -113,9 +102,15 @@ class _GameState extends State<Game> implements GameListener {
             'torch_empty': (p) => Torch(p.position, empty: true),
           },
         ),
+        components: [GameController()],
         interface: KnightInterface(),
         lightingColorGame: Colors.black.withOpacity(0.6),
         background: BackgroundColorGame(Colors.grey[900]!),
+        cameraConfig: CameraConfig(
+          speed: 3,
+          zoom: getZoomFromMaxVisibleTile(context, tileSize, 18),
+        ),
+        showCollisionArea: true,
         progress: Container(
           color: Colors.black,
           child: Center(
@@ -131,33 +126,5 @@ class _GameState extends State<Game> implements GameListener {
         ),
       ),
     );
-  }
-
-  void _showDialogGameOver() {
-    setState(() {
-      showGameOver = true;
-    });
-    Dialogs.showGameOver(
-      context,
-      () {
-        Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => Game()),
-          (Route<dynamic> route) => false,
-        );
-      },
-    );
-  }
-
-  @override
-  void changeCountLiveEnemies(int count) {}
-
-  @override
-  void updateGame() {
-    if (_controller.player != null && _controller.player?.isDead == true) {
-      if (!showGameOver) {
-        showGameOver = true;
-        _showDialogGameOver();
-      }
-    }
   }
 }

@@ -1,12 +1,12 @@
-import 'dart:async' as async;
-
 import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/main.dart';
+import 'package:darkness_dungeon/player/knight.dart';
 
-class PotionLife extends GameDecoration with Sensor {
+class PotionLife extends GameDecoration with Sensor<Knight> {
   final Vector2 initPosition;
   final double life;
-  double _lifeDistributed = 0;
+
+  bool hasContact = false;
 
   PotionLife(this.initPosition, this.life)
       : super.withSprite(
@@ -15,25 +15,26 @@ class PotionLife extends GameDecoration with Sensor {
           size: Vector2(tileSize, tileSize),
         );
 
-  void _starTimeAddLife() {
-    async.Timer.periodic(
-      Duration(milliseconds: 100),
-      (timer) {
-        if (_lifeDistributed >= life) {
-          timer.cancel();
-        } else {
-          _lifeDistributed += 2;
-          gameRef.player?.addLife(5);
+  @override
+  void onContact(Knight player) {
+    if (!hasContact) {
+      hasContact = true;
+      _giveLife(player);
+      removeFromParent();
+    }
+  }
+
+  void _giveLife(Player player) {
+    double _lifeDistributed = 0;
+    generateValues(
+      const Duration(seconds: 1),
+      onChange: (value) {
+        if (_lifeDistributed < life) {
+          double newLife = life * value - _lifeDistributed;
+          _lifeDistributed += newLife;
+          player.addLife(newLife);
         }
       },
     );
-  }
-
-  @override
-  void onContact(GameComponent collision) {
-    if (collision is Player) {
-      _starTimeAddLife();
-      removeFromParent();
-    }
   }
 }
