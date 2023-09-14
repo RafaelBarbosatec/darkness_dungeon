@@ -105,7 +105,7 @@ class Boss extends SimpleEnemy with BlockMovementCollision, UseBarLife {
   }
 
   void addChildInMap(double dt) {
-    if (checkInterval('addChild', 5000, dt)) {
+    if (checkInterval('addChild', 2000, dt)) {
       Vector2 positionExplosion = Vector2.zero();
 
       switch (this.directionThePlayerIsIn()) {
@@ -183,18 +183,18 @@ class Boss extends SimpleEnemy with BlockMovementCollision, UseBarLife {
   }
 
   void drawBarSummonEnemy(Canvas canvas) {
-    double yPosition = position.y;
+    double yPosition = 0;
     double widthBar = (width - 10) / 3;
     if (childrenEnemy.length < 1)
       canvas.drawLine(
-          Offset(position.x, yPosition),
-          Offset(position.x + widthBar, yPosition),
+          Offset(0, yPosition),
+          Offset(widthBar, yPosition),
           Paint()
             ..color = Colors.orange
             ..strokeWidth = 1
             ..style = PaintingStyle.fill);
 
-    double lastX = position.x + widthBar + 5;
+    double lastX = widthBar + 5;
     if (childrenEnemy.length < 2)
       canvas.drawLine(
           Offset(lastX, yPosition),
@@ -267,17 +267,17 @@ class Boss extends SimpleEnemy with BlockMovementCollision, UseBarLife {
   }
 
   void addInitChild() {
-    addImp(position.x - tileSize, position.x - tileSize);
-    addImp(position.x - tileSize, position.x);
+    addImp(width * -2, 0);
+    addImp(width * -2, width);
   }
 
   void addImp(double x, double y) {
-    final p = Vector2(x, y);
+    final p = position.translated(x, y);
     gameRef.add(
       AnimatedGameObject(
         animation: GameSpriteSheet.smokeExplosion(),
         position: p,
-        size: Vector2.all(tileSize / 2),
+        size: Vector2.all(tileSize),
         loop: false,
       ),
     );
