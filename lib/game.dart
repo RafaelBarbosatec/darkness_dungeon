@@ -68,7 +68,7 @@ class _GameState extends State<Game> {
     if (!Game.useJoystick) {
       joystick = Joystick(
         keyboardConfig: KeyboardConfig(
-          keyboardDirectionalType: KeyboardDirectionalType.wasdAndArrows,
+          directionalKeys: KeyboardDirectionalKeys.arrows(),
           acceptedKeys: [
             LogicalKeyboardKey.space,
             LogicalKeyboardKey.keyZ,
@@ -105,12 +105,11 @@ class _GameState extends State<Game> {
         components: [GameController()],
         interface: KnightInterface(),
         lightingColorGame: Colors.black.withOpacity(0.6),
-        background: BackgroundColorGame(Colors.grey[900]!),
+        backgroundColor: Colors.grey[900]!,
         cameraConfig: CameraConfig(
           speed: 3,
           zoom: getZoomFromMaxVisibleTile(context, tileSize, 18),
         ),
-        showCollisionArea: true,
         progress: Container(
           color: Colors.black,
           child: Center(

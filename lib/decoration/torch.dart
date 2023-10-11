@@ -3,7 +3,7 @@ import 'package:darkness_dungeon/main.dart';
 import 'package:darkness_dungeon/util/game_sprite_sheet.dart';
 import 'package:flutter/material.dart';
 
-class Torch extends GameDecoration with Lighting {
+class Torch extends GameDecoration {
   bool empty = false;
   Torch(Vector2 position, {this.empty = false})
       : super.withAnimation(

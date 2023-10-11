@@ -6,7 +6,7 @@ import 'package:darkness_dungeon/util/game_sprite_sheet.dart';
 import 'package:darkness_dungeon/util/sounds.dart';
 import 'package:flutter/material.dart';
 
-class Goblin extends SimpleEnemy with BlockMovementCollision, UseBarLife {
+class Goblin extends SimpleEnemy with BlockMovementCollision, UseLifeBar {
   final Vector2 initPosition;
   double attack = 25;
 

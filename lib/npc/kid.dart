@@ -29,7 +29,7 @@ class Kid extends GameDecoration {
         gameRef.enemies().firstWhere((e) => e is Boss);
       } catch (e) {
         conversationWithHero = true;
-        gameRef.bonfireCamera.moveToTargetAnimated(
+        gameRef.camera.moveToTargetAnimated(
           target: this,
           onComplete: () {
             _startConversation();
@@ -61,7 +61,7 @@ class Kid extends GameDecoration {
       ],
       onFinish: () {
         Sounds.interaction();
-        gameRef.bonfireCamera.moveToPlayerAnimated(onComplete: () {
+        gameRef.camera.moveToPlayerAnimated(onComplete: () {
           Dialogs.showCongratulations(gameRef.context);
         });
       },

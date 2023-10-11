@@ -112,9 +112,6 @@ class Knight extends SimplePlayer with Lighting, BlockMovementCollision {
     decrementStamina(10);
     this.simpleAttackRange(
       animationRight: GameSpriteSheet.fireBallAttackRight(),
-      animationLeft: GameSpriteSheet.fireBallAttackLeft(),
-      animationUp: GameSpriteSheet.fireBallAttackTop(),
-      animationDown: GameSpriteSheet.fireBallAttackBottom(),
       animationDestroy: GameSpriteSheet.fireBallExplosion(),
       size: Vector2(tileSize * 0.65, tileSize * 0.65),
       damage: 10,

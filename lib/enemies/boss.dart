@@ -15,7 +15,7 @@ import 'package:darkness_dungeon/util/sounds.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class Boss extends SimpleEnemy with BlockMovementCollision, UseBarLife {
+class Boss extends SimpleEnemy with BlockMovementCollision, UseLifeBar {
   final Vector2 initPosition;
   double attack = 40;
 
@@ -55,7 +55,7 @@ class Boss extends SimpleEnemy with BlockMovementCollision, UseBarLife {
       this.seePlayer(
         observed: (p) {
           firstSeePlayer = true;
-          gameRef.bonfireCamera.moveToTargetAnimated(
+          gameRef.camera.moveToTargetAnimated(
             target: this,
             zoom: 2,
             onComplete: _showConversation,
@@ -253,7 +253,7 @@ class Boss extends SimpleEnemy with BlockMovementCollision, UseBarLife {
         Sounds.interaction();
         addInitChild();
         Future.delayed(Duration(milliseconds: 500), () {
-          gameRef.bonfireCamera.moveToPlayerAnimated(zoom: 1);
+          gameRef.camera.moveToPlayerAnimated(zoom: 1);
           Sounds.playBackgroundBoosSound();
         });
       },
