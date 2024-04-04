@@ -56,12 +56,12 @@ class Knight extends SimplePlayer with Lighting, BlockMovementCollision {
       actionAttack();
     }
 
-    if (event.id == LogicalKeyboardKey.space.keyId &&
+    if (event.id == LogicalKeyboardKey.space &&
         event.event == ActionEvent.DOWN) {
       actionAttack();
     }
 
-    if (event.id == LogicalKeyboardKey.keyZ.keyId &&
+    if (event.id == LogicalKeyboardKey.keyZ &&
         event.event == ActionEvent.DOWN) {
       actionAttackRange();
     }
