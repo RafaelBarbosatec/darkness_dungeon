@@ -31,13 +31,11 @@ class Knight extends SimplePlayer with Lighting, BlockMovementCollision {
         color: Colors.deepOrangeAccent.withOpacity(0.2),
       ),
     );
-    setupMovementByJoystick(
-      intencityEnabled: true,
-    );
+    setupMovementByJoystick(intensityEnabled: true);
   }
 
   @override
-  async.Future<void> onLoad() {
+  Future<void> onLoad() {
     add(
       RectangleHitbox(
         size: Vector2(valueByTileSize(8), valueByTileSize(8)),
@@ -56,12 +54,12 @@ class Knight extends SimplePlayer with Lighting, BlockMovementCollision {
       actionAttack();
     }
 
-    if (event.id == LogicalKeyboardKey.space.keyId &&
+    if (event.id == LogicalKeyboardKey.space &&
         event.event == ActionEvent.DOWN) {
       actionAttack();
     }
 
-    if (event.id == LogicalKeyboardKey.keyZ.keyId &&
+    if (event.id == LogicalKeyboardKey.keyZ &&
         event.event == ActionEvent.DOWN) {
       actionAttackRange();
     }
@@ -73,19 +71,19 @@ class Knight extends SimplePlayer with Lighting, BlockMovementCollision {
   }
 
   @override
-  void die() {
+  void onDie() {
     removeFromParent();
     gameRef.add(
       GameDecoration.withSprite(
         sprite: Sprite.load('player/crypt.png'),
         position: Vector2(
-          this.position.x,
-          this.position.y,
+          position.x,
+          position.y,
         ),
         size: Vector2.all(30),
       ),
     );
-    super.die();
+    super.onDie();
   }
 
   void actionAttack() {
@@ -95,7 +93,7 @@ class Knight extends SimplePlayer with Lighting, BlockMovementCollision {
 
     Sounds.attackPlayerMelee();
     decrementStamina(15);
-    this.simpleAttackMelee(
+    simpleAttackMelee(
       damage: attack,
       animationRight: PlayerSpriteSheet.attackEffectRight(),
       size: Vector2.all(tileSize),
@@ -110,7 +108,7 @@ class Knight extends SimplePlayer with Lighting, BlockMovementCollision {
     Sounds.attackRange();
 
     decrementStamina(10);
-    this.simpleAttackRange(
+    simpleAttackRange(
       animationRight: GameSpriteSheet.fireBallAttackRight(),
       animationDestroy: GameSpriteSheet.fireBallExplosion(),
       size: Vector2(tileSize * 0.65, tileSize * 0.65),
@@ -135,7 +133,7 @@ class Knight extends SimplePlayer with Lighting, BlockMovementCollision {
   void update(double dt) {
     if (isDead) return;
     _verifyStamina();
-    this.seeEnemy(
+    seeEnemy(
       radiusVision: tileSize * 6,
       notObserved: () {
         showObserveEnemy = false;
@@ -149,16 +147,14 @@ class Knight extends SimplePlayer with Lighting, BlockMovementCollision {
     super.update(dt);
   }
 
-  @override
-  void render(Canvas c) {
-    super.render(c);
-  }
-
   void _verifyStamina() {
     if (_timerStamina == null) {
-      _timerStamina = async.Timer(Duration(milliseconds: 150), () {
-        _timerStamina = null;
-      });
+      _timerStamina = async.Timer(
+        Duration(milliseconds: 150),
+        () {
+          _timerStamina = null;
+        },
+      );
     } else {
       return;
     }
@@ -177,9 +173,9 @@ class Knight extends SimplePlayer with Lighting, BlockMovementCollision {
   }
 
   @override
-  void receiveDamage(AttackFromEnum attacker, double damage, dynamic id) {
+  void onReceiveDamage(AttackOriginEnum attacker, double damage, dynamic id) {
     if (isDead) return;
-    this.showDamage(
+    showDamage(
       damage,
       config: TextStyle(
         fontSize: valueByTileSize(5),
@@ -187,7 +183,7 @@ class Knight extends SimplePlayer with Lighting, BlockMovementCollision {
         fontFamily: 'Normal',
       ),
     );
-    super.receiveDamage(attacker, damage, id);
+    super.onReceiveDamage(attacker, damage, id);
   }
 
   void _showEmote({String emote = 'emote/emote_exclamacao.png'}) {

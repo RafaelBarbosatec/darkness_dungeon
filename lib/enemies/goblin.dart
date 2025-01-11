@@ -35,7 +35,7 @@ class Goblin extends SimpleEnemy with BlockMovementCollision, UseLifeBar {
   void update(double dt) {
     super.update(dt);
 
-    this.seeAndMoveToPlayer(
+    seeAndMoveToPlayer(
       closePlayer: (player) {
         execAttack();
       },
@@ -44,21 +44,21 @@ class Goblin extends SimpleEnemy with BlockMovementCollision, UseLifeBar {
   }
 
   @override
-  void die() {
+  void onDie() {
     gameRef.add(
       AnimatedGameObject(
         animation: GameSpriteSheet.smokeExplosion(),
-        position: this.position,
+        position: position,
         size: Vector2(32, 32),
         loop: false,
       ),
     );
     removeFromParent();
-    super.die();
+    super.onDie();
   }
 
   void execAttack() {
-    this.simpleAttackMelee(
+    simpleAttackMelee(
       size: Vector2.all(tileSize * 0.62),
       damage: attack,
       interval: 800,
@@ -70,8 +70,8 @@ class Goblin extends SimpleEnemy with BlockMovementCollision, UseLifeBar {
   }
 
   @override
-  void receiveDamage(AttackFromEnum attacker, double damage, dynamic id) {
-    this.showDamage(
+  void onReceiveDamage(AttackOriginEnum attacker, double damage, dynamic id) {
+    showDamage(
       damage,
       config: TextStyle(
         fontSize: valueByTileSize(5),
@@ -79,6 +79,6 @@ class Goblin extends SimpleEnemy with BlockMovementCollision, UseLifeBar {
         fontFamily: 'Normal',
       ),
     );
-    super.receiveDamage(attacker, damage, id);
+    super.onReceiveDamage(attacker, damage, id);
   }
 }

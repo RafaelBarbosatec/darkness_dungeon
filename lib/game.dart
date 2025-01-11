@@ -41,7 +41,7 @@ class _GameState extends State<Game> {
 
   @override
   Widget build(BuildContext context) {
-    var joystick = Joystick(
+    PlayerController joystick = Joystick(
       directional: JoystickDirectional(
         spriteBackgroundDirectional: Sprite.load('joystick_background.png'),
         spriteKnobDirectional: Sprite.load('joystick_knob.png'),
@@ -65,27 +65,29 @@ class _GameState extends State<Game> {
         )
       ],
     );
-    if (!Game.useJoystick) {
-      joystick = Joystick(
-        keyboardConfig: KeyboardConfig(
-          directionalKeys: KeyboardDirectionalKeys.arrows(),
+
+    if (!Game.useJoystick)
+      joystick = Keyboard(
+        config: KeyboardConfig(
+          directionalKeys: [KeyboardDirectionalKeys.arrows()],
           acceptedKeys: [
             LogicalKeyboardKey.space,
             LogicalKeyboardKey.keyZ,
           ],
         ),
       );
-    }
 
     return Material(
       color: Colors.transparent,
       child: BonfireWidget(
-        joystick: joystick,
+        playerControllers: [
+          joystick,
+        ],
         player: Knight(
           Vector2(2 * tileSize, 3 * tileSize),
         ),
         map: WorldMapByTiled(
-          'tiled/map.json',
+          WorldMapReader.fromAsset('tiled/map.json'),
           forceTileSize: Vector2(tileSize, tileSize),
           objectsBuilder: {
             'door': (p) => Door(p.position, p.size),
@@ -110,19 +112,19 @@ class _GameState extends State<Game> {
           speed: 3,
           zoom: getZoomFromMaxVisibleTile(context, tileSize, 18),
         ),
-        progress: Container(
-          color: Colors.black,
-          child: Center(
-            child: Text(
-              "Loading...",
-              style: TextStyle(
-                color: Colors.white,
-                fontFamily: 'Normal',
-                fontSize: 20.0,
-              ),
-            ),
-          ),
-        ),
+        // progress: Container(
+        //   color: Colors.black,
+        //   child: Center(
+        //     child: Text(
+        //       "Loading...",
+        //       style: TextStyle(
+        //         color: Colors.white,
+        //         fontFamily: 'Normal',
+        //         fontSize: 20.0,
+        //       ),
+        //     ),
+        //   ),
+        // ),
       ),
     );
   }

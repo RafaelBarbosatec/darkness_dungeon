@@ -88,7 +88,7 @@ class Boss extends SimpleEnemy with BlockMovementCollision, UseLifeBar {
   }
 
   @override
-  void die() {
+  void onDie() {
     gameRef.add(
       AnimatedGameObject(
         animation: GameSpriteSheet.explosion(),
@@ -98,10 +98,10 @@ class Boss extends SimpleEnemy with BlockMovementCollision, UseLifeBar {
       ),
     );
     childrenEnemy.forEach((e) {
-      if (!e.isDead) e.die();
+      if (!e.isDead) e.onDie();
     });
     removeFromParent();
-    super.die();
+    super.onDie();
   }
 
   void addChildInMap(double dt) {
@@ -170,7 +170,7 @@ class Boss extends SimpleEnemy with BlockMovementCollision, UseLifeBar {
   }
 
   @override
-  void receiveDamage(AttackFromEnum attacker, double damage, dynamic id) {
+  void onReceiveDamage(AttackOriginEnum attacker, double damage, dynamic id) {
     this.showDamage(
       damage,
       config: TextStyle(
@@ -179,7 +179,7 @@ class Boss extends SimpleEnemy with BlockMovementCollision, UseLifeBar {
         fontFamily: 'Normal',
       ),
     );
-    super.receiveDamage(attacker, damage, id);
+    super.onReceiveDamage(attacker, damage, id);
   }
 
   void drawBarSummonEnemy(Canvas canvas) {

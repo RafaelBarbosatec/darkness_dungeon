@@ -13,14 +13,16 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
-  bonfire: ^3.0.0
-  flame_audio: ^2.0.5
-  flame_splash_screen: ^0.1.0
-  url_launcher: ^6.1.14
+  bonfire: ^3.13.0
+  flame_audio: ^2.10.7
+  flame_splash_screen: ^0.3.1
+  url_launcher: ^6.3.1
+  win32: ^5.10.0
 
 
 dev_dependencies:
   test: any
+  flutter_lints: ^5.0.0
 
 #  flutter_launcher_icons: "^0.7.3"
 #
