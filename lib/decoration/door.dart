@@ -34,9 +34,13 @@ class Door extends GameDecoration {
         if (p.containKey == true) {
           open = true;
           p.containKey = false;
+
           playSpriteAnimationOnce(
             GameSpriteSheet.openTheDoor(),
             onFinish: removeFromParent,
+            onStart: () {
+              sprite = null;
+            },
           );
         } else {
           if (!showDialog) {

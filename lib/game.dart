@@ -23,10 +23,10 @@ class Game extends StatefulWidget {
   const Game({Key? key}) : super(key: key);
 
   @override
-  _GameState createState() => _GameState();
+  GameState createState() => GameState();
 }
 
-class _GameState extends State<Game> {
+class GameState extends State<Game> {
   @override
   void initState() {
     Sounds.playBackgroundSound();
@@ -66,7 +66,7 @@ class _GameState extends State<Game> {
       ],
     );
 
-    if (!Game.useJoystick)
+    if (!Game.useJoystick) {
       joystick = Keyboard(
         config: KeyboardConfig(
           directionalKeys: [KeyboardDirectionalKeys.arrows()],
@@ -76,6 +76,7 @@ class _GameState extends State<Game> {
           ],
         ),
       );
+    }
 
     return Material(
       color: Colors.transparent,
