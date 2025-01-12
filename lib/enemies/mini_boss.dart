@@ -58,7 +58,7 @@ class MiniBoss extends SimpleEnemy with BlockMovementCollision, UseLifeBar {
   }
 
   @override
-  void die() {
+  void onDie() {
     gameRef.add(
       AnimatedGameObject(
         animation: GameSpriteSheet.smokeExplosion(),
@@ -68,12 +68,12 @@ class MiniBoss extends SimpleEnemy with BlockMovementCollision, UseLifeBar {
       ),
     );
     removeFromParent();
-    super.die();
+    super.onDie();
   }
 
   void execAttackRange() {
     this.simpleAttackRange(
-      animationRight: GameSpriteSheet.fireBallAttackRight(),
+      animation: GameSpriteSheet.fireBallAttackRight(),
       animationDestroy: GameSpriteSheet.fireBallExplosion(),
       size: Vector2.all(tileSize * 0.65),
       damage: attack,
@@ -109,7 +109,7 @@ class MiniBoss extends SimpleEnemy with BlockMovementCollision, UseLifeBar {
   }
 
   @override
-  void receiveDamage(AttackFromEnum attacker, double damage, dynamic id) {
+  void onReceiveDamage(AttackOriginEnum attacker, double damage, dynamic id) {
     this.showDamage(
       damage,
       config: TextStyle(
@@ -118,6 +118,6 @@ class MiniBoss extends SimpleEnemy with BlockMovementCollision, UseLifeBar {
         fontFamily: 'Normal',
       ),
     );
-    super.receiveDamage(attacker, damage, id);
+    super.onReceiveDamage(attacker, damage, id);
   }
 }

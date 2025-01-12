@@ -2,6 +2,7 @@ import 'package:bonfire/bonfire.dart';
 import 'package:darkness_dungeon/player/knight.dart';
 import 'package:darkness_dungeon/util/game_sprite_sheet.dart';
 import 'package:darkness_dungeon/util/localization/strings_location.dart';
+import 'package:darkness_dungeon/util/player_sprite_sheet.dart';
 import 'package:flutter/cupertino.dart';
 
 class Door extends GameDecoration {
@@ -33,9 +34,13 @@ class Door extends GameDecoration {
         if (p.containKey == true) {
           open = true;
           p.containKey = false;
+
           playSpriteAnimationOnce(
             GameSpriteSheet.openTheDoor(),
             onFinish: removeFromParent,
+            onStart: () {
+              sprite = null;
+            },
           );
         } else {
           if (!showDialog) {
@@ -54,11 +59,7 @@ class Door extends GameDecoration {
       [
         Say(
           text: [TextSpan(text: getString('door_without_key'))],
-          person: (gameRef.player as SimplePlayer?)
-                  ?.animation
-                  ?.idleRight
-                  ?.asWidget() ??
-              SizedBox.shrink(),
+          person: PlayerSpriteSheet.idleRight().asWidget(),
           personSayDirection: PersonSayDirection.LEFT,
         )
       ],
